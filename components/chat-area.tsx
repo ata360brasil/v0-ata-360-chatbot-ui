@@ -331,21 +331,12 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                   {/* Logo with gradient animation */}
                   <div className="mb-6 relative animate-hero-scale-in">
                     <div className="relative mx-auto w-[220px] h-[73px]">
-                      {/* Light mode: original color logo */}
                       <img
                         src="/images/ata360-logo.png"
                         alt="ATA360"
                         width={220}
                         height={73}
-                        className="mx-auto relative z-10 dark:hidden"
-                      />
-                      {/* Dark mode: white version of the logo */}
-                      <img
-                        src="/images/ata360-logo.png"
-                        alt="ATA360"
-                        width={220}
-                        height={73}
-                        className="mx-auto relative z-10 hidden dark:block brightness-0 invert"
+                        className="mx-auto relative z-10 dark:brightness-[1.8] dark:saturate-[1.3]"
                       />
                       {/* Gradient overlay animation */}
                       <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">

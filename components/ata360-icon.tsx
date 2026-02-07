@@ -8,37 +8,21 @@ interface ATA360IconProps {
 }
 
 /**
- * ATA360 brand icon — two overlapping play-style triangles
- * with rounded corners, matching the official logotipo.
- *
- * - color="color"  → blue gradient (brand colors)
- * - color="black"  → uses currentColor (inherits text color, adapts to dark mode)
- * - color="white"  → always white
+ * ATA360 brand icon — uses the official logotipo PNG.
+ * Light mode: black version shown as-is.
+ * Dark mode: same PNG with CSS brightness-0 invert to make it white.
  */
 export function ATA360Icon({ className, color = "black" }: ATA360IconProps) {
-  const fillLeft =
-    color === "color"
-      ? "url(#ata360-grad-left)"
-      : color === "white"
-        ? "white"
-        : "currentColor";
-
-  const fillRight =
-    color === "color"
-      ? "url(#ata360-grad-right)"
-      : color === "white"
-        ? "white"
-        : "currentColor";
-
-  return (
-    <svg
-      viewBox="0 0 100 100"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={cn("h-6 w-6 shrink-0", className)}
-      aria-hidden="true"
-    >
-      {color === "color" && (
+  if (color === "color") {
+    // Blue gradient version — uses inline SVG to match brand colors
+    return (
+      <svg
+        viewBox="0 0 520 601"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className={cn("h-6 w-6 shrink-0", className)}
+        aria-hidden="true"
+      >
         <defs>
           <linearGradient id="ata360-grad-left" x1="0" y1="0" x2="0.5" y2="1">
             <stop offset="0%" stopColor="#4A5DB5" />
@@ -49,19 +33,35 @@ export function ATA360Icon({ className, color = "black" }: ATA360IconProps) {
             <stop offset="100%" stopColor="#2196F3" />
           </linearGradient>
         </defs>
-      )}
-      {/* Upper-left triangle */}
-      <path
-        d="M8 12 C8 7 11 5 15 8 L48 38 C52 41 52 53 48 56 L15 86 C11 89 8 87 8 82 Z"
-        fill={fillLeft}
-        opacity="0.92"
+        <path
+          d="M40 60 C40 30 60 15 85 35 L250 195 C275 215 275 285 250 305 L85 465 C60 485 40 470 40 440 Z"
+          fill="url(#ata360-grad-left)"
+          opacity="0.85"
+        />
+        <path
+          d="M220 60 C220 30 240 15 265 35 L430 195 C455 215 455 285 430 305 L265 465 C240 485 220 470 220 440 Z"
+          fill="url(#ata360-grad-right)"
+          opacity="0.78"
+        />
+      </svg>
+    );
+  }
+
+  // Default: use the official PNG, with dark mode invert
+  return (
+    <>
+      {/* Light mode: original black logotipo */}
+      <img
+        src="/logotipo-ata360-preto.png"
+        alt="ATA360"
+        className={cn("object-contain shrink-0 dark:hidden", className)}
       />
-      {/* Lower-right triangle (overlapping) */}
-      <path
-        d="M42 12 C42 7 45 5 49 8 L82 38 C86 41 86 53 82 56 L49 86 C45 89 42 87 42 82 Z"
-        fill={fillRight}
-        opacity="0.78"
+      {/* Dark mode: same PNG inverted to white */}
+      <img
+        src="/logotipo-ata360-preto.png"
+        alt="ATA360"
+        className={cn("object-contain shrink-0 hidden dark:block brightness-0 invert", className)}
       />
-    </svg>
+    </>
   );
 }
