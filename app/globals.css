@@ -286,11 +286,13 @@
   border-radius: 3px;
 }
 
-/* Logo shine — gradient sweep masked to logo shape only.
-   Uses mask-image so the shine only appears over the logo pixels,
-   never revealing a background box. Works in light and dark modes. */
+/* Logo shine — light streak masked to the logo silhouette.
+   The ::after covers the full container but is masked to the logo shape,
+   so the shine ONLY appears over logo pixels. The gradient inside the
+   ::after moves via translateX for real animation. */
 .logo-shine-container {
   position: relative;
+  overflow: hidden;
 }
 
 .logo-shine-container::after {
@@ -299,18 +301,7 @@
   inset: 0;
   z-index: 20;
   pointer-events: none;
-  background: linear-gradient(
-    105deg,
-    transparent 0%,
-    transparent 35%,
-    rgba(255, 255, 255, 0.6) 45%,
-    rgba(255, 255, 255, 0.9) 50%,
-    rgba(255, 255, 255, 0.6) 55%,
-    transparent 65%,
-    transparent 100%
-  );
-  background-size: 300% 100%;
-  background-position: 200% 0;
+  /* The ::after fills the whole area but is masked to the logo shape */
   -webkit-mask-image: url("/images/ata360-logo.png");
   mask-image: url("/images/ata360-logo.png");
   -webkit-mask-size: contain;
@@ -319,18 +310,30 @@
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-position: center;
+  /* A wide gradient band inside the ::after — animated via background-position
+     which DOES work with mask-image when using percentage-based sizing */
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.5) 35%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0.5) 65%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  background-position: 150% 0;
   animation: logo-shine 5s ease-in-out infinite;
 }
 
 @keyframes logo-shine {
-  0%, 60% {
-    background-position: 200% 0;
+  0%, 55% {
+    background-position: 150% 0;
   }
   80% {
-    background-position: -100% 0;
+    background-position: -50% 0;
   }
   100% {
-    background-position: -100% 0;
+    background-position: -50% 0;
   }
 }
 
