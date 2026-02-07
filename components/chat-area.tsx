@@ -329,6 +329,12 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
               <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="max-w-2xl w-full text-center">
                   {/* Logo with shine gradient overlay */}
+                  <style dangerouslySetInnerHTML={{ __html: `
+                    @keyframes logoShine {
+                      0% { background-position: 200% 0; }
+                      100% { background-position: -200% 0; }
+                    }
+                  `}} />
                   <div className="mb-6 animate-hero-scale-in">
                     <div
                       className="relative mx-auto"
@@ -341,14 +347,13 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                         height={73}
                         className="relative z-10 block object-contain"
                       />
-                      {/* Gradient overlay that sweeps across the logo */}
                       <div
-                        className="absolute inset-0 z-20 pointer-events-none overflow-hidden"
+                        className="absolute inset-0 z-20 pointer-events-none"
                         style={{
                           backgroundImage:
-                            "linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%)",
+                            "linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%)",
                           backgroundSize: "200% 100%",
-                          animation: "logo-shine 5s infinite",
+                          animation: "logoShine 5s infinite",
                         }}
                       />
                     </div>

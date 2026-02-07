@@ -286,16 +286,6 @@
   border-radius: 3px;
 }
 
-/* Logo shine keyframes — used inline in chat-area.tsx */
-@keyframes logo-shine {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
 /* Hero entrance animations */
 @keyframes hero-fade-up {
   from {
