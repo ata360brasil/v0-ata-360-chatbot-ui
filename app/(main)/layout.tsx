@@ -16,6 +16,7 @@ import { ArtifactsPanel } from "@/components/artifacts-panel";
 import { ResizableDivider } from "@/components/resizable-divider";
 import { NotificationsModal } from "@/components/notifications-modal";
 import { AppProvider, useApp } from "@/contexts/app-context";
+import { ROUTES, SIDEBAR_ROUTE_MAP } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 function MainShell({ children }: { children: React.ReactNode }) {
@@ -39,23 +40,13 @@ function MainShell({ children }: { children: React.ReactNode }) {
     unreadCount,
   } = useApp();
 
-  const handleNewConversation = () => {
+  const handleNewConversation = useCallback(() => {
     resetChat();
-    router.push("/");
-  };
-
-  const routeMap: Record<string, string> = {
-    dashboard: "/dashboard",
-    contracts: "/contracts",
-    processes: "/processes",
-    team: "/team",
-    files: "/files",
-    history: "/history",
-    assistants: "/assistants",
-  };
+    router.push(ROUTES.chat);
+  }, [resetChat, router]);
 
   const handleMenuItemClick = useCallback((itemId: string) => {
-    router.push(routeMap[itemId] || "/");
+    router.push(SIDEBAR_ROUTE_MAP[itemId] || ROUTES.chat);
   }, [router]);
 
   return (

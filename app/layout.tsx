@@ -1,5 +1,5 @@
 import React from "react"
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { DM_Sans, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { OrganizationJsonLd } from '@/components/structured-data'
@@ -17,6 +17,17 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
   variable: '--font-mono',
 })
+
+// Viewport separado de metadata (Next.js 14+ best practice — Guillermo Rauch / Vercel)
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f8fafc' },
+    { media: '(prefers-color-scheme: dark)', color: '#1a1f36' },
+  ],
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://app.ata360.com.br'),

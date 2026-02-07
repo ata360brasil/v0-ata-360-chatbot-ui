@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Eye, EyeOff, CheckCircle2, Shield } from "lucide-react";
+import { Eye, EyeOff, CheckCircle2 } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -53,7 +53,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] flex flex-col">
+    <div className="min-h-screen bg-secondary flex flex-col">
       {/* Header - Logo */}
       <header className="px-8 py-6">
         <div className="flex items-center gap-2">
@@ -92,9 +92,9 @@ export default function LoginPage() {
               {step === "login" && (
                 <>
                   {/* Social Login Buttons */}
-                  <div className="flex gap-3 mb-6">
-                    <button className="flex-1 flex items-center justify-center gap-2.5 h-12 border border-gray-200 rounded-xl bg-white hover:bg-gray-50 transition-colors cursor-pointer">
-                      <svg className="size-5" viewBox="0 0 24 24">
+                  <div className="flex gap-3 mb-6" role="group" aria-label="Login social">
+                    <button aria-label="Entrar com Google" className="flex-1 flex items-center justify-center gap-2.5 h-12 border border-border rounded-xl bg-card hover:bg-muted transition-colors cursor-pointer">
+                      <svg className="size-5" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
                         <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                         <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
@@ -102,7 +102,7 @@ export default function LoginPage() {
                       </svg>
                       <span className="text-sm font-medium text-foreground">Google</span>
                     </button>
-                    <button className="flex-1 flex items-center justify-center gap-2.5 h-12 border border-gray-200 rounded-xl bg-white hover:bg-gray-50 transition-colors cursor-pointer">
+                    <button aria-label="Entrar com Microsoft" className="flex-1 flex items-center justify-center gap-2.5 h-12 border border-border rounded-xl bg-card hover:bg-muted transition-colors cursor-pointer">
                       <svg className="size-5" viewBox="0 0 24 24">
                         <rect x="1" y="1" width="10" height="10" fill="#F25022"/>
                         <rect x="13" y="1" width="10" height="10" fill="#7FBA00"/>
@@ -121,41 +121,47 @@ export default function LoginPage() {
                   </div>
 
                   {/* Form */}
-                  <form onSubmit={handleLogin} className="space-y-5">
+                  <form onSubmit={handleLogin} className="space-y-5" noValidate>
                     {/* Email */}
                     <div>
-                      <label className="text-sm text-foreground mb-1.5 block">
+                      <label htmlFor="login-email" className="text-sm text-foreground mb-1.5 block">
                         Digite seu e-mail
                       </label>
                       <input
+                        id="login-email"
                         type="email"
                         value={email}
                         onChange={(e) => { setEmail(e.target.value); setError(""); }}
                         placeholder="seu@email.com"
                         autoComplete="email"
-                        className="w-full bg-white border border-gray-200 rounded-xl text-sm text-foreground placeholder:text-gray-400 focus:outline-none focus:border-gray-400 px-4 py-3 transition-colors"
+                        aria-required="true"
+                        aria-invalid={error ? "true" : undefined}
+                        className="w-full bg-card border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:ring-1 focus:ring-ring px-4 py-3 transition-colors"
                       />
                     </div>
 
                     {/* Password */}
                     <div>
-                      <label className="text-sm text-foreground mb-1.5 block">
+                      <label htmlFor="login-password" className="text-sm text-foreground mb-1.5 block">
                         Senha
                       </label>
                       <div className="relative">
                         <input
+                          id="login-password"
                           type={showPassword ? "text" : "password"}
                           value={password}
                           onChange={(e) => { setPassword(e.target.value); setError(""); }}
                           placeholder="Digite sua senha"
                           autoComplete="current-password"
-                          className="w-full bg-white border border-gray-200 rounded-xl text-sm text-foreground placeholder:text-gray-400 focus:outline-none focus:border-gray-400 px-4 py-3 pr-12 transition-colors"
+                          aria-required="true"
+                          aria-invalid={error ? "true" : undefined}
+                          className="w-full bg-card border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:ring-1 focus:ring-ring px-4 py-3 pr-12 transition-colors"
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
+                          aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
                           className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
-                          tabIndex={-1}
                         >
                           {showPassword ? (
                             <EyeOff className="size-[18px] text-gray-400 hover:text-gray-600 transition-colors" />
@@ -168,14 +174,14 @@ export default function LoginPage() {
 
                     {/* Error */}
                     {error && (
-                      <p className="text-xs text-red-500">{error}</p>
+                      <p className="text-xs text-destructive" role="alert">{error}</p>
                     )}
 
                     {/* Submit */}
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full h-12 rounded-xl bg-[#1a1a1a] text-white text-sm font-semibold hover:bg-[#2a2a2a] disabled:opacity-60 transition-colors cursor-pointer"
+                      className="w-full h-12 rounded-xl bg-foreground text-white text-sm font-semibold hover:bg-foreground/90 disabled:opacity-60 transition-colors cursor-pointer"
                     >
                       {isLoading ? (
                         <span className="flex items-center justify-center gap-2">
@@ -254,7 +260,7 @@ export default function LoginPage() {
                   <button
                     onClick={handleContinue}
                     disabled={turnstileStatus !== "success"}
-                    className="w-full h-12 rounded-xl bg-[#1a1a1a] text-white text-sm font-semibold hover:bg-[#2a2a2a] disabled:opacity-40 transition-colors cursor-pointer"
+                    className="w-full h-12 rounded-xl bg-foreground text-white text-sm font-semibold hover:bg-foreground/90 disabled:opacity-40 transition-colors cursor-pointer"
                   >
                     Continuar
                   </button>
@@ -273,26 +279,28 @@ export default function LoginPage() {
                     </p>
                   </div>
 
-                  <form onSubmit={handleForgotPassword} className="space-y-5">
+                  <form onSubmit={handleForgotPassword} className="space-y-5" noValidate>
                     <div>
-                      <label className="text-sm text-foreground mb-1.5 block">
+                      <label htmlFor="forgot-email" className="text-sm text-foreground mb-1.5 block">
                         Digite seu e-mail
                       </label>
                       <input
+                        id="forgot-email"
                         type="email"
                         value={forgotEmail}
                         onChange={(e) => setForgotEmail(e.target.value)}
                         placeholder="seu@email.com"
                         autoComplete="email"
                         autoFocus
-                        className="w-full bg-white border border-gray-200 rounded-xl text-sm text-foreground placeholder:text-gray-400 focus:outline-none focus:border-gray-400 px-4 py-3 transition-colors"
+                        aria-required="true"
+                        className="w-full bg-card border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:ring-1 focus:ring-ring px-4 py-3 transition-colors"
                       />
                     </div>
 
                     <button
                       type="submit"
                       disabled={isLoading || !forgotEmail}
-                      className="w-full h-12 rounded-xl bg-[#1a1a1a] text-white text-sm font-semibold hover:bg-[#2a2a2a] disabled:opacity-60 transition-colors cursor-pointer"
+                      className="w-full h-12 rounded-xl bg-foreground text-white text-sm font-semibold hover:bg-foreground/90 disabled:opacity-60 transition-colors cursor-pointer"
                     >
                       {isLoading ? (
                         <span className="flex items-center justify-center gap-2">
@@ -336,7 +344,7 @@ export default function LoginPage() {
                   </p>
                   <button
                     onClick={() => { setStep("login"); setForgotEmail(""); }}
-                    className="w-full h-12 rounded-xl bg-[#1a1a1a] text-white text-sm font-semibold hover:bg-[#2a2a2a] transition-colors cursor-pointer"
+                    className="w-full h-12 rounded-xl bg-foreground text-white text-sm font-semibold hover:bg-foreground/90 transition-colors cursor-pointer"
                   >
                     Voltar ao login
                   </button>
@@ -351,7 +359,7 @@ export default function LoginPage() {
               </p>
               <div className="flex items-center justify-center gap-3">
                 {/* App Store Badge */}
-                <a href="#" className="inline-flex items-center gap-2 bg-[#1a1a1a] text-white rounded-xl px-4 py-2.5 hover:bg-[#2a2a2a] transition-colors">
+                <a href="#" className="inline-flex items-center gap-2 bg-foreground text-white rounded-xl px-4 py-2.5 hover:bg-foreground/90 transition-colors">
                   <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                   </svg>
@@ -361,7 +369,7 @@ export default function LoginPage() {
                   </div>
                 </a>
                 {/* Google Play Badge */}
-                <a href="#" className="inline-flex items-center gap-2 bg-[#1a1a1a] text-white rounded-xl px-4 py-2.5 hover:bg-[#2a2a2a] transition-colors">
+                <a href="#" className="inline-flex items-center gap-2 bg-foreground text-white rounded-xl px-4 py-2.5 hover:bg-foreground/90 transition-colors">
                   <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.802 8.99l-2.303 2.303-8.635-8.635z"/>
                   </svg>
