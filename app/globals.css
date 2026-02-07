@@ -286,24 +286,42 @@
   border-radius: 3px;
 }
 
-/* Logo shine — uses CSS filter animation directly on the image.
-   NO overlay, NO pseudo-element, NO white box. Just a brightness pulse. */
-.logo-shine-img {
-  animation: logo-shine 4s ease-in-out infinite;
+/* Logo shine — transparent gradient sweep over logo every 5s.
+   Uses ::after with mix-blend-mode so the shine only affects visible pixels. */
+.logo-shine-container {
+  position: relative;
 }
 
-@keyframes logo-shine {
-  0%, 60% {
-    filter: brightness(1);
+.logo-shine-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(255, 255, 255, 0.4) 45%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.4) 55%,
+    transparent 65%,
+    transparent 100%
+  );
+  background-size: 250% 100%;
+  background-position: 200% 0;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  animation: logo-shine-sweep 5s ease-in-out infinite;
+}
+
+@keyframes logo-shine-sweep {
+  0%, 65% {
+    background-position: 200% 0;
   }
-  72% {
-    filter: brightness(1.35);
-  }
-  80% {
-    filter: brightness(1.2);
+  85% {
+    background-position: -50% 0;
   }
   100% {
-    filter: brightness(1);
+    background-position: -50% 0;
   }
 }
 
