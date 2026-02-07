@@ -286,14 +286,12 @@
   border-radius: 3px;
 }
 
-/* Logo shine — container with shine sweep overlay */
+/* Logo shine — container is transparent, no overflow clip, no visible box */
 .logo-shine-container {
   position: relative;
-  overflow: hidden;
-  background: transparent;
 }
 
-/* Shine sweep pseudo-element — original animation from brand site */
+/* Shine sweep pseudo-element — slides across logo, no box/background visible */
 .logo-shine-container::after {
   content: "";
   position: absolute;
@@ -306,9 +304,9 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.4) 40%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.4) 60%,
+    rgba(255, 255, 255, 0.35) 40%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.35) 60%,
     transparent 100%
   );
   mix-blend-mode: overlay;
@@ -319,9 +317,9 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.15) 40%,
-    rgba(255, 255, 255, 0.35) 50%,
-    rgba(255, 255, 255, 0.15) 60%,
+    rgba(255, 255, 255, 0.12) 40%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.12) 60%,
     transparent 100%
   );
   mix-blend-mode: soft-light;

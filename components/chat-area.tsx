@@ -330,13 +330,13 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                 <div className="max-w-2xl w-full text-center">
                   {/* Logo with shine animation */}
                   <div className="mb-6 relative animate-hero-scale-in">
-                    <div className="logo-shine-container relative mx-auto w-[220px] h-[75px]">
+                    <div className="logo-shine-container mx-auto w-[220px] h-[75px]">
                       <img
                         src="/images/ata360-logo.png"
                         alt="ATA360"
                         width={220}
                         height={75}
-                        className="mx-auto relative z-10 object-contain"
+                        className="mx-auto relative z-10 object-contain w-full h-full"
                       />
                     </div>
                   </div>
