@@ -286,24 +286,13 @@
   border-radius: 3px;
 }
 
-/* Logo shine animation */
+/* Logo shine animation — sweeps a glossy highlight across the logo */
 @keyframes logo-shine {
-  0%, 60% {
-    transform: translateX(-100%) skewX(-12deg);
-    opacity: 0;
-  }
-  65% {
-    opacity: 0.3;
-  }
-  75% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 0.8;
+  0%, 70% {
+    transform: translateX(-100%);
   }
   100% {
-    transform: translateX(250%) skewX(-12deg);
-    opacity: 0;
+    transform: translateX(200%);
   }
 }
 
