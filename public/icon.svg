@@ -13,19 +13,18 @@
     </clipPath>
   </defs>
   <g clip-path="url(#clip-rounded)">
-    <!-- Background -->
     <rect width="180" height="180" rx="37" fill="white" />
-    <!-- Left triangle -->
+    <!-- Upper-left triangle -->
     <path
-      d="M25 35 C25 28 30 24 36 28 L88 78 C94 83 94 97 88 102 L36 152 C30 156 25 152 25 145 Z"
+      d="M22 32 C22 22 28 18 34 23 L92 68 C98 73 98 97 92 102 L34 147 C28 152 22 148 22 138 Z"
       fill="url(#favicon-grad-left)"
       opacity="0.92"
     />
-    <!-- Right triangle (overlapping) -->
+    <!-- Lower-right triangle (overlapping) -->
     <path
-      d="M85 35 C85 28 90 24 96 28 L148 78 C154 83 154 97 148 102 L96 152 C90 156 85 152 85 145 Z"
+      d="M78 32 C78 22 84 18 90 23 L148 68 C154 73 154 97 148 102 L90 147 C84 152 78 148 78 138 Z"
       fill="url(#favicon-grad-right)"
-      opacity="0.85"
+      opacity="0.78"
     />
   </g>
 </svg>

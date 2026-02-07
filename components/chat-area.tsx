@@ -330,16 +330,26 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                 <div className="max-w-2xl w-full text-center">
                   {/* Logo with gradient animation */}
                   <div className="mb-6 relative animate-hero-scale-in">
-                    <div className="relative mx-auto flex items-center justify-center gap-3">
-                      {/* Icon — always blue gradient */}
-                      <ATA360Icon className="size-14 sm:size-16" color="color" />
-                      {/* Text — adapts to theme via currentColor */}
-                      <span className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#2D3A8C] to-[#2196F3] dark:from-[#7B9FE8] dark:to-[#60A5FA] bg-clip-text text-transparent">
-                        ATA360
-                      </span>
-                      {/* Gradient overlay animation — adapts to theme */}
-                      <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden rounded-lg">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/70 dark:via-white/30 to-transparent animate-logo-shine" />
+                    <div className="relative mx-auto w-[220px] h-[73px]">
+                      {/* Light mode: original color logo */}
+                      <img
+                        src="/images/ata360-logo.png"
+                        alt="ATA360"
+                        width={220}
+                        height={73}
+                        className="mx-auto relative z-10 dark:hidden"
+                      />
+                      {/* Dark mode: white version of the logo */}
+                      <img
+                        src="/images/ata360-logo.png"
+                        alt="ATA360"
+                        width={220}
+                        height={73}
+                        className="mx-auto relative z-10 hidden dark:block brightness-0 invert"
+                      />
+                      {/* Gradient overlay animation */}
+                      <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/80 dark:via-white/40 to-transparent animate-logo-shine" />
                       </div>
                     </div>
                   </div>
