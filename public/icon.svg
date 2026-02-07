@@ -1,32 +1,21 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="fg-left" x1="0.1" y1="0.1" x2="0.6" y2="0.9">
-      <stop offset="0%" stop-color="#5C6BC0" />
-      <stop offset="100%" stop-color="#3F51B5" />
+    <linearGradient id="fg-a" gradientUnits="userSpaceOnUse" x1="50" y1="50" x2="462" y2="462">
+      <stop offset="0%" stop-color="#2d388a"/>
+      <stop offset="100%" stop-color="#00aeef"/>
     </linearGradient>
-    <linearGradient id="fg-right" x1="0.4" y1="0.1" x2="0.9" y2="0.9">
-      <stop offset="0%" stop-color="#42A5F5" />
-      <stop offset="100%" stop-color="#1E88E5" />
-    </linearGradient>
-    <linearGradient id="fg-overlap" x1="0.3" y1="0.3" x2="0.7" y2="0.7">
-      <stop offset="0%" stop-color="#3949AB" />
-      <stop offset="100%" stop-color="#1565C0" />
+    <linearGradient id="fg-b" gradientUnits="userSpaceOnUse" x1="130" y1="30" x2="480" y2="480">
+      <stop offset="0%" stop-color="#2d388a"/>
+      <stop offset="100%" stop-color="#00aeef"/>
     </linearGradient>
   </defs>
-  <!-- Left triangle (behind) -->
-  <path
-    d="M72 100 C72 68 96 52 124 72 L248 184 C272 202 272 310 248 328 L124 440 C96 460 72 444 72 412 Z"
-    fill="url(#fg-left)"
-  />
-  <!-- Right triangle (front) -->
-  <path
-    d="M212 100 C212 68 236 52 264 72 L388 184 C412 202 412 310 388 328 L264 440 C236 460 212 444 212 412 Z"
-    fill="url(#fg-right)"
-  />
-  <!-- Overlap area -->
-  <path
-    d="M212 100 C212 68 236 52 264 72 L248 184 C272 202 272 310 248 328 L264 440 C236 460 212 444 212 412 Z"
-    fill="url(#fg-overlap)"
-    opacity="0.6"
-  />
+  <!-- Left triangle (smaller, behind) -->
+  <path d="M56 135 v169 c0 12.1 12.8 19.7 23.5 14.2 l147.3-77.6 c11-5.8 11.5-21.3 1-27.8 L80.5 121.4 C69.7 114.8 56 122.5 56 135z"
+    fill="url(#fg-a)" opacity="0.83"/>
+  <!-- Right triangle (larger, in front) -->
+  <path d="M172 80 v189.2 c0 13.5 14.3 22.1 26.3 15.9 l164.9-86.9 c12.3-6.5 12.9-23.8 1.1-31.1 L199.4 64.8 C187.4 57.4 172 66 172 80z"
+    fill="url(#fg-b)" opacity="0.83"/>
+  <!-- Bottom right triangle -->
+  <path d="M172 243 v189.2 c0 13.5 14.3 22.1 26.3 15.9 l164.9-86.9 c12.3-6.5 12.9-23.8 1.1-31.1 L199.4 228 C187.4 220.6 172 229.2 172 243z"
+    fill="url(#fg-b)" opacity="0.83"/>
 </svg>
