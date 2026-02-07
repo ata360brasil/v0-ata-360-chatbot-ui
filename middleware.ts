@@ -15,14 +15,17 @@ export function middleware(_request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
   response.headers.set('X-Nonce', nonce)
 
-  // Content-Security-Policy dinâmico com nonce
+  // Content-Security-Policy — Next.js usa scripts inline para hidratação,
+  // portanto 'unsafe-inline' é necessário em script-src.
+  // O nonce é mantido no header para uso futuro quando Next.js tiver
+  // suporte completo a CSP nonces em App Router.
   const csp = [
     `default-src 'self'`,
-    `script-src 'self' 'nonce-${nonce}' 'unsafe-eval' https://va.vercel-scripts.com`,
+    `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com`,
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com`,
     `img-src 'self' data: blob: https:`,
-    `connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com`,
+    `connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com wss:`,
     `frame-ancestors 'none'`,
     `base-uri 'self'`,
     `form-action 'self'`,

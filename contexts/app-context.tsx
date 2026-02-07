@@ -125,10 +125,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
-  // Theme: sync state with the class already applied by the inline script
+  // Theme: read preference from localStorage on mount and apply
   useEffect(() => {
-    const isDark = document.documentElement.classList.contains('dark');
-    setThemeState(isDark ? 'dark' : 'light');
+    const stored = localStorage.getItem('theme') as Theme | null;
+    const prefersDark = typeof window.matchMedia === 'function'
+      && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const resolved = stored ?? (prefersDark ? 'dark' : 'light');
+    setThemeState(resolved);
+    document.documentElement.classList.toggle('dark', resolved === 'dark');
   }, []);
 
   const setTheme = useCallback((t: Theme) => {

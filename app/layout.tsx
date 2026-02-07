@@ -104,13 +104,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" dir="ltr" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()`,
-          }}
-        />
-      </head>
       <body className={`${dmSans.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <OrganizationJsonLd />
         <FAQJsonLd />
