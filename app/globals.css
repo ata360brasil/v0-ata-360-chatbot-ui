@@ -286,54 +286,47 @@
   border-radius: 3px;
 }
 
-/* Logo shine — light streak masked to the logo silhouette.
-   The ::after covers the full container but is masked to the logo shape,
-   so the shine ONLY appears over logo pixels. The gradient inside the
-   ::after moves via translateX for real animation. */
+/* Logo shine — gradient overlay that sweeps across the logo */
 .logo-shine-container {
   position: relative;
-  overflow: hidden;
+  display: inline-block;
 }
 
-.logo-shine-container::after {
-  content: "";
+.logo-shine-overlay {
   position: absolute;
   inset: 0;
   z-index: 20;
   pointer-events: none;
-  /* The ::after fills the whole area but is masked to the logo shape */
-  -webkit-mask-image: url("/images/ata360-logo.png");
-  mask-image: url("/images/ata360-logo.png");
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  /* A wide gradient band inside the ::after — animated via background-position
-     which DOES work with mask-image when using percentage-based sizing */
+  overflow: hidden;
   background: linear-gradient(
-    105deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.5) 35%,
-    rgba(255, 255, 255, 0.85) 50%,
-    rgba(255, 255, 255, 0.5) 65%,
-    transparent 80%
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
   );
   background-size: 200% 100%;
-  background-position: 150% 0;
   animation: logo-shine 5s ease-in-out infinite;
 }
 
+.dark .logo-shine-overlay {
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+}
+
 @keyframes logo-shine {
-  0%, 55% {
-    background-position: 150% 0;
+  0% {
+    background-position: 200% 0;
   }
-  80% {
-    background-position: -50% 0;
+  40% {
+    background-position: -200% 0;
   }
   100% {
-    background-position: -50% 0;
+    background-position: -200% 0;
   }
 }
 

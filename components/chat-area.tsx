@@ -328,16 +328,18 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
               {/* Content Area - Centered */}
               <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="max-w-2xl w-full text-center">
-                  {/* Logo with masked shine sweep — no box visible */}
+                  {/* Logo with shine gradient overlay */}
                   <div className="mb-6 animate-hero-scale-in">
-                    <div className="logo-shine-container inline-block relative mx-auto">
+                    <div className="logo-shine-container mx-auto w-[220px] h-[73px]">
                       <img
                         src="/images/ata360-logo.png"
                         alt="ATA360"
                         width={220}
                         height={75}
-                        className="block object-contain"
+                        className="mx-auto relative z-10 block object-contain"
                       />
+                      {/* Gradient overlay that sweeps across the logo */}
+                      <div className="logo-shine-overlay" />
                     </div>
                   </div>
 
