@@ -328,17 +328,15 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
               {/* Content Area - Centered */}
               <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="max-w-2xl w-full text-center">
-                  {/* Logo with shine animation */}
-                  <div className="mb-6 relative animate-hero-scale-in">
-                    <div className="logo-shine-container mx-auto w-[220px] h-[75px]">
-                      <img
-                        src="/images/ata360-logo.png"
-                        alt="ATA360"
-                        width={220}
-                        height={75}
-                        className="mx-auto relative z-10 object-contain w-full h-full"
-                      />
-                    </div>
+                  {/* Logo with shine animation — brightness pulse, no overlay box */}
+                  <div className="mb-6 animate-hero-scale-in">
+                    <img
+                      src="/images/ata360-logo.png"
+                      alt="ATA360"
+                      width={220}
+                      height={75}
+                      className="logo-shine-img mx-auto object-contain"
+                    />
                   </div>
 
                   {/* Welcome Title */}

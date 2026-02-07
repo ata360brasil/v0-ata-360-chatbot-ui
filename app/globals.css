@@ -286,62 +286,24 @@
   border-radius: 3px;
 }
 
-/* Logo shine — container is transparent, no overflow clip, no visible box */
-.logo-shine-container {
-  position: relative;
-}
-
-/* Shine sweep pseudo-element — slides across logo, no box/background visible */
-.logo-shine-container::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40%;
-  height: 100%;
-  z-index: 20;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.35) 40%,
-    rgba(255, 255, 255, 0.6) 50%,
-    rgba(255, 255, 255, 0.35) 60%,
-    transparent 100%
-  );
-  mix-blend-mode: overlay;
+/* Logo shine — uses CSS filter animation directly on the image.
+   NO overlay, NO pseudo-element, NO white box. Just a brightness pulse. */
+.logo-shine-img {
   animation: logo-shine 4s ease-in-out infinite;
-}
-
-.dark .logo-shine-container::after {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.12) 40%,
-    rgba(255, 255, 255, 0.25) 50%,
-    rgba(255, 255, 255, 0.12) 60%,
-    transparent 100%
-  );
-  mix-blend-mode: soft-light;
 }
 
 @keyframes logo-shine {
   0%, 60% {
-    transform: translateX(-100%) skewX(-12deg);
-    opacity: 0;
+    filter: brightness(1);
   }
-  65% {
-    opacity: 0.3;
+  72% {
+    filter: brightness(1.35);
   }
-  75% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 0.8;
+  80% {
+    filter: brightness(1.2);
   }
   100% {
-    transform: translateX(250%) skewX(-12deg);
-    opacity: 0;
+    filter: brightness(1);
   }
 }
 

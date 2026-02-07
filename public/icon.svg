@@ -1,21 +1,21 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="fg-a" gradientUnits="userSpaceOnUse" x1="50" y1="50" x2="462" y2="462">
+    <linearGradient id="g1" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="400" y2="462">
       <stop offset="0%" stop-color="#2d388a"/>
       <stop offset="100%" stop-color="#00aeef"/>
     </linearGradient>
-    <linearGradient id="fg-b" gradientUnits="userSpaceOnUse" x1="130" y1="30" x2="480" y2="480">
+    <linearGradient id="g2" gradientUnits="userSpaceOnUse" x1="80" y1="0" x2="460" y2="400">
       <stop offset="0%" stop-color="#2d388a"/>
       <stop offset="100%" stop-color="#00aeef"/>
     </linearGradient>
   </defs>
   <!-- Left triangle (smaller, behind) -->
   <path d="M56 135 v169 c0 12.1 12.8 19.7 23.5 14.2 l147.3-77.6 c11-5.8 11.5-21.3 1-27.8 L80.5 121.4 C69.7 114.8 56 122.5 56 135z"
-    fill="url(#fg-a)" opacity="0.83"/>
-  <!-- Right triangle (larger, in front) -->
+    fill="url(#g1)" opacity="0.83"/>
+  <!-- Top right triangle -->
   <path d="M172 80 v189.2 c0 13.5 14.3 22.1 26.3 15.9 l164.9-86.9 c12.3-6.5 12.9-23.8 1.1-31.1 L199.4 64.8 C187.4 57.4 172 66 172 80z"
-    fill="url(#fg-b)" opacity="0.83"/>
+    fill="url(#g2)" opacity="0.83"/>
   <!-- Bottom right triangle -->
   <path d="M172 243 v189.2 c0 13.5 14.3 22.1 26.3 15.9 l164.9-86.9 c12.3-6.5 12.9-23.8 1.1-31.1 L199.4 228 C187.4 220.6 172 229.2 172 243z"
-    fill="url(#fg-b)" opacity="0.83"/>
+    fill="url(#g2)" opacity="0.83"/>
 </svg>
