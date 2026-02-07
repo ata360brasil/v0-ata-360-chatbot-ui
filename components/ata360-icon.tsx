@@ -4,23 +4,23 @@ import { cn } from "@/lib/utils";
 
 interface ATA360IconProps {
   className?: string;
-  color?: "black" | "color" | "white";
+  color?: "adaptive" | "color";
 }
 
 /**
- * ATA360 brand icon — uses the official logotipo PNG.
- * Light mode: black version shown as-is.
- * Dark mode: same PNG with CSS brightness-0 invert to make it white.
+ * ATA360 brand icon — inline SVG based on the official logotipo.
+ * "adaptive" (default): uses currentColor so it follows text color (black in light, white in dark).
+ * "color": blue gradient version matching brand colors.
  */
-export function ATA360Icon({ className, color = "black" }: ATA360IconProps) {
+export function ATA360Icon({ className, color = "adaptive" }: ATA360IconProps) {
   if (color === "color") {
     // Blue gradient version — uses inline SVG to match brand colors
     return (
       <svg
-        viewBox="0 0 520 601"
+        viewBox="0 0 470 500"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className={cn("h-6 w-6 shrink-0", className)}
+        className={cn("size-5 shrink-0", className)}
         aria-hidden="true"
       >
         <defs>
@@ -34,12 +34,12 @@ export function ATA360Icon({ className, color = "black" }: ATA360IconProps) {
           </linearGradient>
         </defs>
         <path
-          d="M40 60 C40 30 60 15 85 35 L250 195 C275 215 275 285 250 305 L85 465 C60 485 40 470 40 440 Z"
+          d="M20 30 C20 10 35 0 55 15 L220 155 C240 170 240 250 220 265 L55 405 C35 420 20 410 20 390 Z"
           fill="url(#ata360-grad-left)"
           opacity="0.85"
         />
         <path
-          d="M220 60 C220 30 240 15 265 35 L430 195 C455 215 455 285 430 305 L265 465 C240 485 220 470 220 440 Z"
+          d="M190 30 C190 10 205 0 225 15 L390 155 C410 170 410 250 390 265 L225 405 C205 420 190 410 190 390 Z"
           fill="url(#ata360-grad-right)"
           opacity="0.78"
         />
@@ -47,21 +47,25 @@ export function ATA360Icon({ className, color = "black" }: ATA360IconProps) {
     );
   }
 
-  // Default: use the official PNG, with dark mode invert
+  // Adaptive: uses currentColor — automatically black in light mode, white in dark mode
   return (
-    <>
-      {/* Light mode: original black logotipo */}
-      <img
-        src="/logotipo-ata360-preto.png"
-        alt="ATA360"
-        className={cn("object-contain shrink-0 dark:hidden", className)}
+    <svg
+      viewBox="0 0 470 500"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("size-5 shrink-0", className)}
+      aria-hidden="true"
+    >
+      <path
+        d="M20 30 C20 10 35 0 55 15 L220 155 C240 170 240 250 220 265 L55 405 C35 420 20 410 20 390 Z"
+        fill="currentColor"
+        opacity="0.85"
       />
-      {/* Dark mode: same PNG inverted to white */}
-      <img
-        src="/logotipo-ata360-preto.png"
-        alt="ATA360"
-        className={cn("object-contain shrink-0 hidden dark:block brightness-0 invert", className)}
+      <path
+        d="M190 30 C190 10 205 0 225 15 L390 155 C410 170 410 250 390 265 L225 405 C205 420 190 410 190 390 Z"
+        fill="currentColor"
+        opacity="0.7"
       />
-    </>
+    </svg>
   );
 }

@@ -10,8 +10,7 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: '#ffffff',
     theme_color: '#1E3A5F',
     icons: [
-      { src: '/icon-light-32x32.png', sizes: '32x32', type: 'image/png' },
-      { src: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+      { src: '/icon.svg', sizes: 'any', type: 'image/svg+xml' },
     ],
     lang: 'pt-BR',
     categories: ['government', 'business', 'productivity'],
