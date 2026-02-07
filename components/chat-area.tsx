@@ -328,15 +328,15 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
               {/* Content Area - Centered */}
               <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="max-w-2xl w-full text-center">
-                  {/* Logo with gradient shine sweep every 5s */}
-                  <div className="mb-6 animate-hero-scale-in">
-                    <div className="logo-shine-container inline-block relative">
+                  {/* Logo with shine sweep animation */}
+                  <div className="mb-6 relative animate-hero-scale-in">
+                    <div className="logo-shine-container relative mx-auto w-[220px] h-[75px]">
                       <img
                         src="/images/ata360-logo.png"
                         alt="ATA360"
                         width={220}
                         height={75}
-                        className="mx-auto object-contain block"
+                        className="mx-auto relative z-10 object-contain"
                       />
                     </div>
                   </div>
@@ -447,7 +447,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
             </div>
           ) : (
             /* Chat Messages */
-            <div className="max-w-3xl mx-auto px-4 py-6 pb-32">
+            <div className="max-w-3xl mx-auto px-4 py-6 pb-4">
               {messages.map((message) => (
                 <div
                   key={message.id}
