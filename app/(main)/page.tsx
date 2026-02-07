@@ -1,10 +1,10 @@
 "use client";
 
 import { ChatArea } from "@/components/chat-area";
-import { useAppContext } from "@/contexts/app-context";
+import { useApp } from "@/contexts/app-context";
 
 export default function ChatPage() {
-  const { hasStartedChat, setHasStartedChat, openArtifact } = useAppContext();
+  const { hasStartedChat, setHasStartedChat, openArtifact } = useApp();
 
   return (
     <ChatArea

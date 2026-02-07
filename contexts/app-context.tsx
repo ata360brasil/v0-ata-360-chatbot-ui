@@ -97,10 +97,10 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | null>(null);
 
-export function useAppContext() {
+export function useApp() {
   const context = useContext(AppContext);
   if (!context) {
-    throw new Error("useAppContext must be used within an AppProvider");
+    throw new Error("useApp must be used within an AppProvider");
   }
   return context;
 }

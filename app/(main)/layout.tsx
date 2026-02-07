@@ -15,7 +15,7 @@ import { SidebarMenu } from "@/components/sidebar-menu";
 import { ArtifactsPanel } from "@/components/artifacts-panel";
 import { ResizableDivider } from "@/components/resizable-divider";
 import { NotificationsModal } from "@/components/notifications-modal";
-import { AppProvider, useAppContext } from "@/contexts/app-context";
+import { AppProvider, useApp } from "@/contexts/app-context";
 import { cn } from "@/lib/utils";
 
 function MainShell({ children }: { children: React.ReactNode }) {
@@ -37,7 +37,7 @@ function MainShell({ children }: { children: React.ReactNode }) {
     notificationsModalOpen,
     setNotificationsModalOpen,
     unreadCount,
-  } = useAppContext();
+  } = useApp();
 
   const handleNewConversation = () => {
     resetChat();
