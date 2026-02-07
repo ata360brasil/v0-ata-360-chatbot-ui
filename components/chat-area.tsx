@@ -330,29 +330,13 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                 <div className="max-w-2xl w-full text-center">
                   {/* Logo with shine animation */}
                   <div className="mb-6 relative animate-hero-scale-in">
-                    <div className="relative mx-auto w-[220px] h-[73px] overflow-hidden">
-                      {/* Light mode: original logo as-is */}
+                    <div className="logo-shine-container relative mx-auto w-[220px] h-[73px]">
                       <img
                         src="/images/ata360-logo.png"
                         alt="ATA360"
                         width={220}
                         height={73}
-                        className="mx-auto relative z-10 block dark:hidden"
-                      />
-                      {/* Dark mode: use mix-blend-mode to eliminate white bg */}
-                      <img
-                        src="/images/ata360-logo.png"
-                        alt="ATA360"
-                        width={220}
-                        height={73}
-                        className="mx-auto relative z-10 hidden dark:block mix-blend-screen"
-                      />
-                      {/* Shine sweep animation */}
-                      <div
-                        className="absolute inset-0 z-20 pointer-events-none animate-logo-shine"
-                        style={{
-                          background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.5) 50%, transparent 60%)",
-                        }}
+                        className="mx-auto relative z-10"
                       />
                     </div>
                   </div>
