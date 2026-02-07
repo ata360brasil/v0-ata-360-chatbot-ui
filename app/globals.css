@@ -286,61 +286,51 @@
   border-radius: 3px;
 }
 
-/* Logo shine — diagonal sweep over logo every 5s.
-   Container clips the pseudo-element. Separate dark mode version. */
+/* Logo shine — gradient sweep masked to logo shape only.
+   Uses mask-image so the shine only appears over the logo pixels,
+   never revealing a background box. Works in light and dark modes. */
 .logo-shine-container {
   position: relative;
-  overflow: hidden;
 }
 
 .logo-shine-container::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 40%;
-  height: 100%;
+  inset: 0;
   z-index: 20;
   pointer-events: none;
   background: linear-gradient(
-    90deg,
+    105deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.4) 40%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.4) 60%,
+    transparent 35%,
+    rgba(255, 255, 255, 0.6) 45%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(255, 255, 255, 0.6) 55%,
+    transparent 65%,
     transparent 100%
   );
+  background-size: 300% 100%;
+  background-position: 200% 0;
+  -webkit-mask-image: url("/images/ata360-logo.png");
+  mask-image: url("/images/ata360-logo.png");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
   animation: logo-shine 5s ease-in-out infinite;
-}
-
-.dark .logo-shine-container::after {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.2) 40%,
-    rgba(255, 255, 255, 0.5) 50%,
-    rgba(255, 255, 255, 0.2) 60%,
-    transparent 100%
-  );
 }
 
 @keyframes logo-shine {
   0%, 60% {
-    transform: translateX(-100%) skewX(-12deg);
-    opacity: 0;
+    background-position: 200% 0;
   }
-  65% {
-    opacity: 0.3;
-  }
-  75% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 0.8;
+  80% {
+    background-position: -100% 0;
   }
   100% {
-    transform: translateX(250%) skewX(-12deg);
-    opacity: 0;
+    background-position: -100% 0;
   }
 }
 
