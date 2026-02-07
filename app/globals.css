@@ -286,52 +286,62 @@
   border-radius: 3px;
 }
 
-/* Logo shine — container handles dark mode blend + shine pseudo-element */
+/* Logo shine — container with shine sweep overlay */
 .logo-shine-container {
+  position: relative;
   overflow: hidden;
   border-radius: 8px;
 }
 
-/* Dark mode: eliminate white PNG background via mix-blend-mode */
-.dark .logo-shine-container img {
-  mix-blend-mode: screen;
-}
-
-/* Shine sweep pseudo-element */
+/* Shine sweep pseudo-element — original animation from brand site */
 .logo-shine-container::after {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
   z-index: 20;
   pointer-events: none;
   background: linear-gradient(
-    105deg,
-    transparent 35%,
-    rgba(255, 255, 255, 0.6) 45%,
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 40%,
     rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.6) 55%,
-    transparent 65%
+    rgba(255, 255, 255, 0.4) 60%,
+    transparent 100%
   );
-  animation: logo-shine 5s ease-in-out infinite;
+  animation: logo-shine 4s ease-in-out infinite;
 }
 
 .dark .logo-shine-container::after {
   background: linear-gradient(
-    105deg,
-    transparent 35%,
-    rgba(255, 255, 255, 0.3) 45%,
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 40%,
     rgba(255, 255, 255, 0.5) 50%,
-    rgba(255, 255, 255, 0.3) 55%,
-    transparent 65%
+    rgba(255, 255, 255, 0.2) 60%,
+    transparent 100%
   );
 }
 
 @keyframes logo-shine {
-  0%, 70% {
-    transform: translateX(-120%);
+  0%, 60% {
+    transform: translateX(-100%) skewX(-12deg);
+    opacity: 0;
+  }
+  65% {
+    opacity: 0.3;
+  }
+  75% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.8;
   }
   100% {
-    transform: translateX(120%);
+    transform: translateX(250%) skewX(-12deg);
+    opacity: 0;
   }
 }
 
