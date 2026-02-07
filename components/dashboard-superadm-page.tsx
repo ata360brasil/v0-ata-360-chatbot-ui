@@ -84,7 +84,20 @@ const orgData = [
   { orgao: "Corpo Bombeiros BH", plano: "Trial", status: "green", membros: "3/4", score: 76, acesso: "Hoje", docs: 11, pesq: 56, pgto: "Trial" },
 ];
 
-const apiGroups = [
+interface ApiEndpoint {
+  name: string;
+  status: string;
+  lat: string;
+  up: string;
+  cost?: string;
+}
+
+interface ApiGroup {
+  name: string;
+  apis: ApiEndpoint[];
+}
+
+const apiGroups: ApiGroup[] = [
   { name: "PNCP", apis: [
     { name: "Contratacoes", status: "green", lat: "145ms", up: "99.9%" },
     { name: "ATAs", status: "green", lat: "180ms", up: "99.8%" },
@@ -266,12 +279,25 @@ function PlanBadge({ plan }: { plan: string }) {
 
 // ─── CUSTOM TOOLTIP ─────────────────────────────────────────────────────────
 
-function CustomTooltip({ active, payload, label }: any) {
+interface TooltipPayloadItem {
+  value: number;
+  name: string;
+  color: string;
+  dataKey: string;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: TooltipPayloadItem[];
+  label?: string;
+}
+
+function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-foreground text-background rounded-lg px-3 py-2 text-[11px] shadow-lg">
       <p className="font-semibold mb-1">{label}</p>
-      {payload.map((p: any, i: number) => (
+      {payload.map((p: TooltipPayloadItem, i: number) => (
         <p key={i} className="flex items-center gap-1.5">
           <span className="size-2 rounded-full" style={{ backgroundColor: p.color }} />
           {p.name}: <span className="font-semibold">{typeof p.value === "number" && p.value > 999 ? `${(p.value / 1000).toFixed(1)}K` : p.value}</span>
@@ -323,7 +349,7 @@ export function DashboardSuperADMPage() {
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
             <h1 className="text-base font-bold text-foreground">SuperADM</h1>
-            <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-[#1E3A5F] text-white tracking-wide">MASTER</span>
+            <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-primary text-white tracking-wide">MASTER</span>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
@@ -797,7 +823,7 @@ export function DashboardSuperADMPage() {
                           <div className="flex items-center gap-3">
                             <span className={cn("text-[10px] font-semibold tabular-nums", api.status === "red" ? "text-red-600" : api.status === "yellow" ? "text-amber-600" : "text-foreground")}>{api.lat}</span>
                             <span className="text-[10px] text-muted-foreground tabular-nums">{api.up}</span>
-                            {(api as any).cost && <span className="text-[9px] text-muted-foreground">{(api as any).cost}</span>}
+                            {api.cost && <span className="text-[9px] text-muted-foreground">{api.cost}</span>}
                           </div>
                         </div>
                       ))}

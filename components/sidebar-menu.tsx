@@ -99,7 +99,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
   const userRole = "superadm" as const;
 
   const dashboardConfig = {
-    superadm: { label: "Dashboard", badge: "SuperADM", badgeColor: "bg-[#2742C6] text-white" },
+    superadm: { label: "Dashboard", badge: "SuperADM", badgeColor: "bg-primary text-white" },
     suporte: { label: "Dashboard", badge: "Suporte", badgeColor: "bg-emerald-600 text-white" },
     localadm: { label: "Dashboard", badge: "LocalADM", badgeColor: "bg-foreground/10 text-foreground" },
     demo: { label: "Dashboard", badge: "DEMO", badgeColor: "bg-amber-500 text-white" },

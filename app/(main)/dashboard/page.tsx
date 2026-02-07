@@ -1,7 +1,13 @@
-"use client";
+"use client"
 
-import { DashboardSuperADMPage } from "@/components/dashboard-superadm-page";
+import dynamic from 'next/dynamic'
+import { PageSkeleton } from '@/components/page-skeleton'
+
+const DashboardSuperADMPage = dynamic(
+  () => import('@/components/dashboard-superadm-page').then(mod => ({ default: mod.DashboardSuperADMPage })),
+  { loading: () => <PageSkeleton /> }
+)
 
 export default function DashboardRoute() {
-  return <DashboardSuperADMPage />;
+  return <DashboardSuperADMPage />
 }

@@ -754,14 +754,6 @@ export function ContractsPage() {
             <Button
               onClick={() => {
                 if (selectedContract) {
-                  // Simulate saving the evaluation
-                  console.log("[v0] Evaluation saved:", {
-                    contractId: selectedContract.id,
-                    ratings: tempRatings,
-                    observation: ratingObservation,
-                    date: new Date().toISOString(),
-                    user: "Bernardo Aguiar",
-                  });
                   // In a real app, this would update the contract in the database
                   selectedContract.ratings = tempRatings;
                   selectedContract.ratingEvaluated = true;

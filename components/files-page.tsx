@@ -815,7 +815,6 @@ export function FilesPage() {
             </Button>
             <Button
               onClick={() => {
-                console.log("[v0] New folder created:", { name: newFolderName, description: newFolderDescription });
                 setNewFolderName("");
                 setNewFolderDescription("");
                 setNewFolderModalOpen(false);
@@ -910,7 +909,6 @@ export function FilesPage() {
             </Button>
             <Button
               onClick={() => {
-                console.log("[v0] Files uploaded:", { files: droppedFiles, description: uploadDescription });
                 setDroppedFiles([]);
                 setUploadDescription("");
                 setUploadModalOpen(false);

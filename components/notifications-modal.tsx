@@ -91,9 +91,7 @@ export function NotificationsModal({
     // Fecha o modal e abre o chat com o contexto da notificacao
     onOpenChange(false);
     
-    // Aqui seria a integracao com o chat LLM
-    // Por enquanto, apenas simula a acao
-    console.log(`[v0] Acao executada: ${notification.actionType} para ${notification.title}`);
+    // TODO: Integrar com o chat LLM
   };
 
   const handleMarkAsRead = (id: string) => {

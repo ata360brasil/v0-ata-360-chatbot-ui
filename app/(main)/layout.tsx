@@ -61,10 +61,18 @@ function MainShell({ children }: { children: React.ReactNode }) {
   return (
     <TooltipProvider>
       <div className="h-screen flex flex-col bg-background overflow-hidden">
+        {/* Skip Navigation */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-background focus:text-foreground focus:top-0 focus:left-0"
+        >
+          Pular para conteúdo principal
+        </a>
+
         {/* Header */}
-        <header className="h-14 border-b border-border/30 flex items-center justify-between px-4 shrink-0">
+        <header className="h-14 border-b border-border/30 flex items-center justify-between px-4 shrink-0" role="banner">
           {/* Left side */}
-          <div className="flex items-center gap-2">
+          <nav className="flex items-center gap-2" aria-label="Ações principais">
             {/* Menu Toggle */}
             <Tooltip>
               <TooltipTrigger asChild>
@@ -72,6 +80,8 @@ function MainShell({ children }: { children: React.ReactNode }) {
                   variant="ghost"
                   size="icon"
                   onClick={toggleSidebar}
+                  aria-label={sidebarOpen ? "Fechar menu" : "Abrir menu"}
+                  aria-expanded={sidebarOpen}
                   className="size-10 rounded-full bg-background hover:bg-muted cursor-pointer"
                 >
                   <ATA360Icon className="size-6" color="black" />
@@ -87,6 +97,7 @@ function MainShell({ children }: { children: React.ReactNode }) {
                   variant="ghost"
                   size="icon"
                   onClick={handleNewConversation}
+                  aria-label="Nova conversa"
                   className="size-10 rounded-full bg-background hover:bg-muted cursor-pointer"
                 >
                   <Plus className="size-5" />
@@ -94,7 +105,7 @@ function MainShell({ children }: { children: React.ReactNode }) {
               </TooltipTrigger>
               <TooltipContent>Nova conversa</TooltipContent>
             </Tooltip>
-          </div>
+          </nav>
 
           {/* Right side */}
           <div className="flex items-center gap-2">
@@ -105,11 +116,15 @@ function MainShell({ children }: { children: React.ReactNode }) {
                   variant="ghost"
                   size="icon"
                   onClick={() => setNotificationsModalOpen(true)}
+                  aria-label={`Alertas${unreadCount > 0 ? ` (${unreadCount} não lidos)` : ''}`}
                   className="size-10 rounded-full bg-background hover:bg-muted cursor-pointer relative"
                 >
                   <Bell className="size-5" />
                   {unreadCount > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 size-5 rounded-full bg-foreground text-background text-xs font-medium flex items-center justify-center">
+                    <span
+                      className="absolute -top-0.5 -right-0.5 size-5 rounded-full bg-foreground text-background text-xs font-medium flex items-center justify-center"
+                      aria-live="polite"
+                    >
                       {unreadCount}
                     </span>
                   )}
@@ -125,6 +140,8 @@ function MainShell({ children }: { children: React.ReactNode }) {
                   variant="ghost"
                   size="icon"
                   onClick={() => setArtifactsPanelOpen(!artifactsPanelOpen)}
+                  aria-label={artifactsPanelOpen ? "Fechar artefatos" : "Abrir artefatos"}
+                  aria-expanded={artifactsPanelOpen}
                   className={cn(
                     "size-10 rounded-full bg-background hover:bg-muted cursor-pointer",
                     artifactsPanelOpen && "bg-muted"
@@ -143,16 +160,18 @@ function MainShell({ children }: { children: React.ReactNode }) {
         {/* Main Content */}
         <div className="flex-1 flex overflow-hidden">
           {/* Left Sidebar */}
-          <SidebarMenu
-            isOpen={sidebarOpen}
-            onClose={() => setSidebarOpen(false)}
-            onMenuItemClick={handleMenuItemClick}
-          />
+          <aside aria-label="Menu de navegação">
+            <SidebarMenu
+              isOpen={sidebarOpen}
+              onClose={() => setSidebarOpen(false)}
+              onMenuItemClick={handleMenuItemClick}
+            />
+          </aside>
 
           {/* Main Content Area */}
-          <div className="flex-1 min-w-0 flex flex-col">
+          <main id="main-content" className="flex-1 min-w-0 flex flex-col">
             {children}
-          </div>
+          </main>
 
           {/* Resizable Divider */}
           <ResizableDivider
@@ -162,12 +181,14 @@ function MainShell({ children }: { children: React.ReactNode }) {
           />
 
           {/* Right Artifacts Panel */}
-          <ArtifactsPanel
-            isOpen={artifactsPanelOpen}
-            onClose={closeArtifactsPanel}
-            artifact={currentArtifact}
-            width={artifactsWidth}
-          />
+          <aside aria-label="Painel de artefatos">
+            <ArtifactsPanel
+              isOpen={artifactsPanelOpen}
+              onClose={closeArtifactsPanel}
+              artifact={currentArtifact}
+              width={artifactsWidth}
+            />
+          </aside>
         </div>
 
         {/* Notifications Modal */}
