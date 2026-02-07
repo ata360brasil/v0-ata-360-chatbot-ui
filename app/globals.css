@@ -290,7 +290,7 @@
 .logo-shine-container {
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
+  background: transparent;
 }
 
 /* Shine sweep pseudo-element — original animation from brand site */
@@ -311,6 +311,7 @@
     rgba(255, 255, 255, 0.4) 60%,
     transparent 100%
   );
+  mix-blend-mode: overlay;
   animation: logo-shine 4s ease-in-out infinite;
 }
 
@@ -318,11 +319,12 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.2) 40%,
-    rgba(255, 255, 255, 0.5) 50%,
-    rgba(255, 255, 255, 0.2) 60%,
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.15) 60%,
     transparent 100%
   );
+  mix-blend-mode: soft-light;
 }
 
 @keyframes logo-shine {
