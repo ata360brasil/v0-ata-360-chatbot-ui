@@ -286,18 +286,53 @@
   border-radius: 3px;
 }
 
-/* Logo shine animation — sweeps a glossy highlight across the logo */
-@keyframes logo-shine {
-  0%, 70% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(200%);
-  }
+/* Logo shine — container handles dark mode blend + shine pseudo-element */
+.logo-shine-container {
+  overflow: hidden;
+  border-radius: 8px;
 }
 
-.animate-logo-shine {
+/* Dark mode: eliminate white PNG background via mix-blend-mode */
+.dark .logo-shine-container img {
+  mix-blend-mode: screen;
+}
+
+/* Shine sweep pseudo-element */
+.logo-shine-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.6) 45%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.6) 55%,
+    transparent 65%
+  );
   animation: logo-shine 5s ease-in-out infinite;
+}
+
+.dark .logo-shine-container::after {
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.3) 45%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.3) 55%,
+    transparent 65%
+  );
+}
+
+@keyframes logo-shine {
+  0%, 70% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
 }
 
 /* Hero entrance animations */
