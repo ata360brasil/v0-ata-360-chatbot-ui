@@ -8,23 +8,37 @@ interface ATA360IconProps {
 }
 
 /**
- * ATA360 brand icon — two overlapping play triangles.
- * Renders as inline SVG so it responds to theme changes instantly.
+ * ATA360 brand icon — two overlapping play-style triangles
+ * with rounded corners, matching the official logotipo.
  *
  * - color="color"  → blue gradient (brand colors)
- * - color="black"  → uses currentColor (inherits text color, auto-adapts to dark mode)
+ * - color="black"  → uses currentColor (inherits text color, adapts to dark mode)
  * - color="white"  → always white
  */
 export function ATA360Icon({ className, color = "black" }: ATA360IconProps) {
-  if (color === "color") {
-    return (
-      <svg
-        viewBox="0 0 120 120"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className={cn("h-6 w-6 shrink-0", className)}
-        aria-hidden="true"
-      >
+  const fillLeft =
+    color === "color"
+      ? "url(#ata360-grad-left)"
+      : color === "white"
+        ? "white"
+        : "currentColor";
+
+  const fillRight =
+    color === "color"
+      ? "url(#ata360-grad-right)"
+      : color === "white"
+        ? "white"
+        : "currentColor";
+
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("h-6 w-6 shrink-0", className)}
+      aria-hidden="true"
+    >
+      {color === "color" && (
         <defs>
           <linearGradient id="ata360-grad-left" x1="0" y1="0" x2="0.5" y2="1">
             <stop offset="0%" stopColor="#4A5DB5" />
@@ -35,42 +49,18 @@ export function ATA360Icon({ className, color = "black" }: ATA360IconProps) {
             <stop offset="100%" stopColor="#2196F3" />
           </linearGradient>
         </defs>
-        {/* Left triangle (pointing right) */}
-        <path
-          d="M10 18 C10 14 12 12 16 14 L60 54 C64 57 64 63 60 66 L16 106 C12 108 10 106 10 102 Z"
-          fill="url(#ata360-grad-left)"
-          opacity="0.92"
-        />
-        {/* Right triangle (pointing right, overlapping) */}
-        <path
-          d="M50 18 C50 14 52 12 56 14 L100 54 C104 57 104 63 100 66 L56 106 C52 108 50 106 50 102 Z"
-          fill="url(#ata360-grad-right)"
-          opacity="0.85"
-        />
-      </svg>
-    );
-  }
-
-  // "black" — uses currentColor so it auto-inverts in dark mode
-  return (
-    <svg
-      viewBox="0 0 120 120"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={cn("h-6 w-6 shrink-0", className)}
-      aria-hidden="true"
-    >
-      {/* Left triangle */}
+      )}
+      {/* Upper-left triangle */}
       <path
-        d="M10 18 C10 14 12 12 16 14 L60 54 C64 57 64 63 60 66 L16 106 C12 108 10 106 10 102 Z"
-        fill="currentColor"
-        opacity="0.9"
+        d="M8 12 C8 7 11 5 15 8 L48 38 C52 41 52 53 48 56 L15 86 C11 89 8 87 8 82 Z"
+        fill={fillLeft}
+        opacity="0.92"
       />
-      {/* Right triangle (overlapping) */}
+      {/* Lower-right triangle (overlapping) */}
       <path
-        d="M50 18 C50 14 52 12 56 14 L100 54 C104 57 104 63 100 66 L56 106 C52 108 50 106 50 102 Z"
-        fill="currentColor"
-        opacity="0.7"
+        d="M42 12 C42 7 45 5 49 8 L82 38 C86 41 86 53 82 56 L49 86 C45 89 42 87 42 82 Z"
+        fill={fillRight}
+        opacity="0.78"
       />
     </svg>
   );
