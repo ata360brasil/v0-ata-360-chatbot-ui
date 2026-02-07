@@ -328,20 +328,32 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
               {/* Content Area - Centered */}
               <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="max-w-2xl w-full text-center">
-                  {/* Logo with gradient animation */}
+                  {/* Logo with shine animation */}
                   <div className="mb-6 relative animate-hero-scale-in">
-                    <div className="relative mx-auto w-[220px] h-[73px]">
+                    <div className="relative mx-auto w-[220px] h-[73px] overflow-hidden">
+                      {/* Light mode: original logo as-is */}
                       <img
                         src="/images/ata360-logo.png"
                         alt="ATA360"
                         width={220}
                         height={73}
-                        className="mx-auto relative z-10 dark:brightness-[1.8] dark:saturate-[1.3]"
+                        className="mx-auto relative z-10 block dark:hidden"
                       />
-                      {/* Gradient overlay animation */}
-                      <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/80 dark:via-white/40 to-transparent animate-logo-shine" />
-                      </div>
+                      {/* Dark mode: use mix-blend-mode to eliminate white bg */}
+                      <img
+                        src="/images/ata360-logo.png"
+                        alt="ATA360"
+                        width={220}
+                        height={73}
+                        className="mx-auto relative z-10 hidden dark:block mix-blend-screen"
+                      />
+                      {/* Shine sweep animation */}
+                      <div
+                        className="absolute inset-0 z-20 pointer-events-none animate-logo-shine"
+                        style={{
+                          background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.5) 50%, transparent 60%)",
+                        }}
+                      />
                     </div>
                   </div>
 
