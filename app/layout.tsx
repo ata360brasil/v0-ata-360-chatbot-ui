@@ -96,6 +96,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" dir="ltr" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
+      </head>
       <body className={`${dmSans.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <OrganizationJsonLd />
         <FAQJsonLd />
