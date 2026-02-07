@@ -127,6 +127,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const processingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -149,6 +150,18 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
       }
     }
   }, [inputValue]);
+
+  // Cleanup timers on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (processingIntervalRef.current) {
+        clearInterval(processingIntervalRef.current);
+      }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleSendMessage = () => {
     if (!inputValue.trim()) return;
@@ -191,11 +204,11 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
       }, 800);
       
       // Complete after all steps
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         if (processingIntervalRef.current) {
           clearInterval(processingIntervalRef.current);
         }
-        
+
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
           role: "assistant",
@@ -219,7 +232,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
       }, dfdProcessingSteps.length * 800 + 500);
     } else {
       // Default response
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
           role: "assistant",
@@ -316,7 +329,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
               <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="max-w-2xl w-full text-center">
                   {/* Logo with gradient animation */}
-                  <div className="mb-6 relative">
+                  <div className="mb-6 relative animate-hero-scale-in">
                     <div className="relative mx-auto w-[220px] h-[73px]">
                       <img
                         src="/images/ata360-logo.png"
@@ -333,15 +346,15 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                   </div>
 
                   {/* Welcome Title */}
-                  <h1 className="text-3xl font-semibold text-foreground mb-2">
-                    {"Compras públicas com confiança"} 
+                  <h1 className="text-3xl font-semibold text-foreground mb-2 animate-hero-fade-up" style={{ animationDelay: "150ms" }}>
+                    {"Compras públicas com confiança"}
                   </h1>
-                  <p className="text-base text-muted-foreground mb-8">
-                     IA sem alucinações, especialista na lei 14.133/2021. Com o ATA360 é simples. Escreva do seu jeito e pronto: pesquisas e documentos em segundos.                                                       
+                  <p className="text-base text-muted-foreground mb-8 animate-hero-fade-up" style={{ animationDelay: "300ms" }}>
+                     IA sem alucinações, especialista na lei 14.133/2021. Com o ATA360 é simples. Escreva do seu jeito e pronto: pesquisas e documentos em segundos.
                   </p>
 
                   {/* Suggestion Cards */}
-                  <div className="max-w-xl mx-auto">
+                  <div className="max-w-xl mx-auto animate-hero-fade-up" style={{ animationDelay: "450ms" }}>
                     {/* Grid 2 colunas x 4 linhas */}
                     <div className="grid grid-cols-2 gap-3">
                       {/* Primeiras 2 linhas - sempre visiveis (4 cards) */}
@@ -351,10 +364,11 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                           <button
                             key={index}
                             onClick={() => handleSuggestionClick(card.title)}
-                            className="text-left px-3 py-3 rounded-lg bg-background border border-border/50 hover:border-border/80 hover:bg-muted/30 transition-all duration-200 cursor-pointer flex items-start gap-3"
+                            className="animate-card-enter text-left px-3 py-3 rounded-lg bg-background border border-border/50 hover:border-primary/30 hover:bg-primary/[0.03] hover:shadow-sm transition-all duration-200 cursor-pointer flex items-start gap-3 group/card"
+                            style={{ animationDelay: `${500 + index * 80}ms` }}
                           >
-                            <div className="size-8 rounded-full bg-transparent hover:bg-muted/50 flex items-center justify-center shrink-0 transition-colors">
-                              <IconComponent className="size-4 text-foreground" />
+                            <div className="size-8 rounded-full bg-primary/[0.06] group-hover/card:bg-primary/[0.12] flex items-center justify-center shrink-0 transition-colors">
+                              <IconComponent className="size-4 text-foreground/80 group-hover/card:text-primary transition-colors" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <p className="text-sm font-medium text-foreground mb-0.5">
@@ -375,16 +389,17 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                           <button
                             key={index + 4}
                             onClick={() => handleSuggestionClick(card.title)}
-                            className="relative text-left px-3 py-3 rounded-lg bg-background border border-border/50 hover:border-border/80 hover:bg-muted/30 transition-all duration-200 cursor-pointer flex items-start gap-3"
+                            className="animate-card-enter relative text-left px-3 py-3 rounded-lg bg-background border border-border/50 hover:border-primary/30 hover:bg-primary/[0.03] hover:shadow-sm transition-all duration-200 cursor-pointer flex items-start gap-3 group/card"
+                            style={{ animationDelay: `${index * 80}ms` }}
                           >
                             {/* Badge "Em breve" - apenas para Publicação PNCP */}
                             {card.title === "Publicação PNCP" && (
-                              <span className="absolute top-1.5 right-1.5 px-1.5 py-0.5 text-[9px] font-medium bg-foreground text-background rounded-full">
+                              <span className="absolute top-1.5 right-1.5 px-1.5 py-0.5 text-[9px] font-medium bg-primary text-primary-foreground rounded-full">
                                 Em breve
                               </span>
                             )}
-                            <div className="size-8 rounded-full bg-transparent hover:bg-muted/50 flex items-center justify-center shrink-0 transition-colors">
-                              <IconComponent className="size-4 text-foreground" />
+                            <div className="size-8 rounded-full bg-primary/[0.06] group-hover/card:bg-primary/[0.12] flex items-center justify-center shrink-0 transition-colors">
+                              <IconComponent className="size-4 text-foreground/80 group-hover/card:text-primary transition-colors" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <p className="text-sm font-medium text-foreground mb-0.5">
