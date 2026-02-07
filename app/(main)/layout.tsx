@@ -9,7 +9,7 @@ import {
   TooltipTrigger,
   TooltipProvider,
 } from "@/components/ui/tooltip";
-import { Plus, Bell, PanelRight } from "lucide-react";
+import { Plus, Bell, PanelRight, Sun, Moon } from "lucide-react";
 import { ATA360Icon } from "@/components/ata360-icon";
 import { SidebarMenu } from "@/components/sidebar-menu";
 import { ArtifactsPanel } from "@/components/artifacts-panel";
@@ -22,6 +22,8 @@ import { cn } from "@/lib/utils";
 function MainShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const {
+    theme,
+    toggleTheme,
     sidebarOpen,
     toggleSidebar,
     setSidebarOpen,
@@ -122,6 +124,22 @@ function MainShell({ children }: { children: React.ReactNode }) {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>Alertas</TooltipContent>
+            </Tooltip>
+
+            {/* Dark Mode Toggle */}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={toggleTheme}
+                  aria-label={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
+                  className="size-10 rounded-full bg-background hover:bg-muted cursor-pointer"
+                >
+                  {theme === 'dark' ? <Sun className="size-5" /> : <Moon className="size-5" />}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{theme === 'dark' ? 'Modo claro' : 'Modo escuro'}</TooltipContent>
             </Tooltip>
 
             {/* Artifacts Panel Toggle */}

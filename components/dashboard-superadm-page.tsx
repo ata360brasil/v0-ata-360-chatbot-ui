@@ -25,15 +25,15 @@ type Tab =
   | "integrations" | "rankings" | "support" | "priorities" | "opportunities"
   | "resources" | "alerts" | "legal" | "agents" | "reviews" | "models";
 
-// ─── COLORS ─────────────────────────────────────────────────────────────────
+// ─── COLORS (CSS custom properties — dark-mode aware) ───────────────────────
 
-const BLUE = "#2563EB";
-const GREEN = "#059669";
-const RED = "#DC2626";
-const ORANGE = "#D97706";
-const PURPLE = "#7C3AED";
-const CYAN = "#0284C7";
-const NAVY = "#1E3A5F";
+const BLUE = "var(--dashboard-blue)";
+const GREEN = "var(--dashboard-green)";
+const RED = "var(--dashboard-red)";
+const ORANGE = "var(--dashboard-orange)";
+const PURPLE = "var(--dashboard-purple)";
+const CYAN = "var(--dashboard-cyan)";
+const NAVY = "var(--dashboard-navy)";
 
 // ─── MOCK DATA ──────────────────────────────────────────────────────────────
 
@@ -60,7 +60,7 @@ const revenue12m = [
 ];
 
 const revenueComposition = [
-  { name: "Trial", value: 0, count: 8, pct: 17, color: "#9CA3AF" },
+  { name: "Trial", value: 0, count: 8, pct: 17, color: "var(--dashboard-gray)" },
   { name: "Básico", value: 10680, count: 12, pct: 38, color: BLUE },
   { name: "Profissional", value: 40800, count: 17, pct: 34, color: GREEN },
   { name: "Enterprise", value: 11800, count: 2, pct: 11, color: PURPLE },
@@ -202,10 +202,10 @@ function KPI({ label, value, trend, trendLabel, sparkData, sparkColor, icon: Ico
   sparkColor?: string; icon?: React.ElementType; sub?: string; pulse?: boolean;
 }) {
   return (
-    <div className="bg-background border border-border/30 rounded-2xl p-3.5 hover:shadow-sm transition-shadow">
+    <div className="bg-background border border-border/30 rounded-2xl p-4 hover:shadow-sm transition-shadow">
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
-          <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider truncate">{label}</p>
+          <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider truncate">{label}</p>
           <div className="flex items-baseline gap-2 mt-1">
             <p className="text-lg font-bold text-foreground tabular-nums">{value}</p>
             {pulse && <span className="size-2 rounded-full bg-green-500 animate-pulse" />}
@@ -213,18 +213,18 @@ function KPI({ label, value, trend, trendLabel, sparkData, sparkColor, icon: Ico
         </div>
         <div className="flex flex-col items-end gap-1.5">
           {Icon && <Icon className="size-4 text-muted-foreground/50" />}
-          {sparkData && <Sparkline data={sparkData} color={sparkColor || "#111"} />}
+          {sparkData && <Sparkline data={sparkData} color={sparkColor || "currentColor"} />}
         </div>
       </div>
       <div className="flex items-center gap-2 mt-2">
         {trend !== undefined && (
           <span className={cn("text-[10px] font-semibold px-1.5 py-0.5 rounded-full",
-            trend > 0 ? "bg-green-50 text-green-700" : trend < 0 ? "bg-red-50 text-red-700" : "bg-muted text-muted-foreground"
+            trend > 0 ? "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400" : trend < 0 ? "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400" : "bg-muted text-muted-foreground"
           )}>
             {trend > 0 ? "+" : ""}{trend}{trendLabel || "%"}
           </span>
         )}
-        {sub && <p className="text-[10px] text-muted-foreground truncate">{sub}</p>}
+        {sub && <p className="text-[11px] text-muted-foreground truncate">{sub}</p>}
       </div>
     </div>
   );
@@ -236,8 +236,8 @@ function Section({ title, subtitle, children }: { title: string; subtitle?: stri
   return (
     <div>
       <div className="mb-3">
-        <h3 className="text-[13px] font-semibold text-foreground">{title}</h3>
-        {subtitle && <p className="text-[10px] text-muted-foreground mt-0.5">{subtitle}</p>}
+        <h3 className="text-sm font-semibold text-foreground">{title}</h3>
+        {subtitle && <p className="text-[11px] text-muted-foreground mt-0.5">{subtitle}</p>}
       </div>
       {children}
     </div>
@@ -261,17 +261,17 @@ function ScoreBar({ score }: { score: number }) {
       <div className="w-16 h-1.5 bg-muted rounded-full overflow-hidden">
         <div className={cn("h-full rounded-full", score > 70 ? "bg-green-500" : score > 40 ? "bg-amber-500" : "bg-red-500")} style={{ width: `${score}%` }} />
       </div>
-      <span className={cn("text-[10px] font-semibold tabular-nums", score > 70 ? "text-green-700" : score > 40 ? "text-amber-600" : "text-red-600")}>{score}</span>
+      <span className={cn("text-[10px] font-semibold tabular-nums", score > 70 ? "text-green-700 dark:text-green-400" : score > 40 ? "text-amber-600 dark:text-amber-400" : "text-red-600 dark:text-red-400")}>{score}</span>
     </div>
   );
 }
 
 function PlanBadge({ plan }: { plan: string }) {
   return (
-    <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full",
-      plan === "Enterprise" ? "bg-purple-100 text-purple-700" :
-      plan === "Profissional" ? "bg-green-50 text-green-700" :
-      plan === "Básico" ? "bg-blue-50 text-blue-700" :
+    <span className={cn("text-[10px] font-semibold px-1.5 py-0.5 rounded-full",
+      plan === "Enterprise" ? "bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-400" :
+      plan === "Profissional" ? "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400" :
+      plan === "Básico" ? "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-400" :
       "bg-muted text-muted-foreground"
     )}>{plan}</span>
   );
@@ -349,7 +349,7 @@ export function DashboardSuperADMPage() {
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
             <h1 className="text-base font-bold text-foreground">SuperADM</h1>
-            <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-primary text-white tracking-wide">MASTER</span>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-primary text-primary-foreground tracking-wide">MASTER</span>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
@@ -363,7 +363,7 @@ export function DashboardSuperADMPage() {
             </Button>
             <div className="relative">
               <Bell className="size-4 text-muted-foreground" />
-              <span className="absolute -top-1 -right-1 size-3.5 rounded-full bg-red-500 text-[8px] text-white flex items-center justify-center font-bold">4</span>
+              <span className="absolute -top-1 -right-1 size-3.5 rounded-full bg-destructive text-destructive-foreground text-[8px] flex items-center justify-center font-bold">4</span>
             </div>
           </div>
         </div>
@@ -378,7 +378,7 @@ export function DashboardSuperADMPage() {
                 className={cn(
                   "px-3 py-2.5 text-[11px] font-medium whitespace-nowrap border-b-2 transition-colors cursor-pointer shrink-0",
                   activeTab === tab.id
-                    ? "border-[#1E3A5F] text-foreground font-semibold"
+                    ? "border-primary text-foreground font-semibold"
                     : "border-transparent text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -399,7 +399,7 @@ export function DashboardSuperADMPage() {
           {activeTab === "overview" && (
             <>
               {/* KPIs */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 <KPI label="Orgaos ativos" value="47" trend={8} icon={Building2} sparkData={[30,33,35,38,40,42,44,47]} sparkColor={BLUE} />
                 <KPI label="Membros online" value="23" pulse icon={Users} sparkData={[15,22,28,18,23,19,26,23]} sparkColor={GREEN} />
                 <KPI label="Pesquisas (hoje)" value="156" trend={12} sub="vs ontem" icon={Search} sparkData={[120,130,125,140,135,148,150,156]} sparkColor={BLUE} />
@@ -426,9 +426,9 @@ export function DashboardSuperADMPage() {
                             <stop offset="100%" stopColor={GREEN} stopOpacity={0} />
                           </linearGradient>
                         </defs>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                        <XAxis dataKey="hour" tick={{ fontSize: 10, fill: "#9CA3AF" }} axisLine={false} tickLine={false} interval={2} />
-                        <YAxis tick={{ fontSize: 10, fill: "#9CA3AF" }} axisLine={false} tickLine={false} />
+                        <CartesianGrid strokeDasharray="3 3" stroke="var(--dashboard-grid)" />
+                        <XAxis dataKey="hour" tick={{ fontSize: 10, fill: "var(--dashboard-axis)" }} axisLine={false} tickLine={false} interval={2} />
+                        <YAxis tick={{ fontSize: 10, fill: "var(--dashboard-axis)" }} axisLine={false} tickLine={false} />
                         <Tooltip content={<CustomTooltip />} />
                         <Area type="monotone" dataKey="pesquisas" stroke={BLUE} strokeWidth={1.5} fill="url(#gradBlue)" name="Pesquisas" />
                         <Area type="monotone" dataKey="documentos" stroke={GREEN} strokeWidth={1.5} fill="url(#gradGreen)" name="Documentos" />
@@ -522,7 +522,7 @@ export function DashboardSuperADMPage() {
                       { level: "yellow", title: "VIO e e-Frotas SERPRO pendentes", action: "Ir para Prioridades" },
                     ].map((a, i) => (
                       <div key={i} className={cn("flex items-center gap-3 p-3 rounded-2xl border",
-                        a.level === "red" ? "border-red-200/50 bg-red-50/30" : "border-amber-200/50 bg-amber-50/30"
+                        a.level === "red" ? "border-red-200/50 bg-red-50/30 dark:border-red-800/50 dark:bg-red-950/30" : "border-amber-200/50 bg-amber-50/30 dark:border-amber-800/50 dark:bg-amber-950/30"
                       )}>
                         <div className={cn("size-2 rounded-full shrink-0", a.level === "red" ? "bg-red-500" : "bg-amber-500")} />
                         <p className="text-[11px] font-medium text-foreground flex-1">{a.title}</p>
@@ -531,8 +531,8 @@ export function DashboardSuperADMPage() {
                     ))}
                   </div>
                   <div className="mt-3 flex items-center gap-2">
-                    <span className="text-[10px] font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded-full">4 urgentes</span>
-                    <span className="text-[10px] font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">6 atencao</span>
+                    <span className="text-[10px] font-semibold text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-950 px-2 py-0.5 rounded-full">4 urgentes</span>
+                    <span className="text-[10px] font-semibold text-amber-600 bg-amber-50 dark:text-amber-400 dark:bg-amber-950 px-2 py-0.5 rounded-full">6 atenção</span>
                   </div>
                 </Section>
               </div>
@@ -544,7 +544,7 @@ export function DashboardSuperADMPage() {
              ═══════════════════════════════════════════════════════ */}
           {activeTab === "revenue" && (
             <>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 <KPI label="MRR" value="R$ 89.400" trend={6} sub="Meta: R$ 100K (89.4%)" icon={DollarSign} sparkData={[62,68,72,76,80,83,86,89.4]} sparkColor={GREEN} />
                 <KPI label="ARR projetado" value="R$ 1.072.800" icon={TrendingUp} />
                 <KPI label="Churn" value="2.1%" trend={-0.5} trendLabel="%" sub="Meta < 3%" icon={TrendingDown} sparkData={[3.2,3.0,2.8,2.6,2.4,2.3,2.2,2.1]} sparkColor={GREEN} />
@@ -559,9 +559,9 @@ export function DashboardSuperADMPage() {
                 <div className="bg-background border border-border/30 rounded-2xl p-4">
                   <ResponsiveContainer width="100%" height={280}>
                     <ComposedChart data={revenue12m} margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                      <XAxis dataKey="month" tick={{ fontSize: 10, fill: "#9CA3AF" }} axisLine={false} tickLine={false} />
-                      <YAxis tick={{ fontSize: 10, fill: "#9CA3AF" }} axisLine={false} tickLine={false} tickFormatter={(v: number) => `${(v/1000).toFixed(0)}K`} />
+                      <CartesianGrid strokeDasharray="3 3" stroke="var(--dashboard-grid)" />
+                      <XAxis dataKey="month" tick={{ fontSize: 10, fill: "var(--dashboard-axis)" }} axisLine={false} tickLine={false} />
+                      <YAxis tick={{ fontSize: 10, fill: "var(--dashboard-axis)" }} axisLine={false} tickLine={false} tickFormatter={(v: number) => `${(v/1000).toFixed(0)}K`} />
                       <Tooltip content={<CustomTooltip />} />
                       <Bar dataKey="basico" stackId="a" fill={BLUE} name="Básico" radius={[0,0,0,0]} />
                       <Bar dataKey="profissional" stackId="a" fill={GREEN} name="Profissional" radius={[0,0,0,0]} />
@@ -663,7 +663,7 @@ export function DashboardSuperADMPage() {
              ═══════════════════════════════════════════════════════ */}
           {activeTab === "users" && (
             <>
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
                 <KPI label="Orgaos" value="47" trend={8} icon={Building2} sparkData={[30,33,35,38,40,42,44,47]} sparkColor={BLUE} />
                 <KPI label="Membros" value="312" trend={12} sub="Media: 6.6/orgao" icon={Users} sparkData={[220,240,260,270,280,290,300,312]} sparkColor={GREEN} />
                 <KPI label="Online agora" value="23" pulse icon={Activity} />
@@ -766,7 +766,7 @@ export function DashboardSuperADMPage() {
              ═══════════════════════════════════════════════════════ */}
           {activeTab === "tokens" && (
             <>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 <KPI label="Tokens (mes)" value="4.2M" trend={-3} icon={Cpu} sparkData={[4.5,4.6,4.4,4.3,4.5,4.4,4.3,4.2]} sparkColor={BLUE} />
                 <KPI label="Custo IA (mes)" value="R$ 2.840" trend={5} sparkData={[2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.84]} sparkColor={ORANGE} />
                 <KPI label="Custo/orgao" value="R$ 60,42" sparkData={[55,56,57,58,59,60,60,60.4]} sparkColor={BLUE} />
@@ -916,7 +916,7 @@ export function DashboardSuperADMPage() {
              ═══════════════════════════════════════════════════════ */}
           {activeTab === "support" && (
             <>
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
                 <KPI label="Cadastros pendentes" value="7" pulse icon={UserPlus} sub="Formulario site" />
                 <KPI label="Tickets abertos" value="12" sparkData={[18,15,14,12,13,11,12,12]} sparkColor={BLUE} />
                 <KPI label="Convites enviados" value="23" sub="Taxa acesso: 78%" />
@@ -1009,7 +1009,7 @@ export function DashboardSuperADMPage() {
              ═══════════════════════════════════════════════════════ */}
           {activeTab === "opportunities" && (
             <>
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
                 <KPI label="Municipios MG sem ATA360" value="806/853" sub="5.5% penetracao" sparkData={[847,845,842,838,830,820,812,806]} sparkColor={GREEN} />
                 <KPI label="Orgaos potenciais Brasil" value="30.000+" icon={Globe} />
                 <KPI label="Taxa conversao trial" value="62%" sub="Benchmark SaaS: 25%" sparkData={[45,48,50,52,55,58,60,62]} sparkColor={GREEN} />
@@ -1022,7 +1022,7 @@ export function DashboardSuperADMPage() {
                 <Section title="Pipeline conversao">
                   <div className="bg-background border border-border/30 rounded-2xl p-4 space-y-3">
                     {[
-                      { label: "Leads no site", value: 45, pct: 100, color: "#E5E7EB" },
+                      { label: "Leads no site", value: 45, pct: 100, color: "var(--dashboard-grid)" },
                       { label: "Formulario preenchido", value: 38, pct: 84, color: BLUE },
                       { label: "Trial ativo", value: 8, pct: 17.7, color: CYAN },
                       { label: "Pagante", value: 5, pct: 11.1, color: GREEN },
@@ -1049,7 +1049,7 @@ export function DashboardSuperADMPage() {
                       "Saúde: hospitais e UPAs convertem 2x mais rápido que prefeituras. Focar.",
                       "8 clientes Basico usam > 30 docs/mes — perfil Profissional. Upsell: +R$ 12.4K/mes",
                     ].map((insight, i) => (
-                      <div key={i} className="bg-background border border-border/30 rounded-2xl p-3 flex items-start gap-2.5">
+                      <div key={i} className="bg-background border border-border/30 rounded-2xl p-3 flex items-start gap-3">
                         <Target className="size-3.5 text-muted-foreground shrink-0 mt-0.5" />
                         <p className="text-[10px] text-foreground leading-relaxed">{insight}</p>
                       </div>
@@ -1065,7 +1065,7 @@ export function DashboardSuperADMPage() {
              ═══════════════════════════════════════════════════════ */}
           {activeTab === "resources" && (
             <>
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
                 <KPI label="Recursos mapeados" value="R$ 4.2B" sparkData={[2.8,3.0,3.2,3.4,3.6,3.8,4.0,4.2]} sparkColor={BLUE} />
                 <KPI label="Subutilizados" value="R$ 280M" sub="6.7% do total" icon={AlertTriangle} />
                 <KPI label="Emendas em aberto" value="1.247" sub="R$ 890M" />
@@ -1080,7 +1080,7 @@ export function DashboardSuperADMPage() {
                     "R$ 280M em recursos subutilizados. Se 10% dos clientes agir, economia de R$ 4.6M",
                     "34 convenios vencem em 90 dias. 12 sao de clientes ATA360 — alertas ja enviados.",
                   ].map((ins, i) => (
-                    <div key={i} className="bg-background border border-border/30 rounded-2xl p-3 flex items-start gap-2.5">
+                    <div key={i} className="bg-background border border-border/30 rounded-2xl p-3 flex items-start gap-3">
                       <Zap className="size-3.5 text-amber-500 shrink-0 mt-0.5" />
                       <p className="text-[10px] text-foreground leading-relaxed">{ins}</p>
                     </div>
@@ -1138,7 +1138,7 @@ export function DashboardSuperADMPage() {
               {/* Analytics section */}
               <div className="border-t border-border/30 pt-5 mt-2">
                 <p className="text-[11px] font-semibold text-foreground mb-4 uppercase tracking-wider">Analytics — ata360.com.br</p>
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                   <KPI label="Visitantes unicos (mes)" value="2.340" trend={18} sparkData={[1200,1400,1500,1700,1800,1900,2100,2340]} sparkColor={BLUE} />
                   <KPI label="Sessoes (mes)" value="4.120" trend={22} sparkData={[2000,2500,2800,3000,3200,3500,3800,4120]} sparkColor={BLUE} />
                   <KPI label="Bounce rate" value="34%" sub="Meta < 40%" sparkData={[45,42,40,38,37,36,35,34]} sparkColor={GREEN} />
@@ -1157,7 +1157,7 @@ export function DashboardSuperADMPage() {
              ═══════════════════════════════════════════════════════ */}
           {activeTab === "legal" && (
             <>
-              <div className="grid grid-cols-2 lg:grid-cols-5 gap-2.5">
+              <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
                 <KPI label="Normativos indexados" value="4.872" sparkData={[3500,3800,4000,4200,4400,4600,4750,4872]} sparkColor={BLUE} />
                 <KPI label="Jurisprudencia" value="12.340" sub="acordaos" icon={BookOpen} />
                 <KPI label="Sumulas ativas" value="248" icon={Shield} />
@@ -1211,7 +1211,7 @@ export function DashboardSuperADMPage() {
              ═══════════════════════════════════════════════════════ */}
           {activeTab === "agents" && (
             <>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 <KPI label="Agentes ativos" value="6 + 2 beta" icon={Bot} />
                 <KPI label="Interacoes (mes)" value="8.200" trend={18} sparkData={[5000,5500,6000,6500,7000,7500,7800,8200]} sparkColor={BLUE} />
                 <KPI label="Precisao media" value="97.8%" sparkData={[96,96.5,97,97,97.2,97.5,97.6,97.8]} sparkColor={GREEN} />
@@ -1270,7 +1270,7 @@ export function DashboardSuperADMPage() {
              ═══════════════════════════════════════════════════════ */}
           {activeTab === "reviews" && (
             <>
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
                 <KPI label="Satisfacao geral" value="4.6/5.0" sparkData={[4.0,4.1,4.2,4.3,4.4,4.5,4.5,4.6]} sparkColor={GREEN} />
                 <KPI label="NPS" value="72" sub="Excelente (meta > 50)" sparkData={[60,62,65,66,68,69,71,72]} sparkColor={GREEN} />
                 <KPI label="Respostas positivas" value="89%" sub="Meta > 85%" sparkData={[82,83,84,85,86,87,88,89]} sparkColor={GREEN} />
@@ -1344,7 +1344,7 @@ export function DashboardSuperADMPage() {
              ═══════════════════════════════════════════════════════ */}
           {activeTab === "models" && (
             <>
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
                 <KPI label="Modelos disponiveis" value="7" sub="3 ativos, 2 standby, 1 beta, 1 inativo" icon={Layers} />
                 <KPI label="Requests (hoje)" value="1.240" sparkData={[980,1050,1100,1120,1150,1180,1200,1240]} sparkColor={BLUE} pulse />
                 <KPI label="Custo IA (hoje)" value="R$ 94,20" sparkData={[85,88,90,91,92,93,93,94.2]} sparkColor={ORANGE} sub="Projecao mes: R$ 2.826" />
@@ -1398,7 +1398,7 @@ export function DashboardSuperADMPage() {
               <Section title="Arquitetura 3 camadas">
                 <div className="bg-background border border-border/30 rounded-2xl p-4 space-y-3">
                   {[
-                    { label: "Cache Semantico", desc: "Qdrant, TTL variavel. Se distance < 0.05, resposta imediata. Custo: R$ 0", pct: "23%", color: "#9CA3AF" },
+                    { label: "Cache Semantico", desc: "Qdrant, TTL variavel. Se distance < 0.05, resposta imediata. Custo: R$ 0", pct: "23%", color: "var(--dashboard-gray)" },
                     { label: "Camada 1: Triagem (Modelo A)", desc: "Classifica intent, extrai parametros, roteia. 80% das requests. < 200ms", pct: "61.6%", color: BLUE },
                     { label: "Camada 2: Síntese (Modelo B)", desc: "Sintetiza resultados, gera docs básicos, análise preços. 15%", pct: "11.6%", color: GREEN },
                     { label: "Camada 3: Expert (Modelo C)", desc: "Docs jurídicos complexos, detecção fraude, pareceres. 2-5%", pct: "3.8%", color: PURPLE },
@@ -1432,19 +1432,19 @@ export function DashboardSuperADMPage() {
                       <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
                           <Pie data={[
-                            { name: "Cache", value: 23, color: "#9CA3AF" },
+                            { name: "Cache", value: 23, color: "var(--dashboard-gray)" },
                             { name: "Camada 1", value: 61.6, color: BLUE },
                             { name: "Camada 2", value: 11.6, color: GREEN },
                             { name: "Camada 3", value: 3.8, color: PURPLE },
                           ]} cx="50%" cy="50%" innerRadius={30} outerRadius={50} dataKey="value" stroke="none">
-                            {[{ color: "#9CA3AF" }, { color: BLUE }, { color: GREEN }, { color: PURPLE }].map((e, i) => <Cell key={i} fill={e.color} />)}
+                            {[{ color: "var(--dashboard-gray)" }, { color: BLUE }, { color: GREEN }, { color: PURPLE }].map((e, i) => <Cell key={i} fill={e.color} />)}
                           </Pie>
                         </PieChart>
                       </ResponsiveContainer>
                     </div>
                     <div className="flex-1 space-y-2">
                       {[
-                        { label: "Cache", pct: "23%", cost: "R$ 0", color: "#9CA3AF" },
+                        { label: "Cache", pct: "23%", cost: "R$ 0", color: "var(--dashboard-gray)" },
                         { label: "Camada 1 (Modelo A)", pct: "61.6%", cost: "R$ 8/mes", color: BLUE },
                         { label: "Camada 2 (Modelo B)", pct: "11.6%", cost: "R$ 45/mes", color: GREEN },
                         { label: "Camada 3 (Modelo C)", pct: "3.8%", cost: "R$ 247/mes", color: PURPLE },

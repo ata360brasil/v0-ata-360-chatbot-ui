@@ -1,8 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
 import type { ArtifactData } from "@/components/artifacts-panel";
 import type { Notification } from "@/components/notifications-modal";
+import { initObservability, logger } from "@/lib/observability";
 
 // Initial notifications data
 const initialNotifications: Notification[] = [
@@ -66,7 +67,14 @@ const DEFAULT_ARTIFACTS_WIDTH = 480;
 const MIN_ARTIFACTS_WIDTH = 300;
 const MAX_ARTIFACTS_WIDTH = 800;
 
+type Theme = 'light' | 'dark';
+
 interface AppContextType {
+  // Theme
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+  toggleTheme: () => void;
+
   // Sidebar
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
@@ -106,6 +114,7 @@ export function useApp() {
 }
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setThemeState] = useState<Theme>('light');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [artifactsPanelOpen, setArtifactsPanelOpen] = useState(false);
   const [currentArtifact, setCurrentArtifact] = useState<ArtifactData | null>(null);
@@ -115,6 +124,34 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [artifactsWidth, setArtifactsWidth] = useState(DEFAULT_ARTIFACTS_WIDTH);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
+
+  // Theme: sync state with the class already applied by the inline script
+  useEffect(() => {
+    const isDark = document.documentElement.classList.contains('dark');
+    setThemeState(isDark ? 'dark' : 'light');
+  }, []);
+
+  const setTheme = useCallback((t: Theme) => {
+    setThemeState(t);
+    localStorage.setItem('theme', t);
+    document.documentElement.classList.toggle('dark', t === 'dark');
+    logger.info('Theme changed', { theme: t });
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    setThemeState((prev) => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', next);
+      document.documentElement.classList.toggle('dark', next === 'dark');
+      logger.info('Theme toggled', { theme: next });
+      return next;
+    });
+  }, []);
+
+  // Observability: initialize once on mount
+  useEffect(() => {
+    initObservability();
+  }, []);
 
   const toggleSidebar = useCallback(() => {
     setSidebarOpen((prev) => !prev);
@@ -148,6 +185,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   return (
     <AppContext.Provider
       value={{
+        theme,
+        setTheme,
+        toggleTheme,
         sidebarOpen,
         setSidebarOpen,
         toggleSidebar,
