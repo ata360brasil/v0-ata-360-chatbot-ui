@@ -82,10 +82,8 @@ export const metadata: Metadata = {
   classification: 'Government Technology',
   applicationName: 'ATA360',
   icons: {
-    icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
-    ],
-    apple: '/icon.svg',
+    icon: '/favicon.png',
+    apple: '/favicon.png',
   },
   other: {
     'geo.region': 'BR',
