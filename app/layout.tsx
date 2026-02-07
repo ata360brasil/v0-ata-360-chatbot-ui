@@ -1,35 +1,97 @@
 import React from "react"
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
+import { DM_Sans, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { OrganizationJsonLd, FAQJsonLd } from '@/components/structured-data'
 import './globals.css'
 
-const inter = Inter({ 
-  subsets: ["latin"],
+const dmSans = DM_Sans({
+  subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter'
-});
+  variable: '--font-sans',
+  weight: ['300', '400', '500', '600', '700'],
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-mono',
+})
+
+// Viewport separado de metadata (Next.js 14+ best practice — Guillermo Rauch / Vercel)
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f8fafc' },
+    { media: '(prefers-color-scheme: dark)', color: '#1a1f36' },
+  ],
+}
 
 export const metadata: Metadata = {
-  title: 'ATA360 - Assistente de Contratacoes Publicas',
-  description: 'Assistente inteligente para contratacoes publicas brasileiras',
-  generator: 'v0.app',
-  icons: {
-    icon: [
+  metadataBase: new URL('https://app.ata360.com.br'),
+  title: {
+    default: 'ATA360 — Plataforma Inteligente de Contratações Públicas',
+    template: '%s | ATA360',
+  },
+  description: 'Plataforma com IA especialista na Lei 14.133/2021 para gestão de contratações públicas, atas de registro de preços e processos licitatórios em municípios brasileiros.',
+  keywords: [
+    'contratações públicas', 'licitação', 'lei 14.133', 'ata de registro de preços',
+    'pregão eletrônico', 'PNCP', 'compras públicas', 'gestão municipal',
+    'termo de referência', 'estudo técnico preliminar', 'DFD', 'ETP',
+    'compliance licitação', 'GovTech Brasil'
+  ],
+  authors: [{ name: 'ATA360', url: 'https://ata360.com.br' }],
+  creator: 'ATA360',
+  publisher: 'ATA360',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'pt_BR',
+    url: 'https://app.ata360.com.br',
+    siteName: 'ATA360',
+    title: 'ATA360 — Plataforma Inteligente de Contratações Públicas',
+    description: 'IA sem alucinações, especialista na Lei 14.133/2021. Pesquisas e documentos em segundos.',
+    images: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'ATA360 - Plataforma de Contratações Públicas',
       },
     ],
-    apple: '/apple-icon.png',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ATA360 — Contratações Públicas com IA',
+    description: 'IA especialista na Lei 14.133/2021. Pesquisas e documentos em segundos.',
+    images: ['/og-image.png'],
+  },
+  alternates: {
+    canonical: 'https://app.ata360.com.br',
+    languages: {
+      'pt-BR': 'https://app.ata360.com.br',
+    },
+  },
+  category: 'technology',
+  classification: 'Government Technology',
+  applicationName: 'ATA360',
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/icon.svg',
+  },
+  other: {
+    'geo.region': 'BR',
+    'geo.placename': 'Brasil',
+    'geo.position': '-19.6285;-43.8953',
+    'ICBM': '-19.6285, -43.8953',
   },
 }
 
@@ -39,8 +101,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} font-sans antialiased`}>
+    <html lang="pt-BR" dir="ltr" suppressHydrationWarning>
+      <body className={`${dmSans.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+        <OrganizationJsonLd />
+        <FAQJsonLd />
         {children}
         <Analytics />
       </body>

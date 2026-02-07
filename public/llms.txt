@@ -1,0 +1,43 @@
+# ATA360 — Plataforma Inteligente de Contratações Públicas
+
+> ATA360 é uma plataforma GovTech brasileira que utiliza inteligência artificial especializada na Lei 14.133/2021 (Nova Lei de Licitações) para auxiliar municípios e órgãos públicos na gestão de contratações públicas.
+
+## Funcionalidades principais
+
+- **IA Especialista na Lei 14.133/2021**: Assistente inteligente treinado na Nova Lei de Licitações, NLLC, e regulamentações complementares (IN 65/2021, IN 73/2022, Decreto 11.462/2023).
+- **Geração de Documentos**: Criação automática de Termos de Referência (TR), Estudos Técnicos Preliminares (ETP), Documentos de Formalização de Demanda (DFD), e minutas de editais.
+- **Atas de Registro de Preços**: Rastreamento, gerenciamento e adesão a atas vigentes conforme Art. 82-86 da Lei 14.133/2021.
+- **Pesquisa de Preços**: Pesquisa automatizada conforme IN 65/2021 com fontes do PNCP, Banco de Preços e painel de preços do Governo Federal.
+- **Integração PNCP**: Conexão com o Portal Nacional de Contratações Públicas para publicação e consulta obrigatória.
+- **Compliance e Auditoria**: Verificação automática de conformidade com a Lei 14.133/2021, LGPD e normas de transparência pública.
+
+## Contexto Legal
+
+A Lei 14.133/2021 é a Nova Lei de Licitações e Contratos Administrativos do Brasil, que substituiu a Lei 8.666/1993. Ela estabelece normas gerais de licitação e contratação para as administrações públicas de todos os entes federativos. Principais mudanças incluem:
+- Fase de julgamento antes da habilitação
+- Diálogo competitivo como nova modalidade
+- Portal Nacional de Contratações Públicas (PNCP) obrigatório
+- Segregação de funções
+- Gestão de riscos obrigatória
+
+## Público-alvo
+
+- Pregoeiros e agentes de contratação de municípios brasileiros
+- Comissões de licitação
+- Controladores internos e externos
+- Secretários municipais de administração e finanças
+- Assessores jurídicos especializados em licitações
+
+## Conformidade LGPD
+
+A plataforma implementa privacy-by-design conforme a LGPD (Lei 13.709/2018):
+- Consentimento granular (Art. 7)
+- Anonimização de dados pessoais (Art. 18, IV)
+- Políticas de retenção (Art. 15-16)
+- Direitos do titular de dados (Art. 18)
+
+## Contato
+
+- Site: https://ata360.com.br
+- Plataforma: https://app.ata360.com.br
+- Localização: Lagoa Santa, MG, Brasil

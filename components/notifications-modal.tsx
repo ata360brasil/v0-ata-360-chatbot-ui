@@ -91,9 +91,7 @@ export function NotificationsModal({
     // Fecha o modal e abre o chat com o contexto da notificacao
     onOpenChange(false);
     
-    // Aqui seria a integracao com o chat LLM
-    // Por enquanto, apenas simula a acao
-    console.log(`[v0] Acao executada: ${notification.actionType} para ${notification.title}`);
+    // TODO: Integrar com o chat LLM
   };
 
   const handleMarkAsRead = (id: string) => {
@@ -137,7 +135,7 @@ export function NotificationsModal({
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent
-          className="max-w-lg w-[90vw] h-[70vh] p-0 bg-background border border-border/40 rounded-2xl overflow-hidden flex flex-col"
+          className="max-w-lg w-[90vw] h-[70vh] p-0 bg-background border border-border/50 rounded-2xl overflow-hidden flex flex-col"
           showCloseButton={false}
         >
           {/* Header */}
@@ -336,7 +334,7 @@ export function NotificationsModal({
 
       {/* Delete All Confirmation Dialog */}
       <AlertDialog open={deleteAllDialogOpen} onOpenChange={setDeleteAllDialogOpen}>
-        <AlertDialogContent className="!max-w-[320px] !w-[320px] p-5 rounded-xl border-border/40 shadow-lg">
+        <AlertDialogContent className="!max-w-[320px] !w-[320px] p-5 rounded-xl border-border/50 shadow-lg">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-base font-medium text-center">
               Excluir todas as notificacoes?
@@ -368,7 +366,7 @@ export function NotificationsModal({
         open={deleteItemDialog !== null}
         onOpenChange={(open) => !open && setDeleteItemDialog(null)}
       >
-        <AlertDialogContent className="!max-w-[320px] !w-[320px] p-5 rounded-xl border-border/40 shadow-lg">
+        <AlertDialogContent className="!max-w-[320px] !w-[320px] p-5 rounded-xl border-border/50 shadow-lg">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-base font-medium text-center">
               Excluir esta notificacao?

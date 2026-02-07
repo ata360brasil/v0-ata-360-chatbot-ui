@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 // Tipo para os dados do DFD
 export interface DFDData {
-  // Identificacao
+  // Identificação
   docNumero: string;
   processoNumero: string;
   versao: string;
@@ -99,10 +99,10 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
   const getNaturezaLabel = (natureza: string) => {
     const labels: Record<string, string> = {
       material: "Material",
-      servico: "Servico",
+      servico: "Serviço",
       engenharia: "Engenharia",
       tic: "TIC",
-      saude: "Saude",
+      saude: "Saúde",
     };
     return labels[natureza] || natureza;
   };
@@ -118,9 +118,9 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
 
   const getPrioridadeLabel = (prioridade: string) => {
     const labels: Record<string, string> = {
-      critico: "Critico",
+      critico: "Crítico",
       alto: "Alto",
-      medio: "Medio",
+      medio: "Médio",
       baixo: "Baixo",
     };
     return labels[prioridade] || prioridade;
@@ -128,7 +128,7 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
 
   return (
     <div className="bg-background text-foreground text-sm">
-      {/* Cabecalho */}
+      {/* Cabeçalho */}
       <div className="border-b-2 border-foreground pb-3 mb-4">
         <div className="flex justify-between items-start">
           <div>
@@ -137,19 +137,19 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
             <p className="text-xs text-muted-foreground">{data.departamento}</p>
           </div>
           <div className="text-right text-xs text-muted-foreground">
-            <img 
-              src="/images/brasao-lagoa-santa.png" 
-              alt="Brasao Prefeitura de Lagoa Santa" 
+            <img
+              src="/images/brasao-lagoa-santa.png"
+              alt="Brasão Prefeitura de Lagoa Santa"
               className="w-16 h-16 object-contain grayscale"
             />
           </div>
         </div>
       </div>
 
-      {/* Identificacao do Documento */}
+      {/* Identificação do Documento */}
       <div className="bg-foreground text-background p-3 rounded-md mb-4">
-        <h2 className="text-sm font-bold tracking-wide">DOCUMENTO DE FORMALIZACAO DA DEMANDA</h2>
-        <p className="text-xs opacity-80 italic">Fase preparatoria da contratacao publica</p>
+        <h2 className="text-sm font-bold tracking-wide">DOCUMENTO DE FORMALIZAÇÃO DA DEMANDA</h2>
+        <p className="text-xs opacity-80 italic">Fase preparatória da contratação pública</p>
         <div className="grid grid-cols-4 gap-2 mt-3 pt-2 border-t border-background/20">
           <div className="text-center">
             <p className="text-[10px] uppercase opacity-70">N Documento</p>
@@ -160,7 +160,7 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
             <p className="text-xs font-bold">{data.processoNumero}</p>
           </div>
           <div className="text-center">
-            <p className="text-[10px] uppercase opacity-70">Versao</p>
+            <p className="text-[10px] uppercase opacity-70">Versão</p>
             <p className="text-xs font-bold">{data.versao}</p>
           </div>
           <div className="text-center">
@@ -170,22 +170,22 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
         </div>
       </div>
 
-      {/* Fundamentacao Legal */}
+      {/* Fundamentação Legal */}
       <div className="bg-muted border-l-4 border-foreground p-3 mb-4 text-xs">
-        <p className="font-bold text-foreground uppercase text-[10px] mb-2">Fundamentacao Legal</p>
+        <p className="font-bold text-foreground uppercase text-[10px] mb-2">Fundamentação Legal</p>
         <p className="text-muted-foreground">
-          <strong>Lei 14.133/2021:</strong> Art. 5 (Principios) | Art. 11 (Objetivos) | Art. 18, I (Fase Preparatoria) | Art. 72 (Contratacao)
+          <strong>Lei 14.133/2021:</strong> Art. 5º (Princípios) | Art. 11 (Objetivos) | Art. 18, I (Fase Preparatória) | Art. 72 (Contratação)
         </p>
         <p className="text-muted-foreground">
-          <strong>Decreto 10.947/2022:</strong> Art. 7 (DFD obrigatorio para contratacoes)
+          <strong>Decreto 10.947/2022:</strong> Art. 7º (DFD obrigatório para contratações)
         </p>
         <p className="text-muted-foreground">
-          <strong>IN SEGES/ME 58/2022:</strong> Art. 5 (Conteudo do DFD)
+          <strong>IN SEGES/ME 58/2022:</strong> Art. 5º (Conteúdo do DFD)
         </p>
       </div>
 
-      {/* Secao 1 - Identificacao da Demanda */}
-      <Section numero={1} titulo="IDENTIFICACAO DA DEMANDA" fundamento="Art. 7, I a III, Decreto 10.947/2022">
+      {/* Seção 1 - Identificação da Demanda */}
+      <Section numero={1} titulo="IDENTIFICAÇÃO DA DEMANDA" fundamento="Art. 7º, I a III, Decreto 10.947/2022">
         <div className="grid grid-cols-2 gap-3">
           <Campo 
             label="Unidade Requisitante" 
@@ -194,19 +194,19 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
             onEdit={(v) => handleFieldChange("unidadeRequisitante", v)}
           />
           <Campo 
-            label="Responsavel pela Demanda" 
+            label="Responsável pela Demanda" 
             valor={data.responsavelNome} 
             isEditing={isEditing}
             onEdit={(v) => handleFieldChange("responsavelNome", v)}
           />
           <Campo 
-            label="Cargo/Funcao" 
+            label="Cargo/Função" 
             valor={data.responsavelCargo} 
             isEditing={isEditing}
             onEdit={(v) => handleFieldChange("responsavelCargo", v)}
           />
           <Campo 
-            label="Matricula" 
+            label="Matrícula" 
             valor={data.responsavelMatricula} 
             isEditing={isEditing}
             onEdit={(v) => handleFieldChange("responsavelMatricula", v)}
@@ -221,10 +221,10 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
         </div>
       </Section>
 
-      {/* Secao 2 - Objeto da Contratacao */}
-      <Section numero={2} titulo="OBJETO DA CONTRATACAO" fundamento="Art. 6, XXIII, Lei 14.133/2021">
-        <Campo 
-          label="Descricao do Objeto" 
+      {/* Seção 2 - Objeto da Contratação */}
+      <Section numero={2} titulo="OBJETO DA CONTRATAÇÃO" fundamento="Art. 6º, XXIII, Lei 14.133/2021">
+        <Campo
+          label="Descrição do Objeto" 
           valor={data.objetoDescricao}
           isEditing={isEditing}
           onEdit={(v) => handleFieldChange("objetoDescricao", v)}
@@ -270,10 +270,10 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
         </div>
       </Section>
 
-      {/* Secao 3 - Justificativa da Necessidade */}
+      {/* Seção 3 - Justificativa da Necessidade */}
       <Section numero={3} titulo="JUSTIFICATIVA DA NECESSIDADE" fundamento="Art. 18, I, Lei 14.133/2021">
         <div className="bg-muted/50 border-l-2 border-muted-foreground p-2 mb-3 text-[10px] text-muted-foreground italic">
-          <strong>Nota TCU - Acordao 2.622/2015-P:</strong> A justificativa deve demonstrar a real necessidade, separando claramente o problema (necessidade) da solucao proposta (objeto).
+          <strong>Nota TCU - Acórdão 2.622/2015-P:</strong> A justificativa deve demonstrar a real necessidade, separando claramente o problema (necessidade) da solução proposta (objeto).
         </div>
         <Campo 
           label="Necessidade (o problema a ser resolvido)" 
@@ -283,7 +283,7 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
           multiline
         />
         <Campo 
-          label="Interesse Publico (por que resolver)" 
+          label="Interesse Público (por que resolver)" 
           valor={data.interessePublico} 
           className="mt-3"
           isEditing={isEditing}
@@ -291,7 +291,7 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
           multiline
         />
         <Campo 
-          label="Consequencias da Nao Contratacao" 
+          label="Consequências da Não Contratação" 
           valor={data.consequenciasNaoContratacao} 
           className="mt-3"
           isEditing={isEditing}
@@ -300,14 +300,14 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
         />
       </Section>
 
-      {/* Secao 4 - Quantitativos e Estimativa de Valor */}
+      {/* Seção 4 - Quantitativos e Estimativa de Valor */}
       <Section numero={4} titulo="QUANTITATIVOS E ESTIMATIVA DE VALOR" fundamento="Art. 18, II e III, Lei 14.133/2021">
         <div className="overflow-x-auto">
           <table className="w-full text-[10px] border-collapse">
             <thead>
               <tr className="bg-foreground text-background">
                 <th className="p-2 text-left">ITEM</th>
-                <th className="p-2 text-left">DESCRICAO</th>
+                <th className="p-2 text-left">DESCRIÇÃO</th>
                 <th className="p-2 text-center">CATMAT</th>
                 <th className="p-2 text-center">UND</th>
                 <th className="p-2 text-center">QTDE</th>
@@ -342,7 +342,7 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
             onEdit={(v) => handleFieldChange("fonteEstimativa", v)}
           />
           <Campo 
-            label="Metodologia de Calculo" 
+            label="Metodologia de Cálculo" 
             valor={data.metodologiaCalculo}
             isEditing={isEditing}
             onEdit={(v) => handleFieldChange("metodologiaCalculo", v)}
@@ -350,8 +350,8 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
         </div>
       </Section>
 
-      {/* Secao 5 - Prazo e Vinculacao ao Planejamento */}
-      <Section numero={5} titulo="PRAZO E VINCULACAO AO PLANEJAMENTO" fundamento="Art. 18, VII, Lei 14.133/2021">
+      {/* Seção 5 - Prazo e Vinculação ao Planejamento */}
+      <Section numero={5} titulo="PRAZO E VINCULAÇÃO AO PLANEJAMENTO" fundamento="Art. 18, VII, Lei 14.133/2021">
         <div className="grid grid-cols-2 gap-3">
           <div>
             <p className="text-[10px] font-bold text-muted-foreground mb-1">Prazo Desejado</p>
@@ -390,7 +390,7 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
             </div>
           </div>
           <Campo 
-            label="Vinculacao ao PCA" 
+            label="Vinculação ao PCA" 
             valor={data.vinculacaoPCA}
             isEditing={isEditing}
             onEdit={(v) => handleFieldChange("vinculacaoPCA", v)}
@@ -417,28 +417,28 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
           Checklist de Conformidade do DFD
         </p>
         <div className="space-y-1.5 text-[10px]">
-          <ChecklistItem ok text="Unidade requisitante e responsavel identificados (Art. 7, I, Dec. 10.947/2022)" />
-          <ChecklistItem ok text="Objeto descrito de forma clara e objetiva (Art. 6, XXIII, Lei 14.133/2021)" />
+          <ChecklistItem ok text="Unidade requisitante e responsável identificados (Art. 7º, I, Dec. 10.947/2022)" />
+          <ChecklistItem ok text="Objeto descrito de forma clara e objetiva (Art. 6º, XXIII, Lei 14.133/2021)" />
           <ChecklistItem ok text="Justificativa da necessidade fundamentada (Art. 18, I, Lei 14.133/2021)" />
           <ChecklistItem ok text="Quantitativos estimados com metodologia (Art. 18, II, Lei 14.133/2021)" />
           <ChecklistItem ok text="Valor estimado com base em pesquisa (Art. 18, III, Lei 14.133/2021)" />
-          <ChecklistItem ok text="Vinculacao ao PCA verificada (Art. 18, VII, Lei 14.133/2021)" />
-          <ChecklistItem ok text="Dotacao orcamentaria indicada (Art. 72, VI, Lei 14.133/2021)" />
+          <ChecklistItem ok text="Vinculação ao PCA verificada (Art. 18, VII, Lei 14.133/2021)" />
+          <ChecklistItem ok text="Dotação orçamentária indicada (Art. 72, VI, Lei 14.133/2021)" />
           <ChecklistItem pendente text="Aguardando assinatura digital ICP-Brasil" />
         </div>
       </div>
 
-      {/* Declaracoes */}
+      {/* Declarações */}
       <div className="bg-muted border border-border p-3 mb-4 text-[10px]">
-        <p className="font-bold text-foreground mb-2">Declaracoes e Termo de Aceite</p>
-        <p className="text-muted-foreground mb-2">O(s) signatario(s), na qualidade de agente(s) publico(s), DECLARA(M) que:</p>
+        <p className="font-bold text-foreground mb-2">Declarações e Termo de Aceite</p>
+        <p className="text-muted-foreground mb-2">O(s) signatário(s), na qualidade de agente(s) público(s), DECLARA(M) que:</p>
         <div className="space-y-1 text-muted-foreground">
-          <p><strong>I.</strong> As informacoes prestadas sao verdadeiras e refletem a real necessidade da Administracao;</p>
-          <p><strong>II.</strong> Este documento foi elaborado em observancia aos principios da legalidade, impessoalidade, moralidade e eficiencia;</p>
-          <p><strong>III.</strong> Nao possuo conflito de interesses nem vinculo com potenciais fornecedores;</p>
-          <p><strong>IV.</strong> Tenho ciencia dos deveres funcionais e das responsabilidades inerentes a minha atuacao;</p>
-          <p><strong>V.</strong> Este documento foi elaborado com auxilio de ferramenta tecnologica, cabendo ao signatario a validacao do conteudo;</p>
-          <p><strong>VI.</strong> Aceito as condicoes declaradas e autorizo o prosseguimento do processo.</p>
+          <p><strong>I.</strong> As informações prestadas são verdadeiras e refletem a real necessidade da Administração;</p>
+          <p><strong>II.</strong> Este documento foi elaborado em observância aos princípios da legalidade, impessoalidade, moralidade e eficiência;</p>
+          <p><strong>III.</strong> Não possuo conflito de interesses nem vínculo com potenciais fornecedores;</p>
+          <p><strong>IV.</strong> Tenho ciência dos deveres funcionais e das responsabilidades inerentes à minha atuação;</p>
+          <p><strong>V.</strong> Este documento foi elaborado com auxílio de ferramenta tecnológica, cabendo ao signatário a validação do conteúdo;</p>
+          <p><strong>VI.</strong> Aceito as condições declaradas e autorizo o prosseguimento do processo.</p>
         </div>
         <p className="text-muted-foreground/70 mt-2 italic">Base legal: CF/88, Art. 37 | Lei 14.133/2021 | Dec. 10.947/2022 | Lei 12.813/2013</p>
       </div>
@@ -446,7 +446,7 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
       {/* Assinaturas */}
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="border border-border p-3 text-center">
-          <p className="text-[10px] font-bold text-foreground uppercase mb-6">ELABORACAO</p>
+          <p className="text-[10px] font-bold text-foreground uppercase mb-6">ELABORAÇÃO</p>
           <div className="border-t border-foreground pt-2 mx-4">
             <p className="text-xs">{data.elaboracaoNome}</p>
             <p className="text-[10px] text-muted-foreground">{data.elaboracaoCargo} | Mat. {data.elaboracaoMatricula}</p>
@@ -454,7 +454,7 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
           </div>
         </div>
         <div className="border border-border p-3 text-center">
-          <p className="text-[10px] font-bold text-foreground uppercase mb-6">VALIDACAO / AUTORIDADE</p>
+          <p className="text-[10px] font-bold text-foreground uppercase mb-6">VALIDAÇÃO / AUTORIDADE</p>
           <div className="border-t border-foreground pt-2 mx-4">
             <p className="text-xs">{data.validacaoNome}</p>
             <p className="text-[10px] text-muted-foreground">{data.validacaoCargo} | Mat. {data.validacaoMatricula}</p>
@@ -463,16 +463,16 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
         </div>
       </div>
 
-      {/* Controle de Versoes */}
+      {/* Controle de Versões */}
       <div className="text-[9px] text-muted-foreground border-t border-border pt-2 mb-4">
-        <p className="font-bold text-foreground mb-1">Controle de Versoes</p>
+        <p className="font-bold text-foreground mb-1">Controle de Versões</p>
         <table className="w-full">
           <thead>
             <tr className="text-left">
-              <th className="pr-2">Versao</th>
+              <th className="pr-2">Versão</th>
               <th className="pr-2">Data</th>
               <th className="pr-2">Autor</th>
-              <th>Modificacoes</th>
+              <th>Modificações</th>
             </tr>
           </thead>
           <tbody>
@@ -480,16 +480,16 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
               <td>{data.versao}</td>
               <td>{data.data}</td>
               <td>{data.elaboracaoNome}</td>
-              <td>Versao inicial do documento</td>
+              <td>Versão inicial do documento</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      {/* Trilha da Contratacao */}
+      {/* Trilha da Contratação */}
       <div className="bg-foreground text-background p-3 rounded-md mb-4">
         <p className="text-[10px] font-bold text-center uppercase tracking-wider mb-3">
-          TRILHA DA CONTRATACAO PUBLICA
+          TRILHA DA CONTRATAÇÃO PÚBLICA
         </p>
         <div className="flex justify-between items-center text-[8px]">
           <TrilhaEtapa codigo="PCA" concluida />
@@ -508,7 +508,7 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
       {/* Selo ATA360 */}
       <div className="text-center pt-3 border-t border-border">
         <p className="text-[9px] text-muted-foreground">
-          2026 Powered by <strong>ATA360</strong> - Sistema de Inteligencia em Contratacoes Publicas
+          2026 Powered by <strong>ATA360</strong> - Sistema de Inteligência em Contratações Públicas
         </p>
       </div>
     </div>
