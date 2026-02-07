@@ -63,7 +63,7 @@ function MainShell({ children }: { children: React.ReactNode }) {
         </a>
 
         {/* Header */}
-        <header className="h-14 border-b border-border/30 flex items-center justify-between px-4 shrink-0" role="banner">
+        <header className="h-14 border-b border-border/40 flex items-center justify-between px-4 shrink-0" role="banner">
           {/* Left side */}
           <nav className="flex items-center gap-2" aria-label="Ações principais">
             {/* Menu Toggle */}

@@ -67,7 +67,7 @@ export function PageHeader({
   children,
 }: PageHeaderProps) {
   return (
-    <div className="border-b border-border/30 p-4">
+    <div className="border-b border-border/40 p-4">
       {/* Header Row */}
       <div className="flex items-center justify-between mb-3">
         <h1 className="text-xl font-bold text-foreground flex items-center gap-2">

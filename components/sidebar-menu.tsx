@@ -133,14 +133,14 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
     <TooltipProvider>
       <div
         className={cn(
-          "h-full bg-background border-r border-border/30 transition-panel flex flex-col",
+          "h-full bg-background border-r border-border/40 transition-panel flex flex-col",
           isOpen ? "w-72 sm:w-80" : "w-0 overflow-hidden"
         )}
       >
         {isOpen && (
           <>
             {/* Menu Header - Dashboard */}
-            <div className="p-3 border-b border-border/30">
+            <div className="p-3 border-b border-border/40">
               <Button
                 variant="ghost"
                 onClick={() => onMenuItemClick?.("dashboard")}
@@ -194,7 +194,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
             </ScrollArea>
 
             {/* Footer - User Profile */}
-            <div className="p-3 border-t border-border/30">
+            <div className="p-3 border-t border-border/40">
               {/* User Info */}
               <div className="flex items-center gap-3 p-2 rounded-full hover:bg-foreground cursor-pointer transition-colors group">
                 <Avatar className="size-10 shrink-0">
@@ -261,7 +261,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
             className="absolute inset-0 bg-black/40"
             onClick={() => !showThankYou && setLogoutModal(false)}
           />
-          <div className="relative bg-background border border-border/40 rounded-2xl w-[90vw] max-w-sm shadow-lg">
+          <div className="relative bg-background border border-border/50 rounded-2xl w-[90vw] max-w-sm shadow-lg">
             {showThankYou ? (
               /* Thank you screen */
               <div className="px-6 py-10 text-center">

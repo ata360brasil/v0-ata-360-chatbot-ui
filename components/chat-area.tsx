@@ -338,9 +338,9 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                         height={73}
                         className="mx-auto relative z-10"
                       />
-                      {/* Gradient overlay animation */}
-                      <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/70 to-transparent animate-logo-shine" />
+                      {/* Gradient overlay animation — adapts to theme */}
+                      <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden rounded-lg">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 dark:via-white/20 to-transparent animate-logo-shine" />
                       </div>
                     </div>
                   </div>
@@ -576,7 +576,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
 
         {/* Chat Input - Fixed at bottom when chat started */}
         {hasStartedChat && (
-          <div className="shrink-0 border-t border-border/30 bg-background px-4 py-4">
+          <div className="shrink-0 border-t border-border/40 bg-background px-4 py-4">
             <div className="max-w-3xl mx-auto">
               <ChatInput
                 value={inputValue}

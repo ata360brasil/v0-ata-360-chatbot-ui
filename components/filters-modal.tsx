@@ -411,7 +411,7 @@ export function FiltersModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="max-w-3xl w-[90vw] h-[75vh] p-0 bg-background border border-border/40 rounded-2xl overflow-hidden flex flex-col"
+        className="max-w-3xl w-[90vw] h-[75vh] p-0 bg-background border border-border/50 rounded-2xl overflow-hidden flex flex-col"
         showCloseButton={false}
       >
         {/* Header */}

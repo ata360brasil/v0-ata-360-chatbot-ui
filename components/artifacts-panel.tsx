@@ -76,7 +76,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
       
       <div
         className={cn(
-          "bg-background transition-all duration-300 ease-in-out flex flex-col shrink-0 border-l border-border/30",
+          "bg-background transition-all duration-300 ease-in-out flex flex-col shrink-0 border-l border-border/40",
           // Mobile: fixed overlay
           "fixed inset-y-0 right-0 z-50 md:relative md:z-auto",
           isOpen 

@@ -95,7 +95,7 @@ function ContactModal({
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative bg-background border border-border/40 rounded-2xl w-[90vw] max-w-md shadow-lg">
+      <div className="relative bg-background border border-border/50 rounded-2xl w-[90vw] max-w-md shadow-lg">
         {sent ? (
           <div className="px-6 py-10 text-center">
             <CheckCircle2 className="size-8 text-foreground mx-auto mb-3" />
@@ -281,7 +281,7 @@ function SupportModal({
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative bg-background border border-border/40 rounded-2xl w-[90vw] max-w-lg shadow-lg max-h-[80vh] flex flex-col">
+      <div className="relative bg-background border border-border/50 rounded-2xl w-[90vw] max-w-lg shadow-lg max-h-[80vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-border/30 shrink-0">
           <div className="flex items-center gap-2">
@@ -626,7 +626,7 @@ function OmbudsmanModal({
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative bg-background border border-border/40 rounded-2xl w-[90vw] max-w-lg shadow-lg max-h-[85vh] flex flex-col">
+      <div className="relative bg-background border border-border/50 rounded-2xl w-[90vw] max-w-lg shadow-lg max-h-[85vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-border/30 shrink-0">
           <div className="flex items-center gap-2">
@@ -1844,7 +1844,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
           className="absolute inset-0 bg-black/40"
           onClick={() => onOpenChange(false)}
         />
-        <div className="relative bg-background border border-border/40 rounded-2xl w-[90vw] max-w-2xl shadow-lg max-h-[85vh] flex flex-col overflow-hidden">
+        <div className="relative bg-background border border-border/50 rounded-2xl w-[90vw] max-w-2xl shadow-lg max-h-[85vh] flex flex-col overflow-hidden">
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-border/30 shrink-0">
             <div className="flex items-center gap-2">
