@@ -330,16 +330,27 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                 <div className="max-w-2xl w-full text-center">
                   {/* Logo with shine gradient overlay */}
                   <div className="mb-6 animate-hero-scale-in">
-                    <div className="logo-shine-container mx-auto w-[220px] h-[73px]">
+                    <div
+                      className="relative mx-auto"
+                      style={{ width: 220, height: 73 }}
+                    >
                       <img
                         src="/images/ata360-logo.png"
                         alt="ATA360"
                         width={220}
-                        height={75}
-                        className="mx-auto relative z-10 block object-contain"
+                        height={73}
+                        className="relative z-10 block object-contain"
                       />
                       {/* Gradient overlay that sweeps across the logo */}
-                      <div className="logo-shine-overlay" />
+                      <div
+                        className="absolute inset-0 z-20 pointer-events-none overflow-hidden"
+                        style={{
+                          backgroundImage:
+                            "linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%)",
+                          backgroundSize: "200% 100%",
+                          animation: "logo-shine 5s infinite",
+                        }}
+                      />
                     </div>
                   </div>
 
