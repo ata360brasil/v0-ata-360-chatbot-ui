@@ -61,26 +61,26 @@ const revenue12m = [
 
 const revenueComposition = [
   { name: "Trial", value: 0, count: 8, pct: 17, color: "#9CA3AF" },
-  { name: "Basico", value: 10680, count: 12, pct: 38, color: BLUE },
+  { name: "Básico", value: 10680, count: 12, pct: 38, color: BLUE },
   { name: "Profissional", value: 40800, count: 17, pct: 34, color: GREEN },
   { name: "Enterprise", value: 11800, count: 2, pct: 11, color: PURPLE },
 ];
 
 const orgData = [
   { orgao: "Prefeitura Lagoa Santa", plano: "Profissional", status: "green", membros: "6/8", score: 92, acesso: "Hoje", docs: 45, pesq: 312, pgto: "Em dia" },
-  { orgao: "Camara Sete Lagoas", plano: "Basico", status: "green", membros: "3/3", score: 78, acesso: "Ontem", docs: 12, pesq: 89, pgto: "Em dia" },
-  { orgao: "Hospital Contagem", plano: "Trial", status: "green", membros: "4/5", score: 85, acesso: "Ha 2d", docs: 28, pesq: 156, pgto: "Trial" },
-  { orgao: "Pref. Pedro Leopoldo", plano: "Basico", status: "yellow", membros: "1/4", score: 22, acesso: "Ha 35d", docs: 0, pesq: 3, pgto: "Pendente" },
+  { orgao: "Câmara Sete Lagoas", plano: "Básico", status: "green", membros: "3/3", score: 78, acesso: "Ontem", docs: 12, pesq: 89, pgto: "Em dia" },
+  { orgao: "Hospital Contagem", plano: "Trial", status: "green", membros: "4/5", score: 85, acesso: "Há 2d", docs: 28, pesq: 156, pgto: "Trial" },
+  { orgao: "Pref. Pedro Leopoldo", plano: "Básico", status: "yellow", membros: "1/4", score: 22, acesso: "Há 35d", docs: 0, pesq: 3, pgto: "Pendente" },
   { orgao: "3o Bat. Bombeiros", plano: "Trial", status: "green", membros: "2/2", score: 71, acesso: "Hoje", docs: 8, pesq: 34, pgto: "Trial" },
   { orgao: "MP Estadual MG", plano: "Enterprise", status: "green", membros: "10/12", score: 97, acesso: "Hoje", docs: 89, pesq: 567, pgto: "Em dia" },
-  { orgao: "Consorcio Saude BH", plano: "Profissional", status: "green", membros: "5/6", score: 88, acesso: "Ha 3d", docs: 34, pesq: 198, pgto: "Em dia" },
-  { orgao: "CRAS Vespasiano", plano: "Basico", status: "paused", membros: "0/2", score: 8, acesso: "Ha 45d", docs: 0, pesq: 0, pgto: "Atrasado" },
+  { orgao: "Consórcio Saúde BH", plano: "Profissional", status: "green", membros: "5/6", score: 88, acesso: "Há 3d", docs: 34, pesq: 198, pgto: "Em dia" },
+  { orgao: "CRAS Vespasiano", plano: "Básico", status: "paused", membros: "0/2", score: 8, acesso: "Há 45d", docs: 0, pesq: 0, pgto: "Atrasado" },
   { orgao: "Sec. Educ. Contagem", plano: "Profissional", status: "green", membros: "7/8", score: 91, acesso: "Hoje", docs: 52, pesq: 340, pgto: "Em dia" },
-  { orgao: "Camara Ouro Preto", plano: "Trial", status: "green", membros: "2/3", score: 65, acesso: "Ha 5d", docs: 6, pesq: 28, pgto: "Trial" },
+  { orgao: "Câmara Ouro Preto", plano: "Trial", status: "green", membros: "2/3", score: 65, acesso: "Há 5d", docs: 6, pesq: 28, pgto: "Trial" },
   { orgao: "Prefeitura Betim", plano: "Trial", status: "green", membros: "3/4", score: 73, acesso: "Ontem", docs: 15, pesq: 78, pgto: "Trial" },
-  { orgao: "SAMU Sete Lagoas", plano: "Basico", status: "green", membros: "2/2", score: 69, acesso: "Ha 4d", docs: 9, pesq: 45, pgto: "Em dia" },
-  { orgao: "IF Sudeste MG", plano: "Profissional", status: "green", membros: "5/6", score: 82, acesso: "Ha 1d", docs: 31, pesq: 210, pgto: "Em dia" },
-  { orgao: "Prefeitura Mariana", plano: "Basico", status: "yellow", membros: "1/3", score: 34, acesso: "Ha 22d", docs: 2, pesq: 11, pgto: "Pendente" },
+  { orgao: "SAMU Sete Lagoas", plano: "Básico", status: "green", membros: "2/2", score: 69, acesso: "Há 4d", docs: 9, pesq: 45, pgto: "Em dia" },
+  { orgao: "IF Sudeste MG", plano: "Profissional", status: "green", membros: "5/6", score: 82, acesso: "Há 1d", docs: 31, pesq: 210, pgto: "Em dia" },
+  { orgao: "Prefeitura Mariana", plano: "Básico", status: "yellow", membros: "1/3", score: 34, acesso: "Há 22d", docs: 2, pesq: 11, pgto: "Pendente" },
   { orgao: "Corpo Bombeiros BH", plano: "Trial", status: "green", membros: "3/4", score: 76, acesso: "Hoje", docs: 11, pesq: 56, pgto: "Trial" },
 ];
 
@@ -99,7 +99,7 @@ interface ApiGroup {
 
 const apiGroups: ApiGroup[] = [
   { name: "PNCP", apis: [
-    { name: "Contratacoes", status: "green", lat: "145ms", up: "99.9%" },
+    { name: "Contratações", status: "green", lat: "145ms", up: "99.9%" },
     { name: "ATAs", status: "green", lat: "180ms", up: "99.8%" },
     { name: "Contratos", status: "green", lat: "160ms", up: "99.7%" },
     { name: "PCA", status: "green", lat: "200ms", up: "99.5%" },
@@ -111,12 +111,12 @@ const apiGroups: ApiGroup[] = [
     { name: "CATMAT", status: "green", lat: "120ms", up: "99.9%" },
     { name: "CATSER", status: "green", lat: "125ms", up: "99.9%" },
   ]},
-  { name: "CGU / Transparencia", apis: [
+  { name: "CGU / Transparência", apis: [
     { name: "CEIS", status: "green", lat: "95ms", up: "99.9%" },
     { name: "CNEP", status: "green", lat: "98ms", up: "99.9%" },
     { name: "CEPIM", status: "green", lat: "102ms", up: "99.8%" },
     { name: "Contratos", status: "green", lat: "210ms", up: "99.5%" },
-    { name: "Licitacoes", status: "green", lat: "195ms", up: "99.6%" },
+    { name: "Licitações", status: "green", lat: "195ms", up: "99.6%" },
   ]},
   { name: "SERPRO", apis: [
     { name: "CNPJ", status: "green", lat: "180ms", up: "99.8%", cost: "R$ 0,04" },
@@ -126,12 +126,12 @@ const apiGroups: ApiGroup[] = [
     { name: "CND", status: "green", lat: "220ms", up: "99.4%" },
   ]},
   { name: "TransfereGov", apis: [
-    { name: "Transferencias especiais", status: "red", lat: "timeout", up: "94.1%" },
-    { name: "Convenios", status: "yellow", lat: "1.8s", up: "96.5%" },
+    { name: "Transferências especiais", status: "red", lat: "timeout", up: "94.1%" },
+    { name: "Convênios", status: "yellow", lat: "1.8s", up: "96.5%" },
     { name: "Programas", status: "green", lat: "320ms", up: "98.8%" },
   ]},
   { name: "IBGE / BrasilAPI", apis: [
-    { name: "Municipios IBGE", status: "green", lat: "95ms", up: "99.9%" },
+    { name: "Municípios IBGE", status: "green", lat: "95ms", up: "99.9%" },
     { name: "CNPJ Receita", status: "green", lat: "180ms", up: "99.5%" },
     { name: "ViaCEP", status: "green", lat: "60ms", up: "99.9%" },
   ]},
@@ -161,10 +161,10 @@ const agentsData = [
 const timelineEvents = [
   { time: "14:32", color: RED, cat: "API", title: "TransfereGov timeout", desc: "3 falhas em 10 min" },
   { time: "14:00", color: GREEN, cat: "Sync", title: "CATMAT sincronizado", desc: "12.400 registros" },
-  { time: "13:45", color: ORANGE, cat: "Usuario", title: "Pref. Itajuba - 32d sem uso", desc: "Risco de churn" },
+  { time: "13:45", color: ORANGE, cat: "Usuario", title: "Pref. Itajubá - 32d sem uso", desc: "Risco de churn" },
   { time: "11:30", color: GREEN, cat: "Infra", title: "Backup ClickHouse OK", desc: "2.4TB" },
-  { time: "10:15", color: GREEN, cat: "Cadastro", title: "Novo: Camara Sabara", desc: "Pendente aprovacao" },
-  { time: "09:00", color: GREEN, cat: "Sistema", title: "23 membros na 1a hora", desc: "+12% acima da media" },
+  { time: "10:15", color: GREEN, cat: "Cadastro", title: "Novo: Câmara Sabará", desc: "Pendente aprovação" },
+  { time: "09:00", color: GREEN, cat: "Sistema", title: "23 membros na 1a hora", desc: "+12% acima da média" },
 ];
 
 const priorities = [
@@ -271,7 +271,7 @@ function PlanBadge({ plan }: { plan: string }) {
     <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full",
       plan === "Enterprise" ? "bg-purple-100 text-purple-700" :
       plan === "Profissional" ? "bg-green-50 text-green-700" :
-      plan === "Basico" ? "bg-blue-50 text-blue-700" :
+      plan === "Básico" ? "bg-blue-50 text-blue-700" :
       "bg-muted text-muted-foreground"
     )}>{plan}</span>
   );
@@ -324,12 +324,12 @@ export function DashboardSuperADMPage() {
   }, []);
 
   const tabs: { id: Tab; label: string }[] = [
-    { id: "overview", label: "Visao Geral" },
+    { id: "overview", label: "Visão Geral" },
     { id: "revenue", label: "Receitas / Metas" },
-    { id: "users", label: "Usuarios" },
+    { id: "users", label: "Usuários" },
     { id: "database", label: "Banco de Dados" },
     { id: "tokens", label: "Consumo Tokens" },
-    { id: "integrations", label: "Integracoes" },
+    { id: "integrations", label: "Integrações" },
     { id: "rankings", label: "Rankings" },
     { id: "support", label: "Suporte" },
     { id: "priorities", label: "Prioridades" },
@@ -338,7 +338,7 @@ export function DashboardSuperADMPage() {
     { id: "alerts", label: "Alertas / Analytics" },
     { id: "legal", label: "Biblioteca Legal" },
     { id: "agents", label: "Agentes Master" },
-    { id: "reviews", label: "Avaliacoes" },
+    { id: "reviews", label: "Avaliações" },
     { id: "models", label: "Modelos IA" },
   ];
 
@@ -412,7 +412,7 @@ export function DashboardSuperADMPage() {
 
               {/* Activity Chart + Health */}
               <div className="grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-4">
-                <Section title="Atividade ao vivo" subtitle="Ultimas 24 horas">
+                <Section title="Atividade ao vivo" subtitle="Últimas 24 horas">
                   <div className="bg-background border border-border/30 rounded-2xl p-4">
                     <ResponsiveContainer width="100%" height={220}>
                       <AreaChart data={activity24h} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
@@ -442,7 +442,7 @@ export function DashboardSuperADMPage() {
                   </div>
                 </Section>
 
-                <Section title="Saude do sistema">
+                <Section title="Saúde do sistema">
                   <div className="space-y-2">
                     {[
                       { icon: Server, label: "APIs", value: "72/76 operacionais", segments: [72, 3, 1], colors: [GREEN, ORANGE, RED] },
@@ -563,7 +563,7 @@ export function DashboardSuperADMPage() {
                       <XAxis dataKey="month" tick={{ fontSize: 10, fill: "#9CA3AF" }} axisLine={false} tickLine={false} />
                       <YAxis tick={{ fontSize: 10, fill: "#9CA3AF" }} axisLine={false} tickLine={false} tickFormatter={(v: number) => `${(v/1000).toFixed(0)}K`} />
                       <Tooltip content={<CustomTooltip />} />
-                      <Bar dataKey="basico" stackId="a" fill={BLUE} name="Basico" radius={[0,0,0,0]} />
+                      <Bar dataKey="basico" stackId="a" fill={BLUE} name="Básico" radius={[0,0,0,0]} />
                       <Bar dataKey="profissional" stackId="a" fill={GREEN} name="Profissional" radius={[0,0,0,0]} />
                       <Bar dataKey="enterprise" stackId="a" fill={PURPLE} name="Enterprise" radius={[2,2,0,0]} />
                       <Line type="monotone" dataKey="meta" stroke={RED} strokeWidth={1.5} strokeDasharray="5 5" dot={false} name="Meta" />
@@ -571,7 +571,7 @@ export function DashboardSuperADMPage() {
                     </ComposedChart>
                   </ResponsiveContainer>
                   <div className="flex flex-wrap gap-3 mt-2">
-                    {[{ c: BLUE, l: "Basico" }, { c: GREEN, l: "Profissional" }, { c: PURPLE, l: "Enterprise" }, { c: RED, l: "Meta" }, { c: ORANGE, l: "Custos" }].map(i => (
+                    {[{ c: BLUE, l: "Básico" }, { c: GREEN, l: "Profissional" }, { c: PURPLE, l: "Enterprise" }, { c: RED, l: "Meta" }, { c: ORANGE, l: "Custos" }].map(i => (
                       <span key={i.l} className="flex items-center gap-1.5 text-[10px] text-muted-foreground"><span className="size-2 rounded-full" style={{ background: i.c }} />{i.l}</span>
                     ))}
                   </div>
@@ -1112,8 +1112,8 @@ export function DashboardSuperADMPage() {
                       { time: "13:20", color: ORANGE, cat: "Pagamento", title: "CRAS Vespasiano — 45d atraso", desc: "Cobrar" },
                       { time: "12:00", color: ORANGE, cat: "Trial", title: "Camara Ouro Preto expira em 3d", desc: "Contatar" },
                       { time: "11:30", color: GREEN, cat: "Infra", title: "Backup ClickHouse OK (2.4TB)", desc: "" },
-                      { time: "10:15", color: ORANGE, cat: "Cadastro", title: "Novo: Camara Sabara", desc: "Aguarda aprovacao" },
-                      { time: "09:00", color: GREEN, cat: "Sistema", title: "23 membros na 1a hora", desc: "+12% acima da media" },
+                      { time: "10:15", color: ORANGE, cat: "Cadastro", title: "Novo: Câmara Sabará", desc: "Aguarda aprovacao" },
+                      { time: "09:00", color: GREEN, cat: "Sistema", title: "23 membros na 1a hora", desc: "+12% acima da média" },
                       { time: "08:00", color: GREEN, cat: "Sync", title: "CATMAT sincronizado", desc: "12.400 registros" },
                     ].map((ev, i, arr) => (
                       <div key={i} className="flex gap-3">
@@ -1178,14 +1178,14 @@ export function DashboardSuperADMPage() {
                       </thead>
                       <tbody>
                         {[
-                          { fonte: "Lei 14.133/2021", tipo: "Federal", docs: "194 art.", sync: "Hoje", freq: "Diaria", ok: true },
-                          { fonte: "TCU Acordaos", tipo: "Jurisp.", docs: "8.420", sync: "Ha 2d", freq: "Semanal", ok: true },
-                          { fonte: "TCU Sumulas", tipo: "Jurisp.", docs: "312", sync: "Ha 5d", freq: "Quinzenal", ok: true },
-                          { fonte: "TCE-MG Orientacoes", tipo: "Estadual", docs: "1.240", sync: "Ha 3d", freq: "Semanal", ok: true },
-                          { fonte: "AGU Pareceres", tipo: "Parecer", docs: "186", sync: "Ha 12d", freq: "Quinzenal", ok: false },
-                          { fonte: "Forum Nac. Contrat.", tipo: "Enunciado", docs: "89", sync: "Ha 12d", freq: "Mensal", ok: false },
-                          { fonte: "DOU / Imprensa Nac.", tipo: "Publ.", docs: "890", sync: "Hoje", freq: "Diaria", ok: true },
-                          { fonte: "LexML", tipo: "Geral", docs: "2.340", sync: "Ha 1d", freq: "Diaria", ok: true },
+                          { fonte: "Lei 14.133/2021", tipo: "Federal", docs: "194 art.", sync: "Hoje", freq: "Diária", ok: true },
+                          { fonte: "TCU Acordaos", tipo: "Jurisp.", docs: "8.420", sync: "Há 2d", freq: "Semanal", ok: true },
+                          { fonte: "TCU Sumulas", tipo: "Jurisp.", docs: "312", sync: "Há 5d", freq: "Quinzenal", ok: true },
+                          { fonte: "TCE-MG Orientacoes", tipo: "Estadual", docs: "1.240", sync: "Há 3d", freq: "Semanal", ok: true },
+                          { fonte: "AGU Pareceres", tipo: "Parecer", docs: "186", sync: "Há 12d", freq: "Quinzenal", ok: false },
+                          { fonte: "Forum Nac. Contrat.", tipo: "Enunciado", docs: "89", sync: "Há 12d", freq: "Mensal", ok: false },
+                          { fonte: "DOU / Imprensa Nac.", tipo: "Publ.", docs: "890", sync: "Hoje", freq: "Diária", ok: true },
+                          { fonte: "LexML", tipo: "Geral", docs: "2.340", sync: "Há 1d", freq: "Diária", ok: true },
                         ].map(f => (
                           <tr key={f.fonte} className="border-t border-border/20 hover:bg-muted/30 transition-colors">
                             <td className="px-3 py-2.5 text-[11px] font-medium text-foreground">{f.fonte}</td>
