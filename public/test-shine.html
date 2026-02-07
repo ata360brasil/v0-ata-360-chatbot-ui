@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+@keyframes logoShine {
+  0%, 60% { left: -50%; }
+  80%, 100% { left: 150%; }
+}
+body { display:flex; gap:40px; align-items:center; justify-content:center; min-height:100vh; margin:0; }
+.light { background: #f8fafc; padding: 40px; }
+.dark { background: #1a1f36; padding: 40px; }
+</style>
+</head>
+<body>
+  <div class="light">
+    <p style="text-align:center;color:#333;margin-bottom:10px;">Light Mode</p>
+    <div style="position:relative; width:220px; height:73px; overflow:hidden;">
+      <img src="/images/ata360-logo.png" width="220" height="73" style="display:block; object-fit:contain;" />
+      <div style="position:absolute; top:-10%; width:40%; height:120%; background:linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%); animation: logoShine 5s ease-in-out infinite; left:-50%; mix-blend-mode:overlay; pointer-events:none;"></div>
+    </div>
+  </div>
+  <div class="dark">
+    <p style="text-align:center;color:#fff;margin-bottom:10px;">Dark Mode</p>
+    <div style="position:relative; width:220px; height:73px; overflow:hidden;">
+      <img src="/images/ata360-logo.png" width="220" height="73" style="display:block; object-fit:contain;" />
+      <div style="position:absolute; top:-10%; width:40%; height:120%; background:linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%); animation: logoShine 5s ease-in-out infinite; left:-50%; mix-blend-mode:overlay; pointer-events:none;"></div>
+    </div>
+  </div>
+</body>
+</html>

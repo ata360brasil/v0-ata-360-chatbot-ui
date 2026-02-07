@@ -328,16 +328,16 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
               {/* Content Area - Centered */}
               <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="max-w-2xl w-full text-center">
-                  {/* Logo with shine gradient overlay */}
+                  {/* Logo with moving shine bar */}
                   <style dangerouslySetInnerHTML={{ __html: `
                     @keyframes logoShine {
-                      0% { background-position: 200% 0; }
-                      100% { background-position: -200% 0; }
+                      0%, 60% { left: -50%; }
+                      80%, 100% { left: 150%; }
                     }
                   `}} />
                   <div className="mb-6 animate-hero-scale-in">
                     <div
-                      className="relative mx-auto"
+                      className="relative mx-auto overflow-hidden"
                       style={{ width: 220, height: 73 }}
                     >
                       <img
@@ -345,15 +345,18 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                         alt="ATA360"
                         width={220}
                         height={73}
-                        className="relative z-10 block object-contain"
+                        className="block object-contain"
                       />
                       <div
-                        className="absolute inset-0 z-20 pointer-events-none"
+                        className="absolute top-0 pointer-events-none"
                         style={{
-                          backgroundImage:
-                            "linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%)",
-                          backgroundSize: "200% 100%",
-                          animation: "logoShine 5s infinite",
+                          width: "40%",
+                          height: "120%",
+                          top: "-10%",
+                          background: "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%)",
+                          animation: "logoShine 5s ease-in-out infinite",
+                          left: "-50%",
+                          mixBlendMode: "overlay",
                         }}
                       />
                     </div>
