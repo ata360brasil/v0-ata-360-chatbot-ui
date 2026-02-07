@@ -86,7 +86,7 @@ export default function LoginPage() {
             </div>
 
             {/* Card */}
-            <div className="bg-white rounded-2xl border border-gray-200/80 px-8 py-8 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <div className="bg-card rounded-2xl border border-border/80 px-8 py-8 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
 
               {/* Step: Login */}
               {step === "login" && (
@@ -115,9 +115,9 @@ export default function LoginPage() {
 
                   {/* Divider */}
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="flex-1 h-px bg-gray-200" />
-                    <span className="text-xs text-gray-400 font-medium">OU</span>
-                    <div className="flex-1 h-px bg-gray-200" />
+                    <div className="flex-1 h-px bg-border" />
+                    <span className="text-xs text-muted-foreground font-medium">OU</span>
+                    <div className="flex-1 h-px bg-border" />
                   </div>
 
                   {/* Form */}
@@ -164,9 +164,9 @@ export default function LoginPage() {
                           className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
                         >
                           {showPassword ? (
-                            <EyeOff className="size-[18px] text-gray-400 hover:text-gray-600 transition-colors" />
+                            <EyeOff className="size-[18px] text-muted-foreground hover:text-foreground transition-colors" />
                           ) : (
-                            <Eye className="size-[18px] text-gray-400 hover:text-gray-600 transition-colors" />
+                            <Eye className="size-[18px] text-muted-foreground hover:text-foreground transition-colors" />
                           )}
                         </button>
                       </div>
@@ -216,17 +216,17 @@ export default function LoginPage() {
                     <h2 className="text-base font-semibold text-foreground mb-1.5">
                       Verificação de Segurança
                     </h2>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-muted-foreground">
                       Confirme que você não é um robô para continuar
                     </p>
                   </div>
 
                   {/* Cloudflare Turnstile Widget */}
                   <div className="flex justify-center mb-6">
-                    <div className="border border-gray-200 rounded-lg px-4 py-3 inline-flex items-center gap-4 bg-white">
+                    <div className="border border-border rounded-lg px-4 py-3 inline-flex items-center gap-4 bg-card">
                       <div className="flex items-center gap-2.5">
                         {turnstileStatus === "verifying" ? (
-                          <div className="size-6 border-2 border-gray-300 border-t-[#f6a623] rounded-full animate-spin" />
+                          <div className="size-6 border-2 border-muted border-t-warning rounded-full animate-spin" role="status" aria-label="Verificando" />
                         ) : (
                           <div className="size-6 bg-emerald-500 rounded-full flex items-center justify-center">
                             <CheckCircle2 className="size-4 text-white" />
@@ -236,22 +236,22 @@ export default function LoginPage() {
                           {turnstileStatus === "verifying" ? "Verificando..." : "Sucesso!"}
                         </span>
                       </div>
-                      <div className="border-l border-gray-200 pl-4 flex flex-col items-center">
+                      <div className="border-l border-border pl-4 flex flex-col items-center">
                         <svg className="h-6 w-auto mb-0.5" viewBox="0 0 100 30" fill="none">
                           <path d="M14.5 3C8 3 3 8 3 14.5S8 26 14.5 26c4.5 0 8.4-2.5 10.4-6.2l-3.2-1.8c-1.3 2.3-3.8 3.8-6.7 3.8C10.7 21.8 7.2 18.3 7.2 14c0-4.3 3.5-7.8 7.8-7.8 2.9 0 5.4 1.5 6.7 3.8l3.2-1.8C22.9 5 18.5 3 14.5 3z" fill="#F6A623"/>
                           <text x="30" y="20" fontSize="12" fontWeight="bold" fill="#333" fontFamily="Arial">CLOUDFLARE</text>
                         </svg>
                         <div className="flex items-center gap-1.5">
-                          <a href="#" className="text-[10px] text-blue-600 hover:underline">Privacidade</a>
-                          <span className="text-[10px] text-gray-300">{'·'}</span>
-                          <a href="#" className="text-[10px] text-blue-600 hover:underline">Termos</a>
+                          <a href="#" className="text-[10px] text-primary hover:underline">Privacidade</a>
+                          <span className="text-[10px] text-muted-foreground">{'·'}</span>
+                          <a href="#" className="text-[10px] text-primary hover:underline">Termos</a>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Legal Text */}
-                  <p className="text-sm text-blue-600 text-center leading-relaxed mb-6 px-2">
+                  <p className="text-sm text-primary text-center leading-relaxed mb-6 px-2">
                     Li e estou ciente dos termos de uso, a política de privacidade,
                     Cookies, LGPD e concordo em usar o ATA360.
                   </p>
@@ -274,7 +274,7 @@ export default function LoginPage() {
                     <h2 className="text-base font-semibold text-foreground mb-1.5">
                       Recuperar senha
                     </h2>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-muted-foreground">
                       Informe seu e-mail para receber o link de recuperação
                     </p>
                   </div>
@@ -316,7 +316,7 @@ export default function LoginPage() {
                   <div className="text-center mt-5">
                     <button
                       onClick={() => setStep("login")}
-                      className="text-sm text-gray-500 hover:text-foreground transition-colors cursor-pointer"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                     >
                       Voltar ao login
                     </button>
@@ -333,13 +333,13 @@ export default function LoginPage() {
                   <h2 className="text-base font-semibold text-foreground mb-1.5">
                     E-mail enviado
                   </h2>
-                  <p className="text-sm text-gray-500 mb-1">
+                  <p className="text-sm text-muted-foreground mb-1">
                     Enviamos um link de recuperação para
                   </p>
                   <p className="text-sm font-medium text-foreground mb-6">
                     {forgotEmail}
                   </p>
-                  <p className="text-xs text-gray-400 mb-6">
+                  <p className="text-xs text-muted-foreground mb-6">
                     Verifique sua caixa de entrada e spam. O link expira em 30 minutos.
                   </p>
                   <button
@@ -354,7 +354,7 @@ export default function LoginPage() {
 
             {/* App Download Section */}
             <div className="text-center mt-8">
-              <p className="text-sm text-gray-500 mb-4">
+              <p className="text-sm text-muted-foreground mb-4">
                 Baixe o app e tenha acesso completo
               </p>
               <div className="flex items-center justify-center gap-3">

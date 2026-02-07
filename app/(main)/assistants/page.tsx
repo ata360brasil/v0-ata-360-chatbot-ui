@@ -4,7 +4,7 @@ import { useCallback } from "react"
 import dynamic from 'next/dynamic'
 import { useRouter } from "next/navigation"
 import { useApp } from "@/contexts/app-context"
-import { ROUTES } from "@/lib/routes"
+import { ROUTES, SIDEBAR_ROUTE_MAP } from "@/lib/routes"
 import { PageSkeleton } from '@/components/page-skeleton'
 
 const AssistantsPage = dynamic(
@@ -22,7 +22,8 @@ export default function AssistantsRoute() {
   }, [setHasStartedChat, router])
 
   const handleNavigate = useCallback((section: string) => {
-    router.push(`/${section}`)
+    const route = SIDEBAR_ROUTE_MAP[section] ?? ROUTES.chat
+    router.push(route)
   }, [router])
 
   return (

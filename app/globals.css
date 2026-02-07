@@ -65,6 +65,23 @@
   --warning-foreground: oklch(0.25 0.10 85);
   --info: oklch(0.60 0.12 240);
   --info-foreground: oklch(0.98 0.005 240);
+
+  /* Motion tokens — durations seguem Material Design 3 */
+  --duration-instant: 100ms;
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-enter: 250ms;
+  --duration-exit: 200ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Scrollbar */
+  --scrollbar-width: 6px;
+  --scrollbar-thumb: oklch(0.80 0.01 240);
+  --scrollbar-thumb-hover: oklch(0.65 0.02 240);
 }
 
 .dark {
@@ -116,6 +133,9 @@
   --warning-foreground: oklch(0.20 0.10 85);
   --info: oklch(0.65 0.15 240);
   --info-foreground: oklch(0.13 0.02 240);
+
+  --scrollbar-thumb: oklch(0.35 0.015 250);
+  --scrollbar-thumb-hover: oklch(0.45 0.02 250);
 }
 
 @theme inline {
@@ -223,7 +243,9 @@
 
 /* Smooth transitions */
 .transition-panel {
-  transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transition: width var(--duration-normal) var(--ease-default),
+              opacity var(--duration-normal) var(--ease-default),
+              transform var(--duration-normal) var(--ease-default);
 }
 
 /* Custom scrollbar */
@@ -236,12 +258,8 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #d1d5db;
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
 }
 
 /* Logo shine animation */
@@ -313,4 +331,50 @@
 
 .animate-card-enter {
   animation: card-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ─── REDUCED MOTION (WCAG 2.1 SC 2.3.3) ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── FOCUS VISIBLE (WCAG 2.1 SC 2.4.7) ──────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Remove outline for mouse/touch users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ─── HIGH CONTRAST MODE ──────────────────────────────────────────────────── */
+@media (forced-colors: active) {
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: ButtonText;
+  }
+}
+
+/* ─── SELECTION COLORS ────────────────────────────────────────────────────── */
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* ─── SCROLLBAR WITH TOKENS ───────────────────────────────────────────────── */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
 }

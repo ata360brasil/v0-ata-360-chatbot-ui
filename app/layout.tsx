@@ -2,7 +2,7 @@ import React from "react"
 import type { Metadata, Viewport } from 'next'
 import { DM_Sans, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { OrganizationJsonLd } from '@/components/structured-data'
+import { OrganizationJsonLd, FAQJsonLd } from '@/components/structured-data'
 import './globals.css'
 
 const dmSans = DM_Sans({
@@ -74,9 +74,13 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://app.ata360.com.br',
+    languages: {
+      'pt-BR': 'https://app.ata360.com.br',
+    },
   },
   category: 'technology',
   classification: 'Government Technology',
+  applicationName: 'ATA360',
   icons: {
     icon: [
       { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },
@@ -99,9 +103,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" dir="ltr">
       <body className={`${dmSans.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <OrganizationJsonLd />
+        <FAQJsonLd />
         {children}
         <Analytics />
       </body>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { BreadcrumbJsonLd } from "@/components/structured-data"
 
 export const metadata: Metadata = {
   title: "Histórico",
@@ -6,5 +7,13 @@ export const metadata: Metadata = {
 }
 
 export default function HistoryLayout({ children }: { children: React.ReactNode }) {
-  return children
+  return (
+    <>
+      <BreadcrumbJsonLd items={[
+        { name: 'ATA360', href: '/' },
+        { name: 'Histórico', href: '/history' },
+      ]} />
+      {children}
+    </>
+  )
 }

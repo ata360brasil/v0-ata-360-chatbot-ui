@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { BreadcrumbJsonLd } from "@/components/structured-data"
 
 export const metadata: Metadata = {
   title: "Equipe",
@@ -6,5 +7,13 @@ export const metadata: Metadata = {
 }
 
 export default function TeamLayout({ children }: { children: React.ReactNode }) {
-  return children
+  return (
+    <>
+      <BreadcrumbJsonLd items={[
+        { name: 'ATA360', href: '/' },
+        { name: 'Equipe', href: '/team' },
+      ]} />
+      {children}
+    </>
+  )
 }
