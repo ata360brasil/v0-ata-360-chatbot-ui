@@ -286,14 +286,13 @@
   border-radius: 3px;
 }
 
-/* Logo shine — container with shine sweep overlay */
+/* Logo shine — diagonal sweep over logo every 5s.
+   Container clips the pseudo-element. Separate dark mode version. */
 .logo-shine-container {
   position: relative;
   overflow: hidden;
-  background: transparent;
 }
 
-/* Shine sweep pseudo-element — original animation from brand site */
 .logo-shine-container::after {
   content: "";
   position: absolute;
@@ -311,20 +310,18 @@
     rgba(255, 255, 255, 0.4) 60%,
     transparent 100%
   );
-  mix-blend-mode: overlay;
-  animation: logo-shine 4s ease-in-out infinite;
+  animation: logo-shine 5s ease-in-out infinite;
 }
 
 .dark .logo-shine-container::after {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.15) 40%,
-    rgba(255, 255, 255, 0.35) 50%,
-    rgba(255, 255, 255, 0.15) 60%,
+    rgba(255, 255, 255, 0.2) 40%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.2) 60%,
     transparent 100%
   );
-  mix-blend-mode: soft-light;
 }
 
 @keyframes logo-shine {

@@ -81,12 +81,6 @@ export const metadata: Metadata = {
   category: 'technology',
   classification: 'Government Technology',
   applicationName: 'ATA360',
-  icons: {
-    icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
-    ],
-    apple: '/icon.svg',
-  },
   other: {
     'geo.region': 'BR',
     'geo.placename': 'Brasil',
@@ -102,6 +96,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" dir="ltr" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
+      </head>
       <body className={`${dmSans.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <OrganizationJsonLd />
         <FAQJsonLd />
