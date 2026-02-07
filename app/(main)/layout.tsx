@@ -77,7 +77,7 @@ function MainShell({ children }: { children: React.ReactNode }) {
                   aria-expanded={sidebarOpen}
                   className="size-10 rounded-full bg-background hover:bg-muted cursor-pointer"
                 >
-                  <ATA360Icon className="size-7" color="black" />
+                  <ATA360Icon className="size-5" color="adaptive" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>{sidebarOpen ? "Fechar menu" : "Abrir menu"}</TooltipContent>
