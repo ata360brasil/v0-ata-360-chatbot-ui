@@ -134,7 +134,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
       <div
         className={cn(
           "h-full bg-background border-r border-border/30 transition-panel flex flex-col",
-          isOpen ? "w-80" : "w-0 overflow-hidden"
+          isOpen ? "w-72 sm:w-80" : "w-0 overflow-hidden"
         )}
       >
         {isOpen && (

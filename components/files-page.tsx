@@ -107,7 +107,7 @@ const mockFiles: FileItem[] = [
     id: "folder-3",
     name: "Modelos e Templates",
     type: "folder",
-    description: "Modelos de documentos e templates padrao",
+    description: "Modelos de documentos e templates padrão",
     createdAt: "05/02/2024",
     modifiedAt: "30/01/2026",
     owner: "Bernardo Aguiar",
@@ -213,7 +213,7 @@ const mockFiles: FileItem[] = [
     name: "Checklist_Pregao.xlsx",
     type: "spreadsheet",
     size: "89 KB",
-    description: "Checklist padrao para pregoes eletronicos",
+    description: "Checklist padrão para pregões eletrônicos",
     createdAt: "05/11/2025",
     modifiedAt: "20/01/2026",
     owner: "Bernardo Aguiar",
@@ -452,7 +452,7 @@ export function FilesPage() {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
           <Input
             type="text"
-            placeholder="Buscar por arquivo, pasta ou descricao..."
+            placeholder="Buscar por arquivo, pasta ou descrição..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10 rounded-full"
@@ -837,7 +837,7 @@ export function FilesPage() {
               Enviar Arquivo
             </DialogTitle>
             <DialogDescription>
-              Adicione uma descricao para identificar o arquivo
+              Adicione uma descrição para identificar o arquivo
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 mt-2">

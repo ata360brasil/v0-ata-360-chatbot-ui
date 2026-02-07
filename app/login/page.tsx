@@ -69,8 +69,8 @@ export default function LoginPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex items-start justify-center px-6 pt-4 pb-12 lg:px-12">
-        <div className="w-full max-w-6xl flex items-start gap-10 lg:gap-16">
+      <main className="flex-1 flex items-start justify-center px-4 sm:px-6 pt-4 pb-12 lg:px-12">
+        <div className="w-full max-w-6xl flex items-start gap-4 sm:gap-6 md:gap-10 lg:gap-16">
 
           {/* Left Side - Form Area */}
           <div className="flex-1 max-w-xl">

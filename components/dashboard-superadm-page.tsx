@@ -148,13 +148,13 @@ const tokensByAgent = [
 ];
 
 const agentsData = [
-  { name: "Design Law", version: "v2.4", status: "active", desc: "Documentos juridicos com formatacao profissional", interactions: 1240, precision: 98.2, tokensPerInt: 3400, costMonth: 48, positiveRate: 96 },
-  { name: "ACMA", version: "v3.1", status: "active", desc: "Pesquisa precos, mercado, comparativos", interactions: 2890, precision: 97.8, tokensPerInt: 2100, costMonth: 69, positiveRate: 94 },
-  { name: "Compliance Shield", version: "v1.8", status: "active", desc: "Verificacao fornecedores e conformidade", interactions: 980, precision: 99.1, tokensPerInt: 4200, costMonth: 47, positiveRate: 97 },
+  { name: "Design Law", version: "v2.4", status: "active", desc: "Documentos jurídicos com formatação profissional", interactions: 1240, precision: 98.2, tokensPerInt: 3400, costMonth: 48, positiveRate: 96 },
+  { name: "ACMA", version: "v3.1", status: "active", desc: "Pesquisa preços, mercado, comparativos", interactions: 2890, precision: 97.8, tokensPerInt: 2100, costMonth: 69, positiveRate: 94 },
+  { name: "Compliance Shield", version: "v1.8", status: "active", desc: "Verificação fornecedores e conformidade", interactions: 980, precision: 99.1, tokensPerInt: 4200, costMonth: 47, positiveRate: 97 },
   { name: "Resource Hunter", version: "v2.0", status: "active", desc: "Recursos federais subutilizados", interactions: 620, precision: 96.5, tokensPerInt: 3800, costMonth: 27, positiveRate: 91 },
   { name: "Doc Builder", version: "v2.6", status: "active", desc: "Processos completos com todos anexos", interactions: 1560, precision: 97.4, tokensPerInt: 5100, costMonth: 91, positiveRate: 95 },
-  { name: "Tutor 14.133", version: "v1.5", status: "active", desc: "Lei 14.133 em linguagem acessivel", interactions: 890, precision: 98.8, tokensPerInt: 1800, costMonth: 18, positiveRate: 98 },
-  { name: "Report Generator", version: "v0.9", status: "beta", desc: "Relatorios gerenciais automaticos", interactions: 120, precision: 0, tokensPerInt: 4500, costMonth: 0, positiveRate: 0 },
+  { name: "Tutor 14.133", version: "v1.5", status: "active", desc: "Lei 14.133 em linguagem acessível", interactions: 890, precision: 98.8, tokensPerInt: 1800, costMonth: 18, positiveRate: 98 },
+  { name: "Report Generator", version: "v0.9", status: "beta", desc: "Relatórios gerenciais automáticos", interactions: 120, precision: 0, tokensPerInt: 4500, costMonth: 0, positiveRate: 0 },
   { name: "Alert Monitor", version: "v0.7", status: "beta", desc: "Monitoramento proativo de prazos", interactions: 340, precision: 0, tokensPerInt: 800, costMonth: 0, positiveRate: 0 },
 ];
 
@@ -168,15 +168,15 @@ const timelineEvents = [
 ];
 
 const priorities = [
-  { level: "red", title: "7 cadastros aguardam aprovacao", desc: "Formulario site. Betim, Sabara, UPA Rib. Neves + 4.", action: "Ir para Suporte" },
+  { level: "red", title: "7 cadastros aguardam aprovação", desc: "Formulário site. Betim, Sabará, UPA Rib. Neves + 4.", action: "Ir para Suporte" },
   { level: "red", title: "VIO SERPRO - Contratar", desc: "Anti-fraude documentos. Pendente jan/2026. Todos docs saem sem QR Code.", action: "Acessar loja SERPRO" },
-  { level: "red", title: "e-Frotas SERPRO - Contratar", desc: "Frota veicular fornecedores transporte. Requer autorizacao Denatran.", action: "Acessar loja SERPRO" },
-  { level: "red", title: "TransfereGov fora do ar", desc: "94.1% uptime. Timeouts afetam aba Recursos.", action: "Ver Integracoes" },
+  { level: "red", title: "e-Frotas SERPRO - Contratar", desc: "Frota veicular fornecedores transporte. Requer autorização Denatran.", action: "Acessar loja SERPRO" },
+  { level: "red", title: "TransfereGov fora do ar", desc: "94.1% uptime. Timeouts afetam aba Recursos.", action: "Ver Integrações" },
   { level: "yellow", title: "3 pagamentos atrasados", desc: "Pedro Leopoldo, Vespasiano, Mariana. Total: R$ 2.670", action: "Cobrar" },
-  { level: "yellow", title: "3 trials expiram essa semana", desc: "Camara Ouro Preto (3d), Bombeiros BH (5d), Betim (7d)", action: "Ver Oportunidades" },
-  { level: "yellow", title: "Health score: 3 orgaos criticos", desc: "Pedro Leopoldo (22), Vespasiano (8), Mariana (34). Risco de churn.", action: "Ver Usuarios" },
-  { level: "green", title: "Release bimestral", desc: "Proxima: 15/fev. Changelog em andamento. 12 melhorias planejadas.", action: "Editar changelog" },
-  { level: "green", title: "Report Generator em beta", desc: "5 orgaos piloto. 120 interacoes. Avaliar para producao.", action: "Ver Agentes" },
+  { level: "yellow", title: "3 trials expiram essa semana", desc: "Câmara Ouro Preto (3d), Bombeiros BH (5d), Betim (7d)", action: "Ver Oportunidades" },
+  { level: "yellow", title: "Health score: 3 órgãos críticos", desc: "Pedro Leopoldo (22), Vespasiano (8), Mariana (34). Risco de churn.", action: "Ver Usuários" },
+  { level: "green", title: "Release bimestral", desc: "Próxima: 15/fev. Changelog em andamento. 12 melhorias planejadas.", action: "Editar changelog" },
+  { level: "green", title: "Report Generator em beta", desc: "5 órgãos piloto. 120 interações. Avaliar para produção.", action: "Ver Agentes" },
 ];
 
 // ─── SPARKLINE COMPONENT ────────────────────────────────────────────────────
@@ -548,7 +548,7 @@ export function DashboardSuperADMPage() {
                 <KPI label="MRR" value="R$ 89.400" trend={6} sub="Meta: R$ 100K (89.4%)" icon={DollarSign} sparkData={[62,68,72,76,80,83,86,89.4]} sparkColor={GREEN} />
                 <KPI label="ARR projetado" value="R$ 1.072.800" icon={TrendingUp} />
                 <KPI label="Churn" value="2.1%" trend={-0.5} trendLabel="%" sub="Meta < 3%" icon={TrendingDown} sparkData={[3.2,3.0,2.8,2.6,2.4,2.3,2.2,2.1]} sparkColor={GREEN} />
-                <KPI label="Ticket medio" value="R$ 1.902" trend={3} sub="/orgao/mes" sparkData={[1700,1750,1780,1800,1830,1860,1880,1902]} sparkColor={BLUE} />
+                <KPI label="Ticket médio" value="R$ 1.902" trend={3} sub="/órgão/mês" sparkData={[1700,1750,1780,1800,1830,1860,1880,1902]} sparkColor={BLUE} />
                 <KPI label="LTV" value="R$ 34.200" sub="LTV/CAC: 12.2x" icon={Target} />
                 <KPI label="CAC" value="R$ 2.800" trend={-12} sparkData={[3500,3300,3200,3100,3000,2900,2850,2800]} sparkColor={GREEN} />
                 <KPI label="Margem bruta" value="96.8%" sparkData={[94,95,95.5,96,96.2,96.5,96.7,96.8]} sparkColor={GREEN} />
@@ -920,7 +920,7 @@ export function DashboardSuperADMPage() {
                 <KPI label="Cadastros pendentes" value="7" pulse icon={UserPlus} sub="Formulario site" />
                 <KPI label="Tickets abertos" value="12" sparkData={[18,15,14,12,13,11,12,12]} sparkColor={BLUE} />
                 <KPI label="Convites enviados" value="23" sub="Taxa acesso: 78%" />
-                <KPI label="Tempo medio resolucao" value="4.2h" trend={-15} sub="Meta < 6h" sparkData={[6.5,6.0,5.5,5.2,5.0,4.8,4.5,4.2]} sparkColor={GREEN} />
+                <KPI label="Tempo médio resolução" value="4.2h" trend={-15} sub="Meta < 6h" sparkData={[6.5,6.0,5.5,5.2,5.0,4.8,4.5,4.2]} sparkColor={GREEN} />
                 <KPI label="CSAT" value="94%" sub="Meta > 90%" sparkData={[88,89,90,91,92,93,93,94]} sparkColor={GREEN} />
                 <KPI label="SLA cumprido" value="97.3%" sub="Meta > 95%" sparkData={[94,95,96,96,97,97,97,97.3]} sparkColor={GREEN} />
               </div>
@@ -1046,7 +1046,7 @@ export function DashboardSuperADMPage() {
                     {[
                       "Camaras municipais: apenas 6 clientes de 853 camaras em MG. Se atingir 5%: +R$ 38K/mes",
                       "Triangulo Mineiro: 0 clientes, 66 municipios, cluster alto de PIB. Prioridade para prospeccao.",
-                      "Saude: hospitais e UPAs convertem 2x mais rapido que prefeituras. Focar.",
+                      "Saúde: hospitais e UPAs convertem 2x mais rápido que prefeituras. Focar.",
                       "8 clientes Basico usam > 30 docs/mes — perfil Profissional. Upsell: +R$ 12.4K/mes",
                     ].map((insight, i) => (
                       <div key={i} className="bg-background border border-border/30 rounded-2xl p-3 flex items-start gap-2.5">
@@ -1142,7 +1142,7 @@ export function DashboardSuperADMPage() {
                   <KPI label="Visitantes unicos (mes)" value="2.340" trend={18} sparkData={[1200,1400,1500,1700,1800,1900,2100,2340]} sparkColor={BLUE} />
                   <KPI label="Sessoes (mes)" value="4.120" trend={22} sparkData={[2000,2500,2800,3000,3200,3500,3800,4120]} sparkColor={BLUE} />
                   <KPI label="Bounce rate" value="34%" sub="Meta < 40%" sparkData={[45,42,40,38,37,36,35,34]} sparkColor={GREEN} />
-                  <KPI label="Tempo medio sessao" value="8:42" trend={22} sparkData={[5,5.5,6,6.5,7,7.5,8,8.7]} sparkColor={GREEN} />
+                  <KPI label="Tempo médio sessão" value="8:42" trend={22} sparkData={[5,5.5,6,6.5,7,7.5,8,8.7]} sparkColor={GREEN} />
                   <KPI label="Paginas/sessao" value="4.8" sparkData={[3.5,3.8,4.0,4.2,4.3,4.5,4.6,4.8]} sparkColor={BLUE} />
                   <KPI label="Conversao formulario" value="4.2%" sparkData={[2.5,2.8,3.0,3.2,3.5,3.7,4.0,4.2]} sparkColor={GREEN} />
                   <KPI label="Posicao media Google" value="12.4" sub="Meta < 10" sparkData={[22,20,18,16,15,14,13,12.4]} sparkColor={BLUE} />
@@ -1317,7 +1317,7 @@ export function DashboardSuperADMPage() {
                         { text: "Exportar PDF direto do chat", origin: "Fale Conosco", votes: 23, status: "Planejado" },
                         { text: "App mobile", origin: "NPS", votes: 18, status: "Avaliando" },
                         { text: "Integrar WhatsApp", origin: "Tickets", votes: 15, status: "Avaliando" },
-                        { text: "Comparar precos entre regioes", origin: "Chat", votes: 12, status: "Implementado" },
+                        { text: "Comparar preços entre regiões", origin: "Chat", votes: 12, status: "Implementado" },
                       ].map(s => (
                         <tr key={s.text} className="border-t border-border/20 hover:bg-muted/30 transition-colors">
                           <td className="px-3 py-2.5 text-[11px] text-foreground">{s.text}</td>
@@ -1349,25 +1349,25 @@ export function DashboardSuperADMPage() {
                 <KPI label="Requests (hoje)" value="1.240" sparkData={[980,1050,1100,1120,1150,1180,1200,1240]} sparkColor={BLUE} pulse />
                 <KPI label="Custo IA (hoje)" value="R$ 94,20" sparkData={[85,88,90,91,92,93,93,94.2]} sparkColor={ORANGE} sub="Projecao mes: R$ 2.826" />
                 <KPI label="Cache hit rate" value="23%" sparkData={[15,17,18,19,20,21,22,23]} sparkColor={GREEN} sub="Economia: R$ 870/mes" />
-                <KPI label="Latencia media" value="1.2s" sub="P50: 0.8s | P95: 3.2s" sparkData={[1.5,1.4,1.4,1.3,1.3,1.2,1.2,1.2]} sparkColor={BLUE} />
+                <KPI label="Latência média" value="1.2s" sub="P50: 0.8s | P95: 3.2s" sparkData={[1.5,1.4,1.4,1.3,1.3,1.2,1.2,1.2]} sparkColor={BLUE} />
                 <KPI label="Erro rate" value="0.3%" sub="Meta < 1%" sparkData={[0.8,0.7,0.6,0.5,0.5,0.4,0.3,0.3]} sparkColor={GREEN} />
               </div>
 
-              <Section title="Inventario de modelos">
+              <Section title="Inventário de modelos">
                 <div className="bg-background border border-border/30 rounded-2xl overflow-hidden">
                   <div className="overflow-x-auto">
                     <table className="w-full text-left">
                       <thead>
                         <tr className="bg-muted/50">
-                          {["Modelo", "Camada", "Status", "Req/dia", "Latencia", "Custo/mes"].map(h => (
+                          {["Modelo", "Camada", "Status", "Req/dia", "Latência", "Custo/mês"].map(h => (
                             <th key={h} className="text-[10px] uppercase text-muted-foreground font-medium px-3 py-2.5 tracking-wider">{h}</th>
                           ))}
                         </tr>
                       </thead>
                       <tbody>
                         {[
-                          { model: "Modelo A (rapido)", layer: "Camada 1", status: "active", req: "992 (80%)", lat: "180ms", cost: "R$ 8" },
-                          { model: "Modelo B (padrao)", layer: "Camada 2", status: "active", req: "186 (15%)", lat: "820ms", cost: "R$ 45" },
+                          { model: "Modelo A (rápido)", layer: "Camada 1", status: "active", req: "992 (80%)", lat: "180ms", cost: "R$ 8" },
+                          { model: "Modelo B (padrão)", layer: "Camada 2", status: "active", req: "186 (15%)", lat: "820ms", cost: "R$ 45" },
                           { model: "Modelo C (expert)", layer: "Camada 3", status: "active", req: "62 (5%)", lat: "1.8s", cost: "R$ 247" },
                           { model: "Modelo D (embed)", layer: "Embeddings", status: "active", req: "2.400", lat: "95ms", cost: "R$ 12" },
                           { model: "Modelo E (backup)", layer: "Standby", status: "standby", req: "0", lat: "—", cost: "R$ 0" },
@@ -1400,8 +1400,8 @@ export function DashboardSuperADMPage() {
                   {[
                     { label: "Cache Semantico", desc: "Qdrant, TTL variavel. Se distance < 0.05, resposta imediata. Custo: R$ 0", pct: "23%", color: "#9CA3AF" },
                     { label: "Camada 1: Triagem (Modelo A)", desc: "Classifica intent, extrai parametros, roteia. 80% das requests. < 200ms", pct: "61.6%", color: BLUE },
-                    { label: "Camada 2: Sintese (Modelo B)", desc: "Sintetiza resultados, gera docs basicos, analise precos. 15%", pct: "11.6%", color: GREEN },
-                    { label: "Camada 3: Expert (Modelo C)", desc: "Docs juridicos complexos, deteccao fraude, pareceres. 2-5%", pct: "3.8%", color: PURPLE },
+                    { label: "Camada 2: Síntese (Modelo B)", desc: "Sintetiza resultados, gera docs básicos, análise preços. 15%", pct: "11.6%", color: GREEN },
+                    { label: "Camada 3: Expert (Modelo C)", desc: "Docs jurídicos complexos, detecção fraude, pareceres. 2-5%", pct: "3.8%", color: PURPLE },
                   ].map((layer, i, arr) => (
                     <div key={layer.label}>
                       <div className="flex items-center gap-3">

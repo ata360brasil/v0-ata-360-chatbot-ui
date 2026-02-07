@@ -346,7 +346,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                   </div>
 
                   {/* Welcome Title */}
-                  <h1 className="text-3xl font-semibold text-foreground mb-2 animate-hero-fade-up" style={{ animationDelay: "150ms" }}>
+                  <h1 className="text-2xl sm:text-3xl font-semibold text-foreground mb-2 animate-hero-fade-up" style={{ animationDelay: "150ms" }}>
                     {"Compras públicas com confiança"}
                   </h1>
                   <p className="text-base text-muted-foreground mb-8 animate-hero-fade-up" style={{ animationDelay: "300ms" }}>
@@ -356,8 +356,8 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                   {/* Suggestion Cards */}
                   <div className="max-w-xl mx-auto animate-hero-fade-up" style={{ animationDelay: "450ms" }}>
                     {/* Grid 2 colunas x 4 linhas */}
-                    <div className="grid grid-cols-2 gap-3">
-                      {/* Primeiras 2 linhas - sempre visiveis (4 cards) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {/* Primeiras 2 linhas - sempre visíveis (4 cards) */}
                       {suggestionCards.slice(0, 4).map((card, index) => {
                         const IconComponent = card.icon;
                         return (
