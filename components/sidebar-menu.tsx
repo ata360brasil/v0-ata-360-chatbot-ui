@@ -237,7 +237,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
                           e.stopPropagation();
                           handleLogoutClick();
                         }}
-                        className="size-8 rounded-full bg-red-500 hover:bg-red-700 dark:hover:bg-red-400 cursor-pointer"
+                        className="size-8 rounded-full bg-red-600 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-muted cursor-pointer"
                       >
                         <Power className="size-4 text-white" />
                       </Button>
