@@ -291,9 +291,12 @@
    rotate(20deg), translateX(-300%→700%), 25% width.
    DO NOT MODIFY without explicit approval. */
 @keyframes logoShine {
-  0% { transform: rotate(20deg) translateX(-300%); }
-  55% { transform: rotate(20deg) translateX(-300%); }
-  100% { transform: rotate(20deg) translateX(700%); }
+  0%   { opacity: 0; transform: rotate(20deg) translateX(-300%); }
+  56%  { opacity: 0; transform: rotate(20deg) translateX(-300%); }
+  60%  { opacity: 1; transform: rotate(20deg) translateX(-100%); }
+  90%  { opacity: 1; transform: rotate(20deg) translateX(500%); }
+  95%  { opacity: 0; transform: rotate(20deg) translateX(700%); }
+  100% { opacity: 0; transform: rotate(20deg) translateX(700%); }
 }
 
 .animate-logo-shine {
@@ -323,17 +326,18 @@
   mask-composite: intersect;
 }
 
-/* Dark mode: blue-tinted shine with screen blend — no visible box */
+/* Dark mode: white shine with overlay — same visual as light mode.
+   mask-image feathering prevents the visible rectangle.              */
 .dark .animate-logo-shine {
   background: linear-gradient(
     90deg,
-    transparent 0%,
-    rgba(100, 180, 255, 0.06) 49%,
-    rgba(100, 180, 255, 0.12) 50%,
-    rgba(100, 180, 255, 0.06) 51%,
-    transparent 100%
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.15) 48%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.15) 52%,
+    rgba(255, 255, 255, 0) 100%
   );
-  mix-blend-mode: screen;
+  mix-blend-mode: overlay;
 }
 
 /* Hero entrance animations */
