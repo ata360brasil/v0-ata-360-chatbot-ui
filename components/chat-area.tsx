@@ -331,8 +331,8 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                   {/* Logo with moving shine bar */}
                   <style dangerouslySetInnerHTML={{ __html: `
                     @keyframes logoShine {
-                      0%, 50% { left: -60%; }
-                      80%, 100% { left: 100%; }
+                      0%, 60% { left: -50%; }
+                      80%, 100% { left: 150%; }
                     }
                   `}} />
                   <div className="mb-6 animate-hero-scale-in">
@@ -345,18 +345,18 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                         alt="ATA360"
                         width={220}
                         height={73}
-                        className="block object-contain"
+                        className="block w-full h-auto"
                       />
                       <div
                         className="absolute top-0 pointer-events-none"
                         style={{
                           width: "40%",
                           height: "100%",
-                          background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%)",
+                          background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 15%, rgba(255,255,255,0.35) 45%, rgba(255,255,255,0.35) 55%, rgba(255,255,255,0.08) 85%, transparent 100%)",
                           transform: "skewX(-15deg)",
                           animation: "logoShine 5s ease-in-out infinite",
-                          left: "-60%",
-                          mixBlendMode: "overlay",
+                          left: "-50%",
+                          mixBlendMode: "soft-light",
                         }}
                       />
                     </div>
