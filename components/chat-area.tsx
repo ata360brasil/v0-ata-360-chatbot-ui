@@ -353,7 +353,6 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                           background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 48%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.2) 52%, rgba(255,255,255,0) 100%)",
                           mixBlendMode: "overlay" as React.CSSProperties["mixBlendMode"],
                           animation: "logoShine 6s ease-in-out infinite",
-                          transform: "rotate(20deg) translateX(-300%)",
                         }}
                       />
                     </div>
