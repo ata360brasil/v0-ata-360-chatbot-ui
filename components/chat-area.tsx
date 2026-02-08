@@ -328,7 +328,13 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
               {/* Content Area - Centered */}
               <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="max-w-2xl w-full text-center">
-                  {/* Logo with diagonal shine bar */}
+                  {/* ============================================================
+                      SHINE EFFECT — APPROVED & LOCKED
+                      DO NOT MODIFY without explicit approval.
+                      Diagonal light bar sweeps across logo every 6s.
+                      Params: rotate(20deg), translateX(-300%→700%),
+                      overlay blend, 25% width, 0.45 peak opacity.
+                      ============================================================ */}
                   <style dangerouslySetInnerHTML={{ __html: `
                     @keyframes logoShine {
                       0% { transform: rotate(20deg) translateX(-300%); }
