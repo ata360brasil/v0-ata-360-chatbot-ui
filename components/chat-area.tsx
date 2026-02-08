@@ -331,7 +331,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                   {/* Logo with moving shine bar */}
                   <style dangerouslySetInnerHTML={{ __html: `
                     @keyframes logoShine {
-                      0%, 60% { left: -40%; }
+                      0%, 50% { left: -60%; }
                       80%, 100% { left: 100%; }
                     }
                   `}} />
@@ -350,11 +350,11 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                       <div
                         className="absolute top-0 pointer-events-none"
                         style={{
-                          width: "20%",
+                          width: "60%",
                           height: "100%",
-                          background: "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.3) 50%, transparent 80%)",
-                          animation: "logoShine 8s ease-in-out infinite",
-                          left: "-40%",
+                          background: "linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.8) 50%, transparent 80%)",
+                          animation: "logoShine 3s ease-in-out infinite",
+                          left: "-60%",
                           mixBlendMode: "overlay",
                         }}
                       />
