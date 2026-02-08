@@ -286,64 +286,6 @@
   border-radius: 3px;
 }
 
-/* Logo shine — diagonal sweep over logo every 5s.
-   Container clips the pseudo-element. Separate dark mode version. */
-.logo-shine-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.logo-shine-container::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40%;
-  height: 100%;
-  z-index: 20;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.4) 40%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.4) 60%,
-    transparent 100%
-  );
-  animation: logo-shine 5s ease-in-out infinite;
-}
-
-.dark .logo-shine-container::after {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.2) 40%,
-    rgba(255, 255, 255, 0.5) 50%,
-    rgba(255, 255, 255, 0.2) 60%,
-    transparent 100%
-  );
-}
-
-@keyframes logo-shine {
-  0%, 60% {
-    transform: translateX(-100%) skewX(-12deg);
-    opacity: 0;
-  }
-  65% {
-    opacity: 0.3;
-  }
-  75% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateX(250%) skewX(-12deg);
-    opacity: 0;
-  }
-}
-
 /* Hero entrance animations */
 @keyframes hero-fade-up {
   from {
