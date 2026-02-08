@@ -331,9 +331,9 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                   {/* Logo with diagonal shine bar */}
                   <style dangerouslySetInnerHTML={{ __html: `
                     @keyframes logoShine {
-                      0% { transform: rotate(35deg) translateX(-200%); }
-                      60% { transform: rotate(35deg) translateX(-200%); }
-                      100% { transform: rotate(35deg) translateX(500%); }
+                      0% { transform: rotate(20deg) translateX(-300%); }
+                      55% { transform: rotate(20deg) translateX(-300%); }
+                      100% { transform: rotate(20deg) translateX(700%); }
                     }
                   `}} />
                   <div className="mb-6 animate-hero-scale-in">
@@ -357,8 +357,8 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                           height: "200%",
                           background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 48%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.2) 52%, rgba(255,255,255,0) 100%)",
                           mixBlendMode: "overlay",
-                          animation: "logoShine 5s ease-in-out infinite",
-                          transform: "rotate(35deg) translateX(-150%)",
+                          animation: "logoShine 6s ease-in-out infinite",
+                          transform: "rotate(20deg) translateX(-300%)",
                         }}
                       />
                     </div>
