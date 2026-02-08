@@ -525,7 +525,7 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <div className="flex items-center gap-2 min-w-0">
                           <div className="size-7 shrink-0 rounded-full bg-foreground flex items-center justify-center">
-                            <Bot size={12} className="text-white" />
+                            <Bot size={12} className="text-background" />
                           </div>
                           <span className="text-[10px] text-muted-foreground truncate">{conv.agentType}</span>
                         </div>
@@ -590,7 +590,7 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
                     >
                       {/* Icon */}
                       <div className="size-10 shrink-0 rounded-full bg-foreground flex items-center justify-center">
-                        <Bot size={18} className="text-white" />
+                        <Bot size={18} className="text-background" />
                       </div>
 
                       {/* Content */}
@@ -688,7 +688,7 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
               <DialogHeader>
                 <div className="flex items-start gap-3">
                   <div className="size-12 rounded-full bg-foreground flex items-center justify-center shrink-0">
-                    <Bot size={24} className="text-white" />
+                    <Bot size={24} className="text-background" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <DialogTitle className="text-lg font-bold flex items-center gap-2">
@@ -788,7 +788,7 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
                                 "size-9 rounded-xl flex items-center justify-center",
                                 artifact.isLatest ? "bg-foreground" : "bg-muted"
                               )}>
-                                <IconComponent size={16} className={artifact.isLatest ? "text-white" : "text-foreground"} />
+                                <IconComponent size={16} className={artifact.isLatest ? "text-background" : "text-foreground"} />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2">

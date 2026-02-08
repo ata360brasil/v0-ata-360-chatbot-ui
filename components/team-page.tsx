@@ -562,7 +562,7 @@ export function TeamPage() {
                       {/* DataValid Serpro badge */}
                       {member.datavalidVerified && (
                         <div className="absolute -bottom-1 -right-1 size-5 bg-foreground rounded-full flex items-center justify-center" title="Validado via DataValid Serpro">
-                          <BadgeCheck size={12} className="text-white" />
+                          <BadgeCheck size={12} className="text-background" />
                         </div>
                       )}
                     </div>
@@ -722,7 +722,7 @@ export function TeamPage() {
                     )}
                     {member.datavalidVerified && (
                       <div className="absolute -bottom-0.5 -right-0.5 size-4 bg-foreground rounded-full flex items-center justify-center" title="Validado via DataValid Serpro">
-                        <BadgeCheck size={10} className="text-white" />
+                        <BadgeCheck size={10} className="text-background" />
                       </div>
                     )}
                   </div>
@@ -816,7 +816,7 @@ export function TeamPage() {
                   )}
                   {selectedMember.datavalidVerified && (
                     <div className="absolute -bottom-1 -right-1 size-6 bg-foreground rounded-full flex items-center justify-center" title="Validado via DataValid Serpro">
-                      <BadgeCheck size={14} className="text-white" />
+                      <BadgeCheck size={14} className="text-background" />
                     </div>
                   )}
                 </div>

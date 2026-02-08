@@ -324,7 +324,7 @@ export function FilesPage() {
         <div className="absolute inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center animate-in fade-in duration-200">
           <div className="border-2 border-dashed border-foreground rounded-3xl p-16 text-center bg-muted/30 animate-in zoom-in-95 duration-200">
             <div className="size-20 mx-auto mb-4 rounded-full bg-foreground flex items-center justify-center animate-bounce">
-              <Upload size={32} className="text-white" />
+              <Upload size={32} className="text-background" />
             </div>
             <p className="text-xl font-bold text-foreground">Solte os arquivos aqui</p>
             <p className="text-sm text-muted-foreground mt-2">Os arquivos serao enviados para sua pasta pessoal</p>
