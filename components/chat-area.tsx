@@ -328,11 +328,11 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
               {/* Content Area - Centered */}
               <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="max-w-2xl w-full text-center">
-                  {/* Logo with moving shine bar */}
+                  {/* Logo with diagonal shine bar */}
                   <style dangerouslySetInnerHTML={{ __html: `
                     @keyframes logoShine {
-                      0%, 60% { left: -50%; }
-                      80%, 100% { left: 150%; }
+                      0%, 60% { transform: rotate(35deg) translateX(-150%); }
+                      80%, 100% { transform: rotate(35deg) translateX(250%); }
                     }
                   `}} />
                   <div className="mb-6 animate-hero-scale-in">
@@ -348,15 +348,16 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                         className="block w-full h-auto"
                       />
                       <div
-                        className="absolute top-0 pointer-events-none"
+                        className="absolute pointer-events-none"
                         style={{
+                          top: "-50%",
+                          left: "0",
                           width: "25%",
-                          height: "100%",
-                          background: "linear-gradient(105deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 48%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.2) 52%, rgba(255,255,255,0) 100%)",
-                          transform: "skewX(-12deg)",
+                          height: "200%",
+                          background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 48%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.2) 52%, rgba(255,255,255,0) 100%)",
                           mixBlendMode: "overlay",
                           animation: "logoShine 5s ease-in-out infinite",
-                          left: "-50%",
+                          transform: "rotate(35deg) translateX(-150%)",
                         }}
                       />
                     </div>
