@@ -1,5 +1,6 @@
 "use client"
 
+import { Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -7,7 +8,7 @@ import { ATA360Icon } from "@/components/ata360-icon"
 import { createClient } from "@/lib/supabase/client"
 import { logger } from "@/lib/observability"
 
-export default function LoginPage() {
+function LoginContent() {
   const searchParams = useSearchParams()
   const redirect = searchParams.get("redirect") ?? "/"
 
@@ -122,5 +123,19 @@ export default function LoginPage() {
         </CardContent>
       </Card>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-background">
+          <div className="size-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      }
+    >
+      <LoginContent />
+    </Suspense>
   )
 }
