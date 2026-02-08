@@ -1,7 +1,8 @@
 import React from "react"
 import type { Metadata, Viewport } from 'next'
 import { DM_Sans, JetBrains_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
+// @vercel/analytics REMOVIDO: deploy = Cloudflare Pages, não Vercel (spec v8)
+// Observability: lib/observability.ts (logs + metrics + traces + Web Vitals)
 import { OrganizationJsonLd, FAQJsonLd } from '@/components/structured-data'
 import './globals.css'
 
@@ -104,7 +105,6 @@ export default function RootLayout({
         <OrganizationJsonLd />
         <FAQJsonLd />
         {children}
-        <Analytics />
       </body>
     </html>
   )

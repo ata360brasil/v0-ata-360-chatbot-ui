@@ -83,17 +83,28 @@
   --scrollbar-thumb: oklch(0.80 0.01 240);
   --scrollbar-thumb-hover: oklch(0.65 0.02 240);
 
-  /* Dashboard chart colors */
-  --dashboard-blue: #2563EB;
-  --dashboard-green: #059669;
-  --dashboard-red: #DC2626;
-  --dashboard-orange: #D97706;
-  --dashboard-purple: #7C3AED;
-  --dashboard-cyan: #0284C7;
-  --dashboard-navy: #1E3A5F;
-  --dashboard-gray: #9CA3AF;
-  --dashboard-grid: #E5E7EB;
-  --dashboard-axis: #9CA3AF;
+  /* Dashboard chart colors — OKLCH for perceptual uniformity (Adam Wathan / Tailwind 4) */
+  --dashboard-blue: oklch(0.55 0.18 250);
+  --dashboard-green: oklch(0.55 0.17 155);
+  --dashboard-red: oklch(0.55 0.22 27);
+  --dashboard-orange: oklch(0.65 0.17 65);
+  --dashboard-purple: oklch(0.50 0.20 300);
+  --dashboard-cyan: oklch(0.60 0.14 220);
+  --dashboard-navy: oklch(0.35 0.10 250);
+  --dashboard-gray: oklch(0.65 0.01 250);
+  --dashboard-grid: oklch(0.92 0.005 240);
+  --dashboard-axis: oklch(0.65 0.01 250);
+
+  /* Spacing scale */
+  --space-panel: 1rem;
+  --space-section: 1.5rem;
+
+  /* Z-index scale (previne conflitos) */
+  --z-sidebar: 30;
+  --z-header: 40;
+  --z-modal: 50;
+  --z-toast: 60;
+  --z-tooltip: 70;
 }
 
 .dark {
@@ -149,17 +160,17 @@
   --scrollbar-thumb: oklch(0.40 0.015 250);
   --scrollbar-thumb-hover: oklch(0.50 0.02 250);
 
-  /* Dashboard chart colors — brighter for dark backgrounds */
-  --dashboard-blue: #60A5FA;
-  --dashboard-green: #34D399;
-  --dashboard-red: #F87171;
-  --dashboard-orange: #FBBF24;
-  --dashboard-purple: #A78BFA;
-  --dashboard-cyan: #38BDF8;
-  --dashboard-navy: #93C5FD;
-  --dashboard-gray: #6B7280;
-  --dashboard-grid: #374151;
-  --dashboard-axis: #6B7280;
+  /* Dashboard chart colors — brighter OKLCH for dark (Adam Wathan) */
+  --dashboard-blue: oklch(0.70 0.17 250);
+  --dashboard-green: oklch(0.72 0.18 160);
+  --dashboard-red: oklch(0.70 0.20 25);
+  --dashboard-orange: oklch(0.78 0.16 85);
+  --dashboard-purple: oklch(0.68 0.18 300);
+  --dashboard-cyan: oklch(0.72 0.15 220);
+  --dashboard-navy: oklch(0.75 0.12 250);
+  --dashboard-gray: oklch(0.45 0.01 250);
+  --dashboard-grid: oklch(0.28 0.01 250);
+  --dashboard-axis: oklch(0.45 0.01 250);
 }
 
 @theme inline {
@@ -201,6 +212,12 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
 }
 
 @layer base {
