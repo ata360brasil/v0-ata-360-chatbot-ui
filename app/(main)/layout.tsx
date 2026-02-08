@@ -167,9 +167,9 @@ function MainShell({ children }: { children: React.ReactNode }) {
         </header>
 
         {/* Main Content */}
-        <div className="flex-1 flex overflow-hidden">
+        <div className="flex-1 flex overflow-hidden min-h-0">
           {/* Left Sidebar */}
-          <aside aria-label="Menu de navegação">
+          <aside className="shrink-0 h-full overflow-hidden" aria-label="Menu de navegação">
             <SidebarMenu
               isOpen={sidebarOpen}
               onClose={() => setSidebarOpen(false)}
@@ -178,7 +178,7 @@ function MainShell({ children }: { children: React.ReactNode }) {
           </aside>
 
           {/* Main Content Area */}
-          <main id="main-content" className="flex-1 min-w-0 flex flex-col">
+          <main id="main-content" className="flex-1 min-w-0 min-h-0 flex flex-col overflow-hidden">
             {children}
           </main>
 

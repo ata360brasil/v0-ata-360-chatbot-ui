@@ -68,8 +68,8 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
     <TooltipProvider>
       {/* Mobile overlay backdrop */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+        <div
+          className="fixed top-14 inset-x-0 bottom-0 bg-black/50 z-40 md:hidden"
           onClick={onClose}
         />
       )}
@@ -77,8 +77,8 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
       <div
         className={cn(
           "bg-background transition-all duration-300 ease-in-out flex flex-col shrink-0 border-l border-border/40",
-          // Mobile: fixed overlay
-          "fixed inset-y-0 right-0 z-50 md:relative md:z-auto",
+          // Mobile: fixed overlay below header (h-14 = top-14)
+          "fixed top-14 bottom-0 right-0 z-50 md:relative md:top-auto md:z-auto",
           isOpen 
             ? "translate-x-0" 
             : "translate-x-full md:hidden"
