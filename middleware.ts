@@ -15,12 +15,30 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
   // ─── Supabase Session Refresh ───────────────────────────────────────────
-  // OBRIGATORIO: sem isso tokens expiram silenciosamente (Paul Copplestone)
-  const { supabaseResponse, user } = await updateSession(request)
+  // Resiliente: se Supabase não configurado, prossegue sem auth
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
+  const supabaseConfigured = supabaseUrl.length > 0 && supabaseUrl.startsWith('https://')
+
+  let response: NextResponse
+  let user: { id: string } | null = null
+
+  if (supabaseConfigured) {
+    try {
+      const result = await updateSession(request)
+      response = result.supabaseResponse
+      user = result.user
+    } catch {
+      // Supabase indisponível — prosseguir sem auth
+      response = NextResponse.next({ request })
+    }
+  } else {
+    // Sem Supabase configurado — modo demo (sem redirect para login)
+    response = NextResponse.next({ request })
+  }
 
   // ─── Auth Check ─────────────────────────────────────────────────────────
-  // Rotas protegidas exigem sessão válida
-  if (!isStaticOrPublic(pathname) && !user) {
+  // Só redireciona para login se Supabase estiver configurado
+  if (supabaseConfigured && !isStaticOrPublic(pathname) && !user) {
     const loginUrl = request.nextUrl.clone()
     loginUrl.pathname = '/login'
     loginUrl.searchParams.set('redirect', pathname)
@@ -29,41 +47,42 @@ export async function middleware(request: NextRequest) {
 
   // ─── Request ID (rastreabilidade Cloudflare) ────────────────────────────
   const requestId = crypto.randomUUID()
-  supabaseResponse.headers.set('X-Request-Id', requestId)
-  supabaseResponse.headers.set('X-Request-Timestamp', new Date().toISOString())
+  response.headers.set('X-Request-Id', requestId)
+  response.headers.set('X-Request-Timestamp', new Date().toISOString())
 
   // ─── CSP Nonce ──────────────────────────────────────────────────────────
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
-  supabaseResponse.headers.set('X-Nonce', nonce)
+  response.headers.set('X-Nonce', nonce)
 
   // ─── Content-Security-Policy ────────────────────────────────────────────
-  // Next.js App Router requer 'unsafe-inline' para hidratação.
-  // Vercel removido, Supabase adicionado (Anderson Ramos / Cláudio Dodt)
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://*.supabase.co'
+  const supabaseHost = supabaseConfigured ? new URL(supabaseUrl).hostname : '*.supabase.co'
+  const connectSrc = supabaseConfigured
+    ? `${supabaseUrl} wss://${supabaseHost}`
+    : 'https://*.supabase.co wss://*.supabase.co'
   const csp = [
     `default-src 'self'`,
     `script-src 'self' 'unsafe-inline'`,
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com`,
     `img-src 'self' data: blob: https:`,
-    `connect-src 'self' ${supabaseUrl} wss://${new URL(supabaseUrl).hostname} https://gateway.ai.cloudflare.com`,
+    `connect-src 'self' ${connectSrc} https://gateway.ai.cloudflare.com`,
     `frame-ancestors 'none'`,
     `base-uri 'self'`,
     `form-action 'self' https://sso.acesso.gov.br`,
   ].join('; ')
 
-  supabaseResponse.headers.set('Content-Security-Policy', csp)
+  response.headers.set('Content-Security-Policy', csp)
 
   // ─── Cache-Control ──────────────────────────────────────────────────────
   if (pathname.startsWith('/images/') || pathname.startsWith('/favicon') || pathname === '/icon.png') {
-    supabaseResponse.headers.set('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800')
+    response.headers.set('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800')
   } else if (pathname === '/robots.txt' || pathname === '/sitemap.xml' || pathname === '/manifest.webmanifest') {
-    supabaseResponse.headers.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400')
+    response.headers.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400')
   } else {
-    supabaseResponse.headers.set('Cache-Control', 'public, max-age=0, s-maxage=60, stale-while-revalidate=300')
+    response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=60, stale-while-revalidate=300')
   }
 
-  return supabaseResponse
+  return response
 }
 
 export const config = {
