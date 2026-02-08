@@ -109,7 +109,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
     demo: { label: "Dashboard", badge: "DEMO", badgeColor: "bg-amber-500 text-white" },
   };
 
-  const currentDashboard = dashboardConfig[userRole] ?? dashboardConfig.demo;
+  const currentDashboard = dashboardConfig[userRole] ?? dashboardConfig["demo"]!;
 
   const handleLogoutClick = () => {
     setLogoutModal(true);

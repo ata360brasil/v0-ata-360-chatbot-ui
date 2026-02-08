@@ -82,7 +82,7 @@ export function anonymizeCNPJ(cnpj: string): string {
  * Anonimiza email: usuario@dominio.com => us***@dominio.com
  */
 export function anonymizeEmail(email: string): string {
-  const [local, domain] = email.split('@')
+  const [local = '', domain] = email.split('@')
   if (!domain) return '***@***'
   const visible = Math.min(2, local.length)
   return `${local.slice(0, visible)}***@${domain}`

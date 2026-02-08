@@ -259,8 +259,8 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
     result.sort((a, b) => {
       switch (sortBy) {
         case "date":
-          return new Date(b.lastMessageAt.split(" ")[0].split("/").reverse().join("-")).getTime() - 
-                 new Date(a.lastMessageAt.split(" ")[0].split("/").reverse().join("-")).getTime();
+          return new Date((b.lastMessageAt.split(" ")[0] ?? "").split("/").reverse().join("-")).getTime() -
+                 new Date((a.lastMessageAt.split(" ")[0] ?? "").split("/").reverse().join("-")).getTime();
         case "rating":
           return (b.userRating || 0) - (a.userRating || 0);
         case "title":
@@ -346,12 +346,12 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
   ];
 
   const getMonthYearKey = (dateStr: string) => {
-    const parts = dateStr.split(" ")[0].split("/");
+    const parts = (dateStr.split(" ")[0] ?? "").split("/");
     return `${parts[1]}/${parts[2]}`;
   };
 
   const formatMonthYear = (key: string) => {
-    const [month, year] = key.split("/");
+    const [month = "1", year = ""] = key.split("/");
     return `${monthNames[parseInt(month, 10) - 1]} ${year}`;
   };
 
@@ -365,7 +365,7 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
         currentKey = key;
         groups.push({ key, label: formatMonthYear(key), items: [conv] });
       } else {
-        groups[groups.length - 1].items.push(conv);
+        groups[groups.length - 1]!.items.push(conv);
       }
     }
 

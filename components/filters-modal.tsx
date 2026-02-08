@@ -425,6 +425,7 @@ export function FiltersModal({
             </div>
             <button
               onClick={() => onOpenChange(false)}
+              aria-label="Fechar filtros"
               className="size-8 rounded-full flex items-center justify-center hover:bg-muted/50 transition-colors cursor-pointer"
             >
               <X className="size-4 text-muted-foreground" />
@@ -438,7 +439,9 @@ export function FiltersModal({
             
             {/* Buscas por palavras-chave */}
             <FilterSection title="Buscas por palavras-chave">
+              <label htmlFor="filter-palavra-chave" className={labelClassName}>Palavra-chave</label>
               <Input
+                id="filter-palavra-chave"
                 placeholder="Digite sua busca com complementos"
                 value={localFilters.palavraChave}
                 onChange={(e) => handleFilterChange("palavraChave", e.target.value)}
@@ -485,38 +488,54 @@ export function FiltersModal({
             {/* Valores Mín. / Máx. */}
             <FilterSection title="Valores Mín. / Máx.">
               <div className="grid grid-cols-2 gap-3">
-                <Input
-                  placeholder="0,00"
-                  type="text"
-                  value={localFilters.valorMinimo}
-                  onChange={(e) => handleFilterChange("valorMinimo", e.target.value)}
-                  className={inputClassName}
-                />
-                <Input
-                  placeholder="999.999.999.999,00"
-                  type="text"
-                  value={localFilters.valorMaximo}
-                  onChange={(e) => handleFilterChange("valorMaximo", e.target.value)}
-                  className={inputClassName}
-                />
+                <div>
+                  <label htmlFor="filter-valor-min" className={labelClassName}>Valor mínimo</label>
+                  <Input
+                    id="filter-valor-min"
+                    placeholder="0,00"
+                    type="text"
+                    value={localFilters.valorMinimo}
+                    onChange={(e) => handleFilterChange("valorMinimo", e.target.value)}
+                    className={inputClassName}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="filter-valor-max" className={labelClassName}>Valor máximo</label>
+                  <Input
+                    id="filter-valor-max"
+                    placeholder="999.999.999.999,00"
+                    type="text"
+                    value={localFilters.valorMaximo}
+                    onChange={(e) => handleFilterChange("valorMaximo", e.target.value)}
+                    className={inputClassName}
+                  />
+                </div>
               </div>
             </FilterSection>
 
             {/* Período Inicial / Final */}
             <FilterSection title="Período Inicial / Final">
               <div className="grid grid-cols-2 gap-3">
-                <Input
-                  type="date"
-                  value={localFilters.periodoInicio}
-                  onChange={(e) => handleFilterChange("periodoInicio", e.target.value)}
-                  className={inputClassName}
-                />
-                <Input
-                  type="date"
-                  value={localFilters.periodoFim}
-                  onChange={(e) => handleFilterChange("periodoFim", e.target.value)}
-                  className={inputClassName}
-                />
+                <div>
+                  <label htmlFor="filter-periodo-inicio" className={labelClassName}>Data inicial</label>
+                  <Input
+                    id="filter-periodo-inicio"
+                    type="date"
+                    value={localFilters.periodoInicio}
+                    onChange={(e) => handleFilterChange("periodoInicio", e.target.value)}
+                    className={inputClassName}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="filter-periodo-fim" className={labelClassName}>Data final</label>
+                  <Input
+                    id="filter-periodo-fim"
+                    type="date"
+                    value={localFilters.periodoFim}
+                    onChange={(e) => handleFilterChange("periodoFim", e.target.value)}
+                    className={inputClassName}
+                  />
+                </div>
               </div>
             </FilterSection>
 
@@ -578,12 +597,16 @@ export function FiltersModal({
             {/* CNPJ | Dados Cadastrais */}
             <FilterSection title="CNPJ | Dados Cadastrais">
               <div className="flex flex-col gap-3">
-                <Input
-                  placeholder="Digite o CNPJ 00.000.000/0000-00"
-                  value={localFilters.cnpj}
-                  onChange={(e) => handleFilterChange("cnpj", e.target.value)}
-                  className={inputClassName}
-                />
+                <div>
+                  <label htmlFor="filter-cnpj" className={labelClassName}>CNPJ</label>
+                  <Input
+                    id="filter-cnpj"
+                    placeholder="Digite o CNPJ 00.000.000/0000-00"
+                    value={localFilters.cnpj}
+                    onChange={(e) => handleFilterChange("cnpj", e.target.value)}
+                    className={inputClassName}
+                  />
+                </div>
                 <Select
                   value={localFilters.porte}
                   onValueChange={(value) => handleFilterChange("porte", value)}
@@ -614,12 +637,16 @@ export function FiltersModal({
                     ))}
                   </SelectContent>
                 </Select>
-                <Input
-                  placeholder="Digite o CNAE 0000-0/00"
-                  value={localFilters.cnae}
-                  onChange={(e) => handleFilterChange("cnae", e.target.value)}
-                  className={inputClassName}
-                />
+                <div>
+                  <label htmlFor="filter-cnae" className={labelClassName}>CNAE</label>
+                  <Input
+                    id="filter-cnae"
+                    placeholder="Digite o CNAE 0000-0/00"
+                    value={localFilters.cnae}
+                    onChange={(e) => handleFilterChange("cnae", e.target.value)}
+                    className={inputClassName}
+                  />
+                </div>
                 <Select
                   value={localFilters.segmento}
                   onValueChange={(value) => handleFilterChange("segmento", value)}
@@ -802,12 +829,16 @@ export function FiltersModal({
             {/* Fonte recursos e outros */}
             <FilterSection title="Fonte recursos e outros">
               <div className="flex flex-col gap-3">
-                <Input
-                  placeholder="Inserir dotação orçamentária"
-                  value={localFilters.dotacaoOrcamentaria}
-                  onChange={(e) => handleFilterChange("dotacaoOrcamentaria", e.target.value)}
-                  className={inputClassName}
-                />
+                <div>
+                  <label htmlFor="filter-dotacao" className={labelClassName}>Dotação orçamentária</label>
+                  <Input
+                    id="filter-dotacao"
+                    placeholder="Inserir dotação orçamentária"
+                    value={localFilters.dotacaoOrcamentaria}
+                    onChange={(e) => handleFilterChange("dotacaoOrcamentaria", e.target.value)}
+                    className={inputClassName}
+                  />
+                </div>
                 <Select
                   value={localFilters.programa}
                   onValueChange={(value) => handleFilterChange("programa", value)}

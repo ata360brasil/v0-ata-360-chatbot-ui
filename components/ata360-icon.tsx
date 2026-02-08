@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface ATA360IconProps {
@@ -16,10 +17,12 @@ interface ATA360IconProps {
 export function ATA360Icon({ className, color = "adaptive" }: ATA360IconProps) {
   if (color === "color") {
     return (
-      <img
+      <Image
         src="/images/logotipo-ata360-azul.png"
         alt=""
         aria-hidden="true"
+        width={24}
+        height={24}
         className={cn("size-6 shrink-0 object-contain", className)}
       />
     );
@@ -27,10 +30,12 @@ export function ATA360Icon({ className, color = "adaptive" }: ATA360IconProps) {
 
   // Single black PNG — CSS invert in dark mode
   return (
-    <img
+    <Image
       src="/images/logotipo-ata360-preto.png"
       alt=""
       aria-hidden="true"
+      width={24}
+      height={24}
       className={cn("size-6 shrink-0 object-contain dark:invert", className)}
     />
   );

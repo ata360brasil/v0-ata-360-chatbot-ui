@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 
@@ -74,7 +75,7 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
 
   const handleItemChange = (index: number, field: string, value: string | number) => {
     const newItens = [...data.itens];
-    newItens[index] = { ...newItens[index], [field]: value };
+    newItens[index] = { ...newItens[index], [field]: value } as typeof newItens[number];
     
     // Recalcular valor total do item
     if (field === "quantidade" || field === "valorUnitario") {
@@ -137,10 +138,12 @@ export function DFDDocument({ data: initialData, isEditing = false, onDataChange
             <p className="text-xs text-muted-foreground">{data.departamento}</p>
           </div>
           <div className="text-right text-xs text-muted-foreground">
-            <img
+            <Image
               src="/images/brasao-lagoa-santa.png"
               alt="Brasão Prefeitura de Lagoa Santa"
-              className="w-16 h-16 object-contain grayscale"
+              width={64}
+              height={64}
+              className="object-contain grayscale"
             />
           </div>
         </div>

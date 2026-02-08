@@ -9,6 +9,9 @@
  */
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import type { Database } from '@/lib/supabase/database.types'
+
+type AuditInsert = Database['public']['Tables']['audit_trail']['Insert']
 
 export async function POST(request: Request) {
   const supabase = await createClient()
@@ -29,17 +32,19 @@ export async function POST(request: Request) {
   const capped = events.slice(0, 50)
 
   try {
-    const { error } = await supabase.from('audit_trail').insert(
-      capped.map((event: Record<string, unknown>) => ({
-        orgao_id: user.user_metadata?.orgao_id ?? '',
-        processo_id: event.resourceId ?? null,
-        acao: event.action,
-        agente: 'frontend',
-        detalhes: event.details ?? null,
-        hash: '', // Hash calculado server-side
-        criado_por: user.id,
-      })),
-    )
+    const rows: AuditInsert[] = capped.map((event: Record<string, unknown>) => ({
+      orgao_id: (user.user_metadata?.orgao_id as string) ?? '',
+      processo_id: (event.resourceId as string) ?? null,
+      acao: event.action as string,
+      agente: 'frontend',
+      detalhes: (event.details as Record<string, unknown>) ?? null,
+      hash: '',
+      estado_anterior: null,
+      estado_novo: null,
+      criado_por: user.id,
+    }))
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Supabase generated types resolve Insert to never for append-only tables
+    const { error } = await supabase.from('audit_trail').insert(rows as any)
 
     if (error) {
       return NextResponse.json({ message: 'Erro ao salvar audit' }, { status: 500 })

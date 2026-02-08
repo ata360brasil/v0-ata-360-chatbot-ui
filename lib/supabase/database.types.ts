@@ -88,7 +88,7 @@ export interface Database {
           created_at: string
         }
         Insert: Omit<Database['public']['Tables']['audit_trail']['Row'], 'id' | 'created_at'>
-        Update: never
+        Update: Partial<Database['public']['Tables']['audit_trail']['Insert']>
       }
     }
     Views: Record<string, never>

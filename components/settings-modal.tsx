@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -93,11 +94,11 @@ function ContactModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center">
+    <div role="dialog" aria-modal="true" aria-labelledby="contact-dialog-title" className="fixed inset-0 z-[60] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div className="relative bg-background border border-border/50 rounded-2xl w-[90vw] max-w-md shadow-lg">
         {sent ? (
-          <div className="px-6 py-10 text-center">
+          <div className="px-6 py-10 text-center" role="status" aria-live="polite">
             <CheckCircle2 className="size-8 text-foreground mx-auto mb-3" />
             <p className="text-sm font-semibold text-foreground">
               Mensagem enviada com sucesso!
@@ -111,12 +112,13 @@ function ContactModal({
             <div className="flex items-center justify-between px-5 py-4 border-b border-border/30">
               <div className="flex items-center gap-2">
                 <MessageSquare className="size-4 text-foreground" />
-                <span className="text-sm font-semibold text-foreground">
+                <span id="contact-dialog-title" className="text-sm font-semibold text-foreground">
                   FALE CONOSCO
                 </span>
               </div>
               <button
                 onClick={onClose}
+                aria-label="Fechar fale conosco"
                 className="size-8 rounded-full flex items-center justify-center hover:bg-muted transition-colors cursor-pointer"
               >
                 <X className="size-4 text-muted-foreground" />
@@ -124,10 +126,11 @@ function ContactModal({
             </div>
             <div className="px-5 py-5 space-y-4">
               <div>
-                <label className="text-xs text-muted-foreground mb-1.5 block">
+                <label htmlFor="contact-subject" className="text-xs text-muted-foreground mb-1.5 block">
                   Assunto
                 </label>
                 <input
+                  id="contact-subject"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   placeholder="Descreva brevemente o assunto..."
@@ -135,10 +138,11 @@ function ContactModal({
                 />
               </div>
               <div>
-                <label className="text-xs text-muted-foreground mb-1.5 block">
+                <label htmlFor="contact-message" className="text-xs text-muted-foreground mb-1.5 block">
                   Mensagem
                 </label>
                 <textarea
+                  id="contact-message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Escreva sua mensagem..."
@@ -279,7 +283,7 @@ function SupportModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center">
+    <div role="dialog" aria-modal="true" aria-labelledby="support-dialog-title" className="fixed inset-0 z-[60] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div className="relative bg-background border border-border/50 rounded-2xl w-[90vw] max-w-lg shadow-lg max-h-[80vh] flex flex-col">
         {/* Header */}
@@ -291,13 +295,14 @@ function SupportModal({
                   setView("list");
                   setSelectedTicket(null);
                 }}
+                aria-label="Voltar para lista de chamados"
                 className="size-7 rounded-full flex items-center justify-center hover:bg-muted transition-colors cursor-pointer mr-1"
               >
                 <ArrowLeft className="size-3.5 text-muted-foreground" />
               </button>
             )}
             <Headphones className="size-4 text-foreground" />
-            <span className="text-sm font-semibold text-foreground">
+            <span id="support-dialog-title" className="text-sm font-semibold text-foreground">
               {view === "list"
                 ? "SUPORTE TÉCNICO"
                 : view === "new"
@@ -307,6 +312,7 @@ function SupportModal({
           </div>
           <button
             onClick={onClose}
+            aria-label="Fechar suporte técnico"
             className="size-8 rounded-full flex items-center justify-center hover:bg-muted transition-colors cursor-pointer"
           >
             <X className="size-4 text-muted-foreground" />
@@ -400,10 +406,11 @@ function SupportModal({
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs text-muted-foreground mb-1.5 block">
+                  <label htmlFor="support-subject" className="text-xs text-muted-foreground mb-1.5 block">
                     Assunto
                   </label>
                   <input
+                    id="support-subject"
                     value={newSubject}
                     onChange={(e) => setNewSubject(e.target.value)}
                     placeholder="Descreva o problema..."
@@ -411,10 +418,11 @@ function SupportModal({
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-muted-foreground mb-1.5 block">
+                  <label htmlFor="support-description" className="text-xs text-muted-foreground mb-1.5 block">
                     Descrição
                   </label>
                   <textarea
+                    id="support-description"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     placeholder="Detalhe o que está acontecendo..."
@@ -495,10 +503,12 @@ function SupportModal({
                       value={replyMessage}
                       onChange={(e) => setReplyMessage(e.target.value)}
                       placeholder="Responder..."
+                      aria-label="Responder ao chamado"
                       className="flex-1 bg-background border border-border/50 rounded-full text-xs text-foreground placeholder:text-muted-foreground/50 focus:outline-none px-4 py-2.5"
                     />
                     <button
                       disabled={!replyMessage.trim()}
+                      aria-label="Enviar resposta"
                       className="size-9 rounded-full bg-foreground text-background flex items-center justify-center cursor-pointer disabled:opacity-40"
                     >
                       <Send className="size-3.5" />
@@ -624,7 +634,7 @@ function OmbudsmanModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center">
+    <div role="dialog" aria-modal="true" aria-labelledby="ombudsman-dialog-title" className="fixed inset-0 z-[60] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div className="relative bg-background border border-border/50 rounded-2xl w-[90vw] max-w-lg shadow-lg max-h-[85vh] flex flex-col">
         {/* Header */}
@@ -636,24 +646,26 @@ function OmbudsmanModal({
                   setView("menu");
                   resetForm();
                 }}
+                aria-label="Voltar ao menu da ouvidoria"
                 className="size-7 rounded-full flex items-center justify-center hover:bg-muted transition-colors cursor-pointer mr-1"
               >
                 <ArrowLeft className="size-3.5 text-muted-foreground" />
               </button>
             )}
             <Shield className="size-4 text-foreground" />
-            <span className="text-sm font-semibold text-foreground">
+            <span id="ombudsman-dialog-title" className="text-sm font-semibold text-foreground">
               {view === "menu"
                 ? "OUVIDORIA"
                 : view === "form"
                   ? "MANIFESTAÇÃO"
                   : view === "report"
-                    ? "DENÚCIA"
+                    ? "DENÚNCIA"
                     : "OUVIDORIA"}
             </span>
           </div>
           <button
             onClick={onClose}
+            aria-label="Fechar ouvidoria"
             className="size-8 rounded-full flex items-center justify-center hover:bg-muted transition-colors cursor-pointer"
           >
             <X className="size-4 text-muted-foreground" />
@@ -840,10 +852,11 @@ function OmbudsmanModal({
                 {/* Email */}
                 {anonymity !== "anônimo" && (
                   <div>
-                    <label className="text-xs text-muted-foreground mb-1.5 block">
+                    <label htmlFor="ombudsman-email" className="text-xs text-muted-foreground mb-1.5 block">
                       E-mail para resposta
                     </label>
                     <input
+                      id="ombudsman-email"
                       value={omEmail}
                       onChange={(e) => setOmEmail(e.target.value)}
                       placeholder="seu@email.com"
@@ -853,10 +866,11 @@ function OmbudsmanModal({
                 )}
                 {/* Message */}
                 <div>
-                  <label className="text-xs text-muted-foreground mb-1.5 block">
+                  <label htmlFor="ombudsman-message" className="text-xs text-muted-foreground mb-1.5 block">
                     Mensagem
                   </label>
                   <textarea
+                    id="ombudsman-message"
                     value={omMessage}
                     onChange={(e) => setOmMessage(e.target.value)}
                     placeholder="Descreva sua manifestação..."
@@ -922,10 +936,11 @@ function OmbudsmanModal({
                 </div>
                 {/* Description */}
                 <div>
-                  <label className="text-xs text-muted-foreground mb-1.5 block">
+                  <label htmlFor="report-message" className="text-xs text-muted-foreground mb-1.5 block">
                     Relato
                   </label>
                   <textarea
+                    id="report-message"
                     value={reportMessage}
                     onChange={(e) => setReportMessage(e.target.value)}
                     placeholder="Descreva os fatos com o máximo de detalhes possível..."
@@ -1104,6 +1119,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
             value={legalSearch}
             onChange={(e) => setLegalSearch(e.target.value)}
             placeholder="Buscar documento..."
+            aria-label="Buscar documento na biblioteca legal"
             className="w-full bg-background border border-border/50 rounded-full text-xs text-foreground placeholder:text-muted-foreground/50 focus:outline-none pl-9 pr-3 py-2"
           />
         </div>
@@ -1152,19 +1168,19 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
               <button
                 onClick={() => setLegalPreview(doc.id === legalPreview ? null : doc.id)}
                 className="size-7 rounded-full flex items-center justify-center hover:bg-muted transition-colors cursor-pointer"
-                title="Visualizar"
+                aria-label={`Visualizar ${doc.name}`}
               >
                 <Eye className="size-3.5 text-muted-foreground" />
               </button>
               <button
                 className="size-7 rounded-full flex items-center justify-center hover:bg-muted transition-colors cursor-pointer"
-                title="Baixar"
+                aria-label={`Baixar ${doc.name}`}
               >
                 <Download className="size-3.5 text-muted-foreground" />
               </button>
               <button
                 className="size-7 rounded-full flex items-center justify-center hover:bg-muted transition-colors cursor-pointer"
-                title="Excluir"
+                aria-label={`Excluir ${doc.name}`}
               >
                 <Trash2 className="size-3.5 text-muted-foreground hover:text-red-500" />
               </button>
@@ -1260,9 +1276,10 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
 
           {/* Current Password */}
           <div>
-            <label className="text-xs text-muted-foreground mb-1.5 block">Senha atual</label>
+            <label htmlFor="pw-current" className="text-xs text-muted-foreground mb-1.5 block">Senha atual</label>
             <div className="relative">
               <input
+                id="pw-current"
                 type={showCurrentPw ? "text" : "password"}
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
@@ -1271,6 +1288,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
               />
               <button
                 onClick={() => setShowCurrentPw(!showCurrentPw)}
+                aria-label={showCurrentPw ? "Ocultar senha atual" : "Mostrar senha atual"}
                 className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
               >
                 {showCurrentPw ? (
@@ -1286,9 +1304,10 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
 
           {/* New Password */}
           <div>
-            <label className="text-xs text-muted-foreground mb-1.5 block">Nova senha</label>
+            <label htmlFor="pw-new" className="text-xs text-muted-foreground mb-1.5 block">Nova senha</label>
             <div className="relative">
               <input
+                id="pw-new"
                 type={showNewPw ? "text" : "password"}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
@@ -1297,6 +1316,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
               />
               <button
                 onClick={() => setShowNewPw(!showNewPw)}
+                aria-label={showNewPw ? "Ocultar nova senha" : "Mostrar nova senha"}
                 className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
               >
                 {showNewPw ? (
@@ -1327,9 +1347,10 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
 
           {/* Confirm Password */}
           <div>
-            <label className="text-xs text-muted-foreground mb-1.5 block">Confirmar nova senha</label>
+            <label htmlFor="pw-confirm" className="text-xs text-muted-foreground mb-1.5 block">Confirmar nova senha</label>
             <div className="relative">
               <input
+                id="pw-confirm"
                 type={showConfirmPw ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -1341,6 +1362,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
               />
               <button
                 onClick={() => setShowConfirmPw(!showConfirmPw)}
+                aria-label={showConfirmPw ? "Ocultar confirmação de senha" : "Mostrar confirmação de senha"}
                 className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
               >
                 {showConfirmPw ? (
@@ -1546,11 +1568,12 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                 Obrigatória. Utilizada em sua identificação no sistema.
               </p>
               <div className="flex items-center gap-4">
-                <div className="size-16 rounded-full bg-muted border-2 border-border/30 flex items-center justify-center overflow-hidden">
-                  <img
+                <div className="size-16 rounded-full bg-muted border-2 border-border/30 flex items-center justify-center overflow-hidden relative">
+                  <Image
                     src="/images/whatsapp-20image-202025-10-15-20at-2016.jpeg"
                     alt="Foto do perfil"
-                    className="size-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
@@ -1839,7 +1862,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div role="dialog" aria-modal="true" aria-labelledby="settings-dialog-title" className="fixed inset-0 z-50 flex items-center justify-center">
         <div
           className="absolute inset-0 bg-black/40"
           onClick={() => onOpenChange(false)}
@@ -1849,12 +1872,13 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
           <div className="flex items-center justify-between px-5 py-4 border-b border-border/30 shrink-0">
             <div className="flex items-center gap-2">
               <Settings className="size-4 text-foreground" />
-              <span className="text-sm font-semibold text-foreground">
+              <span id="settings-dialog-title" className="text-sm font-semibold text-foreground">
                 CONFIGURAÇÕES
               </span>
             </div>
             <button
               onClick={() => onOpenChange(false)}
+              aria-label="Fechar configurações"
               className="size-8 rounded-full flex items-center justify-center hover:bg-muted/50 transition-colors cursor-pointer"
             >
               <X className="size-4 text-muted-foreground" />

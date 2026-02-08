@@ -154,6 +154,7 @@ export function NotificationsModal({
               </div>
               <button
                 onClick={() => onOpenChange(false)}
+                aria-label="Fechar notificações"
                 className="size-8 rounded-full flex items-center justify-center hover:bg-muted/50 transition-colors cursor-pointer"
               >
                 <X className="size-4 text-muted-foreground" />
@@ -236,7 +237,7 @@ export function NotificationsModal({
                                   : handleMarkAsRead(notification.id)
                               }
                               className="size-7 rounded flex items-center justify-center hover:bg-muted transition-colors cursor-pointer"
-                              title={notification.read ? "Marcar como nao lida" : "Marcar como lida"}
+                              aria-label={notification.read ? "Marcar como não lida" : "Marcar como lida"}
                             >
                               <ReadIcon className="size-3.5 text-muted-foreground" />
                             </button>
@@ -244,14 +245,14 @@ export function NotificationsModal({
                               <button
                                 onClick={() => setDeleteItemDialog(notification.id)}
                                 className="size-7 rounded flex items-center justify-center hover:bg-destructive/10 transition-colors cursor-pointer"
-                                title="Excluir"
+                                aria-label="Excluir notificação"
                               >
                                 <Trash2 className="size-3.5 text-muted-foreground hover:text-destructive" />
                               </button>
                             ) : (
                               <span
                                 className="size-7 rounded flex items-center justify-center cursor-not-allowed"
-                                title="Requer acao antes de excluir"
+                                aria-label="Requer ação antes de excluir"
                               >
                                 <Trash2 className="size-3.5 text-muted-foreground/30" />
                               </span>
@@ -262,7 +263,8 @@ export function NotificationsModal({
                           <button
                             onClick={() => toggleExpand(notification.id)}
                             className="size-7 rounded flex items-center justify-center hover:bg-muted transition-colors cursor-pointer"
-                            title={expandedId === notification.id ? "Recolher" : "Ver detalhes"}
+                            aria-label={expandedId === notification.id ? "Recolher detalhes" : "Ver detalhes"}
+                            aria-expanded={expandedId === notification.id}
                           >
                             <ChevronDown
                               className={cn(

@@ -194,7 +194,7 @@ function MainShell({ children }: { children: React.ReactNode }) {
           />
 
           {/* Right Artifacts Panel */}
-          <aside aria-label="Painel de artefatos">
+          <aside className="shrink-0 h-full overflow-hidden" aria-label="Painel de artefatos">
             <ArtifactsPanel
               isOpen={artifactsPanelOpen}
               onClose={closeArtifactsPanel}

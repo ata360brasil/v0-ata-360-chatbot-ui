@@ -7,7 +7,9 @@ import { AlertTriangle } from 'lucide-react'
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     // TODO: Enviar para serviço de monitoramento (Sentry)
-    console.error('[ATA360:Error]', error)
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[ATA360:Error]', error)
+    }
   }, [error])
 
   return (

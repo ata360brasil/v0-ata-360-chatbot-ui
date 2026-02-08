@@ -13,7 +13,7 @@
  * - Google Structured Data Guidelines
  */
 
-const BASE_URL = 'https://app.ata360.com.br'
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://app.ata360.com.br'
 
 // ─── Organization + SoftwareApplication (root layout) ────────────────────────
 
@@ -26,7 +26,7 @@ export function OrganizationJsonLd() {
         '@id': `${BASE_URL}/#organization`,
         name: 'ATA360',
         url: 'https://ata360.com.br',
-        logo: `${BASE_URL}/icon.svg`,
+        logo: `${BASE_URL}/icon.png`,
         description: 'Plataforma GovTech brasileira especializada em contratações públicas com inteligência artificial.',
         address: {
           '@type': 'PostalAddress',
