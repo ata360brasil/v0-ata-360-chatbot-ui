@@ -349,7 +349,7 @@ export function ContractsPage() {
           <div className="flex items-center gap-2">
             {/* New Contract Button */}
             <Button
-              className="gap-2 h-9 rounded-full bg-foreground text-white hover:bg-foreground/90"
+              className="gap-2 h-9 rounded-full bg-foreground text-background hover:bg-foreground/90"
               onClick={() => setNewContractModalOpen(true)}
             >
               <Plus size={14} />
@@ -364,7 +364,7 @@ export function ContractsPage() {
                 onClick={() => setViewType("cards")}
                 className={cn(
                   "size-7 rounded-full hover:bg-muted",
-                  viewType === "cards" && "bg-foreground text-white hover:bg-foreground/90"
+                  viewType === "cards" && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <LayoutGrid size={16} />
@@ -375,7 +375,7 @@ export function ContractsPage() {
                 onClick={() => setViewType("list")}
                 className={cn(
                   "size-7 rounded-full hover:bg-muted",
-                  viewType === "list" && "bg-foreground text-white hover:bg-foreground/90"
+                  viewType === "list" && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <List size={16} />
@@ -769,7 +769,7 @@ export function ContractsPage() {
                 tempRatings.quality === 0 ||
                 tempRatings.relationship === 0
               }
-              className="rounded-full bg-foreground text-white hover:bg-foreground/90 text-xs h-9 px-6"
+              className="rounded-full bg-foreground text-background hover:bg-foreground/90 text-xs h-9 px-6"
             >
               Confirmar Avaliação
             </Button>
@@ -961,7 +961,7 @@ export function ContractsPage() {
                   observations: "",
                 });
               }}
-              className="rounded-full bg-foreground text-white hover:bg-foreground/90"
+              className="rounded-full bg-foreground text-background hover:bg-foreground/90"
             >
               Cadastrar Contrato
             </Button>

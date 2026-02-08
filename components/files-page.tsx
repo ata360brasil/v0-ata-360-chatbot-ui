@@ -350,7 +350,7 @@ export function FilesPage() {
             {/* New Button */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="gap-2 rounded-full bg-foreground text-white hover:bg-foreground/90 h-9">
+                <Button className="gap-2 rounded-full bg-foreground text-background hover:bg-foreground/90 h-9">
                   <Plus size={14} />
                   Novo
                 </Button>
@@ -383,7 +383,7 @@ export function FilesPage() {
                 onClick={() => setViewType("grid")}
                 className={cn(
                   "size-7 rounded-full hover:bg-muted",
-                  viewType === "grid" && "bg-foreground text-white hover:bg-foreground/90"
+                  viewType === "grid" && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <LayoutGrid size={16} />
@@ -394,7 +394,7 @@ export function FilesPage() {
                 onClick={() => setViewType("list")}
                 className={cn(
                   "size-7 rounded-full hover:bg-muted",
-                  viewType === "list" && "bg-foreground text-white hover:bg-foreground/90"
+                  viewType === "list" && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <List size={16} />
@@ -496,9 +496,9 @@ export function FilesPage() {
                       : "bg-muted"
                   )}>
                     <IconComponent size={24} className={cn(
-                      file.type === "folder" && file.shared ? "text-white" :
+                      file.type === "folder" && file.shared ? "text-background" :
                       file.type === "folder" && !file.shared ? "text-foreground" :
-                      file.shared ? "text-white" : "text-foreground"
+                      file.shared ? "text-background" : "text-foreground"
                     )} />
                   </div>
 
@@ -601,9 +601,9 @@ export function FilesPage() {
                         : "bg-muted"
                     )}>
                       <IconComponent size={18} className={cn(
-                        file.type === "folder" && file.shared ? "text-white" :
+                        file.type === "folder" && file.shared ? "text-background" :
                         file.type === "folder" && !file.shared ? "text-foreground" :
-                        file.shared ? "text-white" : "text-foreground"
+                        file.shared ? "text-background" : "text-foreground"
                       )} />
                     </div>
                     <div className="min-w-0">
@@ -699,7 +699,7 @@ export function FilesPage() {
                 )}>
                   {React.createElement(getFileIcon(selectedFile.type), {
                     size: 24,
-                    className: selectedFile.type === "folder" ? "text-white" : "text-foreground"
+                    className: selectedFile.type === "folder" ? "text-background" : "text-foreground"
                   })}
                 </div>
                 <div className="min-w-0">
@@ -768,7 +768,7 @@ export function FilesPage() {
               Fechar
             </Button>
             {selectedFile?.type !== "folder" && (
-              <Button className="rounded-full bg-foreground text-white hover:bg-foreground/90 text-xs h-9 px-6">
+              <Button className="rounded-full bg-foreground text-background hover:bg-foreground/90 text-xs h-9 px-6">
                 <Download size={12} className="mr-1.5" />
                 Baixar
               </Button>
@@ -820,7 +820,7 @@ export function FilesPage() {
                 setNewFolderModalOpen(false);
               }}
               disabled={!newFolderName.trim()}
-              className="rounded-full bg-foreground text-white hover:bg-foreground/90 text-xs h-9 px-6"
+              className="rounded-full bg-foreground text-background hover:bg-foreground/90 text-xs h-9 px-6"
             >
               Criar Pasta
             </Button>
@@ -914,7 +914,7 @@ export function FilesPage() {
                 setUploadModalOpen(false);
               }}
               disabled={!uploadDescription.trim()}
-              className="rounded-full bg-foreground text-white hover:bg-foreground/90 text-xs h-9 px-6"
+              className="rounded-full bg-foreground text-background hover:bg-foreground/90 text-xs h-9 px-6"
             >
               Enviar {droppedFiles.length} arquivo{droppedFiles.length > 1 ? 's' : ''}
             </Button>

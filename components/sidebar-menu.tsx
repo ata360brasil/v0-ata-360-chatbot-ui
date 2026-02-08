@@ -180,7 +180,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
                           {item.badge && (
-                            <span className="size-5 text-[10px] font-medium text-white bg-foreground rounded-full flex items-center justify-center">
+                            <span className="size-5 text-[10px] font-medium text-background bg-foreground rounded-full flex items-center justify-center">
                               {item.badge}
                             </span>
                           )}
@@ -196,7 +196,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
             {/* Footer - User Profile */}
             <div className="p-3 border-t border-border/40">
               {/* User Info */}
-              <div className="flex items-center gap-3 p-2 rounded-full hover:bg-foreground cursor-pointer transition-colors group">
+              <div className="flex items-center gap-3 p-2 rounded-full hover:bg-muted cursor-pointer transition-colors group">
                 <Avatar className="size-10 shrink-0">
                   <AvatarImage src="/images/bernardo-aguiar.jpg" alt="Foto do usuário" />
                   <AvatarFallback className="bg-primary/10 text-primary text-sm font-medium">
@@ -204,10 +204,10 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-foreground group-hover:text-white truncate">
+                  <p className="text-sm font-semibold text-foreground truncate">
                     Bernardo Aguiar
                   </p>
-                  <p className="text-[11px] text-muted-foreground group-hover:text-white/70 truncate">
+                  <p className="text-[11px] text-muted-foreground truncate">
                     ATA360
                   </p>
                 </div>
@@ -221,9 +221,9 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
                           e.stopPropagation();
                           setSettingsOpen(true);
                         }}
-                        className="size-8 rounded-full hover:bg-white/20 cursor-pointer group-hover:text-white"
+                        className="size-8 rounded-full hover:bg-accent cursor-pointer"
                       >
-                        <Settings className="size-4 text-muted-foreground group-hover:text-white" />
+                        <Settings className="size-4 text-muted-foreground" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent side="top" sideOffset={8}>Configurações</TooltipContent>
@@ -237,9 +237,9 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
                           e.stopPropagation();
                           handleLogoutClick();
                         }}
-                        className="size-8 rounded-full hover:bg-red-500 cursor-pointer"
+                        className="size-8 rounded-full hover:bg-red-500/15 cursor-pointer"
                       >
-                        <Power className="size-4 text-red-500 group-hover:text-white" />
+                        <Power className="size-4 text-red-500 hover:text-red-400" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent side="right" sideOffset={12}>Sair do ATA360</TooltipContent>

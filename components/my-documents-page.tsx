@@ -185,7 +185,7 @@ export function MyDocumentsPage() {
           <div className="flex items-center gap-2">
             <Button
               size="sm"
-              className="gap-2 bg-foreground text-white hover:bg-foreground/90 h-9 rounded-full"
+              className="gap-2 bg-foreground text-background hover:bg-foreground/90 h-9 rounded-full"
             >
               <Plus size={14} />
               Novo Documento
@@ -199,7 +199,7 @@ export function MyDocumentsPage() {
                 onClick={() => setViewType("grid")}
                 className={cn(
                   "size-7 rounded-full hover:bg-muted",
-                  viewType === "grid" && "bg-foreground text-white hover:bg-foreground/90"
+                  viewType === "grid" && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <LayoutGrid size={16} />
@@ -210,7 +210,7 @@ export function MyDocumentsPage() {
                 onClick={() => setViewType("list")}
                 className={cn(
                   "size-7 rounded-full hover:bg-muted",
-                  viewType === "list" && "bg-foreground text-white hover:bg-foreground/90"
+                  viewType === "list" && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <List size={16} />
@@ -257,7 +257,7 @@ export function MyDocumentsPage() {
             onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
             className={cn(
               "h-6 px-2 text-xs rounded-full ml-auto",
-              showFavoritesOnly && "bg-foreground text-white hover:bg-foreground/90"
+              showFavoritesOnly && "bg-foreground text-background hover:bg-foreground/90"
             )}
           >
             ⭐ Favoritos
@@ -475,7 +475,7 @@ export function MyDocumentsPage() {
             >
               Fechar
             </Button>
-            <Button className="rounded-full bg-foreground text-white hover:bg-foreground/90">
+            <Button className="rounded-full bg-foreground text-background hover:bg-foreground/90">
               <Download size={14} className="mr-2" />
               Baixar
             </Button>
@@ -516,7 +516,7 @@ export function MyDocumentsPage() {
             >
               Cancelar
             </Button>
-            <Button className="rounded-full bg-foreground text-white hover:bg-foreground/90">
+            <Button className="rounded-full bg-foreground text-background hover:bg-foreground/90">
               Compartilhar
             </Button>
           </DialogFooter>

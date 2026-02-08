@@ -446,7 +446,7 @@ export function TeamPage() {
             <Button
               size="sm"
               onClick={() => setInviteModalOpen(true)}
-              className="gap-2 h-9 rounded-full bg-foreground text-white hover:bg-foreground/90"
+              className="gap-2 h-9 rounded-full bg-foreground text-background hover:bg-foreground/90"
             >
               <UserPlus size={14} />
               Convidar
@@ -460,7 +460,7 @@ export function TeamPage() {
                 onClick={() => setViewType("cards")}
                 className={cn(
                   "size-7 rounded-full hover:bg-muted",
-                  viewType === "cards" && "bg-foreground text-white hover:bg-foreground/90"
+                  viewType === "cards" && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <LayoutGrid size={16} />
@@ -471,7 +471,7 @@ export function TeamPage() {
                 onClick={() => setViewType("list")}
                 className={cn(
                   "size-7 rounded-full hover:bg-muted",
-                  viewType === "list" && "bg-foreground text-white hover:bg-foreground/90"
+                  viewType === "list" && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <List size={16} />
@@ -615,7 +615,7 @@ export function TeamPage() {
                 {/* Role & Status */}
                 <div className="flex flex-wrap gap-1.5 mb-2">
                   {member.memberType === "admin" && (
-                    <Badge className="text-[10px] h-5 rounded-full gap-1 bg-foreground text-white border-0">
+                    <Badge className="text-[10px] h-5 rounded-full gap-1 bg-foreground text-background border-0">
                       <ShieldCheck size={10} />
                       Admin
                     </Badge>
@@ -742,7 +742,7 @@ export function TeamPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     {member.memberType === "admin" && (
-                      <Badge className="text-[10px] h-5 rounded-full gap-1 bg-foreground text-white border-0">
+                      <Badge className="text-[10px] h-5 rounded-full gap-1 bg-foreground text-background border-0">
                         <ShieldCheck size={10} />
                         Admin
                       </Badge>
@@ -825,7 +825,7 @@ export function TeamPage() {
                   <p className="text-xs text-muted-foreground">{selectedMember.position}</p>
                   <div className="flex flex-wrap items-center gap-1.5 mt-1">
                     {selectedMember.memberType === "admin" && (
-                      <Badge className="text-[10px] h-5 rounded-full gap-1 bg-foreground text-white border-0">
+                      <Badge className="text-[10px] h-5 rounded-full gap-1 bg-foreground text-background border-0">
                         <ShieldCheck size={10} />
                         Admin
                       </Badge>
@@ -1064,7 +1064,7 @@ export function TeamPage() {
                 />
                 <Button
                   size="sm"
-                  className="rounded-full h-9 px-4 bg-foreground text-white hover:bg-foreground/90"
+                  className="rounded-full h-9 px-4 bg-foreground text-background hover:bg-foreground/90"
                 >
                   <Mail size={14} />
                 </Button>

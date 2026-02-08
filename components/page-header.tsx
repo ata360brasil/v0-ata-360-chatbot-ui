@@ -80,7 +80,7 @@ export function PageHeader({
             primaryAction.dropdown ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button className="gap-2 h-9 rounded-full bg-foreground text-white hover:bg-foreground/90">
+                  <Button className="gap-2 h-9 rounded-full bg-foreground text-background hover:bg-foreground/90">
                     <primaryAction.icon size={14} />
                     {primaryAction.label}
                   </Button>
@@ -89,7 +89,7 @@ export function PageHeader({
               </DropdownMenu>
             ) : (
               <Button
-                className="gap-2 h-9 rounded-full bg-foreground text-white hover:bg-foreground/90"
+                className="gap-2 h-9 rounded-full bg-foreground text-background hover:bg-foreground/90"
                 onClick={primaryAction.onClick}
               >
                 <primaryAction.icon size={14} />
@@ -110,7 +110,7 @@ export function PageHeader({
                   onClick={() => onViewTypeChange(type)}
                   className={cn(
                     "size-7 rounded-full hover:bg-muted",
-                    viewType === type && "bg-foreground text-white hover:bg-foreground/90"
+                    viewType === type && "bg-foreground text-background hover:bg-foreground/90"
                   )}
                 >
                   <ViewIcon size={16} />

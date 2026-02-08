@@ -843,7 +843,7 @@ function ChatInput({
                 onClick={onOpenFilters}
                 className={cn(
                   "size-10 rounded-full bg-background hover:bg-background/80 cursor-pointer shrink-0 self-center",
-                  filtersActive && "bg-foreground text-white hover:bg-foreground/90"
+                  filtersActive && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <SlidersHorizontal className="size-5" />

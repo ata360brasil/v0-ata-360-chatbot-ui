@@ -406,7 +406,7 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
                 onClick={() => setViewType("cards")}
                 className={cn(
                   "size-7 rounded-full hover:bg-muted",
-                  viewType === "cards" && "bg-foreground text-white hover:bg-foreground/90"
+                  viewType === "cards" && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <LayoutGrid size={16} />
@@ -417,7 +417,7 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
                 onClick={() => setViewType("list")}
                 className={cn(
                   "size-7 rounded-full hover:bg-muted",
-                  viewType === "list" && "bg-foreground text-white hover:bg-foreground/90"
+                  viewType === "list" && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <List size={16} />
@@ -470,7 +470,7 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
             onClick={() => setSearchInMessages(!searchInMessages)}
             className={cn(
               "h-6 px-2 text-xs rounded-full ml-auto",
-              searchInMessages && "bg-foreground text-white hover:bg-foreground/90"
+              searchInMessages && "bg-foreground text-background hover:bg-foreground/90"
             )}
           >
             <MessageSquare size={10} className="mr-1" />
@@ -492,7 +492,7 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
           <Button
             onClick={handleGlobalSearch}
             size="sm"
-            className="absolute right-1 top-1/2 -translate-y-1/2 h-8 rounded-full bg-foreground text-white hover:bg-foreground/90"
+            className="absolute right-1 top-1/2 -translate-y-1/2 h-8 rounded-full bg-foreground text-background hover:bg-foreground/90"
           >
             Buscar
           </Button>
@@ -794,7 +794,7 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
                                 <div className="flex items-center gap-2">
                                   <p className="text-sm font-medium truncate">{artifact.name}</p>
                                   {artifact.isLatest ? (
-                                    <Badge className="text-[8px] h-4 rounded-full bg-foreground text-white border-0">
+                                    <Badge className="text-[8px] h-4 rounded-full bg-foreground text-background border-0">
                                       v{artifact.version} - Atual
                                     </Badge>
                                   ) : (
@@ -852,7 +852,7 @@ export function HistoryPage({ onNewConversation }: { onNewConversation?: () => v
                   <Download size={14} />
                   Exportar
                 </Button>
-                <Button className="rounded-full bg-foreground text-white hover:bg-foreground/90 gap-2">
+                <Button className="rounded-full bg-foreground text-background hover:bg-foreground/90 gap-2">
                   <RotateCcw size={14} />
                   Continuar Conversa
                 </Button>

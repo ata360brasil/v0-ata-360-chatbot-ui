@@ -387,7 +387,7 @@ export function ProcessesPage() {
             {/* New Process Button */}
             <Button
               onClick={() => setNewProcessModalOpen(true)}
-              className="gap-2 h-9 rounded-full bg-foreground text-white hover:bg-foreground/90"
+              className="gap-2 h-9 rounded-full bg-foreground text-background hover:bg-foreground/90"
             >
               <Plus size={14} />
               Nova Pasta
@@ -401,7 +401,7 @@ export function ProcessesPage() {
                 onClick={() => setViewType("cards")}
                 className={cn(
                   "size-7 rounded-full hover:bg-muted",
-                  viewType === "cards" && "bg-foreground text-white hover:bg-foreground/90"
+                  viewType === "cards" && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <LayoutGrid size={16} />
@@ -412,7 +412,7 @@ export function ProcessesPage() {
                 onClick={() => setViewType("list")}
                 className={cn(
                   "size-7 rounded-full hover:bg-muted",
-                  viewType === "list" && "bg-foreground text-white hover:bg-foreground/90"
+                  viewType === "list" && "bg-foreground text-background hover:bg-foreground/90"
                 )}
               >
                 <List size={16} />
@@ -673,7 +673,7 @@ export function ProcessesPage() {
                     <div className="flex items-center gap-2">
                       <div className={cn(
                         "size-6 rounded-full flex items-center justify-center text-[10px] font-bold",
-                        isCompleted || isCurrentPhase ? "bg-foreground text-white" : "bg-muted text-muted-foreground"
+                        isCompleted || isCurrentPhase ? "bg-foreground text-background" : "bg-muted text-muted-foreground"
                       )}>
                         {index + 1}
                       </div>
@@ -798,7 +798,7 @@ export function ProcessesPage() {
                 setNewProcessValue("");
               }}
               disabled={!newProcessTitle || !newProcessDepartment}
-              className="rounded-full bg-foreground text-white hover:bg-foreground/90 text-xs h-9 px-6"
+              className="rounded-full bg-foreground text-background hover:bg-foreground/90 text-xs h-9 px-6"
             >
               Criar Pasta
             </Button>
