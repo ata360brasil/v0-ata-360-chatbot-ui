@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Justificativa de Contratação Direta - JCD</title>
+    <style>
+        @page { size: A4; margin: 22mm; @bottom-center { content: "Página " counter(page) " de " counter(pages); font-family: 'Palatino Linotype', serif; font-size: 9pt; color: #666; } }
+        :root { --azul-primario: #1e3a5f; --azul-claro: #e8f0f8; --vermelho: #c53030; --verde: #276749; --amarelo: #d69e2e; --cinza-escuro: #2d3748; --cinza-medio: #4a5568; --cinza-claro: #f7fafc; --cinza-linha: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Palatino Linotype', serif; font-size: 10.5pt; line-height: 1.65; color: var(--cinza-escuro); text-align: justify; }
+        .header { display: flex; justify-content: space-between; padding-bottom: 14pt; border-bottom: 2.5pt solid var(--azul-primario); margin-bottom: 16pt; }
+        .header-left .ente { font-size: 15pt; font-weight: bold; color: var(--azul-primario); }
+        .header-left .subordinacao { font-size: 9.5pt; color: var(--cinza-medio); }
+        .logo-placeholder { width: 85pt; height: 85pt; border: 1.5pt dashed #cbd5e0; display: flex; align-items: center; justify-content: center; font-size: 9pt; color: #a0aec0; }
+        .doc-id-box { background: linear-gradient(135deg, var(--azul-primario), #2c5282); color: white; padding: 14pt 18pt; margin-bottom: 16pt; border-radius: 4pt; }
+        .doc-id-box .titulo { font-size: 17pt; font-weight: bold; margin-bottom: 6pt; }
+        .doc-id-box .subtitulo { font-size: 10.5pt; opacity: 0.9; font-style: italic; }
+        .doc-numeros { display: flex; justify-content: space-between; margin-top: 12pt; padding-top: 12pt; border-top: 1pt solid rgba(255,255,255,0.3); }
+        .doc-numeros .item { text-align: center; }
+        .doc-numeros .label { font-size: 8pt; text-transform: uppercase; opacity: 0.8; }
+        .doc-numeros .valor { font-size: 12pt; font-weight: bold; }
+        .fundamentacao { background: var(--cinza-claro); border-left: 4pt solid var(--azul-primario); padding: 12pt; margin-bottom: 16pt; font-size: 9pt; }
+        .fundamentacao .titulo { font-weight: bold; color: var(--azul-primario); text-transform: uppercase; margin-bottom: 8pt; }
+        .fundamentacao p { margin-bottom: 4pt; color: var(--cinza-medio); }
+        .secao { margin-bottom: 20pt; }
+        .secao-header { display: flex; margin-bottom: 12pt; }
+        .secao-numero { background: var(--azul-primario); color: white; width: 30pt; min-height: 38pt; display: flex; align-items: center; justify-content: center; font-size: 14pt; font-weight: bold; }
+        .secao-titulo-area { flex: 1; background: var(--azul-claro); padding: 8pt 12pt; }
+        .secao-titulo { font-size: 11pt; font-weight: bold; color: var(--azul-primario); }
+        .secao-fundamento { font-size: 8pt; color: var(--cinza-medio); }
+        .campo { margin-bottom: 12pt; }
+        .campo-label { font-size: 9pt; font-weight: bold; color: var(--azul-primario); margin-bottom: 4pt; text-transform: uppercase; }
+        .campo-valor { font-size: 10.5pt; line-height: 1.6; }
+        .campo-inline { display: flex; gap: 16pt; }
+        .campo-inline .campo { flex: 1; }
+        .tabela { width: 100%; border-collapse: collapse; margin: 12pt 0; font-size: 9pt; }
+        .tabela th { background: var(--azul-primario); color: white; padding: 8pt; text-align: left; }
+        .tabela td { padding: 8pt; border-bottom: 1pt solid var(--cinza-linha); }
+        .tabela tr:nth-child(even) { background: var(--cinza-claro); }
+        .tabela .valor { text-align: right; }
+        .tabela tfoot tr { background: var(--azul-claro); font-weight: bold; }
+        .alerta { padding: 10pt; border-radius: 4pt; margin: 12pt 0; font-size: 9pt; }
+        .alerta-atencao { background: #fef3cd; border-left: 4pt solid var(--amarelo); color: #856404; }
+        .alerta-importante { background: #f8d7da; border-left: 4pt solid var(--vermelho); color: var(--vermelho); }
+        .alerta-info { background: var(--azul-claro); border-left: 4pt solid var(--azul-primario); color: var(--azul-primario); }
+        .checklist { background: var(--cinza-claro); border: 1pt solid var(--cinza-linha); padding: 14pt; margin: 20pt 0; }
+        .checklist-titulo { font-size: 10pt; font-weight: bold; color: var(--azul-primario); margin-bottom: 12pt; text-transform: uppercase; }
+        .checklist-item { display: flex; margin-bottom: 8pt; font-size: 9pt; }
+        .checklist-box { width: 16pt; height: 16pt; background: var(--verde); color: white; margin-right: 10pt; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .checklist-box.pendente { background: var(--amarelo); }
+        .declaracoes { background: var(--cinza-claro); padding: 16pt; margin: 20pt 0; }
+        .declaracoes-titulo { font-size: 10pt; font-weight: bold; color: var(--azul-primario); margin-bottom: 12pt; text-transform: uppercase; text-align: center; }
+        .declaracoes p { margin-bottom: 8pt; font-size: 9.5pt; }
+        .assinaturas { display: flex; justify-content: space-around; margin: 30pt 0; }
+        .assinatura-bloco { text-align: center; width: 200pt; }
+        .assinatura-cargo { font-size: 8pt; color: var(--cinza-medio); margin-bottom: 40pt; }
+        .assinatura-linha { border-top: 1pt solid var(--cinza-escuro); padding-top: 8pt; }
+        .assinatura-nome { font-size: 10pt; font-weight: bold; }
+        .assinatura-info { font-size: 8pt; color: var(--cinza-medio); }
+        .selo-area { text-align: center; margin-top: 30pt; padding-top: 20pt; border-top: 1pt solid var(--cinza-linha); font-size: 8pt; color: var(--cinza-medio); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="ente">{{ente_nome}}</div>
+            <div class="subordinacao">{{subordinacao_linha1}}<br>{{subordinacao_linha2}}</div>
+        </div>
+        <div class="logo-placeholder">BRASÃO</div>
+    </div>
+
+    <div class="doc-id-box">
+        <div class="titulo">JUSTIFICATIVA DE CONTRATAÇÃO DIRETA</div>
+        <div class="subtitulo">Dispensa/Inexigibilidade de Licitação - Art. 72, Lei 14.133/2021</div>
+        <div class="doc-numeros">
+            <div class="item"><div class="label">Nº Documento</div><div class="valor">{{doc_numero}}</div></div>
+            <div class="item"><div class="label">Processo</div><div class="valor">{{processo_numero}}</div></div>
+            <div class="item"><div class="label">Versão</div><div class="valor">{{versao}}</div></div>
+            <div class="item"><div class="label">Data</div><div class="valor">{{data_documento}}</div></div>
+        </div>
+    </div>
+
+    <div class="fundamentacao">
+        <div class="titulo">Fundamentação Legal</div>
+        <p><strong>Lei 14.133/2021:</strong> Art. 72 (documentos obrigatórios) | Art. 74 (inexigibilidade) | Art. 75 (dispensa)</p>
+        <p><strong>Decreto 12.807/2025:</strong> Valores atualizados para 2026 (Art. 182, Lei 14.133/2021)</p>
+        <p><strong>IN SEGES/ME 58/2022:</strong> Art. 23 (contratação direta)</p>
+        <p><strong>LINDB (Lei 13.655/2018):</strong> Art. 20 (decisão com consequências) | Art. 28 (responsabilização só por dolo/erro grosseiro)</p>
+        <p><strong>TCU:</strong> Súmula 177 (dever de licitar) | Acórdão 2.622/2015-P</p>
+    </div>
+
+    <!-- SEÇÃO 1 -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">1</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Identificação do Demandante</div>
+                <div class="secao-fundamento">Art. 72, I, Lei 14.133/2021</div>
+            </div>
+        </div>
+        <div class="campo-inline">
+            <div class="campo"><div class="campo-label">Unidade Requisitante</div><div class="campo-valor">{{unidade_requisitante}}</div></div>
+            <div class="campo"><div class="campo-label">Responsável</div><div class="campo-valor">{{responsavel_nome}}</div></div>
+        </div>
+        <div class="campo-inline">
+            <div class="campo"><div class="campo-label">Cargo/Função</div><div class="campo-valor">{{responsavel_cargo}}</div></div>
+            <div class="campo"><div class="campo-label">Contato</div><div class="campo-valor">{{responsavel_contato}}</div></div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 2 -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">2</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Objeto da Contratação</div>
+                <div class="secao-fundamento">Art. 72, II, Lei 14.133/2021</div>
+            </div>
+        </div>
+        <div class="campo"><div class="campo-label">Descrição do Objeto</div><div class="campo-valor">{{objeto_descricao}}</div></div>
+        <table class="tabela">
+            <thead><tr><th>Item</th><th>Descrição</th><th>CATMAT</th><th>Und</th><th>Qtde</th><th class="valor">Valor Unit.</th><th class="valor">Valor Total</th></tr></thead>
+            <tbody>
+                <tr><td>1</td><td>{{item1_descricao}}</td><td>{{item1_catmat}}</td><td>{{item1_unidade}}</td><td>{{item1_quantidade}}</td><td class="valor">R$ {{item1_valor_unit}}</td><td class="valor">R$ {{item1_valor_total}}</td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="6" style="text-align: right;">VALOR TOTAL:</td><td class="valor">R$ {{valor_total}}</td></tr></tfoot>
+        </table>
+    </div>
+
+    <!-- SEÇÃO 3 -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">3</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Enquadramento Legal</div>
+                <div class="secao-fundamento">Art. 72, III, Lei 14.133/2021</div>
+            </div>
+        </div>
+        <div class="campo">
+            <div class="campo-label">Hipótese de Contratação Direta</div>
+            <div class="campo-valor">
+                ☐ <strong>DISPENSA</strong> - Art. 75, Lei 14.133/2021 (valores Dec. 12.807/2025)<br>
+                &nbsp;&nbsp;&nbsp;☐ Inciso I - Obras até R$ 130.984,22<br>
+                &nbsp;&nbsp;&nbsp;☐ Inciso II - Bens/Serviços até R$ 65.492,11<br>
+                &nbsp;&nbsp;&nbsp;☐ Inciso III - ME/EPP até R$ 96.228,41<br>
+                &nbsp;&nbsp;&nbsp;☐ Inciso VIII - Emergência/Calamidade<br>
+                &nbsp;&nbsp;&nbsp;☐ Outro: {{dispensa_outro}}<br><br>
+                ☐ <strong>INEXIGIBILIDADE</strong> - Art. 74, Lei 14.133/2021<br>
+                &nbsp;&nbsp;&nbsp;☐ Inciso I - Fornecedor exclusivo<br>
+                &nbsp;&nbsp;&nbsp;☐ Inciso II - Profissional notória especialização<br>
+                &nbsp;&nbsp;&nbsp;☐ Inciso III - Artista consagrado<br>
+                &nbsp;&nbsp;&nbsp;☐ Inciso IV - Credenciamento
+            </div>
+        </div>
+        <div class="alerta alerta-importante">
+            <strong>🔴 TCU Súmula 177:</strong> A regra é licitar. A contratação direta é exceção e exige justificativa robusta e comprovação documental.
+        </div>
+    </div>
+
+    <!-- SEÇÃO 4 -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">4</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Justificativa da Escolha da Contratação Direta</div>
+                <div class="secao-fundamento">Art. 72, IV, Lei 14.133/2021</div>
+            </div>
+        </div>
+        <div class="campo"><div class="campo-label">Justificativa Técnica</div><div class="campo-valor">{{justificativa_tecnica}}</div></div>
+        <div class="campo"><div class="campo-label">Comprovação do Enquadramento</div><div class="campo-valor">{{justificativa_enquadramento}}</div></div>
+    </div>
+
+    <!-- SEÇÃO 5 -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">5</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Justificativa do Preço</div>
+                <div class="secao-fundamento">Art. 72, V, Lei 14.133/2021</div>
+            </div>
+        </div>
+        <div class="campo"><div class="campo-label">Pesquisa de Preços Realizada</div><div class="campo-valor">{{preco_pesquisa}}</div></div>
+        <div class="campo"><div class="campo-label">Compatibilidade com o Mercado</div><div class="campo-valor">{{preco_compatibilidade}}</div></div>
+        <div class="alerta alerta-info"><strong>📋 IN 65/2021:</strong> Mesmo em contratação direta, é obrigatória a pesquisa de preços para comprovar compatibilidade com o mercado.</div>
+    </div>
+
+    <!-- SEÇÃO 6 -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">6</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Razão da Escolha do Fornecedor</div>
+                <div class="secao-fundamento">Art. 72, VII, Lei 14.133/2021</div>
+            </div>
+        </div>
+        <div class="campo-inline">
+            <div class="campo"><div class="campo-label">Fornecedor</div><div class="campo-valor">{{fornecedor_nome}}</div></div>
+            <div class="campo"><div class="campo-label">CNPJ</div><div class="campo-valor">{{fornecedor_cnpj}}</div></div>
+        </div>
+        <div class="campo"><div class="campo-label">Justificativa da Escolha</div><div class="campo-valor">{{fornecedor_justificativa}}</div></div>
+    </div>
+
+    <!-- SEÇÃO 7 -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">7</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Declarações e Verificações Obrigatórias</div>
+                <div class="secao-fundamento">Art. 72, VIII, Lei 14.133/2021</div>
+            </div>
+        </div>
+        <div class="campo">
+            <div class="campo-valor">
+                ☑ Verificação CEIS - Cadastro de Empresas Inidôneas e Suspensas<br>
+                ☑ Verificação CNEP - Cadastro Nacional de Empresas Punidas<br>
+                ☑ Verificação CEPIM - Cadastro de Entidades Privadas Sem Fins Lucrativos Impedidas<br>
+                ☑ Consulta Receita Federal - Regularidade CNPJ<br>
+                ☑ Certidão Negativa de Débitos Trabalhistas (CNDT)<br>
+                ☑ Certidão de Regularidade FGTS
+            </div>
+        </div>
+        <div class="alerta alerta-atencao"><strong>⚠️ Art. 91, Lei 14.133/2021:</strong> É vedada a contratação com empresas impedidas ou penalizadas.</div>
+    </div>
+
+    <!-- SEÇÃO 8 -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">8</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Adequação Orçamentária</div>
+                <div class="secao-fundamento">Art. 72, VI, Lei 14.133/2021</div>
+            </div>
+        </div>
+        <div class="campo"><div class="campo-label">Dotação Orçamentária</div><div class="campo-valor">{{dotacao}}</div></div>
+        <div class="campo-inline">
+            <div class="campo"><div class="campo-label">Fonte de Recursos</div><div class="campo-valor">{{fonte_recursos}}</div></div>
+            <div class="campo"><div class="campo-label">Natureza da Despesa</div><div class="campo-valor">{{natureza_despesa}}</div></div>
+        </div>
+    </div>
+
+    <div class="checklist">
+        <div class="checklist-titulo">Checklist de Conformidade - Contratação Direta</div>
+        <div class="checklist-item"><div class="checklist-box">✓</div>Enquadramento legal específico (Art. 72, III)</div>
+        <div class="checklist-item"><div class="checklist-box">✓</div>Justificativa técnica da necessidade (Art. 72, IV)</div>
+        <div class="checklist-item"><div class="checklist-box">✓</div>Pesquisa de preços realizada (Art. 72, V)</div>
+        <div class="checklist-item"><div class="checklist-box">✓</div>Razão da escolha do fornecedor (Art. 72, VII)</div>
+        <div class="checklist-item"><div class="checklist-box">✓</div>Documentos de habilitação verificados (Art. 72, VIII)</div>
+        <div class="checklist-item"><div class="checklist-box pendente">!</div>Parecer jurídico (Art. 72, III) - Aguardando</div>
+        <div class="checklist-item"><div class="checklist-box">✓</div>Inexistência de impedimentos - CEIS/CNEP (Art. 91)</div>
+        <div class="checklist-item"><div class="checklist-box">✓</div>Dotação orçamentária confirmada (Art. 72, VI)</div>
+    </div>
+
+    <div class="declaracoes">
+        <div class="declaracoes-titulo">Declarações e Termo de Aceite</div>
+        <p><strong>I.</strong> As informações prestadas são verdadeiras e a contratação direta é a única alternativa viável;</p>
+        <p><strong>II.</strong> Foram observados os princípios da legalidade, impessoalidade, moralidade e eficiência;</p>
+        <p><strong>III.</strong> Não possuo conflito de interesses nem vínculo com o fornecedor indicado;</p>
+        <p><strong>IV.</strong> Tenho ciência de que a contratação direta irregular pode configurar ato de improbidade;</p>
+        <p><strong>V.</strong> Este documento foi elaborado com auxílio de ferramenta tecnológica;</p>
+        <p><strong>VI.</strong> Aceito as condições e autorizo o prosseguimento do processo.</p>
+    </div>
+
+    <div class="assinaturas">
+        <div class="assinatura-bloco">
+            <div class="assinatura-cargo">Elaboração</div>
+            <div class="assinatura-linha">
+                <div class="assinatura-nome">{{elaborador_nome}}</div>
+                <div class="assinatura-info">{{elaborador_cargo}} | Mat. {{elaborador_matricula}}</div>
+            </div>
+        </div>
+        <div class="assinatura-bloco">
+            <div class="assinatura-cargo">Autorização</div>
+            <div class="assinatura-linha">
+                <div class="assinatura-nome">{{autoridade_nome}}</div>
+                <div class="assinatura-info">{{autoridade_cargo}} | Mat. {{autoridade_matricula}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="selo-area">© 2026 Powered by ATA360 - Sistema de Inteligência em Contratações Públicas</div>
+</body>
+</html>

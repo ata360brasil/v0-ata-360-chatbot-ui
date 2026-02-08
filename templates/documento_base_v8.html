@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ config.nome }} - {{ config.sigla }} | {{ dados.ente_nome }}</title>
+    <style>
+        /* ========================================
+           ATA360 DOCUMENTO MESTRE v8.0
+           Legal Design + Design Law
+
+           Princípios:
+           - Fonte serif (Palatino) para legibilidade jurídica
+           - Espaços de respiro generosos entre blocos
+           - Leitura confortável em tela, impresso, P&B
+           - Modo claro e escuro (prefers-color-scheme)
+           - Hierarquia visual clara por tamanho/peso
+           - Contraste WCAG AA mínimo (4.5:1 texto, 3:1 UI)
+           ======================================== */
+
+        @page {
+            size: A4;
+            margin: 22mm 22mm 28mm 22mm;
+
+            @bottom-center {
+                content: "Página " counter(page) " de " counter(pages);
+                font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+                font-size: 9pt;
+                color: #666;
+            }
+        }
+
+        @page :first {
+            margin-top: 18mm;
+        }
+
+        /* ---- MODO CLARO (padrão) ---- */
+        :root {
+            --azul-primario: #1e3a5f;
+            --azul-secundario: #2c5282;
+            --azul-claro: #e8f0f8;
+            --vermelho: #c53030;
+            --verde: #276749;
+            --amarelo: #d69e2e;
+            --cinza-escuro: #2d3748;
+            --cinza-medio: #4a5568;
+            --cinza-claro: #f7fafc;
+            --cinza-linha: #e2e8f0;
+            --branco: #ffffff;
+
+            /* Legal Design — respiro e ritmo */
+            --respiro-bloco: 20pt;      /* espaço entre blocos principais */
+            --respiro-secao: 24pt;      /* espaço entre seções de conteúdo */
+            --respiro-interno: 14pt;    /* padding interno de cards/caixas */
+            --raio-borda: 4pt;          /* cantos suavizados */
+
+            /* Superfícies e fundo */
+            --fundo-pagina: #ffffff;
+            --fundo-superficie: #f7fafc;
+            --fundo-elevado: #ffffff;
+            --texto-primario: #2d3748;
+            --texto-secundario: #4a5568;
+            --texto-terciario: #718096;
+            --borda-sutil: #e2e8f0;
+        }
+
+        /* ---- MODO ESCURO (automático pelo sistema) ---- */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --azul-primario: #63b3ed;
+                --azul-secundario: #90cdf4;
+                --azul-claro: #1a2332;
+                --vermelho: #fc8181;
+                --verde: #68d391;
+                --amarelo: #f6e05e;
+                --cinza-escuro: #e2e8f0;
+                --cinza-medio: #a0aec0;
+                --cinza-claro: #1a202c;
+                --cinza-linha: #2d3748;
+                --branco: #1a202c;
+
+                --fundo-pagina: #0d1117;
+                --fundo-superficie: #161b22;
+                --fundo-elevado: #1c2333;
+                --texto-primario: #e2e8f0;
+                --texto-secundario: #a0aec0;
+                --texto-terciario: #718096;
+                --borda-sutil: #2d3748;
+            }
+
+            body {
+                background: var(--fundo-pagina);
+            }
+
+            .doc-id-box {
+                background: linear-gradient(135deg, #1a365d 0%, #2a4365 100%);
+            }
+
+            .trilha {
+                background: #1a365d;
+            }
+
+            .tabela thead tr {
+                background: #1a365d;
+            }
+
+            .tabela .valor-total {
+                background: #1a365d !important;
+            }
+
+            .alerta-atencao {
+                background: #2d2200;
+                border-left-color: var(--amarelo);
+                color: #f6e05e;
+            }
+
+            .alerta-importante {
+                background: #2d0000;
+                border-left-color: var(--vermelho);
+                color: #fc8181;
+            }
+
+            .alerta-info {
+                background: #0d1f30;
+                border-left-color: var(--azul-secundario);
+                color: var(--azul-primario);
+            }
+
+            .alerta-sucesso {
+                background: #002010;
+                border-left-color: var(--verde);
+                color: #68d391;
+            }
+
+            .checklist-box {
+                border-color: var(--texto-terciario);
+            }
+
+            .assinatura-bloco {
+                background: var(--fundo-elevado);
+                border-color: var(--borda-sutil);
+            }
+
+            .assinatura-linha {
+                border-top-color: var(--texto-secundario);
+            }
+
+            .campo-valor {
+                background: var(--fundo-elevado);
+                border-color: var(--borda-sutil);
+            }
+
+            .resumo-objeto {
+                background: linear-gradient(to right, #0d1f30, var(--fundo-superficie));
+                border-color: var(--azul-secundario);
+            }
+
+            .contexto-item {
+                background: var(--fundo-elevado);
+                border-color: var(--borda-sutil);
+            }
+
+            a { color: var(--azul-primario); }
+        }
+
+        /* ---- IMPRESSÃO: P&B otimizado ---- */
+        @media print {
+            :root {
+                --azul-primario: #000000;
+                --azul-secundario: #333333;
+                --azul-claro: #f5f5f5;
+                --vermelho: #000000;
+                --verde: #000000;
+                --amarelo: #666666;
+                --cinza-escuro: #000000;
+                --cinza-medio: #333333;
+                --cinza-claro: #f8f8f8;
+                --cinza-linha: #cccccc;
+                --branco: #ffffff;
+            }
+
+            body {
+                color: #000;
+                background: #fff;
+                -webkit-print-color-adjust: economy;
+                print-color-adjust: economy;
+            }
+
+            .doc-id-box {
+                background: #000 !important;
+                color: #fff;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .trilha {
+                background: #333 !important;
+                color: #fff;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .secao-numero {
+                background: #000 !important;
+                color: #fff;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .tabela thead tr {
+                background: #333 !important;
+                color: #fff;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .checklist-box.ok {
+                background: #000 !important;
+                border-color: #000;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .checklist-box.pendente {
+                background: #666 !important;
+                border-color: #666;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .checklist-box.erro {
+                background: #000 !important;
+                border-color: #000;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .alerta {
+                border-left-color: #000 !important;
+                background: #f8f8f8 !important;
+                color: #000 !important;
+            }
+
+            /* Zonas de edição invisíveis na impressão */
+            [data-zona] {
+                border-left: none !important;
+                padding-left: 0 !important;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', serif;
+            font-size: 10.5pt;
+            line-height: 1.7;              /* Legal Design: +0.05 para respiro */
+            color: var(--texto-primario);
+            background: var(--fundo-pagina);
+            text-align: justify;
+            hyphens: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========================================
+           CABEÇALHO PRINCIPAL
+           ======================================== */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: var(--respiro-interno);
+            border-bottom: 2.5pt solid var(--azul-primario);
+            margin-bottom: var(--respiro-bloco);
+        }
+
+        .header-left {
+            flex: 1;
+            padding-right: 20pt;
+        }
+
+        .header-left .ente {
+            font-size: 15pt;
+            font-weight: bold;
+            color: var(--azul-primario);
+            margin-bottom: 4pt;
+            letter-spacing: 0.3pt;
+        }
+
+        .header-left .subordinacao {
+            font-size: 9.5pt;
+            color: var(--cinza-medio);
+            line-height: 1.5;
+        }
+
+        .header-left .ente-detalhes {
+            font-size: 8pt;
+            color: var(--cinza-medio);
+            margin-top: 4pt;
+        }
+
+        .header-left .ente-detalhes span {
+            margin-right: 12pt;
+        }
+
+        .header-right {
+            flex-shrink: 0;
+            width: 90pt;
+            max-width: 90pt;
+            text-align: right;
+        }
+
+        .header-right .logo {
+            width: 85pt;
+            max-width: 85pt;
+            height: auto;
+            max-height: 85pt;
+            object-fit: contain;
+        }
+
+        .logo-placeholder {
+            width: 85pt;
+            height: 85pt;
+            border: 1.5pt dashed #cbd5e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9pt;
+            color: #a0aec0;
+            background: #f8fafc;
+        }
+
+        /* ========================================
+           IDENTIFICAÇÃO DO DOCUMENTO
+           ======================================== */
+
+        .doc-id-box {
+            background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
+            color: #ffffff;  /* sempre branco no box azul */
+            padding: 16pt 20pt;
+            margin-bottom: var(--respiro-bloco);
+            border-radius: var(--raio-borda);
+        }
+
+        .doc-id-box .titulo {
+            font-size: 17pt;
+            font-weight: bold;
+            letter-spacing: 0.5pt;
+            margin-bottom: 6pt;
+        }
+
+        .doc-id-box .subtitulo {
+            font-size: 10.5pt;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .doc-numeros {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12pt;
+            padding-top: 12pt;
+            border-top: 1pt solid rgba(255,255,255,0.3);
+        }
+
+        .doc-numeros .item {
+            text-align: center;
+        }
+
+        .doc-numeros .label {
+            font-size: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5pt;
+            opacity: 0.8;
+        }
+
+        .doc-numeros .valor {
+            font-size: 12pt;
+            font-weight: bold;
+            margin-top: 2pt;
+        }
+
+        /* ========================================
+           FUNDAMENTAÇÃO LEGAL
+           ======================================== */
+
+        .fundamentacao {
+            background: var(--fundo-superficie);
+            border-left: 4pt solid var(--azul-primario);
+            padding: var(--respiro-interno) 16pt;
+            margin-bottom: var(--respiro-bloco);
+            font-size: 9pt;
+            line-height: 1.6;
+        }
+
+        .fundamentacao .titulo {
+            font-weight: bold;
+            color: var(--azul-primario);
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 0.3pt;
+            margin-bottom: 8pt;
+        }
+
+        .fundamentacao p {
+            margin-bottom: 5pt;
+            color: var(--texto-secundario);
+        }
+
+        /* ========================================
+           RASTREABILIDADE, QR CODE, HASH E CARIMBO
+           ======================================== */
+
+        .rastreabilidade {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background: var(--fundo-elevado);
+            border: 1pt solid var(--borda-sutil);
+            padding: var(--respiro-interno);
+            margin-bottom: var(--respiro-secao);
+        }
+
+        .rastreabilidade-info {
+            flex: 1;
+            font-size: 8.5pt;
+            color: var(--texto-secundario);
+            line-height: 1.65;
+        }
+
+        .rastreabilidade-info strong {
+            color: var(--texto-primario);
+        }
+
+        .rastreabilidade-titulo {
+            font-weight: bold;
+            color: var(--azul-primario);
+            font-size: 9pt;
+            margin-bottom: 6pt;
+            text-transform: uppercase;
+            letter-spacing: 0.3pt;
+        }
+
+        .rastreabilidade-tabela {
+            width: 100%;
+            font-size: 8.5pt;
+            border-collapse: collapse;
+            margin-bottom: 6pt;
+        }
+
+        .rastreabilidade-tabela td {
+            padding: 2pt 6pt;
+            vertical-align: top;
+        }
+
+        .rastreabilidade-tabela td.label {
+            font-weight: bold;
+            color: var(--texto-primario);
+            white-space: nowrap;
+            width: 100pt;
+        }
+
+        .rastreabilidade-tabela code {
+            font-family: 'Courier New', monospace;
+            font-size: 7.5pt;
+            background: var(--fundo-superficie);
+            padding: 1pt 3pt;
+            border-radius: 2pt;
+        }
+
+        /* CARIMBO DO TEMPO SERPRO */
+        .carimbo-tempo {
+            margin-top: 8pt;
+            padding-top: 8pt;
+            border-top: 1pt dashed var(--cinza-linha);
+        }
+
+        .carimbo-titulo {
+            font-weight: bold;
+            color: var(--azul-primario);
+            font-size: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 0.3pt;
+            margin-bottom: 4pt;
+        }
+
+        .rastreabilidade-apis {
+            font-size: 7.5pt;
+            color: var(--texto-terciario);
+            margin-top: 6pt;
+            font-style: italic;
+        }
+
+        .qr-area {
+            width: 72pt;
+            height: 72pt;
+            border: 1pt dashed var(--borda-sutil);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 7pt;
+            color: var(--cinza-medio);
+            text-align: center;
+            margin-left: 16pt;
+            flex-shrink: 0;
+        }
+
+        .qr-area .qr-img {
+            width: 60pt;
+            height: 60pt;
+            object-fit: contain;
+        }
+
+        .qr-texto {
+            font-size: 6.5pt;
+            margin-top: 2pt;
+        }
+
+        /* ========================================
+           CONTEXTO DO ENTE (v8 — novo)
+           ======================================== */
+
+        .contexto-ente {
+            background: var(--fundo-superficie);
+            border: 1pt solid var(--borda-sutil);
+            border-radius: var(--raio-borda);
+            padding: 16pt;
+            margin-bottom: var(--respiro-secao);
+        }
+
+        .contexto-titulo {
+            font-weight: bold;
+            color: var(--azul-primario);
+            font-size: 10pt;
+            margin-bottom: 12pt;
+            padding-bottom: 8pt;
+            border-bottom: 1pt solid var(--borda-sutil);
+            text-transform: uppercase;
+            letter-spacing: 0.3pt;
+        }
+
+        .contexto-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8pt;
+            margin-bottom: 10pt;
+        }
+
+        .contexto-item {
+            flex: 1 1 120pt;
+            background: var(--fundo-elevado);
+            border: 1pt solid var(--borda-sutil);
+            border-radius: 3pt;
+            padding: 10pt 12pt;
+        }
+
+        .contexto-label {
+            font-size: 7.5pt;
+            color: var(--texto-terciario);
+            text-transform: uppercase;
+            letter-spacing: 0.3pt;
+        }
+
+        .contexto-valor {
+            font-size: 10pt;
+            font-weight: bold;
+            color: var(--texto-primario);
+            margin-top: 3pt;
+        }
+
+        .contexto-fonte {
+            font-size: 7pt;
+            color: var(--texto-terciario);
+            font-style: italic;
+            margin-top: 1pt;
+        }
+
+        .contexto-historico {
+            margin-top: 10pt;
+        }
+
+        .contexto-subtitulo {
+            font-weight: bold;
+            color: var(--azul-secundario);
+            font-size: 9pt;
+            margin-bottom: 6pt;
+        }
+
+        .contexto-nota {
+            font-size: 8pt;
+            color: var(--texto-terciario);
+            margin-top: 10pt;
+            padding-top: 8pt;
+            border-top: 1pt dashed var(--borda-sutil);
+        }
+
+        /* ========================================
+           RESUMO DO OBJETO
+           ======================================== */
+
+        .resumo-objeto {
+            background: linear-gradient(to right, var(--azul-claro), var(--branco));
+            border: 1pt solid var(--azul-secundario);
+            border-radius: 4pt;
+            padding: 14pt;
+            margin-bottom: 18pt;
+        }
+
+        .resumo-objeto-titulo {
+            font-size: 9pt;
+            font-weight: bold;
+            color: var(--azul-primario);
+            text-transform: uppercase;
+            margin-bottom: 8pt;
+        }
+
+        .resumo-objeto-texto {
+            font-size: 10pt;
+            color: var(--cinza-escuro);
+        }
+
+        /* ========================================
+           SUMÁRIO
+           ======================================== */
+
+        .sumario {
+            margin-bottom: 18pt;
+        }
+
+        .sumario-titulo {
+            font-size: 10.5pt;
+            font-weight: bold;
+            color: var(--azul-primario);
+            margin-bottom: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 0.3pt;
+        }
+
+        .sumario-lista {
+            padding-left: 12pt;
+        }
+
+        .sumario-item {
+            font-size: 9.5pt;
+            padding: 3pt 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sumario-num {
+            font-weight: bold;
+            color: var(--azul-primario);
+            margin-right: 6pt;
+        }
+
+        .sumario-fundamento {
+            font-size: 8pt;
+            color: var(--cinza-medio);
+            font-style: italic;
+        }
+
+        /* ========================================
+           SEÇÕES / CAPÍTULOS
+           ======================================== */
+
+        .secao {
+            margin-bottom: var(--respiro-secao);
+            page-break-inside: avoid;
+        }
+
+        .secao-header {
+            display: flex;
+            align-items: stretch;
+            margin-bottom: 12pt;
+        }
+
+        .secao-numero {
+            background: var(--azul-primario);
+            color: var(--branco);
+            width: 30pt;
+            min-height: 38pt;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15pt;
+            font-weight: bold;
+        }
+
+        .secao-titulo-area {
+            flex: 1;
+            border-bottom: 2pt solid var(--azul-primario);
+            padding-left: 12pt;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .secao-titulo {
+            font-size: 11.5pt;
+            font-weight: bold;
+            color: var(--azul-primario);
+            text-transform: uppercase;
+            letter-spacing: 0.3pt;
+        }
+
+        .secao-fundamento {
+            font-size: 8.5pt;
+            color: var(--cinza-medio);
+            font-style: italic;
+            margin-top: 3pt;
+        }
+
+        .secao-conteudo {
+            padding-left: 42pt;
+            border-left: 2pt solid var(--borda-sutil);
+            margin-left: 14pt;
+        }
+
+        .secao-alertas {
+            padding-left: 42pt;
+            margin-left: 14pt;
+            margin-top: 8pt;
+        }
+
+        /* ========================================
+           CAMPOS DE ENTRADA
+           ======================================== */
+
+        .campo {
+            margin-bottom: 12pt;
+        }
+
+        .campo-label {
+            font-size: 9pt;
+            font-weight: bold;
+            color: var(--azul-secundario);
+            margin-bottom: 5pt;
+        }
+
+        .campo-valor {
+            background: var(--fundo-superficie);
+            border: 1pt solid var(--borda-sutil);
+            border-radius: 3pt;
+            padding: 10pt 12pt;
+            min-height: 28pt;
+            font-size: 10pt;
+        }
+
+        .campo-valor.vazio {
+            color: var(--texto-terciario);
+            font-style: italic;
+        }
+
+        .campo-inline {
+            display: flex;
+            gap: 16pt;
+            flex-wrap: wrap;
+        }
+
+        .campo-inline .campo {
+            flex: 1;
+            min-width: 130pt;
+        }
+
+        /* ========================================
+           CARDS DE ALERTA
+           ======================================== */
+
+        .alerta {
+            padding: 11pt 14pt;
+            border-radius: 3pt;
+            margin-bottom: 14pt;
+            font-size: 9pt;
+        }
+
+        .alerta-atencao {
+            background: #fffbeb;
+            border-left: 4pt solid var(--amarelo);
+            color: #92400e;
+        }
+
+        .alerta-importante {
+            background: #fef2f2;
+            border-left: 4pt solid var(--vermelho);
+            color: #991b1b;
+        }
+
+        .alerta-info {
+            background: var(--azul-claro);
+            border-left: 4pt solid var(--azul-secundario);
+            color: var(--azul-primario);
+        }
+
+        .alerta-sucesso {
+            background: #f0fdf4;
+            border-left: 4pt solid var(--verde);
+            color: #166534;
+        }
+
+        .alerta strong {
+            display: block;
+            margin-bottom: 5pt;
+            font-size: 9.5pt;
+        }
+
+        /* ========================================
+           TABELAS MINIMALISTAS
+           ======================================== */
+
+        .tabela {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 14pt;
+            font-size: 9pt;
+        }
+
+        .tabela thead tr {
+            background: var(--azul-primario);
+            color: var(--branco);
+        }
+
+        .tabela th {
+            padding: 9pt 11pt;
+            text-align: left;
+            font-weight: bold;
+            font-size: 8.5pt;
+            text-transform: uppercase;
+            letter-spacing: 0.3pt;
+        }
+
+        .tabela td {
+            padding: 9pt 11pt;
+            border-bottom: 1pt solid var(--borda-sutil);
+        }
+
+        .tabela tbody tr:nth-child(odd) {
+            background: var(--fundo-elevado);
+        }
+
+        .tabela tbody tr:nth-child(even) {
+            background: var(--fundo-superficie);
+        }
+
+        .tabela .destaque {
+            background: #f1f5f9 !important;
+            font-weight: bold;
+        }
+
+        .tabela .valor-total {
+            background: var(--cinza-escuro) !important;
+            color: var(--branco);
+            font-weight: bold;
+        }
+
+        .tabela-compact {
+            font-size: 8pt;
+        }
+
+        .tabela-compact th,
+        .tabela-compact td {
+            padding: 5pt 8pt;
+        }
+
+        /* ========================================
+           CHECKLIST AUTOMÁTICO
+           ======================================== */
+
+        .checklist {
+            background: var(--fundo-superficie);
+            border: 1pt solid var(--borda-sutil);
+            border-radius: var(--raio-borda);
+            padding: 16pt;
+            margin-bottom: var(--respiro-bloco);
+        }
+
+        .checklist-titulo {
+            font-size: 10.5pt;
+            font-weight: bold;
+            color: var(--azul-primario);
+            margin-bottom: 12pt;
+            padding-bottom: 8pt;
+            border-bottom: 1pt solid var(--borda-sutil);
+        }
+
+        .checklist-subtitulo {
+            font-size: 8pt;
+            color: var(--cinza-medio);
+            font-style: italic;
+            margin-top: -8pt;
+            margin-bottom: 10pt;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 7pt;
+            font-size: 9pt;
+        }
+
+        .checklist-box {
+            width: 15pt;
+            height: 15pt;
+            border: 1.5pt solid var(--texto-terciario);
+            border-radius: 2pt;
+            margin-right: 10pt;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10pt;
+        }
+
+        .checklist-box.ok {
+            background: var(--verde);
+            border-color: var(--verde);
+            color: var(--branco);
+        }
+
+        .checklist-box.pendente {
+            background: var(--amarelo);
+            border-color: var(--amarelo);
+            color: var(--branco);
+        }
+
+        .checklist-box.erro {
+            background: var(--vermelho);
+            border-color: var(--vermelho);
+            color: var(--branco);
+        }
+
+        .checklist-texto {
+            flex: 1;
+        }
+
+        .checklist-codigo {
+            font-weight: bold;
+            color: var(--azul-secundario);
+            margin-right: 4pt;
+        }
+
+        .checklist-fundamento {
+            font-size: 8pt;
+            color: var(--cinza-medio);
+            font-style: italic;
+        }
+
+        /* ========================================
+           NORMATIVOS APLICÁVEIS (v8 — novo)
+           ======================================== */
+
+        .normativos {
+            background: var(--fundo-superficie);
+            border-left: 4pt solid var(--azul-secundario);
+            padding: var(--respiro-interno) 16pt;
+            margin-bottom: var(--respiro-bloco);
+        }
+
+        .normativos-titulo {
+            font-weight: bold;
+            color: var(--azul-primario);
+            font-size: 10pt;
+            margin-bottom: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 0.3pt;
+        }
+
+        /* ========================================
+           DECLARAÇÕES E ASSINATURAS
+           ======================================== */
+
+        .declaracoes {
+            background: var(--fundo-superficie);
+            border: 1pt solid var(--borda-sutil);
+            padding: 16pt;
+            margin-bottom: var(--respiro-bloco);
+            font-size: 9pt;
+            line-height: 1.65;
+        }
+
+        .declaracoes-titulo {
+            font-weight: bold;
+            color: var(--azul-primario);
+            margin-bottom: 10pt;
+        }
+
+        .declaracoes p {
+            margin-bottom: 5pt;
+        }
+
+        .assinaturas {
+            display: flex;
+            justify-content: space-between;
+            gap: 24pt;
+            margin-top: 22pt;
+        }
+
+        .assinatura-bloco {
+            flex: 1;
+            text-align: center;
+            padding: var(--respiro-interno);
+            border: 1pt solid var(--borda-sutil);
+            background: var(--fundo-elevado);
+        }
+
+        .assinatura-cargo,
+        .assinatura-papel {
+            font-size: 9pt;
+            font-weight: bold;
+            color: var(--azul-primario);
+            text-transform: uppercase;
+            margin-bottom: 32pt;
+        }
+
+        .assinatura-linha {
+            border-top: 1pt solid var(--texto-primario);
+            padding-top: 8pt;
+            margin: 0 18pt;
+        }
+
+        .assinatura-nome {
+            font-size: 9pt;
+            color: var(--texto-secundario);
+        }
+
+        .assinatura-info,
+        .assinatura-detalhes {
+            font-size: 8pt;
+            color: var(--texto-secundario);
+            margin-top: 3pt;
+        }
+
+        .assinatura-icp {
+            font-size: 7.5pt;
+            color: var(--verde);
+            margin-top: 4pt;
+        }
+
+        .assinatura-fundamento {
+            font-size: 7pt;
+            color: var(--texto-terciario);
+            font-style: italic;
+            margin-top: 3pt;
+        }
+
+        /* ========================================
+           CONTROLE DE VERSÕES
+           ======================================== */
+
+        .versoes {
+            font-size: 8pt;
+            color: var(--texto-secundario);
+            border-top: 1pt solid var(--borda-sutil);
+            padding-top: 12pt;
+            margin-top: var(--respiro-bloco);
+        }
+
+        .versoes-titulo {
+            font-weight: bold;
+            color: var(--texto-primario);
+            margin-bottom: 8pt;
+        }
+
+        /* ========================================
+           TRILHA DA CONTRATAÇÃO
+           ======================================== */
+
+        .trilha {
+            background: var(--azul-primario);
+            color: #ffffff;
+            padding: 16pt 20pt;
+            margin-top: var(--respiro-secao);
+            border-radius: var(--raio-borda);
+        }
+
+        .trilha-titulo {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-bottom: 12pt;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5pt;
+        }
+
+        .trilha-etapas {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex: 1;
+        }
+
+        .trilha-etapa {
+            text-align: center;
+            font-size: 7.5pt;
+            opacity: 0.5;
+            flex: 1;
+        }
+
+        .trilha-etapa.atual {
+            opacity: 1;
+            font-weight: bold;
+        }
+
+        .trilha-etapa.concluida {
+            opacity: 1;
+        }
+
+        .trilha-etapa .icone {
+            width: 22pt;
+            height: 22pt;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 4pt;
+            font-size: 9pt;
+        }
+
+        .trilha-etapa.concluida .icone {
+            background: var(--verde);
+        }
+
+        .trilha-etapa.atual .icone {
+            background: var(--amarelo);
+            color: var(--cinza-escuro);
+        }
+
+        .trilha-etapa .etapa-nome {
+            font-size: 6.5pt;
+            opacity: 0.8;
+            margin-top: 1pt;
+        }
+
+        .trilha-progresso {
+            background: rgba(255,255,255,0.2);
+            height: 8pt;
+            border-radius: 4pt;
+            overflow: hidden;
+            margin-bottom: 10pt;
+        }
+
+        .trilha-progresso-barra {
+            background: linear-gradient(90deg, var(--verde) 0%, #48bb78 100%);
+            height: 100%;
+        }
+
+        .trilha-legenda {
+            font-size: 7pt;
+            text-align: center;
+            opacity: 0.7;
+            margin-top: 8pt;
+        }
+
+        /* ========================================
+           RODAPÉ / SELO ATA360
+           ======================================== */
+
+        .selo-area {
+            text-align: center;
+            margin-top: var(--respiro-secao);
+            padding-top: var(--respiro-bloco);
+            border-top: 1pt solid var(--borda-sutil);
+            /* Área do selo holográfico — fundo transparente do PNG é preservado */
+        }
+
+        .selo-img {
+            width: 110pt;
+            height: auto;
+            /* PNG com canal alpha — fundo transparente, efeito holográfico/iridescente */
+            /* Sem background-color para preservar transparência */
+            display: inline-block;
+        }
+
+        .selo-texto {
+            font-size: 8pt;
+            color: var(--texto-secundario);
+            margin-top: 8pt;
+        }
+
+        .selo-id {
+            font-size: 7pt;
+            color: var(--texto-terciario);
+            margin-top: 3pt;
+        }
+
+        /* ========================================
+           ZONAS DE EDIÇÃO — indicadores visuais
+           Em tela, bordas coloridas indicam permissão.
+           Em PDF/impressão, invisíveis.
+           ======================================== */
+
+        @media screen {
+            [data-zona="editavel"] {
+                border-left: 3pt solid #48bb78;
+                padding-left: 8pt;
+            }
+            [data-zona="protegido"] {
+                /* nenhum indicador — é o padrão */
+            }
+            [data-zona="revisavel"] {
+                border-left: 3pt solid var(--amarelo);
+                padding-left: 8pt;
+            }
+            [data-zona="bloqueado"] {
+                border-left: 3pt solid var(--vermelho);
+                padding-left: 8pt;
+            }
+        }
+
+        /* Nota: @media print para zonas já definido no
+           bloco de impressão P&B acima */
+
+        /* ========================================
+           UTILITÁRIOS
+           ======================================== */
+
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+        .text-small { font-size: 8pt; }
+        .text-muted { color: var(--texto-secundario); }
+        .mt-10 { margin-top: 10pt; }
+        .mb-10 { margin-bottom: 10pt; }
+        .page-break { page-break-before: always; }
+    </style>
+    <!--
+    ============================================================
+    ATA360 — DOCUMENTO MESTRE v8.0
+    Sistema de Inteligência em Contratações Públicas
+
+    ORDEM DOS BLOCOS (conforme DFD template v7.1):
+    ┌──────────────────────────────────────────┐
+    │ 1. CABEÇALHO (logo dinâmica + ente)      │
+    │ 2. IDENTIFICAÇÃO DO DOCUMENTO            │
+    │ 3. FUNDAMENTAÇÃO LEGAL (+ LINDB + TCU)   │
+    │ 4. RASTREABILIDADE + QR + HASH + CARIMBO │
+    │ 5. CONTEXTO DO ENTE (dados cadastrais)   │  ← v8 novo
+    │ 6. RESUMO DO OBJETO (quando aplicável)   │
+    │ 7. SUMÁRIO (docs com 5+ seções)          │
+    │ 8. SEÇÕES DO DOCUMENTO (capítulos)       │
+    │    └─ Cada seção: tópico + base legal    │
+    │    └─ Zonas editáveis vs protegidas      │
+    │ 9. CHECKLIST DE CONFORMIDADE             │
+    │ 10. NORMATIVOS APLICÁVEIS                │  ← v8 novo
+    │ 11. DECLARAÇÕES E TERMO DE ACEITE        │
+    │ 12. ASSINATURAS (conforme Lei 14.133)    │
+    │ 13. CONTROLE DE VERSÕES                  │
+    │ 14. TRILHA DA CONTRATAÇÃO                │
+    │ 15. SELO ATA360                          │
+    └──────────────────────────────────────────┘
+
+    ZONAS DE EDIÇÃO:
+    - data-zona="editavel"    → servidor pode alterar
+    - data-zona="protegido"   → sistema gera, servidor NÃO altera
+    - data-zona="revisavel"   → servidor revisa, ACMA sugere
+    - data-zona="bloqueado"   → só admin/autoridade altera
+
+    CONTROLE DE ACESSO (RLS Supabase):
+    - servidor:    vê/edita só seu órgão, zonas "editavel"
+    - pregoeiro:   vê/edita fases 5-7 (LIC, CTR)
+    - autoridade:  aprova, assina, vê tudo do órgão
+    - auditor:     read-only tudo, gera parecer
+    - admin:       tudo, multi-tenant
+    ============================================================
+    -->
+</head>
+<body>
+
+    <!-- ========================================
+         BLOCO 1 — CABEÇALHO INSTITUCIONAL
+         Logo dinâmica do cadastro do ente
+         ======================================== -->
+    <header class="header" data-zona="protegido">
+        <div class="header-left">
+            <div class="ente">{{ dados.ente_nome }}</div>
+            <div class="subordinacao">
+                {{ dados.subordinacao_linha1 }}<br>
+                {{ dados.subordinacao_linha2 }}
+            </div>
+            <div class="ente-detalhes">
+                <span>CNPJ: {{ dados.ente_cnpj }}</span>
+                <span>UASG: {{ dados.ente_uasg }}</span>
+                <span>IBGE: {{ dados.municipio_ibge }}</span>
+            </div>
+        </div>
+        <div class="header-right">
+            {% if dados.ente_logo_url %}
+            <img src="{{ dados.ente_logo_url }}" alt="Brasão {{ dados.ente_nome }}" class="logo">
+            {% else %}
+            <div class="logo-placeholder">
+                LOGO<br>MUNICÍPIO
+            </div>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- ========================================
+         BLOCO 2 — IDENTIFICAÇÃO DO DOCUMENTO
+         ======================================== -->
+    <div class="doc-id-box" data-zona="protegido">
+        <div class="titulo">{{ config.nome | upper }}</div>
+        <div class="subtitulo">{{ config.subtitulo | default('Documento da fase preparatória da contratação') }}</div>
+
+        <div class="doc-numeros">
+            <div class="item">
+                <div class="label">Nº do Documento</div>
+                <div class="valor">{{ dados.doc_numero }}</div>
+            </div>
+            <div class="item">
+                <div class="label">Nº Processo Administrativo</div>
+                <div class="valor">{{ dados.processo_numero }}</div>
+            </div>
+            <div class="item">
+                <div class="label">Versão</div>
+                <div class="valor">{{ dados.versao | default('1.0') }}</div>
+            </div>
+            <div class="item">
+                <div class="label">Data</div>
+                <div class="valor">{{ dados.data_documento }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         BLOCO 3 — FUNDAMENTAÇÃO LEGAL
+         Lei 14.133/2021 + Decretos + INs + LINDB + TCU
+         ======================================== -->
+    <div class="fundamentacao" data-zona="protegido">
+        <div class="titulo">Fundamentação Legal</div>
+
+        <!-- Legislação primária (vem do YAML config) -->
+        {% for item in config.fundamentacao_cabecalho %}
+        <p>{{ item }}</p>
+        {% endfor %}
+
+        <!-- LINDB — sempre presente -->
+        <p><strong>LINDB (Lei 13.655/2018):</strong> Art. 20 (consequências práticas) | Art. 22 (dificuldades reais) | Art. 28 (responsabilização só por dolo/erro grosseiro)</p>
+
+        <!-- TCU — acórdãos relevantes para este tipo de documento -->
+        {% if config.jurisprudencia %}
+        <p><strong>TCU:</strong>
+            {% for j in config.jurisprudencia %}
+            {{ j.acordao | default(j.sumula) }}{% if not loop.last %} | {% endif %}
+            {% endfor %}
+        </p>
+        {% endif %}
+
+        <!-- Manual TCU -->
+        <p><em>Ref.: Manual TCU de Licitações e Contratos, 5ª Ed. (Ago/2025)</em></p>
+    </div>
+
+    <!-- ========================================
+         BLOCO 4 — RASTREABILIDADE, QR CODE, HASH E CARIMBO DO TEMPO
+         Posição idêntica ao DFD template v7.1
+         Todos os campos gerados automaticamente (zona protegida)
+         ======================================== -->
+    <div class="rastreabilidade" data-zona="protegido">
+        <div class="rastreabilidade-info">
+            <div class="rastreabilidade-titulo">Rastreabilidade e Controle</div>
+            <table class="rastreabilidade-tabela">
+                <tr>
+                    <td class="label">ID:</td>
+                    <td>{{ rastreabilidade.id }}</td>
+                    <td class="label">Processo:</td>
+                    <td>{{ dados.processo_numero }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Versão:</td>
+                    <td>{{ dados.versao | default('1.0') }}</td>
+                    <td class="label">Data/Hora:</td>
+                    <td>{{ rastreabilidade.timestamp }}</td>
+                </tr>
+                <tr>
+                    <td class="label">PNCP:</td>
+                    <td colspan="3">Obrigatório conforme Art. 94, Lei 14.133/2021</td>
+                </tr>
+                <tr>
+                    <td class="label">Sincronia:</td>
+                    <td colspan="3">
+                        PCA: {{ rastreabilidade.pca_vinculado | default('—') }} |
+                        DFD: {{ rastreabilidade.dfd_vinculado | default('—') }} |
+                        ETP: {{ rastreabilidade.etp_vinculado | default('—') }} |
+                        TR: {{ rastreabilidade.tr_vinculado | default('—') }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Hash SHA-256:</td>
+                    <td colspan="3"><code>{{ rastreabilidade.hash | default('Gerado automaticamente na assinatura digital ICP-Brasil') }}</code></td>
+                </tr>
+            </table>
+
+            <!-- CARIMBO DO TEMPO SERPRO (Contrato 266338) — v8 novo -->
+            <div class="carimbo-tempo">
+                <div class="carimbo-titulo">Carimbo do Tempo — SERPRO ICP-Brasil</div>
+                <table class="rastreabilidade-tabela">
+                    <tr>
+                        <td class="label">TSA (RFC 3161):</td>
+                        <td>{{ carimbo.tsa_serial | default('Pendente emissão') }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Data/Hora Carimbo:</td>
+                        <td>{{ carimbo.timestamp | default('—') }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Certificado:</td>
+                        <td>{{ carimbo.certificado | default('AC SERPRO / ICP-Brasil v5') }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Hash Carimbado:</td>
+                        <td><code>{{ carimbo.hash | default('—') }}</code></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Verificação:</td>
+                        <td><a href="{{ carimbo.url_verificacao | default('#') }}">Verificar autenticidade</a></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="rastreabilidade-apis">
+                Fontes: PNCP | Compras.gov.br | Portal Transparência | IBGE | BCB
+            </div>
+        </div>
+
+        <!-- QR CODE — Verificação pública -->
+        <div class="qr-area">
+            {% if rastreabilidade.qr_code_url %}
+            <img src="{{ rastreabilidade.qr_code_url }}" alt="QR Code Verificação" class="qr-img">
+            {% else %}
+            QR Code<br>ICP-Brasil
+            {% endif %}
+            <div class="qr-texto">Verificação</div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         BLOCO 5 — CONTEXTO DO ENTE (v8 — novo)
+         Alimentado por: IBGE, BCB, FPM, FNDE, FNS, Transparência
+         Garante LINDB Art. 22 (considerar dificuldades reais)
+         ======================================== -->
+    {% if dados.contexto_ente %}
+    <div class="contexto-ente" data-zona="protegido">
+        <div class="contexto-titulo">Contexto do Ente — Dados Automáticos</div>
+        <div class="contexto-grid">
+            <div class="contexto-item">
+                <div class="contexto-label">Município</div>
+                <div class="contexto-valor">{{ dados.municipio_nome }} / {{ dados.uf }}</div>
+                <div class="contexto-fonte">IBGE {{ dados.municipio_ibge }}</div>
+            </div>
+            <div class="contexto-item">
+                <div class="contexto-label">População</div>
+                <div class="contexto-valor">{{ dados.populacao | number_format }}</div>
+                <div class="contexto-fonte">IBGE Censo</div>
+            </div>
+            <div class="contexto-item">
+                <div class="contexto-label">IDH-M</div>
+                <div class="contexto-valor">{{ dados.idhm }}</div>
+                <div class="contexto-fonte">IBGE/Atlas Brasil</div>
+            </div>
+            <div class="contexto-item">
+                <div class="contexto-label">PIB per capita</div>
+                <div class="contexto-valor">R$ {{ dados.pib_per_capita | number_format }}</div>
+                <div class="contexto-fonte">IBGE</div>
+            </div>
+            <div class="contexto-item">
+                <div class="contexto-label">Receita Total</div>
+                <div class="contexto-valor">R$ {{ dados.receita_total | number_format }}</div>
+                <div class="contexto-fonte">SICONFI</div>
+            </div>
+            <div class="contexto-item">
+                <div class="contexto-label">FPM (último)</div>
+                <div class="contexto-valor">R$ {{ dados.fpm_ultimo | number_format }}</div>
+                <div class="contexto-fonte">Tesouro Nacional</div>
+            </div>
+            {% if dados.fns_saldo %}
+            <div class="contexto-item">
+                <div class="contexto-label">FNS Saldo</div>
+                <div class="contexto-valor">R$ {{ dados.fns_saldo | number_format }}</div>
+                <div class="contexto-fonte">FNS/DataSUS</div>
+            </div>
+            {% endif %}
+            {% if dados.fnde_saldo %}
+            <div class="contexto-item">
+                <div class="contexto-label">FNDE Saldo</div>
+                <div class="contexto-valor">R$ {{ dados.fnde_saldo | number_format }}</div>
+                <div class="contexto-fonte">FNDE</div>
+            </div>
+            {% endif %}
+            {% if dados.emendas_disponiveis %}
+            <div class="contexto-item">
+                <div class="contexto-label">Emendas Disponíveis</div>
+                <div class="contexto-valor">R$ {{ dados.emendas_disponiveis | number_format }}</div>
+                <div class="contexto-fonte">Transparência</div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Histórico de compras do ente (do cadastro) -->
+        {% if dados.historico_compras %}
+        <div class="contexto-historico">
+            <div class="contexto-subtitulo">Histórico de Contratações Similares</div>
+            <table class="tabela tabela-compact">
+                <thead>
+                    <tr><th>Ano</th><th>Objeto Similar</th><th>Modalidade</th><th>Valor</th><th>PNCP ID</th></tr>
+                </thead>
+                <tbody>
+                    {% for h in dados.historico_compras %}
+                    <tr>
+                        <td>{{ h.ano }}</td>
+                        <td>{{ h.objeto }}</td>
+                        <td>{{ h.modalidade }}</td>
+                        <td class="text-right">R$ {{ h.valor | number_format }}</td>
+                        <td>{{ h.pncp_id }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        <div class="contexto-nota">
+            <em>Dados atualizados automaticamente via APIs governamentais.
+            Fundamentação: LINDB Art. 22 — considerar obstáculos e dificuldades reais do gestor.</em>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- ========================================
+         BLOCO 6 — RESUMO DO OBJETO (quando aplicável)
+         ======================================== -->
+    {% if dados.resumo_objeto %}
+    <div class="resumo-objeto">
+        <div class="resumo-objeto-titulo">Resumo do Objeto</div>
+        <div class="resumo-objeto-texto">
+            {{ dados.resumo_objeto }}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- ========================================
+         BLOCO 7 — SUMÁRIO (documentos com 5+ seções)
+         ======================================== -->
+    {% if config.secoes | length > 5 %}
+    <div class="sumario" data-zona="protegido">
+        <div class="sumario-titulo">Sumário do {{ config.sigla }}</div>
+        <div class="sumario-lista">
+            {% for secao in config.secoes %}
+            <div class="sumario-item">
+                <span><span class="sumario-num">{{ secao.numero }}.</span> {{ secao.titulo }}</span>
+                <span class="sumario-fundamento">{{ secao.fundamento }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- ========================================
+         BLOCO 8 — SEÇÕES DO DOCUMENTO (capítulos com base legal)
+         Cada seção tem:
+         - Número + Título + Fundamento legal
+         - Tópicos com base legal
+         - Zonas editáveis vs protegidas
+         ======================================== -->
+    {% for secao in config.secoes %}
+    <div class="secao" data-secao="{{ secao.numero }}">
+        <div class="secao-header" data-zona="protegido">
+            <div class="secao-numero">{{ secao.numero }}</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">{{ secao.titulo }}</div>
+                <div class="secao-fundamento">{{ secao.fundamento }}</div>
+            </div>
+        </div>
+
+        <div class="secao-conteudo" data-zona="{{ secao.zona | default('editavel') }}">
+            <!--
+            ZONAS DE EDIÇÃO:
+            editavel   = servidor preenche (campos de formulário)
+            protegido  = sistema gera (fundamentação, alertas)
+            revisavel  = ACMA sugere, servidor revisa
+            bloqueado  = só autoridade/admin
+            -->
+            {{ secoes_conteudo[secao.numero] | safe }}
+        </div>
+
+        <!-- Alertas legais da seção (gerados pelo Auditor) -->
+        {% if secao.alertas %}
+        <div class="secao-alertas" data-zona="protegido">
+            {% for alerta in secao.alertas %}
+            <div class="alerta alerta-{{ alerta.tipo }}">
+                <strong>{{ alerta.icone }} {{ alerta.fundamento }}:</strong> {{ alerta.texto }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    {% if secao.numero == 5 and config.secoes | length > 8 %}
+    <div class="page-break"></div>
+    {% endif %}
+    {% if secao.numero == 10 and config.secoes | length > 12 %}
+    <div class="page-break"></div>
+    {% endif %}
+    {% endfor %}
+
+    <!-- ========================================
+         BLOCO 9 — CHECKLIST DE CONFORMIDADE
+         Itens automáticos (Auditor) + itens manuais (servidor)
+         ======================================== -->
+    {% if config.checklist %}
+    <div class="checklist" data-zona="protegido">
+        <div class="checklist-titulo">Checklist de Conformidade — {{ config.sigla }}</div>
+        <div class="checklist-subtitulo">Verificação automática (Auditor Agent) + validação manual</div>
+
+        {% for item in config.checklist %}
+        <div class="checklist-item">
+            <div class="checklist-box {{ checklist_status[item.codigo] | default('pendente') }}">
+                {% if checklist_status[item.codigo] == 'ok' %}✓{% elif checklist_status[item.codigo] == 'erro' %}✗{% else %}!{% endif %}
+            </div>
+            <div class="checklist-texto">
+                <span class="checklist-codigo">{{ item.codigo }}</span>
+                {{ item.texto }}
+                <span class="checklist-fundamento">({{ item.fundamento }})</span>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Itens sempre presentes em todos os documentos -->
+        <div class="checklist-item">
+            <div class="checklist-box {{ 'ok' if rastreabilidade.hash else 'pendente' }}">
+                {% if rastreabilidade.hash %}✓{% else %}!{% endif %}
+            </div>
+            <div class="checklist-texto">
+                <span class="checklist-codigo">HASH</span>
+                Documento com hash SHA-256 gerado
+                <span class="checklist-fundamento">(Rastreabilidade)</span>
+            </div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box {{ 'ok' if carimbo.tsa_serial else 'pendente' }}">
+                {% if carimbo.tsa_serial %}✓{% else %}!{% endif %}
+            </div>
+            <div class="checklist-texto">
+                <span class="checklist-codigo">TSA</span>
+                Carimbo do Tempo SERPRO emitido
+                <span class="checklist-fundamento">(SERPRO Contrato 266338)</span>
+            </div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box pendente">!</div>
+            <div class="checklist-texto">
+                <span class="checklist-codigo">ICP</span>
+                Aguardando assinatura digital ICP-Brasil
+                <span class="checklist-fundamento">(NeoSigner SERPRO)</span>
+            </div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box {{ 'ok' if dados.publicado_pncp else 'pendente' }}">
+                {% if dados.publicado_pncp %}✓{% else %}!{% endif %}
+            </div>
+            <div class="checklist-texto">
+                <span class="checklist-codigo">PNCP</span>
+                Publicação no PNCP
+                <span class="checklist-fundamento">(Art. 94, Lei 14.133/2021)</span>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- ========================================
+         BLOCO 10 — NORMATIVOS APLICÁVEIS (v8 — novo)
+         Resumo consolidado por documento
+         ======================================== -->
+    {% if config.normativos %}
+    <div class="normativos" data-zona="protegido">
+        <div class="normativos-titulo">Normativos Aplicáveis</div>
+        <table class="tabela tabela-compact">
+            <thead>
+                <tr><th>Normativo</th><th>Dispositivo</th><th>Aplicação neste documento</th></tr>
+            </thead>
+            <tbody>
+                {% for n in config.normativos %}
+                <tr>
+                    <td><strong>{{ n.norma }}</strong></td>
+                    <td>{{ n.dispositivo }}</td>
+                    <td>{{ n.aplicacao }}</td>
+                </tr>
+                {% endfor %}
+                <!-- LINDB sempre presente -->
+                <tr>
+                    <td><strong>LINDB (Lei 13.655/2018)</strong></td>
+                    <td>Arts. 20, 22 e 28</td>
+                    <td>Decisão com consequências práticas; considerar dificuldades reais; responsabilização só por dolo</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    <!-- ========================================
+         BLOCO 11 — DECLARAÇÕES E TERMO DE ACEITE
+         Declarações personalizadas por tipo de documento
+         ======================================== -->
+    <div class="declaracoes" data-zona="protegido">
+        <div class="declaracoes-titulo">{{ declaracoes.titulo | default('Declarações e Termo de Aceite') }}</div>
+
+        <p>{{ declaracoes.preambulo | default('O(s) signatário(s), na qualidade de agente(s) público(s), DECLARA(M) que:') }}</p>
+
+        <!-- Declarações obrigatórias (todos os documentos) -->
+        <p><strong>I.</strong> As informações prestadas são verdadeiras e refletem fielmente os dados, necessidades e circunstâncias apresentados (Dec. 10.947/2022);</p>
+
+        <p><strong>II.</strong> Este documento foi elaborado em observância aos princípios da legalidade, impessoalidade, moralidade, publicidade e eficiência (CF/88, Art. 37 c/c Lei 14.133/2021, Art. 5º);</p>
+
+        <p><strong>III.</strong> Não possuo conflito de interesses nem vínculo com potenciais fornecedores que possa comprometer a imparcialidade do processo (Lei 14.133/2021, Art. 9º c/c Lei 12.813/2013);</p>
+
+        <p><strong>IV.</strong> Tenho ciência dos deveres funcionais e das responsabilidades inerentes à minha atuação em processos de contratação pública, nos termos da Lei 14.133/2021 e da LINDB (Lei 13.655/2018, Art. 28);</p>
+
+        <p><strong>V.</strong> Este documento foi elaborado com auxílio de ferramenta tecnológica (ATA360), cabendo ao signatário a validação integral do conteúdo, dados, valores e conclusões (Lei 14.133/2021, Art. 11, IV);</p>
+
+        <!-- Declarações específicas do tipo de documento -->
+        {% for item in declaracoes.itens_especificos %}
+        <p><strong>{{ item.numero }}.</strong> {{ item.texto }}{% if item.fundamento %} ({{ item.fundamento }}){% endif %};</p>
+        {% endfor %}
+
+        <!-- Declaração final -->
+        <p><strong>{{ declaracoes.ultimo_numero | default('VII') }}.</strong> Aceito as condições declaradas e autorizo o prosseguimento, ciente de que os dados serão publicados no PNCP (Art. 94) e poderão ser compartilhados com órgãos de controle (TCU, CGU, MPF) para fins de fiscalização.</p>
+
+        <p class="text-small text-muted mt-10"><em>Base legal: CF/88, Art. 37 | Lei 14.133/2021 | LINDB (Lei 13.655/2018) | Dec. 10.947/2022 | Lei 12.813/2013 | Manual TCU 5ª Ed. (2025)</em></p>
+    </div>
+
+    <!-- ========================================
+         BLOCO 12 — ASSINATURAS
+         Conforme Lei 14.133/2021: papéis por tipo de documento
+         Dados do assinante vêm do cadastro do membro
+         ======================================== -->
+    <div class="assinaturas" data-zona="bloqueado">
+        {% for assinatura in config.assinaturas %}
+        <div class="assinatura-bloco">
+            <div class="assinatura-papel">{{ assinatura.papel }}</div>
+            <div class="assinatura-linha">
+                <div class="assinatura-nome">
+                    {{ dados['assinatura_' ~ loop.index ~ '_nome'] | default('_____________________________') }}
+                </div>
+                <div class="assinatura-detalhes">
+                    {{ dados['assinatura_' ~ loop.index ~ '_cargo'] | default('Cargo') }} |
+                    Mat. {{ dados['assinatura_' ~ loop.index ~ '_matricula'] | default('00000') }}
+                </div>
+                <div class="assinatura-icp">Assinatura ICP-Brasil</div>
+                {% if assinatura.fundamentacao %}
+                <div class="assinatura-fundamento">{{ assinatura.fundamentacao }}</div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- ========================================
+         BLOCO 13 — CONTROLE DE VERSÕES
+         ======================================== -->
+    <div class="versoes" data-zona="protegido">
+        <div class="versoes-titulo">Controle de Versões</div>
+        <table class="tabela" style="font-size: 8pt;">
+            <thead>
+                <tr>
+                    <th>Versão</th>
+                    <th>Data</th>
+                    <th>Autor</th>
+                    <th>Modificações</th>
+                    <th>Hash</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for versao in historico_versoes | default([{'versao': '1.0', 'data': dados.data_documento, 'autor': dados.responsavel_nome, 'modificacoes': 'Versão inicial', 'hash': rastreabilidade.hash}]) %}
+                <tr>
+                    <td>{{ versao.versao }}</td>
+                    <td>{{ versao.data }}</td>
+                    <td>{{ versao.autor }}</td>
+                    <td>{{ versao.modificacoes }}</td>
+                    <td style="font-family: monospace; font-size: 7pt;">{{ versao.hash[:12] }}...</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ========================================
+         BLOCO 14 — TRILHA DA CONTRATAÇÃO PÚBLICA
+         Progresso visual: 10 fases da Lei 14.133/2021
+         ======================================== -->
+    {% if config.trilha_posicao %}
+    <div class="trilha" data-zona="protegido">
+        <div class="trilha-titulo">Trilha da Contratação Pública</div>
+
+        <div class="trilha-progresso">
+            <div class="trilha-progresso-barra" style="width: {{ config.trilha_progresso }}%;"></div>
+        </div>
+
+        <div class="trilha-etapas">
+            {% for etapa in trilha.etapas %}
+            <div class="trilha-etapa {% if etapa.posicao < config.trilha_posicao %}concluida{% elif etapa.posicao == config.trilha_posicao %}atual{% endif %}">
+                <div class="icone">{% if etapa.posicao < config.trilha_posicao %}✓{% elif etapa.posicao == config.trilha_posicao %}●{% else %}○{% endif %}</div>
+                <div class="etapa-codigo">{{ etapa.codigo }}</div>
+                <div class="etapa-nome">{{ etapa.nome }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="trilha-legenda">
+            PCA = Plano de Contratações | DFD = Formalização | ETP = Estudo Técnico |
+            PP = Pesquisa Preços | TR = Termo Referência | MR = Mapa Riscos |
+            LIC = Licitação | CTR = Contrato | EXE = Execução | AVA = Avaliação
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- ========================================
+         BLOCO 15 — SELO DE QUALIDADE ATA360
+         Lógica: selo_aprovado = true → selo presente
+                 selo_aprovado = false → bloco inteiro NÃO renderiza
+                 (ausência silenciosa, sem explicação, conforme spec 19.10.3)
+         ======================================== -->
+    {% if selo_aprovado %}
+    <div class="selo-area" data-zona="protegido">
+        <img src="{{ config.selo_img | default('assets/selo-ata360-governanca-ouro.png') }}"
+             alt="Selo de Qualidade ATA360 — Governança Ouro — Certificado de conformidade com a Lei 14.133/2021"
+             class="selo-img"
+             width="110"
+             loading="lazy">
+        <div class="selo-texto">
+            © {{ dados.ano | default('2026') }} Powered by ATA360 — Sistema de Inteligência em Contratações Públicas
+        </div>
+        <div class="selo-id">
+            {{ config.sigla }} | {{ rastreabilidade.id }} | {{ dados.ente_nome }}
+        </div>
+    </div>
+    {% endif %}
+
+</body>
+</html>

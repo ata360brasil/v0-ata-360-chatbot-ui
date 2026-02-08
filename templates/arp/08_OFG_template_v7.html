@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Ofício de Consulta ao Gerenciador - OFG</title>
+    <style>
+        @page { size: A4; margin: 22mm; @bottom-center { content: "Página " counter(page); font-family: 'Palatino Linotype', serif; font-size: 9pt; color: #666; } }
+        :root { --azul-primario: #1e3a5f; --azul-claro: #e8f0f8; --cinza-escuro: #2d3748; --cinza-medio: #4a5568; --cinza-claro: #f7fafc; --cinza-linha: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Palatino Linotype', serif; font-size: 11pt; line-height: 1.7; color: var(--cinza-escuro); }
+        .header { display: flex; justify-content: space-between; padding-bottom: 14pt; border-bottom: 2.5pt solid var(--azul-primario); margin-bottom: 20pt; }
+        .header-left .ente { font-size: 14pt; font-weight: bold; color: var(--azul-primario); }
+        .header-left .subordinacao { font-size: 9pt; color: var(--cinza-medio); }
+        .logo-placeholder { width: 70pt; height: 70pt; border: 1.5pt dashed #cbd5e0; display: flex; align-items: center; justify-content: center; font-size: 8pt; color: #a0aec0; }
+        .doc-tipo { background: var(--azul-primario); color: white; padding: 10pt 16pt; margin-bottom: 16pt; text-align: center; }
+        .doc-tipo .titulo { font-size: 14pt; font-weight: bold; }
+        .doc-tipo .subtitulo { font-size: 9pt; opacity: 0.9; }
+        .fundamentacao { background: var(--cinza-claro); border-left: 3pt solid var(--azul-primario); padding: 10pt; margin-bottom: 16pt; font-size: 8.5pt; color: var(--cinza-medio); }
+        .info-box { display: flex; justify-content: space-between; background: var(--cinza-claro); padding: 10pt; margin-bottom: 20pt; font-size: 9pt; }
+        .info-box div { text-align: center; }
+        .info-box .label { font-size: 8pt; color: var(--cinza-medio); text-transform: uppercase; }
+        .info-box .valor { font-weight: bold; color: var(--azul-primario); }
+        .destinatario { margin-bottom: 20pt; }
+        .destinatario .para { font-size: 9pt; color: var(--cinza-medio); text-transform: uppercase; }
+        .destinatario .nome { font-weight: bold; font-size: 11pt; }
+        .destinatario .cargo { font-size: 10pt; color: var(--cinza-medio); }
+        .assunto { background: var(--azul-claro); padding: 10pt; margin-bottom: 20pt; }
+        .assunto-label { font-size: 9pt; font-weight: bold; color: var(--azul-primario); text-transform: uppercase; }
+        .assunto-texto { font-size: 10pt; margin-top: 4pt; }
+        .corpo { text-align: justify; margin-bottom: 20pt; }
+        .corpo p { margin-bottom: 12pt; text-indent: 40pt; }
+        .tabela { width: 100%; border-collapse: collapse; margin: 16pt 0; font-size: 9pt; }
+        .tabela th { background: var(--azul-primario); color: white; padding: 8pt; text-align: left; }
+        .tabela td { padding: 8pt; border: 1pt solid var(--cinza-linha); }
+        .tabela .valor { text-align: right; }
+        .assinatura { text-align: center; margin-top: 50pt; }
+        .assinatura-linha { border-top: 1pt solid var(--cinza-escuro); width: 250pt; margin: 0 auto; padding-top: 8pt; }
+        .assinatura-nome { font-weight: bold; }
+        .assinatura-cargo { font-size: 9pt; color: var(--cinza-medio); }
+        .selo { text-align: center; margin-top: 40pt; padding-top: 16pt; border-top: 1pt solid var(--cinza-linha); font-size: 8pt; color: var(--cinza-medio); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="ente">{{ente_nome}}</div>
+            <div class="subordinacao">{{subordinacao_linha1}}<br>{{subordinacao_linha2}}</div>
+        </div>
+        <div class="logo-placeholder">BRASÃO</div>
+    </div>
+
+    <div class="doc-tipo">
+        <div class="titulo">OFÍCIO DE CONSULTA AO GERENCIADOR</div>
+        <div class="subtitulo">Solicitação de Adesão à Ata de Registro de Preços</div>
+    </div>
+
+    <div class="fundamentacao">
+        <strong>Base Legal:</strong> Lei 14.133/2021, Art. 86, §3º | Decreto 11.462/2023, Art. 30
+    </div>
+
+    <div class="info-box">
+        <div><div class="label">Ofício Nº</div><div class="valor">{{oficio_numero}}</div></div>
+        <div><div class="label">Processo</div><div class="valor">{{processo_numero}}</div></div>
+        <div><div class="label">Data</div><div class="valor">{{data_documento}}</div></div>
+    </div>
+
+    <div class="destinatario">
+        <div class="para">Ao</div>
+        <div class="nome">{{gerenciador_nome}}</div>
+        <div class="cargo">{{gerenciador_cargo}}<br>{{gerenciador_orgao}}</div>
+    </div>
+
+    <div class="assunto">
+        <div class="assunto-label">Assunto</div>
+        <div class="assunto-texto">Solicitação de autorização para adesão à Ata de Registro de Preços nº {{arp_numero}}</div>
+    </div>
+
+    <div class="corpo">
+        <p>Senhor(a) Gerenciador(a),</p>
+        
+        <p>O(A) <strong>{{ente_nome}}</strong>, por intermédio de sua unidade de compras, vem respeitosamente solicitar autorização para adesão à Ata de Registro de Preços em epígrafe, conforme disposto no Art. 86, §3º, da Lei 14.133/2021.</p>
+
+        <p><strong>1. IDENTIFICAÇÃO DA ATA:</strong></p>
+        <p style="text-indent: 0;">
+            Órgão Gerenciador: {{arp_orgao_gerenciador}}<br>
+            Nº da Ata: {{arp_numero}}<br>
+            UASG: {{arp_uasg}}<br>
+            Vigência: {{arp_vigencia}}<br>
+            Modalidade de Origem: {{arp_modalidade}}
+        </p>
+
+        <p><strong>2. ITENS E QUANTIDADES PRETENDIDOS:</strong></p>
+    </div>
+
+    <table class="tabela">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Descrição</th>
+                <th>CATMAT</th>
+                <th>Qtde Solicitada</th>
+                <th class="valor">Valor Unit.</th>
+                <th class="valor">Valor Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{item1_numero}}</td>
+                <td>{{item1_descricao}}</td>
+                <td>{{item1_catmat}}</td>
+                <td>{{item1_quantidade}}</td>
+                <td class="valor">R$ {{item1_valor_unit}}</td>
+                <td class="valor">R$ {{item1_valor_total}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr style="background: var(--azul-claro); font-weight: bold;">
+                <td colspan="5" style="text-align: right;">VALOR TOTAL:</td>
+                <td class="valor">R$ {{valor_total}}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="corpo">
+        <p><strong>3. JUSTIFICATIVA:</strong></p>
+        <p>{{justificativa_adesao}}</p>
+
+        <p><strong>4. DEMONSTRAÇÃO DE VANTAJOSIDADE:</strong></p>
+        <p>{{demonstracao_vantajosidade}}</p>
+
+        <p>Declaramos ciência de que a adesão está condicionada à autorização de V.Sa., bem como à aceitação do fornecedor beneficiário, conforme disposto no Art. 86, §3º, da Lei 14.133/2021.</p>
+
+        <p>Permanecemos à disposição para quaisquer esclarecimentos adicionais.</p>
+
+        <p>Atenciosamente,</p>
+    </div>
+
+    <div class="assinatura">
+        <div class="assinatura-linha">
+            <div class="assinatura-nome">{{remetente_nome}}</div>
+            <div class="assinatura-cargo">{{remetente_cargo}}<br>Mat. {{remetente_matricula}}</div>
+        </div>
+    </div>
+
+    <div class="selo">
+        © 2026 ATA360 - Sistema de Inteligência em Contratações Públicas<br>
+        ID: {{rastreabilidade_id}} | Hash: {{hash_documento}}
+    </div>
+</body>
+</html>

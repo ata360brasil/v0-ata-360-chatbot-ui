@@ -1,0 +1,1571 @@
+# ============================================================
+# ATA360 - CONFIGURAÇÃO DE DOCUMENTOS E LOOKUP TABLES
+# Versão 1.0 | Janeiro 2026
+# AUDITADO POR ADVOGADO ESPECIALIZADO EM LICITAÇÕES
+# ============================================================
+# ATENÇÃO: Este arquivo contém fundamentação legal oficial.
+# Qualquer alteração deve ser validada por assessoria jurídica.
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. DFD - DOCUMENTO DE FORMALIZAÇÃO DA DEMANDA
+# ------------------------------------------------------------
+DFD:
+  nome: "Documento de Formalização da Demanda"
+  sigla: "DFD"
+  trilha_posicao: 2
+  trilha_progresso: 20
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 18, I (DFD como primeiro documento)"
+    - "Decreto 10.947/2022: Art. 7º (requisitos do DFD)"
+    - "IN SEGES/ME 58/2022: Art. 5º (conteúdo obrigatório)"
+    - "TCU Acórdão 2.622/2015-P (motivação da necessidade)"
+  
+  secoes:
+    - numero: 1
+      titulo: "Identificação da Demanda"
+      fundamento: "Art. 7º, I a III, Decreto 10.947/2022"
+      campos: [unidade_requisitante, responsavel_nome, responsavel_cargo, responsavel_matricula, responsavel_contato]
+    
+    - numero: 2
+      titulo: "Objeto da Contratação"
+      fundamento: "Art. 6º, XXIII, Lei 14.133/2021"
+      campos: [descricao_objeto, natureza, enquadramento]
+    
+    - numero: 3
+      titulo: "Justificativa da Necessidade"
+      fundamento: "Art. 18, I, Lei 14.133/2021"
+      campos: [necessidade, interesse_publico, consequencias]
+    
+    - numero: 4
+      titulo: "Quantitativos e Estimativa de Valor"
+      fundamento: "Art. 18, II e III, Lei 14.133/2021"
+      campos: [itens, fonte_estimativa, metodologia_calculo]
+    
+    - numero: 5
+      titulo: "Prazo e Vinculação ao Planejamento"
+      fundamento: "Art. 18, VII, Lei 14.133/2021"
+      campos: [prazo_desejado, prioridade, pca_item, fonte_recursos, dotacao]
+  
+  checklist:
+    - codigo: "DFD-01"
+      texto: "Unidade requisitante e responsável identificados"
+      fundamento: "Art. 7º, I, Dec. 10.947/2022"
+    - codigo: "DFD-02"
+      texto: "Objeto descrito de forma clara e objetiva"
+      fundamento: "Art. 6º, XXIII, Lei 14.133/2021"
+    - codigo: "DFD-03"
+      texto: "Justificativa da necessidade fundamentada"
+      fundamento: "Art. 18, I, Lei 14.133/2021"
+    - codigo: "DFD-04"
+      texto: "Quantitativos estimados com metodologia"
+      fundamento: "Art. 18, II, Lei 14.133/2021"
+    - codigo: "DFD-05"
+      texto: "Valor estimado com base em pesquisa"
+      fundamento: "Art. 18, III, Lei 14.133/2021"
+    - codigo: "DFD-06"
+      texto: "Vinculação ao PCA verificada"
+      fundamento: "Art. 18, VII, Lei 14.133/2021"
+    - codigo: "DFD-07"
+      texto: "Dotação orçamentária indicada"
+      fundamento: "Art. 72, VI, Lei 14.133/2021"
+  
+  assinaturas:
+    - papel: "Elaboração"
+      tipo: "responsavel"
+    - papel: "Validação / Autoridade"
+      tipo: "autoridade"
+
+# ------------------------------------------------------------
+# 2. ETP - ESTUDO TÉCNICO PRELIMINAR
+# ------------------------------------------------------------
+ETP:
+  nome: "Estudo Técnico Preliminar"
+  sigla: "ETP"
+  trilha_posicao: 3
+  trilha_progresso: 30
+  herda_de: [DFD]
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 18, §1º (obrigatoriedade e conteúdo)"
+    - "IN SEGES/ME 58/2022: Arts. 7º a 19 (procedimentos)"
+    - "IN SGD/ME 94/2022: Arts. 11 a 17 (ETP para TIC)"
+    - "TCU Acórdão 2.622/2015-P | Acórdão 1.375/2015-P"
+  
+  secoes:
+    - numero: 1
+      titulo: "Descrição da Necessidade da Contratação"
+      fundamento: "Art. 18, §1º, I, Lei 14.133/2021"
+    - numero: 2
+      titulo: "Área Requisitante da Solução"
+      fundamento: "Art. 18, §1º, II, Lei 14.133/2021"
+    - numero: 3
+      titulo: "Requisitos da Contratação"
+      fundamento: "Art. 18, §1º, III, Lei 14.133/2021"
+    - numero: 4
+      titulo: "Estimativa das Quantidades"
+      fundamento: "Art. 18, §1º, IV, Lei 14.133/2021"
+    - numero: 5
+      titulo: "Levantamento de Mercado"
+      fundamento: "Art. 18, §1º, V, Lei 14.133/2021"
+    - numero: 6
+      titulo: "Estimativa do Valor da Contratação"
+      fundamento: "Art. 18, §1º, VI, Lei 14.133/2021"
+    - numero: 7
+      titulo: "Descrição da Solução como um Todo"
+      fundamento: "Art. 18, §1º, VII, Lei 14.133/2021"
+    - numero: 8
+      titulo: "Justificativas para o Parcelamento ou Não"
+      fundamento: "Art. 18, §1º, VIII, Lei 14.133/2021"
+    - numero: 9
+      titulo: "Demonstração dos Resultados Pretendidos"
+      fundamento: "Art. 18, §1º, IX, Lei 14.133/2021"
+    - numero: 10
+      titulo: "Providências a Serem Adotadas"
+      fundamento: "Art. 18, §1º, X, Lei 14.133/2021"
+    - numero: 11
+      titulo: "Contratações Correlatas e/ou Interdependentes"
+      fundamento: "Art. 18, §1º, XI, Lei 14.133/2021"
+    - numero: 12
+      titulo: "Impactos Ambientais e Sustentabilidade"
+      fundamento: "Art. 18, §1º, XII, Lei 14.133/2021"
+    - numero: 13
+      titulo: "Posicionamento Conclusivo sobre a Viabilidade"
+      fundamento: "Art. 18, §1º, XIII, Lei 14.133/2021"
+  
+  checklist:
+    - codigo: "ETP-01"
+      texto: "Descrição da necessidade fundamentada"
+      fundamento: "Art. 7º, I, IN 58/2022"
+    - codigo: "ETP-02"
+      texto: "Área requisitante identificada"
+      fundamento: "Art. 7º, II, IN 58/2022"
+    - codigo: "ETP-03"
+      texto: "Requisitos da contratação definidos"
+      fundamento: "Art. 7º, III, IN 58/2022"
+    - codigo: "ETP-04"
+      texto: "Estimativa de quantidades com metodologia"
+      fundamento: "Art. 7º, IV, IN 58/2022"
+    - codigo: "ETP-05"
+      texto: "Levantamento de mercado realizado"
+      fundamento: "Art. 7º, V, IN 58/2022"
+    - codigo: "ETP-06"
+      texto: "Estimativa de valor conforme IN 65/2021"
+      fundamento: "Art. 7º, VI, IN 58/2022"
+    - codigo: "ETP-07"
+      texto: "Solução descrita adequadamente"
+      fundamento: "Art. 7º, VII, IN 58/2022"
+    - codigo: "ETP-08"
+      texto: "Parcelamento justificado"
+      fundamento: "Art. 7º, VIII, IN 58/2022"
+    - codigo: "ETP-09"
+      texto: "Resultados pretendidos demonstrados"
+      fundamento: "Art. 7º, IX, IN 58/2022"
+    - codigo: "ETP-10"
+      texto: "Providências prévias identificadas"
+      fundamento: "Art. 7º, X, IN 58/2022"
+    - codigo: "ETP-11"
+      texto: "Contratações correlatas verificadas"
+      fundamento: "Art. 7º, XI, IN 58/2022"
+    - codigo: "ETP-12"
+      texto: "Impactos ambientais avaliados"
+      fundamento: "Art. 7º, XII, IN 58/2022"
+    - codigo: "ETP-13"
+      texto: "Posicionamento conclusivo presente"
+      fundamento: "Art. 7º, XIII, IN 58/2022"
+  
+  assinaturas:
+    - papel: "Integrante Requisitante"
+      tipo: "equipe_planejamento"
+    - papel: "Integrante Técnico"
+      tipo: "equipe_planejamento"
+    - papel: "Integrante Administrativo"
+      tipo: "equipe_planejamento"
+    - papel: "Autoridade Competente"
+      tipo: "autoridade"
+
+# ------------------------------------------------------------
+# 3. TR - TERMO DE REFERÊNCIA
+# ------------------------------------------------------------
+TR:
+  nome: "Termo de Referência"
+  sigla: "TR"
+  trilha_posicao: 5
+  trilha_progresso: 50
+  herda_de: [DFD, ETP]
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 6º, XXIII (definição e elementos)"
+    - "IN SEGES/ME 58/2022: Arts. 20 a 24 (elaboração)"
+    - "IN SGD/ME 94/2022: Arts. 18 a 23 (TR para TIC)"
+    - "TCU Súmula 177 (especificação adequada)"
+  
+  secoes:
+    - numero: 1
+      titulo: "Definição do Objeto"
+      fundamento: "Art. 6º, XXIII, 'a', Lei 14.133/2021"
+    - numero: 2
+      titulo: "Fundamentação da Contratação"
+      fundamento: "Art. 6º, XXIII, 'b', Lei 14.133/2021"
+    - numero: 3
+      titulo: "Descrição da Solução como um Todo"
+      fundamento: "Art. 6º, XXIII, 'c', Lei 14.133/2021"
+    - numero: 4
+      titulo: "Requisitos da Contratação"
+      fundamento: "Art. 6º, XXIII, 'd', Lei 14.133/2021"
+    - numero: 5
+      titulo: "Modelo de Execução do Objeto"
+      fundamento: "Art. 6º, XXIII, 'e', Lei 14.133/2021"
+    - numero: 6
+      titulo: "Modelo de Gestão do Contrato"
+      fundamento: "Art. 6º, XXIII, 'f', Lei 14.133/2021"
+    - numero: 7
+      titulo: "Critérios de Medição e Pagamento"
+      fundamento: "Art. 6º, XXIII, 'g', Lei 14.133/2021"
+    - numero: 8
+      titulo: "Forma e Critérios de Seleção do Fornecedor"
+      fundamento: "Art. 6º, XXIII, 'h', Lei 14.133/2021"
+    - numero: 9
+      titulo: "Estimativas do Valor da Contratação"
+      fundamento: "Art. 6º, XXIII, 'i', Lei 14.133/2021"
+    - numero: 10
+      titulo: "Adequação Orçamentária"
+      fundamento: "Art. 6º, XXIII, 'j', Lei 14.133/2021"
+  
+  checklist:
+    - codigo: "TR-01"
+      texto: "Objeto definido de forma precisa e clara"
+      fundamento: "Art. 6º, XXIII, 'a', Lei 14.133/2021"
+    - codigo: "TR-02"
+      texto: "Fundamentação referenciando ETP"
+      fundamento: "Art. 6º, XXIII, 'b', Lei 14.133/2021"
+    - codigo: "TR-03"
+      texto: "Solução detalhada com especificações"
+      fundamento: "Art. 6º, XXIII, 'c', Lei 14.133/2021"
+    - codigo: "TR-04"
+      texto: "Requisitos de habilitação definidos"
+      fundamento: "Art. 6º, XXIII, 'd', Lei 14.133/2021"
+    - codigo: "TR-05"
+      texto: "Modelo de execução estabelecido"
+      fundamento: "Art. 6º, XXIII, 'e', Lei 14.133/2021"
+    - codigo: "TR-06"
+      texto: "Modelo de gestão e fiscalização"
+      fundamento: "Art. 6º, XXIII, 'f', Lei 14.133/2021"
+    - codigo: "TR-07"
+      texto: "Critérios de medição e pagamento"
+      fundamento: "Art. 6º, XXIII, 'g', Lei 14.133/2021"
+    - codigo: "TR-08"
+      texto: "Forma de seleção do fornecedor"
+      fundamento: "Art. 6º, XXIII, 'h', Lei 14.133/2021"
+    - codigo: "TR-09"
+      texto: "Estimativa de valor atualizada"
+      fundamento: "Art. 6º, XXIII, 'i', Lei 14.133/2021"
+    - codigo: "TR-10"
+      texto: "Adequação orçamentária demonstrada"
+      fundamento: "Art. 6º, XXIII, 'j', Lei 14.133/2021"
+
+# ------------------------------------------------------------
+# 4. PP - PESQUISA DE PREÇOS
+# ------------------------------------------------------------
+PP:
+  nome: "Pesquisa de Preços"
+  sigla: "PP"
+  trilha_posicao: 4
+  trilha_progresso: 40
+  herda_de: [DFD, ETP]
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 23 (regras de estimativa)"
+    - "IN SEGES/ME 65/2021 (procedimentos de pesquisa)"
+    - "Decreto 10.947/2022: Art. 17 (metodologia)"
+    - "TCU Acórdão 2.170/2007-P (ampla pesquisa)"
+  
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Objeto"
+      fundamento: "Art. 5º, IN 65/2021"
+    - numero: 2
+      titulo: "Fontes de Pesquisa Utilizadas"
+      fundamento: "Art. 5º, I a IV, IN 65/2021"
+    - numero: 3
+      titulo: "Preços Coletados"
+      fundamento: "Art. 6º, IN 65/2021"
+    - numero: 4
+      titulo: "Análise Crítica dos Preços"
+      fundamento: "Art. 6º, §2º, IN 65/2021"
+    - numero: 5
+      titulo: "Metodologia de Cálculo"
+      fundamento: "Art. 6º, §1º, IN 65/2021"
+    - numero: 6
+      titulo: "Preço de Referência"
+      fundamento: "Art. 6º, IN 65/2021"
+    - numero: 7
+      titulo: "Memória de Cálculo"
+      fundamento: "Art. 7º, IN 65/2021"
+  
+  checklist:
+    - codigo: "PP-01"
+      texto: "Mínimo 3 preços válidos por item"
+      fundamento: "Art. 6º, §1º, IN 65/2021"
+    - codigo: "PP-02"
+      texto: "Consulta ao PNCP / Compras.gov.br (contratações similares)"
+      fundamento: "Art. 5º, I, IN 65/2021"
+    - codigo: "PP-03"
+      texto: "Contratações similares PNCP"
+      fundamento: "Art. 5º, II, IN 65/2021"
+    - codigo: "PP-04"
+      texto: "Pesquisa com fornecedores"
+      fundamento: "Art. 5º, III, IN 65/2021"
+    - codigo: "PP-05"
+      texto: "Preços outliers tratados"
+      fundamento: "Art. 6º, §2º, IN 65/2021"
+    - codigo: "PP-06"
+      texto: "Parâmetro utilizado justificado"
+      fundamento: "Art. 6º, §1º, IN 65/2021"
+    - codigo: "PP-07"
+      texto: "Memória de cálculo documentada"
+      fundamento: "Art. 7º, IN 65/2021"
+
+# ------------------------------------------------------------
+# 5. MR - MAPA DE RISCOS
+# ------------------------------------------------------------
+MR:
+  nome: "Mapa de Riscos"
+  sigla: "MR"
+  trilha_posicao: 6
+  trilha_progresso: 60
+  herda_de: [DFD, ETP, TR]
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 18, X (análise de riscos)"
+    - "IN SEGES/ME 58/2022: Arts. 13 a 17 (gerenciamento)"
+    - "Lei 14.133/2021: Art. 22 (alocação de riscos)"
+    - "TCU Acórdão 1.375/2015-P (gestão de riscos)"
+  
+  secoes:
+    - numero: 1
+      titulo: "Identificação dos Riscos"
+      fundamento: "Art. 18, X, Lei 14.133/2021"
+    - numero: 2
+      titulo: "Análise e Avaliação dos Riscos"
+      fundamento: "Art. 13, IN 58/2022"
+    - numero: 3
+      titulo: "Tratamento dos Riscos"
+      fundamento: "Art. 14, IN 58/2022"
+    - numero: 4
+      titulo: "Alocação dos Riscos"
+      fundamento: "Art. 22, Lei 14.133/2021"
+    - numero: 5
+      titulo: "Matriz de Riscos Consolidada"
+      fundamento: "Art. 22, §2º, Lei 14.133/2021"
+  
+  checklist:
+    - codigo: "MR-01"
+      texto: "Riscos identificados por categoria"
+      fundamento: "Art. 18, X, Lei 14.133/2021"
+    - codigo: "MR-02"
+      texto: "Probabilidade x impacto avaliados"
+      fundamento: "Art. 13, IN 58/2022"
+    - codigo: "MR-03"
+      texto: "Ações de mitigação definidas"
+      fundamento: "Art. 14, IN 58/2022"
+    - codigo: "MR-04"
+      texto: "Responsável por cada risco"
+      fundamento: "Art. 15, IN 58/2022"
+    - codigo: "MR-05"
+      texto: "Alocação entre partes definida"
+      fundamento: "Art. 22, Lei 14.133/2021"
+
+# ------------------------------------------------------------
+# 6. JCD - JUSTIFICATIVA DE CONTRATAÇÃO DIRETA
+# ------------------------------------------------------------
+JCD:
+  nome: "Justificativa de Contratação Direta"
+  sigla: "JCD"
+  trilha_posicao: null
+  trilha_progresso: null
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 72 (documentos obrigatórios)"
+    - "Lei 14.133/2021: Art. 74 e 75 (hipóteses)"
+    - "IN SEGES/ME 58/2022: Art. 23 (contratação direta)"
+    - "TCU Súmula 177 (dever de licitar)"
+  
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Demandante"
+      fundamento: "Art. 72, I, Lei 14.133/2021"
+    - numero: 2
+      titulo: "Objeto da Contratação"
+      fundamento: "Art. 72, II, Lei 14.133/2021"
+    - numero: 3
+      titulo: "Enquadramento Legal"
+      fundamento: "Art. 72, III, Lei 14.133/2021"
+    - numero: 4
+      titulo: "Justificativa da Escolha"
+      fundamento: "Art. 72, IV, Lei 14.133/2021"
+    - numero: 5
+      titulo: "Justificativa do Preço"
+      fundamento: "Art. 72, V, Lei 14.133/2021"
+    - numero: 6
+      titulo: "Razão da Escolha do Fornecedor"
+      fundamento: "Art. 72, VII, Lei 14.133/2021"
+    - numero: 7
+      titulo: "Declarações Obrigatórias"
+      fundamento: "Art. 72, VIII, Lei 14.133/2021"
+    - numero: 8
+      titulo: "Adequação Orçamentária"
+      fundamento: "Art. 72, VI, Lei 14.133/2021"
+  
+  checklist:
+    - codigo: "JCD-01"
+      texto: "Enquadramento legal específico"
+      fundamento: "Art. 72, III, Lei 14.133/2021"
+    - codigo: "JCD-02"
+      texto: "Justificativa técnica da necessidade"
+      fundamento: "Art. 72, IV, Lei 14.133/2021"
+    - codigo: "JCD-03"
+      texto: "Pesquisa de preços realizada"
+      fundamento: "Art. 72, V, Lei 14.133/2021"
+    - codigo: "JCD-04"
+      texto: "Razão da escolha do fornecedor"
+      fundamento: "Art. 72, VII, Lei 14.133/2021"
+    - codigo: "JCD-05"
+      texto: "Documentos de habilitação verificados"
+      fundamento: "Art. 72, VIII, Lei 14.133/2021"
+    - codigo: "JCD-06"
+      texto: "Parecer jurídico anexado"
+      fundamento: "Art. 72, III, Lei 14.133/2021"
+    - codigo: "JCD-07"
+      texto: "Inexistência de impedimentos (CEIS/CNEP)"
+      fundamento: "Art. 91, Lei 14.133/2021"
+    - codigo: "JCD-08"
+      texto: "Dotação orçamentária confirmada"
+      fundamento: "Art. 72, VI, Lei 14.133/2021"
+
+# ------------------------------------------------------------
+# 7. ARP - TERMO DE ADESÃO À ATA DE REGISTRO DE PREÇOS
+# ------------------------------------------------------------
+ARP:
+  nome: "Termo de Adesão à Ata de Registro de Preços"
+  sigla: "ARP"
+  trilha_posicao: null
+  trilha_progresso: null
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 86 (adesão a ARP)"
+    - "Decreto 11.462/2023: Arts. 30 a 32 (procedimentos)"
+    - "TCU Acórdão 1.233/2019-P (limites de adesão)"
+  
+  secoes:
+    - numero: 1
+      titulo: "Identificação da Ata de Origem"
+      fundamento: "Art. 86, §2º, Lei 14.133/2021"
+    - numero: 2
+      titulo: "Justificativa da Adesão"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+    - numero: 3
+      titulo: "Demonstração de Vantajosidade"
+      fundamento: "Art. 86, §4º, Lei 14.133/2021"
+    - numero: 4
+      titulo: "Quantitativos Pretendidos"
+      fundamento: "Art. 86, §5º, Lei 14.133/2021"
+    - numero: 5
+      titulo: "Autorização do Gerenciador"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+    - numero: 6
+      titulo: "Aceite do Fornecedor"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+  
+  checklist:
+    - codigo: "ARP-01"
+      texto: "Ata vigente verificada no PNCP"
+      fundamento: "Art. 86, §2º, Lei 14.133/2021"
+    - codigo: "ARP-02"
+      texto: "Justificativa da não realização de licitação"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+    - codigo: "ARP-03"
+      texto: "Pesquisa de preços comparativa"
+      fundamento: "Art. 86, §4º, Lei 14.133/2021"
+    - codigo: "ARP-04"
+      texto: "Limite de adesão respeitado (50%)"
+      fundamento: "Art. 86, §5º, Lei 14.133/2021"
+    - codigo: "ARP-05"
+      texto: "Autorização do gerenciador obtida"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+    - codigo: "ARP-06"
+      texto: "Aceite formal do fornecedor"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+
+# ------------------------------------------------------------
+# 8. OFG - OFÍCIO AO GERENCIADOR
+# ------------------------------------------------------------
+OFG:
+  nome: "Ofício de Consulta ao Gerenciador"
+  sigla: "OFG"
+  tipo: "comunicacao"
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 86, §3º"
+    - "Decreto 11.462/2023: Art. 30"
+  
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Solicitante"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+    - numero: 2
+      titulo: "Identificação da ARP"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+    - numero: 3
+      titulo: "Itens e Quantidades Pretendidos"
+      fundamento: "Art. 86, §5º, Lei 14.133/2021"
+    - numero: 4
+      titulo: "Requerimento de Autorização"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+
+# ------------------------------------------------------------
+# 9. AUG - AUTORIZAÇÃO DO GERENCIADOR
+# ------------------------------------------------------------
+AUG:
+  nome: "Termo de Autorização do Gerenciador"
+  sigla: "AUG"
+  tipo: "comunicacao"
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 86, §3º"
+    - "Decreto 11.462/2023: Art. 31"
+  
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Órgão Gerenciador"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+    - numero: 2
+      titulo: "Dados da Solicitação"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+    - numero: 3
+      titulo: "Verificação de Saldo"
+      fundamento: "Art. 86, §5º, Lei 14.133/2021"
+    - numero: 4
+      titulo: "Autorização"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+
+# ------------------------------------------------------------
+# 10. OFF - OFÍCIO AO FORNECEDOR
+# ------------------------------------------------------------
+OFF:
+  nome: "Ofício de Consulta ao Fornecedor"
+  sigla: "OFF"
+  tipo: "comunicacao"
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 86, §3º"
+    - "Lei 14.133/2021: Art. 90 (convocação)"
+  
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Contratante"
+      fundamento: "Art. 90, Lei 14.133/2021"
+    - numero: 2
+      titulo: "Dados da ARP e Autorização"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+    - numero: 3
+      titulo: "Itens e Quantidades"
+      fundamento: "Art. 90, Lei 14.133/2021"
+    - numero: 4
+      titulo: "Solicitação de Aceite"
+      fundamento: "Art. 90, Lei 14.133/2021"
+
+# ------------------------------------------------------------
+# 11. ACF - ACEITE DO FORNECEDOR
+# ------------------------------------------------------------
+ACF:
+  nome: "Termo de Aceite do Fornecedor"
+  sigla: "ACF"
+  tipo: "comunicacao"
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 86, §3º"
+    - "Lei 14.133/2021: Art. 90"
+  
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Fornecedor"
+      fundamento: "Art. 90, Lei 14.133/2021"
+    - numero: 2
+      titulo: "Referência à Solicitação"
+      fundamento: "Art. 86, §3º, Lei 14.133/2021"
+    - numero: 3
+      titulo: "Confirmação das Condições"
+      fundamento: "Art. 90, Lei 14.133/2021"
+    - numero: 4
+      titulo: "Prazo de Entrega"
+      fundamento: "Art. 90, Lei 14.133/2021"
+    - numero: 5
+      titulo: "Termo de Aceite"
+      fundamento: "Art. 90, Lei 14.133/2021"
+
+# ------------------------------------------------------------
+# 12. COM - COMUNICADO AO CONTRATANTE ORIGINAL
+# ------------------------------------------------------------
+COM:
+  nome: "Comunicado de Contratação"
+  sigla: "COM"
+  tipo: "comunicacao"
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 86, §7º"
+    - "Decreto 11.462/2023: Art. 32"
+  
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Órgão Não Participante"
+      fundamento: "Art. 86, §7º, Lei 14.133/2021"
+    - numero: 2
+      titulo: "Dados da Contratação Realizada"
+      fundamento: "Art. 86, §7º, Lei 14.133/2021"
+    - numero: 3
+      titulo: "Comunicação ao Gerenciador"
+      fundamento: "Art. 86, §7º, Lei 14.133/2021"
+    - numero: 4
+      titulo: "Atualização de Saldos"
+      fundamento: "Art. 86, §7º, Lei 14.133/2021"
+
+# ------------------------------------------------------------
+# 13. REC - TERMO DE RECUSA DO FORNECEDOR
+# ------------------------------------------------------------
+REC:
+  nome: "Termo de Recusa do Fornecedor"
+  sigla: "REC"
+  tipo: "comunicacao"
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 90, §1º"
+    - "Lei 14.133/2021: Art. 155 (sanções)"
+  
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Fornecedor"
+      fundamento: "Art. 90, §1º, Lei 14.133/2021"
+    - numero: 2
+      titulo: "Referência à Convocação"
+      fundamento: "Art. 90, Lei 14.133/2021"
+    - numero: 3
+      titulo: "Motivo da Recusa"
+      fundamento: "Art. 90, §1º, Lei 14.133/2021"
+    - numero: 4
+      titulo: "Justificativa"
+      fundamento: "Art. 90, §1º, Lei 14.133/2021"
+    - numero: 5
+      titulo: "Ciência das Consequências"
+      fundamento: "Art. 155, Lei 14.133/2021"
+
+# ------------------------------------------------------------
+# 14. PCA - PLANO DE CONTRATAÇÕES ANUAL
+# ------------------------------------------------------------
+PCA:
+  nome: "Plano de Contratações Anual"
+  sigla: "PCA"
+  trilha_posicao: 1
+  trilha_progresso: 10
+  
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 12, VII (obrigatoriedade)"
+    - "Decreto 10.947/2022 (regulamentação)"
+    - "IN SEGES/ME 58/2022: Art. 4º (procedimentos)"
+    - "TCU Acórdão 1.375/2015-P (planejamento)"
+  
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Órgão"
+      fundamento: "Art. 12, VII, Lei 14.133/2021"
+    - numero: 2
+      titulo: "Período de Vigência"
+      fundamento: "Art. 4º, Decreto 10.947/2022"
+    - numero: 3
+      titulo: "Itens Planejados"
+      fundamento: "Art. 5º, Decreto 10.947/2022"
+    - numero: 4
+      titulo: "Valor Total Estimado"
+      fundamento: "Art. 6º, Decreto 10.947/2022"
+    - numero: 5
+      titulo: "Calendário de Contratações"
+      fundamento: "Art. 5º, II, Decreto 10.947/2022"
+    - numero: 6
+      titulo: "Aprovação e Publicação"
+      fundamento: "Art. 12, Decreto 10.947/2022"
+  
+  checklist:
+    - codigo: "PCA-01"
+      texto: "Alinhamento com PPA/LDO/LOA"
+      fundamento: "Art. 12, VII, Lei 14.133/2021"
+    - codigo: "PCA-02"
+      texto: "Todos os itens com CATMAT/CATSER"
+      fundamento: "Art. 5º, Decreto 10.947/2022"
+    - codigo: "PCA-03"
+      texto: "Valor estimado por item"
+      fundamento: "Art. 5º, III, Decreto 10.947/2022"
+    - codigo: "PCA-04"
+      texto: "Período previsto de contratação"
+      fundamento: "Art. 5º, II, Decreto 10.947/2022"
+    - codigo: "PCA-05"
+      texto: "Publicado no PNCP"
+      fundamento: "Art. 12, Decreto 10.947/2022"
+
+# ============================================================
+# DECLARAÇÕES PADRÃO (USADAS EM TODOS OS DOCUMENTOS)
+# ============================================================
+DECLARACOES_PADRAO:
+  titulo: "Declarações e Termo de Aceite"
+  preambulo: "O(s) signatário(s), na qualidade de agente(s) público(s), DECLARA(M) que:"
+  
+  itens:
+    - numero: "I"
+      texto: "As informações prestadas são verdadeiras e refletem a real necessidade da Administração"
+      fundamento: "Dec. 10.947/2022, Art. 7º"
+    
+    - numero: "II"
+      texto: "Este documento foi elaborado em observância aos princípios da legalidade, impessoalidade, moralidade e eficiência"
+      fundamento: "CF/88, Art. 37 c/c Lei 14.133/2021, Art. 5º"
+    
+    - numero: "III"
+      texto: "Não possuo conflito de interesses nem vínculo com potenciais fornecedores que possa comprometer a imparcialidade do processo"
+      fundamento: "Lei 14.133/2021, Art. 9º"
+    
+    - numero: "IV"
+      texto: "Tenho ciência dos deveres funcionais e das responsabilidades inerentes à minha atuação em processos de contratação pública"
+      fundamento: null
+    
+    - numero: "V"
+      texto: "Este documento foi elaborado com auxílio de ferramenta tecnológica, cabendo ao signatário a validação do conteúdo"
+      fundamento: "Lei 14.133/2021, Art. 11, IV"
+    
+    - numero: "VI"
+      texto: "Aceito as condições declaradas e autorizo o prosseguimento do processo, ciente de que os dados poderão ser compartilhados com órgãos de controle para fins de fiscalização"
+      fundamento: null
+  
+  base_legal: "CF/88, Art. 37 | Lei 14.133/2021 | Dec. 10.947/2022 | Lei 12.813/2013"
+
+# ============================================================
+# TRILHA DA CONTRATAÇÃO
+# ============================================================
+TRILHA_CONTRATACAO:
+  etapas:
+    - codigo: "PCA"
+      nome: "Plano de Contratações"
+      posicao: 1
+    - codigo: "DFD"
+      nome: "Formalização Demanda"
+      posicao: 2
+    - codigo: "ETP"
+      nome: "Estudo Técnico"
+      posicao: 3
+    - codigo: "PP"
+      nome: "Pesquisa Preços"
+      posicao: 4
+    - codigo: "TR"
+      nome: "Termo Referência"
+      posicao: 5
+    - codigo: "MR"
+      nome: "Mapa Riscos"
+      posicao: 6
+    - codigo: "LIC"
+      nome: "Licitação"
+      posicao: 7
+    - codigo: "CTR"
+      nome: "Contrato"
+      posicao: 8
+    - codigo: "EXE"
+      nome: "Execução"
+      posicao: 9
+    - codigo: "AVA"
+      nome: "Avaliação"
+      posicao: 10
+
+# ============================================================
+# JURISPRUDÊNCIA RELEVANTE (LOOKUP TABLE)
+# ============================================================
+JURISPRUDENCIA:
+  fracionamento:
+    acordao: "TCU Acórdão 2.622/2015-P"
+    ementa: "Caracteriza fracionamento ilícito a contratação de mesmo objeto dividida em parcelas para evitar modalidade mais rigorosa"
+    aplicacao: "Verificar soma de contratações similares em 12 meses"
+  
+  pesquisa_precos:
+    acordao: "TCU Acórdão 2.170/2007-P"
+    ementa: "A pesquisa de preços deve ser ampla e contemplar diversas fontes"
+    aplicacao: "Verificar mínimo 3 fontes conforme IN 65/2021"
+  
+  especificacao:
+    sumula: "TCU Súmula 177"
+    ementa: "A definição precisa e clara do objeto constitui regra indispensável à competição"
+    aplicacao: "Verificar descrição objetiva no TR"
+  
+  planejamento:
+    acordao: "TCU Acórdão 1.375/2015-P"
+    ementa: "O planejamento adequado das contratações é dever da Administração"
+    aplicacao: "Verificar existência de ETP e DFD completos"
+  
+  motivacao:
+    acordao: "TCU Acórdão 2.622/2015-P"
+    ementa: "A motivação da necessidade deve ser fundamentada em dados concretos"
+    aplicacao: "Verificar justificativas com dados objetivos"
+  
+  adesao_arp:
+    acordao: "TCU Acórdão 1.233/2019-P"
+    ementa: "A adesão à ARP deve observar limites e demonstrar vantajosidade"
+    aplicacao: "Verificar limite de 50% e pesquisa comparativa"
+
+# ============================================================
+# VALORES ATUALIZADOS 2026 (Decreto 12.807/2025)
+# ============================================================
+VALORES_DISPENSA_2026:
+  titulo: "Limites de Contratação Direta - Exercício 2026"
+  fundamento: "Art. 182, Lei 14.133/2021 | Decreto 12.807/2025"
+  nota: "Atualizados anualmente pelo IPCA-E acumulado"
+
+  limites:
+    - tipo: "Dispensa por valor - Obras/Serviços de Engenharia"
+      inciso: "Art. 75, I"
+      valor: 130984.22
+      nota: "Era R$ 119.812,63 em 2025"
+    - tipo: "Dispensa por valor - Bens/Serviços"
+      inciso: "Art. 75, II"
+      valor: 65492.11
+      nota: "Era R$ 59.906,02 em 2025"
+    - tipo: "Contrata+Brasil (ME/EPP/MEI)"
+      inciso: "Art. 95"
+      valor: 96228.41
+      nota: "Limite Contrata+Brasil (IN 52/2025)"
+    - tipo: "Concorrência obrigatória - Obras"
+      inciso: "Art. 28, I, c"
+      valor: 3500000.00
+      nota: "Referência, verificar atualização"
+
+  descontinuados:
+    - ferramenta: "Painel de Preços (paineldeprecos.planejamento.gov.br)"
+      status: "DESCONTINUADO"
+      substituto: "PNCP + Compras.gov.br (IN 65/2021)"
+      nota: "Usar contratações similares no PNCP como fonte primária"
+
+# ============================================================
+# LINDB — LEI 13.655/2018 (Blindagem do Gestor)
+# ============================================================
+LINDB:
+  titulo: "Lei de Introdução às Normas do Direito Brasileiro"
+  norma: "Lei 13.655/2018 (alterou Dec-Lei 4.657/1942)"
+  nota: "Artigos 20-30 adicionados em 2018 — proteção ao gestor público"
+
+  artigos:
+    - numero: "Art. 20"
+      protecao: "Proibido decidir com base em valores jurídicos abstratos"
+      texto: "Nas esferas administrativa, controladora e judicial, não se decidirá com base em valores jurídicos abstratos sem que sejam consideradas as consequências práticas da decisão"
+      aplicacao_ata360: "Dados concretos de APIs (PNCP, IBGE, BCB) em toda justificativa"
+      documentos: [DFD, ETP, JCD, TR]
+
+    - numero: "Art. 21"
+      protecao: "Regime de transição para nova interpretação"
+      texto: "A decisão que decretar a invalidação de ato não indicará de modo expresso suas consequências jurídicas e administrativas"
+      aplicacao_ata360: "Alerta automático quando jurisprudência TCU muda"
+      documentos: [AUDITOR]
+
+    - numero: "Art. 22"
+      protecao: "Considerar dificuldades reais do gestor"
+      texto: "Na interpretação de normas sobre gestão pública, serão considerados os obstáculos e as dificuldades reais do gestor"
+      aplicacao_ata360: "Seção obrigatória de contexto local (IDH, orçamento, quadro funcional)"
+      documentos: [ETP, JCD, MR]
+
+    - numero: "Art. 23"
+      protecao: "Regime de transição quando nova orientação"
+      texto: "A decisão administrativa que estabelecer interpretação ou orientação nova sobre norma de conteúdo indeterminado impondo novo dever ou novo condicionamento de direito, deverá prever regime de transição"
+      aplicacao_ata360: "LEGAL_SYNC Agent monitora DOU e alerta sobre mudanças"
+      documentos: [AUDITOR, LEGAL_SYNC]
+
+    - numero: "Art. 28"
+      protecao: "Responsabilização pessoal somente com dolo ou erro grosseiro"
+      texto: "O agente público responderá pessoalmente por suas decisões ou opiniões técnicas em caso de dolo ou erro grosseiro"
+      aplicacao_ata360: "Decisão fundamentada com dados concretos ≠ erro grosseiro"
+      documentos: [DFD, ETP, JCD, TR, MR]
+
+    - numero: "Art. 30"
+      protecao: "Compensação por invalidade retroativa"
+      texto: "As autoridades públicas devem atuar para aumentar a segurança jurídica na aplicação das normas"
+      aplicacao_ata360: "Registro completo da cadeia de decisão (hash, timestamp, fontes)"
+      documentos: [TODOS]
+
+# ============================================================
+# MANUAL TCU — LICITAÇÕES E CONTRATOS (5ª Edição, Ago/2025)
+# ============================================================
+MANUAL_TCU_5ED:
+  titulo: "Manual de Licitações e Contratos do TCU"
+  edicao: "5ª Edição"
+  data: "Agosto 2025"
+  url: "licitacoesecontratos.tcu.gov.br"
+  total_referencias: 560
+  novos_acordaos_5ed: 46
+  nota: "Fonte primária de jurisprudência. Inclui 46 novos acórdãos 2023-2024"
+
+# ============================================================
+# JURISPRUDÊNCIA EXPANDIDA (Lookup Table)
+# Organizada por tema para o Auditor Agent e ACMA
+# ============================================================
+JURISPRUDENCIA:
+  # --- PLANEJAMENTO ---
+  planejamento:
+    acordao: "TCU Acórdão 1.375/2015-P"
+    ementa: "O planejamento adequado das contratações é dever da Administração"
+    aplicacao: "Verificar existência de ETP e DFD completos"
+
+  planejamento_pca:
+    acordao: "TCU Acórdão 2.698/2019-P"
+    ementa: "A ausência de planejamento acarreta contratações emergenciais indevidas"
+    aplicacao: "Verificar se item consta no PCA"
+
+  # --- PESQUISA DE PREÇOS ---
+  pesquisa_precos:
+    acordao: "TCU Acórdão 2.170/2007-P"
+    ementa: "A pesquisa de preços deve ser ampla e contemplar diversas fontes"
+    aplicacao: "Verificar mínimo 3 fontes conforme IN 65/2021"
+
+  pesquisa_precos_pncp:
+    acordao: "TCU Acórdão 1.498/2019-P"
+    ementa: "O uso exclusivo de cotações de fornecedores é insuficiente para pesquisa de preços"
+    aplicacao: "Obrigatório consultar PNCP/Compras.gov além de fornecedores"
+
+  sobrepreco:
+    acordao: "TCU Acórdão 2.434/2018-P"
+    ementa: "Contratação com preço superior à mediana do mercado configura sobrepreço"
+    aplicacao: "Preço deve ser ≤ 130% da mediana PNCP"
+
+  # --- ESPECIFICAÇÃO ---
+  especificacao:
+    sumula: "TCU Súmula 177"
+    ementa: "A definição precisa e clara do objeto constitui regra indispensável à competição"
+    aplicacao: "Verificar descrição objetiva no TR"
+
+  especificacao_marca:
+    acordao: "TCU Acórdão 1.752/2011-P"
+    ementa: "Indicação de marca deve ser excepcional e justificada tecnicamente"
+    aplicacao: "Alertar sobre uso de marcas genéricas no TR"
+
+  # --- FRACIONAMENTO ---
+  fracionamento:
+    acordao: "TCU Acórdão 2.622/2015-P"
+    ementa: "Caracteriza fracionamento ilícito a contratação de mesmo objeto dividida em parcelas para evitar modalidade mais rigorosa"
+    aplicacao: "Verificar soma de contratações similares em 12 meses"
+
+  fracionamento_12meses:
+    acordao: "TCU Acórdão 2.957/2019-P"
+    ementa: "Compras do mesmo objeto no mesmo exercício devem ser somadas para definição da modalidade"
+    aplicacao: "Motor de fracionamento: soma 12 meses × mesmo CATMAT/CATSER"
+
+  # --- MOTIVAÇÃO ---
+  motivacao:
+    acordao: "TCU Acórdão 2.622/2015-P"
+    ementa: "A motivação da necessidade deve ser fundamentada em dados concretos"
+    aplicacao: "Verificar justificativas com dados objetivos"
+
+  motivacao_lindb:
+    acordao: "TCU Acórdão 2.028/2021-P"
+    ementa: "Decisões devem considerar consequências práticas conforme LINDB Art. 20"
+    aplicacao: "Verificar seção de consequências em ETP e JCD"
+
+  # --- ADESÃO ARP ---
+  adesao_arp:
+    acordao: "TCU Acórdão 1.233/2019-P"
+    ementa: "A adesão à ARP deve observar limites e demonstrar vantajosidade"
+    aplicacao: "Verificar limite de 50% e pesquisa comparativa"
+
+  adesao_arp_limites:
+    acordao: "TCU Acórdão 1.107/2020-P"
+    ementa: "O órgão carona deve demonstrar que os preços registrados continuam vantajosos"
+    aplicacao: "Comparar preço ARP com preços PNCP atuais"
+
+  # --- CONTRATAÇÃO DIRETA ---
+  dispensa_valor:
+    acordao: "TCU Acórdão 1.785/2017-P"
+    ementa: "Dispensa por valor requer demonstração de que o preço é compatível com o mercado"
+    aplicacao: "Mesmo em dispensa, pesquisa de preços é obrigatória"
+
+  dispensa_emergencial:
+    acordao: "TCU Acórdão 1.498/2019-P"
+    ementa: "Emergência fabricada por falta de planejamento não justifica dispensa"
+    aplicacao: "Verificar se havia tempo para licitação"
+
+  inexigibilidade:
+    acordao: "TCU Acórdão 2.434/2018-P"
+    ementa: "Inexigibilidade requer comprovação inequívoca de inviabilidade de competição"
+    aplicacao: "Verificar documentação de exclusividade ou notória especialização"
+
+  # --- PREGÃO ELETRÔNICO ---
+  pregao_eletronico:
+    acordao: "TCU Acórdão 1.637/2019-P"
+    ementa: "O pregão eletrônico é obrigatório para aquisição de bens e serviços comuns"
+    aplicacao: "Verificar modalidade para bens/serviços comuns"
+
+  pregao_prazo:
+    acordao: "TCU Acórdão 2.028/2021-P"
+    ementa: "Prazo mínimo de 8 dias úteis para pregão eletrônico"
+    aplicacao: "Regra Trilha Alice: verificar prazo do edital"
+
+  # --- TIC ---
+  tic_sgd:
+    acordao: "TCU Acórdão 1.214/2022-P"
+    ementa: "Contratações de TIC devem observar IN SGD/ME 94/2022"
+    aplicacao: "Verificar PDTIC, ETP TIC específico, vedação homem-hora"
+
+  tic_vedacao:
+    acordao: "TCU Acórdão 2.574/2019-P"
+    ementa: "Vedado exigir certificações profissionais antes da contratação"
+    aplicacao: "Alertar sobre exigências indevidas no TR TIC"
+
+  # --- SRP ---
+  srp_decreto:
+    acordao: "TCU Acórdão 2.698/2019-P"
+    ementa: "O SRP deve ser utilizado para demandas contínuas ou cuja estimativa não seja precisa"
+    aplicacao: "Verificar cabimento do SRP no ETP"
+
+  # --- CONTRATOS ---
+  contrato_fiscalizacao:
+    acordao: "TCU Acórdão 2.622/2023-P"
+    ementa: "A fiscalização efetiva do contrato é dever da Administração"
+    aplicacao: "Verificar designação de fiscal no contrato"
+
+  contrato_aditivo:
+    acordao: "TCU Acórdão 1.375/2015-P"
+    ementa: "Aditivos devem ser justificados e não podem alterar a natureza do objeto"
+    aplicacao: "Verificar limite de 25% e justificativa"
+
+  # --- OBRAS ---
+  obras_sinapi:
+    sumula: "TCU Súmula 260"
+    ementa: "Preços de obras devem ser balizados pelo SINAPI"
+    aplicacao: "Verificar uso obrigatório do SINAPI/SICRO"
+
+  obras_projeto:
+    acordao: "TCU Acórdão 2.328/2018-P"
+    ementa: "Licitação de obra sem projeto básico adequado é irregular"
+    aplicacao: "Verificar projeto básico completo antes de licitar"
+
+  # --- SUSTENTABILIDADE ---
+  sustentabilidade:
+    acordao: "TCU Acórdão 1.752/2011-P"
+    ementa: "Critérios de sustentabilidade devem ser observados nas contratações públicas"
+    aplicacao: "Verificar seção de sustentabilidade no ETP"
+
+  # --- HABILITAÇÃO ---
+  habilitacao_proporcional:
+    acordao: "TCU Acórdão 2.957/2019-P"
+    ementa: "Exigências de habilitação devem ser proporcionais ao objeto"
+    aplicacao: "Verificar se habilitação é compatível com valor/complexidade"
+
+  # --- ME/EPP ---
+  mepp_beneficios:
+    sumula: "TCU Súmula 259"
+    ementa: "Os benefícios da LC 123/2006 são obrigatórios e não podem ser afastados pelo edital"
+    aplicacao: "Verificar tratamento diferenciado ME/EPP no edital"
+
+  # --- TRANSPARÊNCIA ---
+  transparencia_pncp:
+    acordao: "TCU Acórdão 2.028/2021-P"
+    ementa: "Publicidade dos atos de contratação é obrigatória no PNCP"
+    aplicacao: "Verificar publicação no PNCP após contratação"
+
+  # --- RESPONSABILIZAÇÃO ---
+  responsabilizacao_gestor:
+    acordao: "TCU Acórdão 1.214/2022-P"
+    ementa: "Responsabilização requer demonstração de culpa ou dolo, conforme LINDB Art. 28"
+    aplicacao: "Documentação robusta protege o gestor de boa-fé"
+
+# ============================================================
+# 15. CDF - CERTIDÃO DE DISPONIBILIDADE FINANCEIRA
+# P0 — Zero código, apenas YAML
+# ============================================================
+CDF:
+  nome: "Certidão de Disponibilidade Financeira"
+  sigla: "CDF"
+  trilha_posicao: 3
+  trilha_progresso: 25
+  herda_de: [DFD]
+
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 18, III (adequação orçamentária)"
+    - "CF/1988: Art. 167, II (vedação de despesa sem crédito)"
+    - "LRF — LC 101/2000: Arts. 16 e 17 (despesa obrigatória contínua)"
+    - "Decreto 10.947/2022: Art. 5º, III (estimativa de valor no PCA)"
+    - "LINDB Art. 20: decisão fundamentada em consequências práticas"
+
+  secoes:
+    - numero: 1
+      titulo: "Identificação da Demanda Vinculada"
+      fundamento: "Art. 18, I, Lei 14.133/2021"
+      campos: [dfd_numero, processo_numero, objeto_resumo]
+
+    - numero: 2
+      titulo: "Dotação Orçamentária"
+      fundamento: "Art. 167, II, CF/1988 c/c Art. 72, VI, Lei 14.133/2021"
+      campos: [funcao, subfuncao, programa, acao, natureza_despesa, fonte_recurso, dotacao_numero]
+
+    - numero: 3
+      titulo: "Valor Estimado da Contratação"
+      fundamento: "Art. 18, III, Lei 14.133/2021"
+      campos: [valor_estimado, fonte_estimativa, data_estimativa]
+
+    - numero: 4
+      titulo: "Saldo Disponível na Dotação"
+      fundamento: "LRF, Art. 16, I, LC 101/2000"
+      campos: [dotacao_autorizada, empenhado_acumulado, saldo_disponivel, percentual_comprometido]
+
+    - numero: 5
+      titulo: "Impacto Orçamentário-Financeiro"
+      fundamento: "LRF, Art. 16, II, LC 101/2000"
+      campos: [compatibilidade_ppa, compatibilidade_ldo, compatibilidade_loa]
+
+    - numero: 6
+      titulo: "Declaração de Adequação Orçamentária"
+      fundamento: "Art. 72, VI, Lei 14.133/2021 c/c Art. 16, LRF"
+      campos: [declaracao_texto, responsavel_financeiro]
+
+  checklist:
+    - codigo: "CDF-01"
+      texto: "Dotação orçamentária identificada com classificação funcional completa"
+      fundamento: "Art. 167, II, CF/1988"
+    - codigo: "CDF-02"
+      texto: "Saldo disponível suficiente para a contratação"
+      fundamento: "Art. 16, I, LRF"
+    - codigo: "CDF-03"
+      texto: "Compatibilidade com PPA/LDO/LOA demonstrada"
+      fundamento: "Art. 16, II, LRF"
+    - codigo: "CDF-04"
+      texto: "Impacto em despesa obrigatória contínua avaliado (se aplicável)"
+      fundamento: "Art. 17, LRF"
+    - codigo: "CDF-05"
+      texto: "Declaração do ordenador de despesa presente"
+      fundamento: "Art. 72, VI, Lei 14.133/2021"
+
+  assinaturas:
+    - papel: "Responsável pela Contabilidade / Setor Financeiro"
+      tipo: "responsavel"
+    - papel: "Ordenador de Despesa"
+      tipo: "autoridade"
+
+# ============================================================
+# 16. ALF - ALERTA DE FRACIONAMENTO
+# P0 — Zero código (dados PNCP + ClickHouse já implementados)
+# ============================================================
+ALF:
+  nome: "Alerta de Fracionamento de Despesa"
+  sigla: "ALF"
+  trilha_posicao: null
+  trilha_progresso: null
+  tipo: "alerta_auditor"
+  gerado_por: "AUDITOR Agent"
+
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 40, §1º (vedação ao fracionamento)"
+    - "TCU Acórdão 2.622/2015-Plenário (caracterização de fracionamento)"
+    - "TCU Acórdão 2.957/2019-Plenário (soma 12 meses mesmo objeto)"
+    - "Decreto 12.807/2025 (valores atualizados 2026)"
+    - "LINDB Art. 22: considerar dificuldades reais do gestor"
+
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Alerta"
+      fundamento: "Regra interna Auditor Agent — spec v8, Part 7"
+      campos: [alerta_id, data_geracao, nivel_criticidade, orgao_uasg]
+
+    - numero: 2
+      titulo: "Contratações Identificadas no Período"
+      fundamento: "TCU Ac. 2.957/2019-P (soma 12 meses)"
+      campos: [tabela_contratacoes, periodo_analise, catmat_catser, valor_individual, valor_acumulado]
+
+    - numero: 3
+      titulo: "Análise de Fracionamento"
+      fundamento: "Art. 40, §1º, Lei 14.133/2021"
+      campos: [soma_12_meses, limite_dispensa_aplicavel, percentual_limite, indicador_risco]
+
+    - numero: 4
+      titulo: "Enquadramento Legal"
+      fundamento: "Arts. 28, 75, Lei 14.133/2021 + Dec. 12.807/2025"
+      campos: [modalidade_devida, modalidade_utilizada, diferenca_modalidade]
+
+    - numero: 5
+      titulo: "Contexto do Ente"
+      fundamento: "LINDB Art. 22 (dificuldades reais)"
+      campos: [populacao, orcamento_anual, estrutura_compras, frequencia_compras_similares]
+
+    - numero: 6
+      titulo: "Recomendação"
+      fundamento: "Art. 40, §1º, Lei 14.133/2021"
+      campos: [recomendacao_texto, acao_sugerida, prazo_adequacao]
+
+  checklist:
+    - codigo: "ALF-01"
+      texto: "Período de 12 meses analisado"
+      fundamento: "TCU Ac. 2.957/2019-P"
+    - codigo: "ALF-02"
+      texto: "Mesmo CATMAT/CATSER ou natureza similar identificados"
+      fundamento: "TCU Ac. 2.622/2015-P"
+    - codigo: "ALF-03"
+      texto: "Soma acumulada confrontada com limites de dispensa"
+      fundamento: "Art. 75, I e II, Lei 14.133/2021"
+    - codigo: "ALF-04"
+      texto: "Contexto do ente considerado (LINDB Art. 22)"
+      fundamento: "LINDB Art. 22"
+    - codigo: "ALF-05"
+      texto: "Dados de fonte oficial (PNCP/ClickHouse)"
+      fundamento: "LINDB Art. 20 (consequências práticas)"
+
+  assinaturas:
+    - papel: "Gerado automaticamente pelo Auditor ATA360"
+      tipo: "sistema"
+    - papel: "Ciência do Responsável por Compras"
+      tipo: "responsavel"
+
+# ============================================================
+# 17. ALP - ALERTA DE PREÇO ATÍPICO
+# P0 — Zero código (dados PNCP + BCB já implementados)
+# ============================================================
+ALP:
+  nome: "Alerta de Preço Atípico"
+  sigla: "ALP"
+  trilha_posicao: null
+  trilha_progresso: null
+  tipo: "alerta_auditor"
+  gerado_por: "AUDITOR Agent"
+
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 23, §1º (preço inexequível ou excessivo)"
+    - "IN SEGES/ME 65/2021: Art. 6º, §2º (tratamento de outliers)"
+    - "TCU Acórdão 2.434/2018-Plenário (sobrepreço = acima da mediana)"
+    - "TCU Acórdão 2.170/2007-Plenário (pesquisa ampla)"
+    - "LINDB Art. 20: consequências práticas da decisão"
+
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Alerta"
+      fundamento: "Regra interna Auditor Agent — spec v8, Part 7"
+      campos: [alerta_id, data_geracao, nivel_criticidade, item_catmat_catser]
+
+    - numero: 2
+      titulo: "Preços de Referência Coletados"
+      fundamento: "Art. 5º, I a IV, IN 65/2021"
+      campos: [tabela_precos_pncp, tabela_precos_fornecedores, tabela_precos_banco_preco, periodo_coleta]
+
+    - numero: 3
+      titulo: "Análise Estatística"
+      fundamento: "Art. 6º, §2º, IN 65/2021"
+      campos: [media, mediana, desvio_padrao, coeficiente_variacao, preco_analisado, percentual_desvio]
+
+    - numero: 4
+      titulo: "Classificação do Preço"
+      fundamento: "Art. 23, §1º, Lei 14.133/2021"
+      campos: [classificacao, justificativa_classificacao, faixa_aceitavel]
+
+    - numero: 5
+      titulo: "Índices Econômicos Aplicáveis"
+      fundamento: "IN 65/2021, Art. 5º, IV"
+      campos: [ipca_periodo, igpm_periodo, variacao_dolar, indice_setorial]
+
+    - numero: 6
+      titulo: "Recomendação"
+      fundamento: "Art. 23, §1º, Lei 14.133/2021"
+      campos: [recomendacao_texto, acao_sugerida, impacto_financeiro_estimado]
+
+  checklist:
+    - codigo: "ALP-01"
+      texto: "Mínimo 3 preços válidos considerados"
+      fundamento: "Art. 6º, §1º, IN 65/2021"
+    - codigo: "ALP-02"
+      texto: "Preço confrontado com mediana PNCP"
+      fundamento: "TCU Ac. 2.434/2018-P"
+    - codigo: "ALP-03"
+      texto: "Coeficiente de variação calculado"
+      fundamento: "Art. 6º, §2º, IN 65/2021"
+    - codigo: "ALP-04"
+      texto: "Correção monetária aplicada quando necessário"
+      fundamento: "IN 65/2021, Art. 5º, IV"
+    - codigo: "ALP-05"
+      texto: "Impacto financeiro quantificado"
+      fundamento: "LINDB Art. 20"
+
+  assinaturas:
+    - papel: "Gerado automaticamente pelo Auditor ATA360"
+      tipo: "sistema"
+    - papel: "Ciência do Responsável pela Pesquisa de Preços"
+      tipo: "responsavel"
+
+# ============================================================
+# 18. ALV - ALERTA DE ARP VENCENDO
+# P0 — Zero código (dados PNCP ARPs já implementados)
+# ============================================================
+ALV:
+  nome: "Alerta de Ata de Registro de Preços com Vencimento Próximo"
+  sigla: "ALV"
+  trilha_posicao: null
+  trilha_progresso: null
+  tipo: "alerta_auditor"
+  gerado_por: "AUDITOR Agent + LEGAL_SYNC Agent"
+
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 84, §6º (vigência máxima 2 anos)"
+    - "Decreto 11.462/2023: Arts. 22 a 24 (prorrogação e cancelamento)"
+    - "TCU Acórdão 1.233/2019-Plenário (limites de adesão)"
+    - "TCU Acórdão 1.107/2020-Plenário (vantajosidade contínua)"
+
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Alerta"
+      fundamento: "Regra interna Auditor + LEGAL_SYNC — spec v8"
+      campos: [alerta_id, data_geracao, nivel_urgencia]
+
+    - numero: 2
+      titulo: "Dados da ARP"
+      fundamento: "Art. 84, Lei 14.133/2021"
+      campos: [arp_numero, orgao_gerenciador, data_inicio, data_vencimento, dias_restantes]
+
+    - numero: 3
+      titulo: "Itens e Saldos"
+      fundamento: "Dec. 11.462/2023, Art. 22"
+      campos: [tabela_itens, quantidade_registrada, quantidade_empenhada, saldo_disponivel, percentual_utilizado]
+
+    - numero: 4
+      titulo: "Análise de Vantajosidade Atual"
+      fundamento: "TCU Ac. 1.107/2020-P"
+      campos: [preco_registrado, preco_pncp_atual, variacao_percentual, ainda_vantajoso]
+
+    - numero: 5
+      titulo: "Recomendação"
+      fundamento: "Art. 84, §6º, Lei 14.133/2021"
+      campos: [recomendacao_texto, opcoes_acao, prazo_decisao]
+
+  checklist:
+    - codigo: "ALV-01"
+      texto: "Data de vencimento verificada no PNCP"
+      fundamento: "Art. 84, §6º, Lei 14.133/2021"
+    - codigo: "ALV-02"
+      texto: "Saldo remanescente calculado"
+      fundamento: "Dec. 11.462/2023, Art. 22"
+    - codigo: "ALV-03"
+      texto: "Vantajosidade confrontada com preços atuais"
+      fundamento: "TCU Ac. 1.107/2020-P"
+    - codigo: "ALV-04"
+      texto: "Prazo para nova licitação estimado"
+      fundamento: "Art. 84, §6º, Lei 14.133/2021"
+
+  assinaturas:
+    - papel: "Gerado automaticamente pelo Auditor ATA360"
+      tipo: "sistema"
+    - papel: "Ciência do Gestor da ARP"
+      tipo: "responsavel"
+
+# ============================================================
+# 19. RPP - RELATÓRIO DE PESQUISA DE PREÇOS INTELIGENTE
+# P0 — Zero código (dados PNCP + ClickHouse já implementados)
+# ============================================================
+RPP:
+  nome: "Relatório de Pesquisa de Preços Inteligente"
+  sigla: "RPP"
+  trilha_posicao: 4
+  trilha_progresso: 35
+  herda_de: [DFD, ETP]
+
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 23 (regras de estimativa de preços)"
+    - "IN SEGES/ME 65/2021 (procedimentos obrigatórios de pesquisa)"
+    - "TCU Acórdão 2.170/2007-P (ampla pesquisa de mercado)"
+    - "TCU Acórdão 1.498/2019-P (insuficiência de cotação única)"
+    - "TCU Acórdão 2.434/2018-P (mediana como referência)"
+    - "LINDB Art. 20: consequências práticas fundamentadas em dados"
+
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Objeto Pesquisado"
+      fundamento: "Art. 5º, IN 65/2021"
+      campos: [descricao_item, catmat_catser, unidade_medida, quantidade_estimada]
+
+    - numero: 2
+      titulo: "Fontes de Pesquisa Utilizadas (Rastreáveis)"
+      fundamento: "Art. 5º, I a IV, IN 65/2021"
+      campos: [tabela_fontes_com_links_pncp, data_consulta_cada_fonte, id_contratacao_referencia]
+
+    - numero: 3
+      titulo: "Contratações Similares no PNCP"
+      fundamento: "Art. 5º, I, IN 65/2021"
+      campos: [tabela_contratos_pncp, orgao, valor_unitario, data, link_pncp]
+
+    - numero: 4
+      titulo: "Cotações de Fornecedores"
+      fundamento: "Art. 5º, III, IN 65/2021"
+      campos: [tabela_fornecedores, cnpj, razao_social, valor_cotado, validade, data_cotacao]
+
+    - numero: 5
+      titulo: "Análise Estatística"
+      fundamento: "Art. 6º, §§1º e 2º, IN 65/2021"
+      campos: [media, mediana, desvio_padrao, coeficiente_variacao, outliers_identificados, outliers_tratamento]
+
+    - numero: 6
+      titulo: "Correção Monetária (quando aplicável)"
+      fundamento: "IN 65/2021, Art. 5º, IV"
+      campos: [indice_utilizado, periodo_correcao, fator_correcao, fonte_bcb]
+
+    - numero: 7
+      titulo: "Preço de Referência"
+      fundamento: "Art. 6º, IN 65/2021"
+      campos: [parametro_estatistico_utilizado, preco_referencia_unitario, preco_referencia_total, justificativa_parametro]
+
+    - numero: 8
+      titulo: "Memória de Cálculo"
+      fundamento: "Art. 7º, IN 65/2021"
+      campos: [formula_aplicada, dados_entrada, resultado, metodologia_descricao]
+
+    - numero: 9
+      titulo: "Alertas Automáticos do Auditor"
+      fundamento: "LINDB Art. 20 + spec v8, Part 7"
+      campos: [alertas_fracionamento, alertas_preco_atipico, alertas_arp_disponiveis, sugestoes_economia]
+
+  checklist:
+    - codigo: "RPP-01"
+      texto: "Mínimo 3 preços válidos por item (IN 65/2021)"
+      fundamento: "Art. 6º, §1º, IN 65/2021"
+    - codigo: "RPP-02"
+      texto: "PNCP consultado como fonte primária"
+      fundamento: "Art. 5º, I, IN 65/2021"
+    - codigo: "RPP-03"
+      texto: "Contratações similares de até 1 ano consideradas"
+      fundamento: "Art. 5º, I, IN 65/2021"
+    - codigo: "RPP-04"
+      texto: "Outliers identificados e tratados"
+      fundamento: "Art. 6º, §2º, IN 65/2021"
+    - codigo: "RPP-05"
+      texto: "Parâmetro estatístico justificado (média, mediana ou menor)"
+      fundamento: "Art. 6º, §1º, IN 65/2021"
+    - codigo: "RPP-06"
+      texto: "Correção monetária aplicada quando preços com mais de 6 meses"
+      fundamento: "IN 65/2021, Art. 5º, IV"
+    - codigo: "RPP-07"
+      texto: "Memória de cálculo documentada e reproduzível"
+      fundamento: "Art. 7º, IN 65/2021"
+    - codigo: "RPP-08"
+      texto: "Links PNCP de cada contratação referenciados"
+      fundamento: "LINDB Art. 20 (rastreabilidade)"
+    - codigo: "RPP-09"
+      texto: "Alertas do Auditor revisados"
+      fundamento: "Regra ATA360 — conformidade proativa"
+
+  assinaturas:
+    - papel: "Responsável pela Pesquisa de Preços"
+      tipo: "responsavel"
+    - papel: "Validação / Autoridade Competente"
+      tipo: "autoridade"
+
+# ============================================================
+# 20. PAU - PARECER DO AUDITOR ATA360
+# P0 — Zero código (Auditor Agent já especificado)
+# ============================================================
+PAU:
+  nome: "Parecer do Auditor ATA360"
+  sigla: "PAU"
+  trilha_posicao: null
+  trilha_progresso: null
+  tipo: "parecer_automatico"
+  gerado_por: "AUDITOR Agent (read-only, determinístico)"
+
+  fundamentacao_cabecalho:
+    - "Regra interna ATA360: conformidade proativa (spec v8, Part 7)"
+    - "Lei 14.133/2021: Arts. 5º e 11 (legalidade + governança)"
+    - "LINDB Art. 20: decisões com base em consequências práticas"
+    - "LINDB Art. 22: considerar dificuldades reais do gestor"
+    - "LINDB Art. 28: responsabilização pessoal somente com dolo ou erro grosseiro"
+    - "Manual TCU Licitações e Contratos, 5ª Ed. (Ago/2025)"
+
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Processo Analisado"
+      fundamento: "Regra ATA360 — rastreabilidade"
+      campos: [processo_numero, objeto_resumo, dfd_id, etp_id, pp_id, tr_id, fase_atual]
+
+    - numero: 2
+      titulo: "Escopo da Análise"
+      fundamento: "Spec v8, Part 7 — Auditor Agent"
+      campos: [documentos_analisados, apis_consultadas, data_analise, versao_regras]
+
+    - numero: 3
+      titulo: "Resultado Global"
+      fundamento: "Regra ATA360 — CONFORME / NÃO CONFORME / RESSALVAS"
+      campos: [resultado_global, percentual_conformidade, total_verificacoes, total_alertas]
+
+    - numero: 4
+      titulo: "Verificações por Documento"
+      fundamento: "Checklists do YAML de cada documento"
+      campos: [tabela_verificacoes_por_doc, status_cada_item, observacao_cada_item]
+
+    - numero: 5
+      titulo: "Alertas Identificados"
+      fundamento: "LINDB Art. 20 + TCU jurisprudência aplicável"
+      campos: [tabela_alertas, nivel_cada_alerta, descricao, fundamento_legal, recomendacao]
+
+    - numero: 6
+      titulo: "Análise de Fracionamento"
+      fundamento: "Art. 40, §1º, Lei 14.133 + TCU Ac. 2.622/2015"
+      campos: [historico_12_meses, soma_catmat, resultado_fracionamento]
+
+    - numero: 7
+      titulo: "Análise de Preços"
+      fundamento: "Art. 23, Lei 14.133 + IN 65/2021"
+      campos: [precos_referencia, comparativo_mediana, precos_atipicos]
+
+    - numero: 8
+      titulo: "Contexto do Ente (LINDB Art. 22)"
+      fundamento: "LINDB Art. 22 — dificuldades reais"
+      campos: [populacao, idh, orcamento_anual, estrutura_compras, fator_contexto]
+
+    - numero: 9
+      titulo: "Jurisprudência Aplicável"
+      fundamento: "Manual TCU 5ª Ed."
+      campos: [tabela_acordaos_relevantes, ementa_resumida, aplicacao_ao_caso]
+
+    - numero: 10
+      titulo: "Conclusão e Recomendações"
+      fundamento: "LINDB Art. 20 + Art. 28"
+      campos: [conclusao_texto, lista_recomendacoes, prazo_sugerido, risco_residual]
+
+  checklist:
+    - codigo: "PAU-01"
+      texto: "Todos os documentos do processo analisados"
+      fundamento: "Regra ATA360"
+    - codigo: "PAU-02"
+      texto: "Checklists de cada documento verificados"
+      fundamento: "Regra ATA360"
+    - codigo: "PAU-03"
+      texto: "Motor de fracionamento executado (12 meses)"
+      fundamento: "TCU Ac. 2.957/2019-P"
+    - codigo: "PAU-04"
+      texto: "Preços confrontados com mediana PNCP"
+      fundamento: "TCU Ac. 2.434/2018-P"
+    - codigo: "PAU-05"
+      texto: "Contexto LINDB Art. 22 incluído"
+      fundamento: "LINDB Art. 22"
+    - codigo: "PAU-06"
+      texto: "Dados 100% de APIs oficiais (zero opinião)"
+      fundamento: "LINDB Art. 20"
+    - codigo: "PAU-07"
+      texto: "Resultado = CONFORME / NÃO CONFORME / RESSALVAS"
+      fundamento: "Regra ATA360 — tripartição"
+
+  assinaturas:
+    - papel: "Gerado automaticamente pelo Auditor ATA360"
+      tipo: "sistema"
+    - papel: "Ciência do Servidor Responsável"
+      tipo: "responsavel"
+    - papel: "Ciência da Autoridade Competente"
+      tipo: "autoridade"
+
+# ============================================================
+# FIM DO ARQUIVO DE CONFIGURAÇÃO
+# Versão 3.0 | Fevereiro 2026
+# Atualizado: Painel de Preços removido, Dec. 12.807/2025 adicionado,
+# LINDB incluída, jurisprudência expandida (6→30 referências),
+# Manual TCU 5ª Ed. referenciado.
+# v3.0: Adicionados 6 artefatos P0 (CDF, ALF, ALP, ALV, RPP, PAU)
+# ============================================================

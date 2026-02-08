@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ config.nome }} - {{ config.sigla }}</title>
+    <link rel="stylesheet" href="css/ata360-base.css">
+</head>
+<body>
+
+    <!-- CABEÇALHO INSTITUCIONAL -->
+    <div class="header">
+        <div class="header-left">
+            <div class="ente">{{ dados.ente_nome }}</div>
+            <div class="subordinacao">
+                {{ dados.subordinacao_linha1 }}<br>
+                {{ dados.subordinacao_linha2 }}
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="logo-placeholder">BRASÃO</div>
+        </div>
+    </div>
+
+    <!-- IDENTIFICAÇÃO DO DOCUMENTO -->
+    <div class="doc-id-box">
+        <div class="titulo">{{ config.nome | upper }}</div>
+        <div class="subtitulo">{{ config.subtitulo | default('Documento da fase preparatória da contratação') }}</div>
+        
+        <div class="doc-numeros">
+            <div class="item">
+                <div class="label">Nº Documento</div>
+                <div class="valor">{{ dados.doc_numero }}</div>
+            </div>
+            <div class="item">
+                <div class="label">Processo</div>
+                <div class="valor">{{ dados.processo_numero }}</div>
+            </div>
+            <div class="item">
+                <div class="label">Versão</div>
+                <div class="valor">{{ dados.versao | default('1.0') }}</div>
+            </div>
+            <div class="item">
+                <div class="label">Data</div>
+                <div class="valor">{{ dados.data_documento }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FUNDAMENTAÇÃO LEGAL -->
+    <div class="fundamentacao">
+        <div class="titulo">Fundamentação Legal</div>
+        {% for item in config.fundamentacao_cabecalho %}
+        <p>{{ item }}</p>
+        {% endfor %}
+    </div>
+
+    <!-- RASTREABILIDADE -->
+    <div class="rastreabilidade">
+        <div class="rastreabilidade-info">
+            <strong>ID:</strong> {{ rastreabilidade.id }}<br>
+            <strong>Hash:</strong> {{ rastreabilidade.hash }}<br>
+            <strong>Gerado em:</strong> {{ rastreabilidade.timestamp }}<br>
+            <strong>Origem:</strong> ATA360 - Sistema de Inteligência em Contratações<br>
+            {% if rastreabilidade.dfd_vinculado %}
+            <strong>DFD Vinculado:</strong> {{ rastreabilidade.dfd_vinculado }}<br>
+            {% endif %}
+            {% if rastreabilidade.etp_vinculado %}
+            <strong>ETP Vinculado:</strong> {{ rastreabilidade.etp_vinculado }}<br>
+            {% endif %}
+            <strong>Sincronizado:</strong> PNCP | Portal Transparência
+        </div>
+        <div class="qr-area">
+            [QR CODE]<br>
+            Verificação
+        </div>
+    </div>
+
+    <!-- SUMÁRIO (opcional) -->
+    {% if config.secoes | length > 5 %}
+    <div class="sumario">
+        <div class="sumario-titulo">Sumário do {{ config.sigla }}</div>
+        <div class="sumario-lista">
+            {% for secao in config.secoes %}
+            <div class="sumario-item">
+                <span class="sumario-num">{{ secao.numero }}.</span> {{ secao.titulo }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- SEÇÕES DO DOCUMENTO -->
+    {% for secao in config.secoes %}
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">{{ secao.numero }}</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">{{ secao.titulo }}</div>
+                <div class="secao-fundamento">{{ secao.fundamento }}</div>
+            </div>
+        </div>
+        
+        <div class="secao-conteudo">
+            {{ secoes_conteudo[secao.numero] | safe }}
+        </div>
+    </div>
+    
+    {% if secao.numero == 5 and config.secoes | length > 8 %}
+    <div class="page-break"></div>
+    {% endif %}
+    {% if secao.numero == 10 and config.secoes | length > 12 %}
+    <div class="page-break"></div>
+    {% endif %}
+    {% endfor %}
+
+    <!-- CHECKLIST DE CONFORMIDADE -->
+    {% if config.checklist %}
+    <div class="checklist">
+        <div class="checklist-titulo">Checklist de Conformidade do {{ config.sigla }}</div>
+        
+        {% for item in config.checklist %}
+        <div class="checklist-item">
+            <div class="checklist-box {{ checklist_status[item.codigo] | default('pendente') }}">
+                {% if checklist_status[item.codigo] == 'ok' %}✓{% elif checklist_status[item.codigo] == 'erro' %}✗{% else %}!{% endif %}
+            </div>
+            <div>{{ item.texto }} ({{ item.fundamento }})</div>
+        </div>
+        {% endfor %}
+        
+        <div class="checklist-item">
+            <div class="checklist-box pendente">!</div>
+            <div>Aguardando assinatura digital ICP-Brasil</div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- DECLARAÇÕES -->
+    <div class="declaracoes">
+        <div class="declaracoes-titulo">{{ declaracoes.titulo }}</div>
+        
+        <p>{{ declaracoes.preambulo }}</p>
+        
+        {% for item in declaracoes.itens %}
+        <p><strong>{{ item.numero }}.</strong> {{ item.texto }}{% if item.fundamento %} ({{ item.fundamento }}){% endif %};</p>
+        {% endfor %}
+        
+        <p class="text-small text-muted mt-10"><em>Base legal: {{ declaracoes.base_legal }}</em></p>
+    </div>
+
+    <!-- ASSINATURAS -->
+    <div class="assinaturas">
+        {% for assinatura in config.assinaturas %}
+        <div class="assinatura-bloco">
+            <div class="assinatura-cargo">{{ assinatura.papel }}</div>
+            <div class="assinatura-linha">
+                <div class="assinatura-nome">{{ dados['assinatura_' ~ loop.index ~ '_nome'] | default('_____________________') }}</div>
+                <div class="assinatura-info">{{ dados['assinatura_' ~ loop.index ~ '_cargo'] | default('Cargo') }} | Mat. {{ dados['assinatura_' ~ loop.index ~ '_matricula'] | default('00000') }}</div>
+                <div class="assinatura-info">Assinatura ICP-Brasil</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- CONTROLE DE VERSÕES -->
+    <div class="versoes">
+        <div class="versoes-titulo">Controle de Versões</div>
+        <table class="tabela" style="font-size: 8pt;">
+            <thead>
+                <tr>
+                    <th>Versão</th>
+                    <th>Data</th>
+                    <th>Autor</th>
+                    <th>Modificações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for versao in historico_versoes | default([{'versao': '1.0', 'data': dados.data_documento, 'autor': dados.responsavel_nome, 'modificacoes': 'Versão inicial'}]) %}
+                <tr>
+                    <td>{{ versao.versao }}</td>
+                    <td>{{ versao.data }}</td>
+                    <td>{{ versao.autor }}</td>
+                    <td>{{ versao.modificacoes }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- TRILHA DA CONTRATAÇÃO -->
+    {% if config.trilha_posicao %}
+    <div class="trilha">
+        <div class="trilha-titulo">Trilha da Contratação Pública</div>
+        
+        <div class="trilha-progresso">
+            <div class="trilha-progresso-barra" style="width: {{ config.trilha_progresso }}%;"></div>
+        </div>
+        
+        <div class="trilha-etapas">
+            {% for etapa in trilha.etapas %}
+            <div class="trilha-etapa {% if etapa.posicao < config.trilha_posicao %}concluida{% elif etapa.posicao == config.trilha_posicao %}atual{% endif %}">
+                <div class="icone">{% if etapa.posicao < config.trilha_posicao %}✓{% elif etapa.posicao == config.trilha_posicao %}●{% else %}○{% endif %}</div>
+                {{ etapa.codigo }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- SELO ATA360 -->
+    <div class="selo-area">
+        <div class="selo-texto">
+            © 2026 Powered by ATA360 - Sistema de Inteligência em Contratações Públicas
+        </div>
+    </div>
+
+</body>
+</html>

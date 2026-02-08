@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Documento de Formalização da Demanda - DFD</title>
+    <style>
+        /* ========================================
+           ATA360 TEMPLATE v1.1 - 
+           ======================================== */
+        
+        @page {
+            size: A4;
+            margin: 22mm 22mm 28mm 22mm;
+            
+            @bottom-center {
+                content: "Página " counter(page) " de " counter(pages);
+                font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+                font-size: 9pt;
+                color: #666;
+            }
+        }
+        
+        @page :first {
+            margin-top: 18mm;
+        }
+        
+        :root {
+            --azul-primario: #1e3a5f;
+            --azul-secundario: #2c5282;
+            --azul-claro: #e8f0f8;
+            --vermelho: #c53030;
+            --verde: #276749;
+            --amarelo: #d69e2e;
+            --cinza-escuro: #2d3748;
+            --cinza-medio: #4a5568;
+            --cinza-claro: #f7fafc;
+            --cinza-linha: #e2e8f0;
+            --branco: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', serif;
+            font-size: 10.5pt;
+            line-height: 1.65;
+            color: var(--cinza-escuro);
+            text-align: justify;
+            hyphens: auto;
+        }
+        
+        /* ========================================
+           CABEÇALHO PRINCIPAL
+           ======================================== */
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 14pt;
+            border-bottom: 2.5pt solid var(--azul-primario);
+            margin-bottom: 16pt;
+        }
+        
+        .header-left {
+            flex: 1;
+            padding-right: 20pt;
+        }
+        
+        .header-left .ente {
+            font-size: 15pt;
+            font-weight: bold;
+            color: var(--azul-primario);
+            margin-bottom: 4pt;
+            letter-spacing: 0.3pt;
+        }
+        
+        .header-left .subordinacao {
+            font-size: 9.5pt;
+            color: var(--cinza-medio);
+            line-height: 1.5;
+        }
+        
+        .header-right {
+            flex-shrink: 0;
+            width: 90pt;
+            max-width: 90pt;
+            text-align: right;
+        }
+        
+        .header-right .logo {
+            width: 85pt;
+            max-width: 85pt;
+            height: auto;
+            max-height: 85pt;
+            object-fit: contain;
+        }
+        
+        .logo-placeholder {
+            width: 85pt;
+            height: 85pt;
+            border: 1.5pt dashed #cbd5e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9pt;
+            color: #a0aec0;
+            background: #f8fafc;
+        }
+        
+        /* ========================================
+           IDENTIFICAÇÃO DO DOCUMENTO
+           ======================================== */
+        
+        .doc-id-box {
+            background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
+            color: var(--branco);
+            padding: 14pt 18pt;
+            margin-bottom: 16pt;
+            border-radius: 4pt;
+        }
+        
+        .doc-id-box .titulo {
+            font-size: 17pt;
+            font-weight: bold;
+            letter-spacing: 0.5pt;
+            margin-bottom: 6pt;
+        }
+        
+        .doc-id-box .subtitulo {
+            font-size: 10.5pt;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        .doc-numeros {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12pt;
+            padding-top: 12pt;
+            border-top: 1pt solid rgba(255,255,255,0.3);
+        }
+        
+        .doc-numeros .item {
+            text-align: center;
+        }
+        
+        .doc-numeros .label {
+            font-size: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5pt;
+            opacity: 0.8;
+        }
+        
+        .doc-numeros .valor {
+            font-size: 12pt;
+            font-weight: bold;
+            margin-top: 2pt;
+        }
+        
+        /* ========================================
+           FUNDAMENTAÇÃO LEGAL
+           ======================================== */
+        
+        .fundamentacao {
+            background: var(--cinza-claro);
+            border-left: 4pt solid var(--azul-primario);
+            padding: 12pt 14pt;
+            margin-bottom: 16pt;
+            font-size: 9pt;
+            line-height: 1.55;
+        }
+        
+        .fundamentacao .titulo {
+            font-weight: bold;
+            color: var(--azul-primario);
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 0.3pt;
+            margin-bottom: 8pt;
+        }
+        
+        .fundamentacao p {
+            margin-bottom: 4pt;
+            color: var(--cinza-medio);
+        }
+        
+        /* ========================================
+           RASTREABILIDADE E QR CODE
+           ======================================== */
+        
+        .rastreabilidade {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background: var(--branco);
+            border: 1pt solid var(--cinza-linha);
+            padding: 12pt;
+            margin-bottom: 18pt;
+        }
+        
+        .rastreabilidade-info {
+            flex: 1;
+            font-size: 8.5pt;
+            color: var(--cinza-medio);
+            line-height: 1.6;
+        }
+        
+        .rastreabilidade-info strong {
+            color: var(--cinza-escuro);
+        }
+        
+        .qr-area {
+            width: 72pt;
+            height: 72pt;
+            border: 1pt dashed var(--cinza-linha);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7pt;
+            color: var(--cinza-medio);
+            text-align: center;
+            margin-left: 16pt;
+            flex-shrink: 0;
+        }
+        
+        /* ========================================
+           SEÇÕES / CAPÍTULOS
+           ======================================== */
+        
+        .secao {
+            margin-bottom: 20pt;
+            page-break-inside: avoid;
+        }
+        
+        .secao-header {
+            display: flex;
+            align-items: stretch;
+            margin-bottom: 12pt;
+        }
+        
+        .secao-numero {
+            background: var(--azul-primario);
+            color: var(--branco);
+            width: 30pt;
+            min-height: 38pt;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15pt;
+            font-weight: bold;
+        }
+        
+        .secao-titulo-area {
+            flex: 1;
+            border-bottom: 2pt solid var(--azul-primario);
+            padding-left: 12pt;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .secao-titulo {
+            font-size: 11.5pt;
+            font-weight: bold;
+            color: var(--azul-primario);
+            text-transform: uppercase;
+            letter-spacing: 0.3pt;
+        }
+        
+        .secao-fundamento {
+            font-size: 8.5pt;
+            color: var(--cinza-medio);
+            font-style: italic;
+            margin-top: 3pt;
+        }
+        
+        .secao-conteudo {
+            padding-left: 42pt;
+            border-left: 2pt solid var(--cinza-linha);
+            margin-left: 14pt;
+        }
+        
+        /* ========================================
+           CAMPOS DE ENTRADA
+           ======================================== */
+        
+        .campo {
+            margin-bottom: 12pt;
+        }
+        
+        .campo-label {
+            font-size: 9pt;
+            font-weight: bold;
+            color: var(--azul-secundario);
+            margin-bottom: 5pt;
+        }
+        
+        .campo-valor {
+            background: var(--cinza-claro);
+            border: 1pt solid var(--cinza-linha);
+            border-radius: 2pt;
+            padding: 10pt 12pt;
+            min-height: 26pt;
+            font-size: 10pt;
+        }
+        
+        .campo-valor.vazio {
+            color: var(--cinza-medio);
+            font-style: italic;
+        }
+        
+        .campo-inline {
+            display: flex;
+            gap: 16pt;
+            flex-wrap: wrap;
+        }
+        
+        .campo-inline .campo {
+            flex: 1;
+            min-width: 130pt;
+        }
+        
+        /* ========================================
+           CARDS DE ALERTA
+           ======================================== */
+        
+        .alerta {
+            padding: 11pt 14pt;
+            border-radius: 3pt;
+            margin-bottom: 14pt;
+            font-size: 9pt;
+        }
+        
+        .alerta-atencao {
+            background: #fffbeb;
+            border-left: 4pt solid var(--amarelo);
+            color: #92400e;
+        }
+        
+        .alerta-importante {
+            background: #fef2f2;
+            border-left: 4pt solid var(--vermelho);
+            color: #991b1b;
+        }
+        
+        .alerta-info {
+            background: var(--azul-claro);
+            border-left: 4pt solid var(--azul-secundario);
+            color: var(--azul-primario);
+        }
+        
+        .alerta-sucesso {
+            background: #f0fdf4;
+            border-left: 4pt solid var(--verde);
+            color: #166534;
+        }
+        
+        .alerta strong {
+            display: block;
+            margin-bottom: 5pt;
+            font-size: 9.5pt;
+        }
+        
+        /* ========================================
+           TABELAS MINIMALISTAS
+           ======================================== */
+        
+        .tabela {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 14pt;
+            font-size: 9pt;
+        }
+        
+        .tabela thead tr {
+            background: var(--azul-primario);
+            color: var(--branco);
+        }
+        
+        .tabela th {
+            padding: 9pt 11pt;
+            text-align: left;
+            font-weight: bold;
+            font-size: 8.5pt;
+            text-transform: uppercase;
+            letter-spacing: 0.3pt;
+        }
+        
+        .tabela td {
+            padding: 9pt 11pt;
+            border-bottom: 1pt solid var(--cinza-linha);
+        }
+        
+        .tabela tbody tr:nth-child(odd) {
+            background: var(--branco);
+        }
+        
+        .tabela tbody tr:nth-child(even) {
+            background: var(--cinza-claro);
+        }
+        
+        .tabela .destaque {
+            background: #f1f5f9 !important;
+            font-weight: bold;
+        }
+        
+        .tabela .valor-total {
+            background: var(--cinza-escuro) !important;
+            color: var(--branco);
+            font-weight: bold;
+        }
+        
+        /* ========================================
+           CHECKLIST AUTOMÁTICO
+           ======================================== */
+        
+        .checklist {
+            background: var(--cinza-claro);
+            border: 1pt solid var(--cinza-linha);
+            border-radius: 4pt;
+            padding: 14pt;
+            margin-bottom: 16pt;
+        }
+        
+        .checklist-titulo {
+            font-size: 10.5pt;
+            font-weight: bold;
+            color: var(--azul-primario);
+            margin-bottom: 12pt;
+            padding-bottom: 8pt;
+            border-bottom: 1pt solid var(--cinza-linha);
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 7pt;
+            font-size: 9pt;
+        }
+        
+        .checklist-box {
+            width: 15pt;
+            height: 15pt;
+            border: 1.5pt solid var(--cinza-medio);
+            border-radius: 2pt;
+            margin-right: 10pt;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10pt;
+        }
+        
+        .checklist-box.ok {
+            background: var(--verde);
+            border-color: var(--verde);
+            color: var(--branco);
+        }
+        
+        .checklist-box.pendente {
+            background: var(--amarelo);
+            border-color: var(--amarelo);
+            color: var(--branco);
+        }
+        
+        /* ========================================
+           DECLARAÇÕES E ASSINATURAS
+           ======================================== */
+        
+        .declaracoes {
+            background: var(--cinza-claro);
+            border: 1pt solid var(--cinza-linha);
+            padding: 14pt;
+            margin-bottom: 16pt;
+            font-size: 9pt;
+        }
+        
+        .declaracoes-titulo {
+            font-weight: bold;
+            color: var(--azul-primario);
+            margin-bottom: 10pt;
+        }
+        
+        .declaracoes p {
+            margin-bottom: 5pt;
+        }
+        
+        .assinaturas {
+            display: flex;
+            justify-content: space-between;
+            gap: 24pt;
+            margin-top: 22pt;
+        }
+        
+        .assinatura-bloco {
+            flex: 1;
+            text-align: center;
+            padding: 12pt;
+            border: 1pt solid var(--cinza-linha);
+            background: var(--branco);
+        }
+        
+        .assinatura-cargo {
+            font-size: 9pt;
+            font-weight: bold;
+            color: var(--azul-primario);
+            text-transform: uppercase;
+            margin-bottom: 32pt;
+        }
+        
+        .assinatura-linha {
+            border-top: 1pt solid var(--cinza-escuro);
+            padding-top: 8pt;
+            margin: 0 18pt;
+        }
+        
+        .assinatura-nome {
+            font-size: 9pt;
+            color: var(--cinza-medio);
+        }
+        
+        .assinatura-info {
+            font-size: 8pt;
+            color: var(--cinza-medio);
+            margin-top: 3pt;
+        }
+        
+        /* ========================================
+           TRILHA DA CONTRATAÇÃO
+           ======================================== */
+        
+        .trilha {
+            background: var(--azul-primario);
+            color: var(--branco);
+            padding: 14pt 18pt;
+            margin-top: 22pt;
+            border-radius: 4pt;
+        }
+        
+        .trilha-titulo {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-bottom: 12pt;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5pt;
+        }
+        
+        .trilha-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10pt;
+        }
+        
+        .trilha-etapas {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .trilha-etapa {
+            text-align: center;
+            font-size: 7.5pt;
+            opacity: 0.5;
+            flex: 1;
+        }
+        
+        .trilha-etapa.atual {
+            opacity: 1;
+            font-weight: bold;
+        }
+        
+        .trilha-etapa.concluida {
+            opacity: 1;
+        }
+        
+        .trilha-etapa .icone {
+            width: 22pt;
+            height: 22pt;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 4pt;
+            font-size: 9pt;
+        }
+        
+        .trilha-etapa.concluida .icone {
+            background: var(--verde);
+        }
+        
+        .trilha-etapa.atual .icone {
+            background: var(--amarelo);
+            color: var(--cinza-escuro);
+        }
+        
+        .trilha-progresso {
+            background: rgba(255,255,255,0.2);
+            height: 8pt;
+            border-radius: 4pt;
+            overflow: hidden;
+            margin-bottom: 10pt;
+        }
+        
+        .trilha-progresso-barra {
+            background: linear-gradient(90deg, var(--verde) 0%, #48bb78 100%);
+            height: 100%;
+        }
+        
+        .trilha-info {
+            font-size: 9pt;
+            text-align: center;
+        }
+        
+        .trilha-info .destaque {
+            font-weight: bold;
+            font-size: 11pt;
+        }
+        
+        .trilha-info .proximo {
+            font-size: 8pt;
+            opacity: 0.85;
+            margin-top: 4pt;
+            font-style: italic;
+        }
+        
+        /* ========================================
+           RODAPÉ / SELO ATA360
+           ======================================== */
+        
+        .selo-area {
+            text-align: center;
+            margin-top: 28pt;
+            padding-top: 18pt;
+            border-top: 1pt solid var(--cinza-linha);
+        }
+        
+        .selo-img {
+            width: 110pt;
+            height: auto;
+        }
+        
+        .selo-texto {
+            font-size: 8pt;
+            color: var(--cinza-medio);
+            margin-top: 8pt;
+        }
+        
+        /* ========================================
+           CONTROLE DE VERSÕES
+           ======================================== */
+        
+        .versoes {
+            font-size: 8pt;
+            color: var(--cinza-medio);
+            border-top: 1pt solid var(--cinza-linha);
+            padding-top: 10pt;
+            margin-top: 16pt;
+        }
+        
+        .versoes-titulo {
+            font-weight: bold;
+            color: var(--cinza-escuro);
+            margin-bottom: 6pt;
+        }
+        
+        /* ========================================
+           RESUMO DO OBJETO
+           ======================================== */
+        
+        .resumo-objeto {
+            background: linear-gradient(to right, var(--azul-claro), var(--branco));
+            border: 1pt solid var(--azul-secundario);
+            border-radius: 4pt;
+            padding: 14pt;
+            margin-bottom: 18pt;
+        }
+        
+        .resumo-objeto-titulo {
+            font-size: 9pt;
+            font-weight: bold;
+            color: var(--azul-primario);
+            text-transform: uppercase;
+            margin-bottom: 8pt;
+        }
+        
+        .resumo-objeto-texto {
+            font-size: 10pt;
+            color: var(--cinza-escuro);
+        }
+        
+        /* ========================================
+           UTILITÁRIOS
+           ======================================== */
+        
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+        .text-small { font-size: 8pt; }
+        .text-muted { color: var(--cinza-medio); }
+        .mt-10 { margin-top: 10pt; }
+        .mb-10 { margin-bottom: 10pt; }
+        .page-break { page-break-before: always; }
+        
+    </style>
+</head>
+<body>
+
+    <!-- ========================================
+         CABEÇALHO
+         ======================================== -->
+    <header class="header">
+        <div class="header-left">
+            <div class="ente">PREFEITURA MUNICIPAL DE LAGOA SANTA</div>
+            <div class="subordinacao">
+               Secretaria Municipal de Administração<br>
+                Departamento de Licitações e Contratos
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="logo-placeholder">
+                LOGO<br>MUNICÍPIO
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================
+         IDENTIFICAÇÃO DO DOCUMENTO
+         ======================================== -->
+    <div class="doc-id-box">
+        <div class="titulo">DOCUMENTO DE FORMALIZAÇÃO DA DEMANDA</div>
+                
+        <div class="doc-numeros">
+            <div class="item">
+                <div class="label">Nº do Documento</div>
+                <div class="valor">DFD-PMLS-2026-0001</div>
+            </div>
+            <div class="item">
+                <div class="label">Nº Processo Administrativo</div>
+                <div class="valor">001/2026</div>
+            </div>
+            <div class="item">
+                <div class="label">Versão</div>
+                <div class="valor">1.0</div>
+            </div>
+            <div class="item">
+                <div class="label">Data</div>
+                <div class="valor">29/01/2026</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         FUNDAMENTAÇÃO LEGAL
+         ======================================== -->
+    <div class="fundamentacao">
+        <div class="titulo">Fundamentação Legal</div>
+        <p><strong>Lei 14.133/2021:</strong> Art. 5º (Princípios) | Art. 11 (Objetivos) | Art. 18, I (Fase Preparatória) | Art. 72 (Contratação)</p>
+        <p><strong>Decreto 10.947/2022:</strong> Art. 7º (DFD obrigatório para contratações)</p>
+        <p><strong>IN SEGES/ME 58/2022:</strong> Art. 5º (Conteúdo do DFD)</p>
+        <p><strong>TCU:</strong> Acórdão 2.622/2015-P (motivação da necessidade) | Acórdão 1.375/2015-P (planejamento)</p>
+    </div>
+
+    <!-- ========================================
+         RASTREABILIDADE E QR CODE
+         ======================================== -->
+    <div class="rastreabilidade">
+        <div class="rastreabilidade-info">
+            <strong>RASTREABILIDADE E CONTROLE</strong><br>
+            ID: DFD-PMLS-2026-0001 | Processo: PAD 001/2026 | Versão: 1.0<br>
+            PNCP: Obrigatório conforme Art. 94 | Data/Hora: 29/01/2026 às 14:32:15<br>
+            Sincronia: PCA Item 001 | ETP-PMLS-2026-0001 | TR-PMLS-2026-0001<br>
+            Hash SHA-256: <em>Gerado automaticamente na assinatura digital ICP-Brasil</em>
+        </div>
+        <div class="qr-area">
+            QR Code<br>ICP-Brasil
+        </div>
+    </div>
+
+    <!-- ========================================
+         RESUMO DO OBJETO
+         ======================================== -->
+    <div class="resumo-objeto">
+        <div class="resumo-objeto-titulo">Resumo do Objeto</div>
+        <div class="resumo-objeto-texto">
+            Aquisição de equipamentos de informática para modernização do parque tecnológico 
+            da Secretaria Municipal de Administração, compreendendo computadores, monitores 
+            e periféricos, conforme especificações técnicas detalhadas no Estudo Técnico Preliminar.
+        </div>
+    </div>
+
+    <!-- ========================================
+         SEÇÃO 1 - IDENTIFICAÇÃO DA DEMANDA
+         ======================================== -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">1</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Identificação da Demanda</div>
+                <div class="secao-fundamento">Art. 7º, I a III, Decreto 10.947/2022</div>
+            </div>
+        </div>
+        
+        <div class="secao-conteudo">
+            <div class="campo-inline">
+                <div class="campo">
+                    <div class="campo-label">Unidade Requisitante</div>
+                    <div class="campo-valor">Secretaria Municipal de Administração</div>
+                </div>
+                <div class="campo">
+                    <div class="campo-label">Responsável pela Demanda</div>
+                    <div class="campo-valor">Maria Silva Santos</div>
+                </div>
+            </div>
+            
+            <div class="campo-inline">
+                <div class="campo">
+                    <div class="campo-label">Cargo/Função</div>
+                    <div class="campo-valor">Coordenadora de TI</div>
+                </div>
+                <div class="campo">
+                    <div class="campo-label">Matrícula</div>
+                    <div class="campo-valor">12345</div>
+                </div>
+                <div class="campo">
+                    <div class="campo-label">Contato</div>
+                    <div class="campo-valor">ti@lagoasanta.mg.gov.br</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         SEÇÃO 2 - OBJETO DA CONTRATAÇÃO
+         ======================================== -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">2</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Objeto da Contratação</div>
+                <div class="secao-fundamento">Art. 6º, XXIII, Lei 14.133/2021</div>
+            </div>
+        </div>
+        
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">Descrição do Objeto</div>
+                <div class="campo-valor">
+                    Aquisição de 50 (cinquenta) computadores desktop, 50 (cinquenta) monitores LED 24", 
+                    50 (cinquenta) teclados e 50 (cinquenta) mouses ópticos para atendimento às 
+                    demandas da Secretaria Municipal de Administração.
+                </div>
+            </div>
+            
+            <div class="campo-inline">
+                <div class="campo">
+                    <div class="campo-label">Natureza</div>
+                    <div class="campo-valor">☑ Material  ☐ Serviço  ☐ Engenharia  ☐ TIC  ☐ Saúde</div>
+                </div>
+                <div class="campo">
+                    <div class="campo-label">Enquadramento</div>
+                    <div class="campo-valor">☑ Comum  ☐ Especial  ☐ Exclusivo ME/EPP (LC 123/2006)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         SEÇÃO 3 - JUSTIFICATIVA DA NECESSIDADE
+         ======================================== -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">3</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Justificativa da Necessidade</div>
+                <div class="secao-fundamento">Art. 18, I, Lei 14.133/2021</div>
+            </div>
+        </div>
+        
+        <div class="secao-conteudo">
+            <div class="alerta alerta-info">
+                <strong>Nota TCU – Acórdão 2.622/2015-P</strong>
+                A justificativa deve demonstrar a real necessidade, separando claramente o problema 
+                (necessidade) da solução proposta (objeto).
+            </div>
+            
+            <div class="campo">
+                <div class="campo-label">Necessidade (o problema a ser resolvido)</div>
+                <div class="campo-valor">
+                    O parque de equipamentos de informática da Secretaria Municipal de Administração 
+                    encontra-se defasado, com mais de 70% dos computadores com idade superior a 8 anos, 
+                    apresentando lentidão no processamento, travamentos frequentes e incompatibilidade 
+                    com sistemas modernos, comprometendo a produtividade dos servidores e a qualidade 
+                    do atendimento ao cidadão.
+                </div>
+            </div>
+            
+            <div class="campo">
+                <div class="campo-label">Interesse Público (por que resolver)</div>
+                <div class="campo-valor">
+                    A modernização do parque tecnológico permitirá: melhoria na eficiência do serviço público; 
+                    redução do tempo de atendimento ao cidadão; compatibilidade com sistemas federais e estaduais; 
+                    redução de custos com manutenção corretiva; e maior segurança da informação.
+                </div>
+            </div>
+            
+            <div class="campo">
+                <div class="campo-label">Consequências da Não Contratação</div>
+                <div class="campo-valor">
+                    A não realização desta contratação resultará em: paralisação gradual das atividades 
+                    administrativas; impossibilidade de acesso a sistemas governamentais; aumento de custos 
+                    com manutenções emergenciais; e comprometimento do atendimento à população.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         SEÇÃO 4 - QUANTITATIVOS E ESTIMATIVA
+         ======================================== -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">4</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Quantitativos e Estimativa de Valor</div>
+                <div class="secao-fundamento">Art. 18, II e III, Lei 14.133/2021</div>
+            </div>
+        </div>
+        
+        <div class="secao-conteudo">
+            <table class="tabela">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">Item</th>
+                        <th style="width: 30%;">Descrição</th>
+                        <th style="width: 12%;">CATMAT</th>
+                        <th style="width: 7%;">Und</th>
+                        <th style="width: 7%;">Qtde</th>
+                        <th style="width: 14%;">Valor Unit.</th>
+                        <th style="width: 14%;">Valor Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td>Computador Desktop i5, 16GB RAM, SSD 512GB</td>
+                        <td class="text-center">150230</td>
+                        <td class="text-center">UN</td>
+                        <td class="text-center">50</td>
+                        <td class="text-right">R$ 3.500,00</td>
+                        <td class="text-right">R$ 175.000,00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td>Monitor LED 24" Full HD</td>
+                        <td class="text-center">150406</td>
+                        <td class="text-center">UN</td>
+                        <td class="text-center">50</td>
+                        <td class="text-right">R$ 850,00</td>
+                        <td class="text-right">R$ 42.500,00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">3</td>
+                        <td>Teclado USB padrão ABNT2</td>
+                        <td class="text-center">150181</td>
+                        <td class="text-center">UN</td>
+                        <td class="text-center">50</td>
+                        <td class="text-right">R$ 80,00</td>
+                        <td class="text-right">R$ 4.000,00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">4</td>
+                        <td>Mouse óptico USB</td>
+                        <td class="text-center">150185</td>
+                        <td class="text-center">UN</td>
+                        <td class="text-center">50</td>
+                        <td class="text-right">R$ 45,00</td>
+                        <td class="text-right">R$ 2.250,00</td>
+                    </tr>
+                    <tr class="valor-total">
+                        <td colspan="6" class="text-right">VALOR TOTAL ESTIMADO</td>
+                        <td class="text-right">R$ 223.750,00</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="campo-inline">
+                <div class="campo">
+                    <div class="campo-label">Fonte da Estimativa</div>
+                    <div class="campo-valor">☑ PNCP  ☐ Contratação anterior  ☐ Pesquisa preliminar</div>
+                </div>
+                <div class="campo">
+                    <div class="campo-label">Metodologia de Cálculo</div>
+                    <div class="campo-valor">Levantamento de estações obsoletas + projeção de crescimento</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         SEÇÃO 5 - PRAZO E VINCULAÇÃO
+         ======================================== -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">5</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Prazo e Vinculação ao Planejamento</div>
+                <div class="secao-fundamento">Art. 18, VII, Lei 14.133/2021</div>
+            </div>
+        </div>
+        
+        <div class="secao-conteudo">
+            <div class="campo-inline">
+                <div class="campo">
+                    <div class="campo-label">Prazo Desejado</div>
+                    <div class="campo-valor">☐ Imediato  ☐ 15 dias ☐ 30 dias  ☑ 60 dias  ☐ 90 dias</div>
+                </div>
+                <div class="campo">
+                    <div class="campo-label">Grau de Prioridade</div>
+                    <div class="campo-valor">☐ Crítico  ☑ Alto  ☐ Médio  ☐ Baixo</div>
+                </div>
+            </div>
+            
+            <div class="campo-inline">
+                <div class="campo">
+                    <div class="campo-label">Vinculação ao PCA</div>
+                    <div class="campo-valor">☑ Sim (Item nº <strong>001</strong> - PCA 2026)</div>
+                </div>
+                <div class="campo">
+                    <div class="campo-label">Fonte de Recursos</div>
+                    <div class="campo-valor">☑ Próprio  ☐ Federal  ☐ Estadual  ☐ Emenda ☐ Convênio</div>
+                </div>
+            </div>
+            
+            <div class="campo">
+                <div class="campo-label">Dotação Orçamentária</div>
+                <div class="campo-valor">04.122.0001.2001.0000 | Fonte: 1.500.0000 | Natureza: 4.4.90.52</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         CHECKLIST AUTOMÁTICO
+         ======================================== -->
+    <div class="checklist">
+        <div class="checklist-titulo">Checklist de Conformidade do DFD</div>
+        
+        <div class="checklist-item">
+            <div class="checklist-box ok">✓</div>
+            <div>Unidade requisitante e responsável identificados (Art. 7º, I, Dec. 10.947/2022)</div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">✓</div>
+            <div>Objeto descrito de forma clara e objetiva (Art. 6º, XXIII, Lei 14.133/2021)</div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">✓</div>
+            <div>Justificativa da necessidade fundamentada (Art. 18, I, Lei 14.133/2021)</div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">✓</div>
+            <div>Quantitativos estimados com metodologia (Art. 18, II, Lei 14.133/2021)</div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">✓</div>
+            <div>Valor estimado com base em pesquisa (Art. 18, III, Lei 14.133/2021)</div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">✓</div>
+            <div>Vinculação ao PCA verificada (Art. 18, VII, Lei 14.133/2021)</div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">✓</div>
+            <div>Dotação orçamentária indicada (Art. 72, VI, Lei 14.133/2021)</div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box pendente">!</div>
+            <div>Aguardando assinatura digital ICP-Brasil</div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         DECLARAÇÕES, TERMO DE RESPONSABILIDADE E ACEITE
+         ======================================== -->
+    <div class="declaracoes">
+        <div class="declaracoes-titulo">Declarações e Termo de Aceite</div>
+        
+        <p>O(s) signatário(s), na qualidade de agente(s) público(s), <strong>DECLARA(M)</strong> que:</p>
+        
+        <p><strong>I.</strong> As informações prestadas são verdadeiras e refletem a real necessidade da Administração (Dec. 10.947/2022, Art. 7º);</p>
+        
+        <p><strong>II.</strong> Este documento foi elaborado em observância aos princípios da legalidade, impessoalidade, moralidade e eficiência (CF/88, Art. 37 c/c Lei 14.133/2021, Art. 5º);</p>
+        
+        <p><strong>III.</strong> Não possuo conflito de interesses nem vínculo com potenciais fornecedores que possa comprometer a imparcialidade do processo (Lei 14.133/2021, Art. 9º);</p>
+        
+        <p><strong>IV.</strong> Tenho ciência dos deveres funcionais e das responsabilidades inerentes à minha atuação em processos de contratação pública;</p>
+        
+        <p><strong>V.</strong> Este documento foi elaborado com auxílio de ferramenta tecnológica, cabendo ao signatário a validação do conteúdo (Lei 14.133/2021, Art. 11, IV);</p>
+        
+        <p><strong>VI.</strong> Aceito as condições declaradas e autorizo o prosseguimento do processo, ciente de que os dados poderão ser compartilhados com órgãos de controle para fins de fiscalização.</p>
+        
+        <p class="text-small text-muted mt-10"><em>Base legal: CF/88, Art. 37 | Lei 14.133/2021 | Dec. 10.947/2022 | Lei 12.813/2013</em></p>
+    </div>
+
+    <!-- ========================================
+         ASSINATURAS
+         ======================================== -->
+    <div class="assinaturas">
+        <div class="assinatura-bloco">
+            <div class="assinatura-cargo">Elaboração</div>
+            <div class="assinatura-linha">
+                <div class="assinatura-nome">Maria Silva Santos</div>
+                <div class="assinatura-info">Coordenadora de TI | Mat. 12345</div>
+                <div class="assinatura-info">Assinatura ICP-Brasil</div>
+            </div>
+        </div>
+        
+        <div class="assinatura-bloco">
+            <div class="assinatura-cargo">Validação / Autoridade</div>
+            <div class="assinatura-linha">
+                <div class="assinatura-nome">João Pedro Oliveira</div>
+                <div class="assinatura-info">Secretário de Administração | Mat. 00123</div>
+                <div class="assinatura-info">Assinatura ICP-Brasil</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         CONTROLE DE VERSÕES
+         ======================================== -->
+    <div class="versoes">
+        <div class="versoes-titulo">Controle de Versões</div>
+        <table class="tabela" style="font-size: 8pt;">
+            <thead>
+                <tr>
+                    <th>Versão</th>
+                    <th>Data</th>
+                    <th>Autor</th>
+                    <th>Modificações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1.0</td>
+                    <td>29/01/2026</td>
+                    <td>Maria Silva Santos</td>
+                    <td>Versão inicial do documento</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ========================================
+         TRILHA DA CONTRATAÇÃO
+         ======================================== -->
+    <div class="trilha">
+        <div class="trilha-titulo">Trilha da Contratação Pública</div>
+        
+        <div class="trilha-progresso">
+            <div class="trilha-progresso-barra" style="width: 20%;"></div>
+        </div>
+        
+        <div class="trilha-etapas">
+            <div class="trilha-etapa concluida">
+                <div class="icone">✓</div>
+                PCA
+            </div>
+            <div class="trilha-etapa atual">
+                <div class="icone">●</div>
+                DFD
+            </div>
+            <div class="trilha-etapa">
+                <div class="icone">○</div>
+                ETP
+            </div>
+            <div class="trilha-etapa">
+                <div class="icone">○</div>
+                PP
+            </div>
+            <div class="trilha-etapa">
+                <div class="icone">○</div>
+                TR
+            </div>
+            <div class="trilha-etapa">
+                <div class="icone">○</div>
+                MR
+            </div>
+            <div class="trilha-etapa">
+                <div class="icone">○</div>
+                LIC
+            </div>
+            <div class="trilha-etapa">
+                <div class="icone">○</div>
+                CTR
+            </div>
+            <div class="trilha-etapa">
+                <div class="icone">○</div>
+                EXE
+            </div>
+            <div class="trilha-etapa">
+                <div class="icone">○</div>
+                AVA
+            </div>
+        </div>
+        
+        <div class="trilha-info">
+        </div>
+    </div>
+
+    <!-- ========================================
+         SELO ATA360
+         ======================================== -->
+    <div class="selo-area">
+        <img src="selo_ata360.png" alt="Selo de Qualidade" class="selo-img">
+        <div class="selo-texto">
+            © 2026 Powered by ATA360
+        </div>
+    </div>
+
+</body>
+</html>

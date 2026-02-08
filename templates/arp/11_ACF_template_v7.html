@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Termo de Aceite do Fornecedor - ACF</title>
+    <style>
+        @page { size: A4; margin: 22mm; @bottom-center { content: "Página " counter(page); font-family: 'Palatino Linotype', serif; font-size: 9pt; color: #666; } }
+        :root { --azul-primario: #1e3a5f; --azul-claro: #e8f0f8; --verde: #276749; --cinza-escuro: #2d3748; --cinza-medio: #4a5568; --cinza-claro: #f7fafc; --cinza-linha: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Palatino Linotype', serif; font-size: 11pt; line-height: 1.7; color: var(--cinza-escuro); }
+        .header { display: flex; justify-content: space-between; padding-bottom: 14pt; border-bottom: 2.5pt solid var(--verde); margin-bottom: 20pt; }
+        .header-left .titulo-doc { font-size: 14pt; font-weight: bold; color: var(--verde); }
+        .header-left .subtitulo { font-size: 9pt; color: var(--cinza-medio); }
+        .logo-empresa { width: 80pt; height: 50pt; border: 1pt dashed var(--cinza-linha); display: flex; align-items: center; justify-content: center; font-size: 8pt; color: var(--cinza-medio); }
+        .doc-tipo { background: var(--verde); color: white; padding: 12pt 16pt; margin-bottom: 16pt; text-align: center; }
+        .doc-tipo .titulo { font-size: 16pt; font-weight: bold; }
+        .doc-tipo .subtitulo { font-size: 9pt; opacity: 0.9; margin-top: 4pt; }
+        .fundamentacao { background: var(--cinza-claro); border-left: 3pt solid var(--verde); padding: 10pt; margin-bottom: 16pt; font-size: 8.5pt; color: var(--cinza-medio); }
+        .info-box { display: flex; justify-content: space-between; background: var(--cinza-claro); padding: 10pt; margin-bottom: 20pt; font-size: 9pt; }
+        .info-box div { text-align: center; }
+        .info-box .label { font-size: 8pt; color: var(--cinza-medio); text-transform: uppercase; }
+        .info-box .valor { font-weight: bold; color: var(--verde); }
+        .secao { margin-bottom: 20pt; }
+        .secao-titulo { font-size: 11pt; font-weight: bold; color: var(--azul-primario); border-bottom: 2pt solid var(--azul-primario); padding-bottom: 6pt; margin-bottom: 12pt; }
+        .campo { margin-bottom: 10pt; }
+        .campo-label { font-size: 9pt; font-weight: bold; color: var(--cinza-medio); margin-bottom: 3pt; }
+        .campo-valor { font-size: 10pt; background: var(--cinza-claro); padding: 8pt; border: 1pt solid var(--cinza-linha); }
+        .campo-inline { display: flex; gap: 16pt; }
+        .campo-inline .campo { flex: 1; }
+        .tabela { width: 100%; border-collapse: collapse; margin: 12pt 0; font-size: 9pt; }
+        .tabela th { background: var(--azul-primario); color: white; padding: 8pt; text-align: left; }
+        .tabela td { padding: 8pt; border: 1pt solid var(--cinza-linha); }
+        .tabela .valor { text-align: right; }
+        .tabela tfoot tr { background: #d4edda; font-weight: bold; }
+        .aceite-box { background: #d4edda; border: 2pt solid var(--verde); padding: 16pt; margin: 20pt 0; }
+        .aceite-box .titulo { font-size: 14pt; font-weight: bold; color: var(--verde); text-align: center; margin-bottom: 12pt; }
+        .aceite-box .texto { font-size: 10pt; text-align: justify; }
+        .aceite-box .checkbox { display: flex; align-items: flex-start; margin-top: 12pt; }
+        .aceite-box .checkbox-box { width: 18pt; height: 18pt; border: 2pt solid var(--verde); margin-right: 10pt; display: flex; align-items: center; justify-content: center; font-size: 14pt; font-weight: bold; color: var(--verde); }
+        .declaracoes { background: var(--cinza-claro); padding: 14pt; margin: 16pt 0; font-size: 9pt; }
+        .declaracoes-titulo { font-weight: bold; color: var(--azul-primario); margin-bottom: 10pt; }
+        .declaracoes p { margin-bottom: 6pt; }
+        .assinaturas { margin-top: 30pt; }
+        .assinatura-bloco { border: 1pt solid var(--cinza-linha); padding: 16pt; margin-bottom: 16pt; }
+        .assinatura-titulo { font-size: 9pt; font-weight: bold; color: var(--verde); text-transform: uppercase; margin-bottom: 30pt; }
+        .assinatura-linha { border-top: 1pt solid var(--cinza-escuro); padding-top: 8pt; width: 300pt; }
+        .assinatura-info { font-size: 9pt; color: var(--cinza-medio); }
+        .selo { text-align: center; margin-top: 30pt; padding-top: 16pt; border-top: 1pt solid var(--cinza-linha); font-size: 8pt; color: var(--cinza-medio); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="titulo-doc">TERMO DE ACEITE DO FORNECEDOR</div>
+            <div class="subtitulo">Adesão à Ata de Registro de Preços - Lei 14.133/2021</div>
+        </div>
+        <div class="logo-empresa">LOGO<br>EMPRESA</div>
+    </div>
+
+    <div class="doc-tipo">
+        <div class="titulo">✓ ACEITE DE FORNECIMENTO</div>
+        <div class="subtitulo">Confirmação de fornecimento nas condições da ARP</div>
+    </div>
+
+    <div class="fundamentacao">
+        <strong>Base Legal:</strong> Lei 14.133/2021, Art. 86, §3º e Art. 90 | Decreto 11.462/2023, Arts. 30 a 32
+    </div>
+
+    <div class="info-box">
+        <div><div class="label">Termo Nº</div><div class="valor">{{aceite_numero}}</div></div>
+        <div><div class="label">ARP Nº</div><div class="valor">{{arp_numero}}</div></div>
+        <div><div class="label">Data</div><div class="valor">{{data_documento}}</div></div>
+    </div>
+
+    <!-- IDENTIFICAÇÃO DO FORNECEDOR -->
+    <div class="secao">
+        <div class="secao-titulo">1. Identificação do Fornecedor</div>
+        <div class="campo">
+            <div class="campo-label">Razão Social</div>
+            <div class="campo-valor">{{fornecedor_razao_social}}</div>
+        </div>
+        <div class="campo-inline">
+            <div class="campo">
+                <div class="campo-label">CNPJ</div>
+                <div class="campo-valor">{{fornecedor_cnpj}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">Inscrição Estadual</div>
+                <div class="campo-valor">{{fornecedor_ie}}</div>
+            </div>
+        </div>
+        <div class="campo">
+            <div class="campo-label">Endereço</div>
+            <div class="campo-valor">{{fornecedor_endereco}}</div>
+        </div>
+        <div class="campo-inline">
+            <div class="campo">
+                <div class="campo-label">Telefone</div>
+                <div class="campo-valor">{{fornecedor_telefone}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">E-mail</div>
+                <div class="campo-valor">{{fornecedor_email}}</div>
+            </div>
+        </div>
+        <div class="campo">
+            <div class="campo-label">Representante Legal</div>
+            <div class="campo-valor">{{fornecedor_representante}} - CPF: {{representante_cpf}}</div>
+        </div>
+    </div>
+
+    <!-- REFERÊNCIA -->
+    <div class="secao">
+        <div class="secao-titulo">2. Referência da Solicitação</div>
+        <div class="campo-inline">
+            <div class="campo">
+                <div class="campo-label">Órgão Solicitante</div>
+                <div class="campo-valor">{{ente_nome}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">Processo</div>
+                <div class="campo-valor">{{processo_numero}}</div>
+            </div>
+        </div>
+        <div class="campo-inline">
+            <div class="campo">
+                <div class="campo-label">Ofício de Consulta</div>
+                <div class="campo-valor">{{oficio_referencia}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">Autorização Gerenciador</div>
+                <div class="campo-valor">{{autorizacao_numero}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ITENS ACEITOS -->
+    <div class="secao">
+        <div class="secao-titulo">3. Itens e Quantidades Aceitos</div>
+        <table class="tabela">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Descrição</th>
+                    <th>Und</th>
+                    <th>Qtde</th>
+                    <th class="valor">Valor Unit.</th>
+                    <th class="valor">Valor Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{item1_numero}}</td>
+                    <td>{{item1_descricao}}</td>
+                    <td>{{item1_unidade}}</td>
+                    <td>{{item1_quantidade}}</td>
+                    <td class="valor">R$ {{item1_valor_unit}}</td>
+                    <td class="valor">R$ {{item1_valor_total}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: right;">VALOR TOTAL ACEITO:</td>
+                    <td class="valor">R$ {{valor_total}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- CONDIÇÕES -->
+    <div class="secao">
+        <div class="secao-titulo">4. Condições de Fornecimento</div>
+        <div class="campo-inline">
+            <div class="campo">
+                <div class="campo-label">Prazo de Entrega</div>
+                <div class="campo-valor">{{prazo_entrega}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">Local de Entrega</div>
+                <div class="campo-valor">{{local_entrega}}</div>
+            </div>
+        </div>
+        <div class="campo">
+            <div class="campo-label">Condições de Pagamento</div>
+            <div class="campo-valor">Conforme condições estabelecidas na ARP original</div>
+        </div>
+        <div class="campo">
+            <div class="campo-label">Validade desta Proposta</div>
+            <div class="campo-valor">{{validade_proposta}} dias, a contar desta data</div>
+        </div>
+    </div>
+
+    <!-- TERMO DE ACEITE -->
+    <div class="aceite-box">
+        <div class="titulo">✓ TERMO DE ACEITE</div>
+        <div class="texto">
+            <p>A empresa acima identificada, por seu representante legal abaixo assinado, declara que <strong>ACEITA</strong> fornecer os itens e quantidades especificados, nas mesmas condições registradas na Ata de Registro de Preços nº {{arp_numero}}, comprometendo-se a:</p>
+        </div>
+        <div class="checkbox">
+            <div class="checkbox-box">✓</div>
+            <div>Manter as especificações técnicas e padrões de qualidade estabelecidos na ARP;</div>
+        </div>
+        <div class="checkbox">
+            <div class="checkbox-box">✓</div>
+            <div>Praticar os preços registrados, sem quaisquer acréscimos;</div>
+        </div>
+        <div class="checkbox">
+            <div class="checkbox-box">✓</div>
+            <div>Cumprir o prazo de entrega indicado neste termo;</div>
+        </div>
+        <div class="checkbox">
+            <div class="checkbox-box">✓</div>
+            <div>Assumir todas as obrigações estabelecidas na ARP original e no edital que a originou.</div>
+        </div>
+    </div>
+
+    <!-- DECLARAÇÕES -->
+    <div class="declaracoes">
+        <div class="declaracoes-titulo">Declarações Obrigatórias</div>
+        <p><strong>I.</strong> Declaramos que não fomos declarados inidôneos para licitar ou contratar com a Administração Pública;</p>
+        <p><strong>II.</strong> Declaramos inexistência de fato impeditivo à nossa habilitação;</p>
+        <p><strong>III.</strong> Declaramos que não possuímos em nosso quadro societário servidor público da ativa ou empregado de empresa pública ou sociedade de economia mista;</p>
+        <p><strong>IV.</strong> Declaramos ciência de que a recusa injustificada em assinar o contrato ou retirar o instrumento equivalente poderá ensejar as sanções previstas no Art. 155 da Lei 14.133/2021.</p>
+    </div>
+
+    <!-- ASSINATURAS -->
+    <div class="assinaturas">
+        <div class="assinatura-bloco">
+            <div class="assinatura-titulo">Representante Legal do Fornecedor</div>
+            <div class="assinatura-linha">
+                <div style="font-weight: bold;">{{fornecedor_representante}}</div>
+                <div class="assinatura-info">CPF: {{representante_cpf}}</div>
+                <div class="assinatura-info">Cargo: {{representante_cargo}}</div>
+            </div>
+            <div style="margin-top: 10pt; font-size: 9pt; color: var(--cinza-medio);">
+                Local: {{fornecedor_cidade}}, {{data_documento}}
+            </div>
+        </div>
+    </div>
+
+    <div class="selo">
+        © 2026 ATA360 - Sistema de Inteligência em Contratações Públicas<br>
+        ID: {{rastreabilidade_id}} | Hash: {{hash_documento}}
+    </div>
+</body>
+</html>
