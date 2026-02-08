@@ -328,20 +328,9 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
               {/* Content Area - Centered */}
               <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="max-w-2xl w-full text-center">
-                  {/* ============================================================
-                      SHINE EFFECT — APPROVED & LOCKED
-                      DO NOT MODIFY without explicit approval.
-                      Diagonal light bar sweeps across logo every 6s.
-                      Params: rotate(20deg), translateX(-300%→700%),
-                      overlay blend, 25% width, 0.45 peak opacity.
-                      ============================================================ */}
-                  <style dangerouslySetInnerHTML={{ __html: `
-                    @keyframes logoShine {
-                      0% { transform: rotate(20deg) translateX(-300%); }
-                      55% { transform: rotate(20deg) translateX(-300%); }
-                      100% { transform: rotate(20deg) translateX(700%); }
-                    }
-                  `}} />
+                  {/* SHINE EFFECT — APPROVED & LOCKED
+                      @keyframes logoShine lives in globals.css
+                      DO NOT MODIFY without explicit approval. */}
                   <div className="mb-6 animate-hero-scale-in">
                     <div
                       className="relative mx-auto overflow-hidden"
@@ -362,7 +351,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                           width: "25%",
                           height: "200%",
                           background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 48%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.2) 52%, rgba(255,255,255,0) 100%)",
-                          mixBlendMode: "overlay",
+                          mixBlendMode: "overlay" as React.CSSProperties["mixBlendMode"],
                           animation: "logoShine 6s ease-in-out infinite",
                           transform: "rotate(20deg) translateX(-300%)",
                         }}

@@ -286,6 +286,16 @@
   border-radius: 3px;
 }
 
+/* ─── LOGO SHINE — APPROVED & LOCKED ─────────────────────────────────────── */
+/* Diagonal light bar sweeps across logo every 6s.
+   rotate(20deg), translateX(-300%→700%), 25% width.
+   DO NOT MODIFY without explicit approval. */
+@keyframes logoShine {
+  0% { transform: rotate(20deg) translateX(-300%); }
+  55% { transform: rotate(20deg) translateX(-300%); }
+  100% { transform: rotate(20deg) translateX(700%); }
+}
+
 /* Hero entrance animations */
 @keyframes hero-fade-up {
   from {
