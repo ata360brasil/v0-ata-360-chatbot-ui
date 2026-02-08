@@ -237,9 +237,9 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
                           e.stopPropagation();
                           handleLogoutClick();
                         }}
-                        className="size-8 rounded-full hover:bg-red-500/15 cursor-pointer"
+                        className="size-8 rounded-full bg-red-500 hover:bg-red-700 dark:hover:bg-red-400 cursor-pointer"
                       >
-                        <Power className="size-4 text-red-500 hover:text-red-400" />
+                        <Power className="size-4 text-white" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent side="right" sideOffset={12}>Sair do ATA360</TooltipContent>
