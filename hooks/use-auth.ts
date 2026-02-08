@@ -3,13 +3,12 @@
 /**
  * useAuth — hook para estado de autenticação Supabase.
  *
- * Escuta onAuthStateChange para reagir a login/logout em tempo real.
- * Inclui dados do usuário Gov.br (CPF, órgão, role).
+ * Resiliente: se Supabase não estiver configurado, retorna user=null, loading=false.
  *
  * @see Paul Copplestone — Supabase Auth Helpers for Next.js
  */
 import { useEffect, useState, useCallback } from "react"
-import { createClient } from "@/lib/supabase/client"
+import { isSupabaseConfigured } from "@/lib/supabase/client"
 import { logger } from "@/lib/observability"
 import { audit } from "@/lib/audit"
 import type { User } from "@supabase/supabase-js"
@@ -47,35 +46,47 @@ export function useAuth() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const supabase = createClient()
-
-    // Get initial session
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setUser(mapUser(user))
+    if (!isSupabaseConfigured()) {
       setLoading(false)
+      return
+    }
+
+    import("@/lib/supabase/client").then(({ createClient }) => {
+      const supabase = createClient()
+
+      // Get initial session
+      supabase.auth.getUser().then(({ data: { user: u } }) => {
+        setUser(mapUser(u))
+        setLoading(false)
+      })
+
+      // Listen for auth changes
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange((_event, session) => {
+        const mapped = mapUser(session?.user ?? null)
+        setUser(mapped)
+        setLoading(false)
+
+        if (_event === "SIGNED_IN" && mapped) {
+          logger.info("Auth: user signed in", { userId: mapped.id, role: mapped.role })
+          audit("auth.login", { details: { role: mapped.role, orgao_id: mapped.orgao_id } })
+        } else if (_event === "SIGNED_OUT") {
+          logger.info("Auth: user signed out")
+          audit("auth.logout")
+        }
+      })
+
+      return () => subscription.unsubscribe()
     })
-
-    // Listen for auth changes (login, logout, token refresh)
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      const mapped = mapUser(session?.user ?? null)
-      setUser(mapped)
-      setLoading(false)
-
-      if (_event === "SIGNED_IN" && mapped) {
-        logger.info("Auth: user signed in", { userId: mapped.id, role: mapped.role })
-        audit("auth.login", { details: { role: mapped.role, orgao_id: mapped.orgao_id } })
-      } else if (_event === "SIGNED_OUT") {
-        logger.info("Auth: user signed out")
-        audit("auth.logout")
-      }
-    })
-
-    return () => subscription.unsubscribe()
   }, [])
 
   const signOut = useCallback(async () => {
+    if (!isSupabaseConfigured()) {
+      window.location.href = "/login"
+      return
+    }
+    const { createClient } = await import("@/lib/supabase/client")
     const supabase = createClient()
     await supabase.auth.signOut()
     window.location.href = "/login"
