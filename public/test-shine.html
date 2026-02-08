@@ -43,18 +43,13 @@
       background: linear-gradient(
         90deg,
         transparent 0%,
-        rgba(255,255,255,0.7) 50%,
+        rgba(255,255,255,0.8) 50%,
         transparent 100%
       );
       transform: skewX(-20deg);
+      mix-blend-mode: overlay;
       pointer-events: none;
       animation: shine 5s ease-in-out infinite;
-      opacity: 0.5;
-    }
-
-    /* No dark mode, barra mais sutil */
-    .dark .shine-bar {
-      opacity: 0.2;
     }
 
     @keyframes shine {
