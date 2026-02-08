@@ -38,28 +38,28 @@
       position: absolute;
       top: 0;
       left: -50%;
-      width: 40%;
+      width: 35%;
       height: 100%;
-      /* Gradiente com bordas ultra-suaves: fade longo em ambos os lados */
       background: linear-gradient(
         90deg,
         transparent 0%,
-        rgba(255,255,255,0.08) 15%,
-        rgba(255,255,255,0.35) 45%,
-        rgba(255,255,255,0.35) 55%,
-        rgba(255,255,255,0.08) 85%,
+        rgba(255,255,255,0.7) 50%,
         transparent 100%
       );
-      transform: skewX(-15deg);
-      mix-blend-mode: soft-light;
+      transform: skewX(-20deg);
       pointer-events: none;
       animation: shine 5s ease-in-out infinite;
+      opacity: 0.5;
+    }
+
+    /* No dark mode, barra mais sutil */
+    .dark .shine-bar {
+      opacity: 0.2;
     }
 
     @keyframes shine {
       0%, 60% { left: -50%; }
-      80%     { left: 150%; }
-      100%    { left: 150%; }
+      80%, 100% { left: 150%; }
     }
   </style>
 </head>
