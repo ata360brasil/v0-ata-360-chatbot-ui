@@ -343,18 +343,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                         height={73}
                         className="block w-full h-auto"
                       />
-                      <div
-                        className="absolute pointer-events-none"
-                        style={{
-                          top: "-50%",
-                          left: "0",
-                          width: "25%",
-                          height: "200%",
-                          background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 48%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.2) 52%, rgba(255,255,255,0) 100%)",
-                          mixBlendMode: "overlay" as React.CSSProperties["mixBlendMode"],
-                          animation: "logoShine 6s ease-in-out infinite",
-                        }}
-                      />
+                      <div className="animate-logo-shine" />
                     </div>
                   </div>
 
