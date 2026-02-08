@@ -50,13 +50,14 @@
       );
       mix-blend-mode: overlay;
       pointer-events: none;
-      transform: rotate(35deg) translateX(-150%);
+      transform: rotate(35deg) translateX(-200%);
       animation: shine 5s ease-in-out infinite;
     }
 
     @keyframes shine {
-      0%, 60% { transform: rotate(35deg) translateX(-150%); }
-      80%, 100% { transform: rotate(35deg) translateX(250%); }
+      0% { transform: rotate(35deg) translateX(-200%); }
+      60% { transform: rotate(35deg) translateX(-200%); }
+      100% { transform: rotate(35deg) translateX(500%); }
     }
   </style>
 </head>

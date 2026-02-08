@@ -331,8 +331,9 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                   {/* Logo with diagonal shine bar */}
                   <style dangerouslySetInnerHTML={{ __html: `
                     @keyframes logoShine {
-                      0%, 60% { transform: rotate(35deg) translateX(-150%); }
-                      80%, 100% { transform: rotate(35deg) translateX(250%); }
+                      0% { transform: rotate(35deg) translateX(-200%); }
+                      60% { transform: rotate(35deg) translateX(-200%); }
+                      100% { transform: rotate(35deg) translateX(500%); }
                     }
                   `}} />
                   <div className="mb-6 animate-hero-scale-in">
