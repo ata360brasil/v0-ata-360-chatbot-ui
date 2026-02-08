@@ -350,10 +350,11 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                       <div
                         className="absolute top-0 pointer-events-none"
                         style={{
-                          width: "60%",
+                          width: "40%",
                           height: "100%",
-                          background: "linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.8) 50%, transparent 80%)",
-                          animation: "logoShine 3s ease-in-out infinite",
+                          background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%)",
+                          transform: "skewX(-15deg)",
+                          animation: "logoShine 5s ease-in-out infinite",
                           left: "-60%",
                           mixBlendMode: "overlay",
                         }}
