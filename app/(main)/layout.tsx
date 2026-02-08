@@ -148,7 +148,11 @@ function MainShell({ children }: { children: React.ReactNode }) {
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={() => setArtifactsPanelOpen(!artifactsPanelOpen)}
+                  onClick={() => {
+                    const opening = !artifactsPanelOpen;
+                    setArtifactsPanelOpen(opening);
+                    if (opening) setSidebarOpen(false);
+                  }}
                   aria-label={artifactsPanelOpen ? "Fechar artefatos" : "Abrir artefatos"}
                   aria-expanded={artifactsPanelOpen}
                   className={cn(

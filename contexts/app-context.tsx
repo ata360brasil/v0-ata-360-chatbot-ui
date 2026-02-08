@@ -158,12 +158,22 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const toggleSidebar = useCallback(() => {
-    setSidebarOpen((prev) => !prev);
+    setSidebarOpen((prev) => {
+      const opening = !prev;
+      // Auto-close artifacts panel when opening sidebar
+      if (opening) {
+        setArtifactsPanelOpen(false);
+        setArtifactsWidth(DEFAULT_ARTIFACTS_WIDTH);
+      }
+      return opening;
+    });
   }, []);
 
   const openArtifact = useCallback((artifact: ArtifactData) => {
     setCurrentArtifact(artifact);
     setArtifactsPanelOpen(true);
+    // Auto-close sidebar to make room for artifacts panel
+    setSidebarOpen(false);
   }, []);
 
   const closeArtifactsPanel = useCallback(() => {
