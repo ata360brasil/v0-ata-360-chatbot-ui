@@ -314,6 +314,26 @@
   mix-blend-mode: overlay;
   animation: logoShine 6s ease-in-out infinite !important;
   will-change: transform;
+  /* Feather ALL edges so no sharp rectangular boundary is visible */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
+                      linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
+              linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* Dark mode: blue-tinted shine with screen blend — no visible box */
+.dark .animate-logo-shine {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(100, 180, 255, 0.06) 49%,
+    rgba(100, 180, 255, 0.12) 50%,
+    rgba(100, 180, 255, 0.06) 51%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
 }
 
 /* Hero entrance animations */
@@ -375,6 +395,18 @@
 
   /* Preserve the subtle shine — it's decorative, not distracting */
   .animate-logo-shine {
+    animation: logoShine 6s ease-in-out infinite !important;
+    animation-duration: 6s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+
+/* ─── LOGO SHINE: REDUCED-MOTION OVERRIDE (must be OUTSIDE @media to win) ─ */
+/* Tailwind CSS 4 may reorder rules inside @media blocks.
+   This standalone rule uses double-class specificity to guarantee it always
+   beats the * { animation-duration: 0.01ms !important } kill rule.            */
+@media (prefers-reduced-motion: reduce) {
+  .animate-logo-shine.animate-logo-shine {
     animation: logoShine 6s ease-in-out infinite !important;
     animation-duration: 6s !important;
     animation-iteration-count: infinite !important;

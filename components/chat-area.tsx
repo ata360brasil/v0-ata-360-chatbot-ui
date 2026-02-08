@@ -333,7 +333,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                       DO NOT MODIFY without explicit approval. */}
                   <div className="mb-6 animate-hero-scale-in">
                     <div
-                      className="relative mx-auto overflow-hidden"
+                      className="relative mx-auto"
                       style={{ width: 220, height: 73 }}
                     >
                       <img
