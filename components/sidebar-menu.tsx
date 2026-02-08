@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SettingsModal } from "@/components/settings-modal";
+import { useApp } from "@/contexts/app-context";
 
 interface SidebarMenuProps {
   isOpen: boolean;
@@ -93,19 +94,22 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
   const [showThankYou, setShowThankYou] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
 
-  const userName = "Bernardo";
+  const { authUser, signOut } = useApp();
 
-  // Dashboard roles: "superadm" | "suporte" | "localadm" | "demo"
-  const userRole = "superadm" as const;
+  const userName = authUser?.nome?.split(" ")[0] ?? "Usuário";
+  const userFullName = authUser?.nome ?? "Usuário";
+  const userInitials = userFullName.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase() || "U";
+  const userRole = authUser?.role ?? "demo";
 
-  const dashboardConfig = {
+  const dashboardConfig: Record<string, { label: string; badge: string; badgeColor: string }> = {
     superadm: { label: "Dashboard", badge: "SuperADM", badgeColor: "bg-primary text-white" },
     suporte: { label: "Dashboard", badge: "Suporte", badgeColor: "bg-emerald-600 text-white" },
     localadm: { label: "Dashboard", badge: "LocalADM", badgeColor: "bg-foreground/10 text-foreground" },
+    servidor: { label: "Dashboard", badge: "Servidor", badgeColor: "bg-blue-600 text-white" },
     demo: { label: "Dashboard", badge: "DEMO", badgeColor: "bg-amber-500 text-white" },
   };
 
-  const currentDashboard = dashboardConfig[userRole];
+  const currentDashboard = dashboardConfig[userRole] ?? dashboardConfig.demo;
 
   const handleLogoutClick = () => {
     setLogoutModal(true);
@@ -120,6 +124,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
     setTimeout(() => {
       setShowThankYou(false);
       setLogoutModal(false);
+      signOut();
     }, 2500);
   };
 
@@ -198,14 +203,14 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
               {/* User Info */}
               <div className="flex items-center gap-3 p-2 rounded-full hover:bg-muted cursor-pointer transition-colors group">
                 <Avatar className="size-10 shrink-0">
-                  <AvatarImage src="/images/bernardo-aguiar.jpg" alt="Foto do usuário" />
+                  <AvatarImage src={authUser?.avatar_url ?? "/images/bernardo-aguiar.jpg"} alt="Foto do usuário" />
                   <AvatarFallback className="bg-primary/10 text-primary text-sm font-medium">
-                    BA
+                    {userInitials}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-foreground truncate">
-                    Bernardo Aguiar
+                    {userFullName}
                   </p>
                   <p className="text-[11px] text-muted-foreground truncate">
                     ATA360
@@ -217,6 +222,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Configurações"
                         onClick={(e) => {
                           e.stopPropagation();
                           setSettingsOpen(true);
@@ -233,13 +239,14 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Sair do ATA360"
                         onClick={(e) => {
                           e.stopPropagation();
                           handleLogoutClick();
                         }}
-                        className="size-8 rounded-full hover:bg-red-800 dark:hover:bg-muted cursor-pointer"
+                        className="size-8 rounded-full hover:bg-foreground dark:hover:bg-muted cursor-pointer group/logout"
                       >
-                        <Power className="size-4 text-red-500" />
+                        <Power className="size-4 text-muted-foreground group-hover/logout:text-background dark:group-hover/logout:text-red-500" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent side="right" sideOffset={12}>Sair do ATA360</TooltipContent>
@@ -256,7 +263,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
 
       {/* Logout Confirmation Modal */}
       {logoutModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div role="dialog" aria-modal="true" aria-labelledby="logout-dialog-title" className="fixed inset-0 z-50 flex items-center justify-center">
           <div
             className="absolute inset-0 bg-black/40"
             onClick={() => !showThankYou && setLogoutModal(false)}
@@ -264,7 +271,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
           <div className="relative bg-background border border-border/50 rounded-2xl w-[90vw] max-w-sm shadow-lg">
             {showThankYou ? (
               /* Thank you screen */
-              <div className="px-6 py-10 text-center">
+              <div className="px-6 py-10 text-center" role="status" aria-live="polite">
                 <p className="text-sm font-semibold text-foreground">
                   Agradecemos você, {userName}, por confiar e fazer parte do ATA360.
                 </p>
@@ -278,7 +285,7 @@ export function SidebarMenu({ isOpen, onClose, onMenuItemClick }: SidebarMenuPro
                 <div className="flex items-center justify-between px-5 py-4 border-b border-border/30">
                   <div className="flex items-center gap-2">
                     <Power className="size-4 text-foreground" />
-                    <span className="text-sm font-semibold text-foreground">SAIR DO ATA360</span>
+                    <span id="logout-dialog-title" className="text-sm font-semibold text-foreground">SAIR DO ATA360</span>
                   </div>
                   <button
                     onClick={() => setLogoutModal(false)}

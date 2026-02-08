@@ -129,14 +129,65 @@ export type AuditorResult = z.infer<typeof auditorResultSchema>
 // ─── Document Types (Part 18 — Catálogo de Artefatos) ───────────────────────
 
 export const ArtifactType = {
+  // 14 existentes (v7.1 Monostate)
   PCA: 'PCA', DFD: 'DFD', ETP: 'ETP', PP: 'PP', TR: 'TR',
   MR: 'MR', JCD: 'JCD', ARP: 'ARP', OFG: 'OFG', AUG: 'AUG',
   OFF: 'OFF', ACF: 'ACF', COM: 'COM', REC: 'REC',
-  // P0 novos
+  // 6 P0 novos (YAML pronto, zero codigo)
   CDF: 'CDF', ALF: 'ALF', ALP: 'ALP', ALV: 'ALV', RPP: 'RPP', PAU: 'PAU',
+  // 11 P1 (YAML pendente, 3-5 endpoints)
+  EDL: 'EDL', MIN: 'MIN', PJU: 'PJU', CTR: 'CTR', OSD: 'OSD',
+  DFI: 'DFI', TAR: 'TAR', RFI: 'RFI', RAC: 'RAC', DRC: 'DRC', RRE: 'RRE',
 } as const
 
 export type ArtifactType = (typeof ArtifactType)[keyof typeof ArtifactType]
+
+// Trilha de documentos por modalidade (Part 20.8)
+export const TRILHA_DOCUMENTOS: Record<string, ArtifactType[]> = {
+  pregao: ['PCA', 'DFD', 'ETP', 'PP', 'TR', 'MR', 'JCD'],
+  dispensa: ['DFD', 'JCD'],
+  arp: ['PCA', 'DFD', 'ETP', 'PP', 'TR', 'MR', 'JCD', 'OFG', 'AUG', 'OFF', 'ACF', 'COM', 'REC', 'ARP'],
+  credenciamento: ['DFD', 'ETP', 'TR', 'EDL'],
+}
+
+// ─── Normativos Aplicáveis ─────────────────────────────────────────────────
+
+export const Normativo = {
+  LEI_14133: 'Lei 14.133/2021',
+  DEC_12807: 'Dec. 12.807/2025',
+  DEC_11878: 'Dec. 11.878/2024',
+  IN_SEGES_75: 'IN SEGES 75/2024',
+  IN_SEGES_52: 'IN SEGES/MGI 52/2025',
+  IN_SGD_94: 'IN SGD 94/2022',
+  MANUAL_TCU_5: 'Manual TCU 5ª Ed. (2025)',
+  LINDB: 'Lei 13.655/2018 (LINDB)',
+  LGPD: 'Lei 13.709/2018 (LGPD)',
+  DEC_7746: 'Dec. 7.746/2012',
+  DEC_10947: 'Dec. 10.947/2022',
+} as const
+
+export type Normativo = (typeof Normativo)[keyof typeof Normativo]
+
+// Quais normativos se aplicam a cada artefato
+export const NORMATIVOS_POR_ARTEFATO: Partial<Record<ArtifactType, Normativo[]>> = {
+  DFD: ['Lei 14.133/2021', 'Dec. 10.947/2022'],
+  ETP: ['Lei 14.133/2021', 'Dec. 12.807/2025', 'Lei 13.655/2018 (LINDB)', 'IN SEGES 75/2024', 'Dec. 7.746/2012'],
+  PP: ['Lei 14.133/2021', 'Dec. 12.807/2025', 'IN SEGES/MGI 52/2025'],
+  TR: ['Lei 14.133/2021', 'IN SEGES/MGI 52/2025'],
+  JCD: ['Lei 14.133/2021', 'Dec. 12.807/2025', 'Lei 13.655/2018 (LINDB)', 'Dec. 11.878/2024'],
+  MR: ['Lei 14.133/2021', 'Lei 13.655/2018 (LINDB)'],
+}
+
+// ─── LINDB (Lei 13.655/2018) — Proteção do Gestor ──────────────────────────
+
+export const LINDB_ARTIGOS = {
+  ART_20: { artigo: 'Art. 20', ementa: 'Decisões com base em consequências práticas' },
+  ART_21: { artigo: 'Art. 21', ementa: 'Regime de transição proporcional' },
+  ART_22: { artigo: 'Art. 22', ementa: 'Consideração de dificuldades reais do gestor' },
+  ART_23: { artigo: 'Art. 23', ementa: 'Regime de transição para mudanças de lei' },
+  ART_28: { artigo: 'Art. 28', ementa: 'Responsabilização pessoal só com dolo/erro grosseiro' },
+  ART_30: { artigo: 'Art. 30', ementa: 'Compensação por invalidade retroativa' },
+} as const
 
 // ─── Process Current State (for AppContext) ─────────────────────────────────
 

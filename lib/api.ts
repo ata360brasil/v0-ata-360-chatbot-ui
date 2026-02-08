@@ -211,7 +211,7 @@ export const insight = {
   cards: (processoId: string) =>
     apiFetch<{
       cards: Array<{
-        tipo: 'preco' | 'arp' | 'emenda' | 'jurisprudencia' | 'alerta'
+        tipo: 'preco' | 'arp' | 'emenda' | 'jurisprudencia' | 'alerta' | 'recurso' | 'sancao' | 'indice'
         titulo: string
         descricao: string
         fonte: string
@@ -219,4 +219,92 @@ export const insight = {
         relevancia: number
       }>
     }>(`/api/processo/${processoId}/insights`),
+}
+
+// ─── SERPRO API (17 serviços via Workers) ─────────────────────────────────
+
+export const serpro = {
+  cnpj: (cnpj: string) =>
+    apiFetch<{ cnpj: string; razao_social: string; situacao_cadastral: string; porte: string | null }>(`/api/serpro/cnpj/${encodeURIComponent(cnpj)}`),
+
+  cpf: (cpf: string) =>
+    apiFetch<{ cpf: string; nome: string; situacao_cadastral: string }>(`/api/serpro/cpf/${encodeURIComponent(cpf)}`),
+
+  cnd: (cnpj: string) =>
+    apiFetch<{ situacao: string; data_validade: string; numero_certidao: string | null }>(`/api/serpro/cnd/${encodeURIComponent(cnpj)}`),
+
+  dividaAtiva: (cnpj: string) =>
+    apiFetch<{ total_divida: number; inscricoes: Array<{ numero: string; valor: number; situacao: string }> }>(`/api/serpro/divida-ativa/${encodeURIComponent(cnpj)}`),
+
+  datavalid: (cpf: string, dados: Record<string, unknown>) =>
+    apiFetch<{ nome_valido: boolean; data_nascimento_valida: boolean }>('/api/serpro/datavalid', {
+      method: 'POST',
+      body: { cpf, ...dados },
+    }),
+
+  carimboTempo: (hash: string, documentoId: string) =>
+    apiFetch<{ timestamp: string; assinatura_tempo: string; tsa_serial: string }>('/api/serpro/carimbo-tempo', {
+      method: 'POST',
+      body: { hash_sha256: hash, documento_id: documentoId },
+    }),
+
+  neoSigner: (documentoId: string) =>
+    apiFetch<{ assinatura: string; certificado_emissor: string; valido_ate: string }>('/api/serpro/neosigner', {
+      method: 'POST',
+      body: { documento_id: documentoId },
+    }),
+}
+
+// ─── Government APIs (via Workers proxy) ──────────────────────────────────
+
+export const gov = {
+  // Portal Transparência — sanções (CEIS, CNEP, CEPIM, CEAF)
+  sancoes: (cnpj: string) =>
+    apiFetch<{ sancoes: Array<{ tipo: string; razao_social: string; fundamentacao: string }> }>(`/api/gov/sancoes/${encodeURIComponent(cnpj)}`),
+
+  // TransfereGov — convênios
+  convenios: (municipioIbge: string) =>
+    apiFetch<{ convenios: Array<{ numero: string; situacao: string; valor_global: number }> }>(`/api/gov/convenios/${encodeURIComponent(municipioIbge)}`),
+
+  // IBGE — dados do município
+  municipio: (codigoIbge: string) =>
+    apiFetch<{ nome: string; uf: string; populacao: number | null; pib_per_capita: number | null; idh: number | null }>(`/api/gov/ibge/${encodeURIComponent(codigoIbge)}`),
+
+  // TCU — jurisprudência
+  acordaos: (termo: string, params?: { pagina?: number }) =>
+    apiFetch<{ acordaos: Array<{ numero: string; ano: number; ementa: string; relevancia: number }> }>(`/api/gov/tcu/acordaos?termo=${encodeURIComponent(termo)}&pagina=${params?.pagina ?? 1}`),
+
+  // BCB — índices econômicos (IPCA, IGP-M, Selic, Dólar)
+  indice: (serie: 'IPCA' | 'IGPM' | 'SELIC' | 'DOLAR') =>
+    apiFetch<{ serie: string; valor: number; data: string }>(`/api/gov/bcb/${serie.toLowerCase()}`),
+
+  // SICONFI / Tesouro — dados fiscais do ente
+  siconfi: (municipioIbge: string, exercicio: number) =>
+    apiFetch<{ receita_corrente_liquida: number | null; despesa_pessoal_percentual: number | null }>(`/api/gov/siconfi/${encodeURIComponent(municipioIbge)}/${exercicio}`),
+
+  // FNS — repasses saúde
+  fnsRepasses: (municipioIbge: string) =>
+    apiFetch<{ repasses: Array<{ bloco: string; valor: number; competencia: string; status: string }> }>(`/api/gov/fns/${encodeURIComponent(municipioIbge)}`),
+
+  // FNDE — programas educação
+  fndeProgramas: (municipioIbge: string) =>
+    apiFetch<{ programas: Array<{ programa: string; valor_previsto: number; valor_repassado: number }> }>(`/api/gov/fnde/${encodeURIComponent(municipioIbge)}`),
+
+  // Radar de Recursos (cruzamento de todas as fontes)
+  radarRecursos: (municipioIbge: string) =>
+    apiFetch<{
+      recursos: Array<{
+        fonte: string
+        descricao: string
+        valor: number
+        status: string
+        data_limite: string | null
+        acao_sugerida: string | null
+      }>
+      totais: {
+        disponivel: number
+        em_risco: number
+        subutilizado: number
+      }
+    }>(`/api/gov/radar/${encodeURIComponent(municipioIbge)}`),
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react"
+import Image from "next/image"
 import { TrendingUp } from "lucide-react";
 
 import { useState, useRef, useEffect } from "react";
@@ -23,6 +24,9 @@ import {
 import type { ArtifactData } from "@/components/artifacts-panel";
 import { DFDDocument } from "@/components/artifacts/dfd-document";
 import { dfdSacoLixoData } from "@/lib/examples/dfd-saco-lixo";
+import { chat as chatApi, type ChatMessage } from "@/lib/api";
+import { useApp } from "@/contexts/app-context";
+import { logger } from "@/lib/observability";
 
 
 interface Message {
@@ -110,6 +114,7 @@ const dfdProcessingSteps = [
 ];
 
 export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAreaProps) {
+  const { currentProcess, carregarProcesso } = useApp();
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -166,109 +171,123 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
   const handleSendMessage = () => {
     if (!inputValue.trim()) return;
 
+    const mensagem = inputValue;
     const userMessage: Message = {
       id: Date.now().toString(),
       role: "user",
-      content: inputValue,
+      content: mensagem,
     };
 
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
-    
+
     if (!hasStartedChat) {
       onStartChat();
     }
 
-    // Simulate AI response
     setIsTyping(true);
-    
-    // Check if user is asking for DFD
-    const isDFDRequest = inputValue.toLowerCase().includes("dfd") || 
-                         inputValue.toLowerCase().includes("documento de formalizacao") ||
-                         inputValue.toLowerCase().includes("formalização da demanda") ||
-                         inputValue.toLowerCase().includes("formalizacao da demanda");
-    
+
+    // Check if user is asking for DFD (show processing steps animation)
+    const isDFDRequest = mensagem.toLowerCase().includes("dfd") ||
+                         mensagem.toLowerCase().includes("documento de formalizacao") ||
+                         mensagem.toLowerCase().includes("formalização da demanda") ||
+                         mensagem.toLowerCase().includes("formalizacao da demanda");
+
     if (isDFDRequest) {
-      // Start DFD processing with steps
       setIsDFDProcessing(true);
       setProcessingStep(0);
-      
-      // Cycle through processing steps
       processingIntervalRef.current = setInterval(() => {
-        setProcessingStep((prev) => {
-          if (prev < dfdProcessingSteps.length - 1) {
-            return prev + 1;
-          }
-          return prev;
-        });
+        setProcessingStep((prev) => prev < dfdProcessingSteps.length - 1 ? prev + 1 : prev);
       }, 800);
-      
-      // Complete after all steps
-      timeoutRef.current = setTimeout(() => {
-        if (processingIntervalRef.current) {
-          clearInterval(processingIntervalRef.current);
-        }
+    }
+
+    // Call real API (BFF → Workers → Orquestrador)
+    const processoId = currentProcess?.id;
+    const apiCall = processoId
+      ? chatApi.enviar(processoId, mensagem)
+      : Promise.resolve<ChatMessage>({
+          role: 'assistant',
+          content: `Encontrei informações relevantes sobre "${mensagem}". Posso ajudá-lo a filtrar os resultados por região, modalidade ou período. Deseja refinar sua busca?`,
+        });
+
+    apiCall
+      .then((response) => {
+        if (processingIntervalRef.current) clearInterval(processingIntervalRef.current);
 
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
           role: "assistant",
-          content: `Gerei o Documento de Formalização da Demanda (DFD) conforme solicitado. O documento foi elaborado seguindo rigorosamente a Lei 14.133/2021, Decreto 10.947/2022 e IN SEGES/ME 58/2022.\n\nO DFD está pronto para visualização no painel lateral. Você pode revisar, fazer download ou solicitar ajustes. Deseja que eu modifique algum campo específico?`,
+          content: response.content,
         };
         setMessages((prev) => [...prev, assistantMessage]);
         setIsTyping(false);
         setIsDFDProcessing(false);
         setProcessingStep(0);
 
-        // Show DFD artifact
-        onOpenArtifact({
-          id: "dfd-saco-lixo",
-          type: "document",
-          title: "DFD - Saco de Lixo 100L",
-          content: <DFDDocument data={dfdSacoLixoData} />,
-          editableContent: (isEditing: boolean) => (
-            <DFDDocument data={dfdSacoLixoData} isEditing={isEditing} />
-          ),
-        });
-      }, dfdProcessingSteps.length * 800 + 500);
-    } else {
-      // Default response
-      timeoutRef.current = setTimeout(() => {
-        const assistantMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          role: "assistant",
-          content: `Encontrei informações relevantes sobre "${inputValue}". Posso ajudá-lo a filtrar os resultados por região, modalidade ou período. Deseja refinar sua busca?`,
-        };
-        setMessages((prev) => [...prev, assistantMessage]);
-        setIsTyping(false);
+        // Open artifact if response includes one
+        if (response.artifact) {
+          if (isDFDRequest || response.artifact.tipo === 'DFD') {
+            onOpenArtifact({
+              id: `dfd-${Date.now()}`,
+              type: "document",
+              title: "DFD - Saco de Lixo 100L",
+              content: <DFDDocument data={dfdSacoLixoData} />,
+              editableContent: (isEditing: boolean) => (
+                <DFDDocument data={dfdSacoLixoData} isEditing={isEditing} />
+              ),
+            });
+          }
+        } else if (isDFDRequest) {
+          // Fallback: DFD request but no artifact from API (demo mode)
+          onOpenArtifact({
+            id: "dfd-saco-lixo",
+            type: "document",
+            title: "DFD - Saco de Lixo 100L",
+            content: <DFDDocument data={dfdSacoLixoData} />,
+            editableContent: (isEditing: boolean) => (
+              <DFDDocument data={dfdSacoLixoData} isEditing={isEditing} />
+            ),
+          });
+        }
 
-        // Show example artifact
-        onOpenArtifact({
-          id: "1",
-          type: "table",
-          title: "Resultados da Pesquisa",
-          content: (
-            <div className="rounded-lg bg-muted p-4">
-<p className="text-sm text-muted-foreground mb-4">
-                                Exemplo de resultado de pesquisa - tabela de preços praticados
-                              </p>
-              <div className="space-y-2">
-                {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="bg-background p-3 rounded-lg border border-border/50"
-                  >
-                    <p className="font-medium text-foreground">Item {i}</p>
-<p className="text-sm text-muted-foreground">
-                                      Preço médio: R$ {(Math.random() * 1000).toFixed(2)}
-                                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ),
-        });
-      }, 1500);
-    }
+        // Reload process state if we have a process
+        if (processoId) {
+          carregarProcesso(processoId).catch(() => {});
+        }
+      })
+      .catch((err) => {
+        if (processingIntervalRef.current) clearInterval(processingIntervalRef.current);
+        logger.error("Chat API error, falling back to local", { error: err instanceof Error ? err.message : "unknown" });
+
+        // Fallback: show local DFD for DFD requests, generic response otherwise
+        if (isDFDRequest) {
+          const assistantMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            role: "assistant",
+            content: `Gerei o Documento de Formalização da Demanda (DFD) conforme solicitado. O documento foi elaborado seguindo rigorosamente a Lei 14.133/2021, Decreto 10.947/2022 e IN SEGES/ME 58/2022.\n\nO DFD está pronto para visualização no painel lateral. Você pode revisar, fazer download ou solicitar ajustes. Deseja que eu modifique algum campo específico?`,
+          };
+          setMessages((prev) => [...prev, assistantMessage]);
+          onOpenArtifact({
+            id: "dfd-saco-lixo",
+            type: "document",
+            title: "DFD - Saco de Lixo 100L",
+            content: <DFDDocument data={dfdSacoLixoData} />,
+            editableContent: (isEditing: boolean) => (
+              <DFDDocument data={dfdSacoLixoData} isEditing={isEditing} />
+            ),
+          });
+        } else {
+          const assistantMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            role: "assistant",
+            content: `Encontrei informações relevantes sobre "${mensagem}". Posso ajudá-lo a filtrar os resultados por região, modalidade ou período. Deseja refinar sua busca?`,
+          };
+          setMessages((prev) => [...prev, assistantMessage]);
+        }
+        setIsTyping(false);
+        setIsDFDProcessing(false);
+        setProcessingStep(0);
+      });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -336,11 +355,12 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                       className="relative mx-auto overflow-hidden"
                       style={{ width: 220, height: 73 }}
                     >
-                      <img
+                      <Image
                         src="/images/ata360-logo.png"
                         alt="ATA360"
                         width={220}
                         height={73}
+                        priority
                         className="block w-full h-auto"
                       />
                       <div className="animate-logo-shine" />
@@ -419,6 +439,8 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
                     {/* Botao expandir/recolher */}
                     <button
                       onClick={() => setCardsExpanded(!cardsExpanded)}
+                      aria-expanded={cardsExpanded}
+                      aria-label={cardsExpanded ? "Recolher sugestões" : "Ver mais sugestões"}
                       className="mx-auto mt-3 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                     >
                       <ChevronDown 
@@ -603,7 +625,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
 
         {/* Rating Modal */}
         {ratingModal.open && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div role="dialog" aria-modal="true" aria-labelledby="rating-dialog-title" className="fixed inset-0 z-50 flex items-center justify-center">
             <div
               className="absolute inset-0 bg-black/40"
               onClick={() => setRatingModal({ open: false, messageId: null })}
@@ -613,7 +635,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
               <div className="flex items-center justify-between px-5 py-4 border-b border-border/30">
                 <div className="flex items-center gap-2">
                   <ThumbsUp className="size-4 text-foreground" />
-                  <span className="text-sm font-semibold text-foreground">AVALIAR RESPOSTA</span>
+                  <span id="rating-dialog-title" className="text-sm font-semibold text-foreground">AVALIAR RESPOSTA</span>
                 </div>
                 <button
                   onClick={() => setRatingModal({ open: false, messageId: null })}
@@ -829,6 +851,7 @@ function ChatInput({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             onKeyDown={onKeyDown}
+            aria-label="Mensagem de chat"
             placeholder="Digite o que precisa e, se preferir, use filtros para respostas mais precisas..."
             rows={1}
             className="flex-1 bg-transparent border-0 resize-none text-sm text-foreground placeholder:text-muted-foreground focus:outline-none py-2 px-2 min-h-[40px] max-h-[120px] cursor-text overflow-y-auto"

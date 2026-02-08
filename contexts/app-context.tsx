@@ -4,6 +4,9 @@ import React, { createContext, useContext, useState, useCallback, useEffect } fr
 import type { ArtifactData } from "@/components/artifacts-panel";
 import type { Notification } from "@/components/notifications-modal";
 import { initObservability, logger } from "@/lib/observability";
+import { useAuth, type AuthUser } from "@/hooks/use-auth";
+import { useProcess } from "@/hooks/use-process";
+import type { CurrentProcess, UserDecision } from "@/lib/schemas/process";
 
 // Initial notifications data
 const initialNotifications: Notification[] = [
@@ -70,6 +73,20 @@ const MAX_ARTIFACTS_WIDTH = 800;
 type Theme = 'light' | 'dark';
 
 interface AppContextType {
+  // Auth (Supabase + Gov.br)
+  authUser: AuthUser | null;
+  authLoading: boolean;
+  signOut: () => Promise<void>;
+
+  // Process (fluxo cíclico)
+  currentProcess: CurrentProcess | null;
+  processLoading: boolean;
+  processError: string | null;
+  criarProcesso: (objeto: string, tipo?: string) => Promise<void>;
+  carregarProcesso: (id: string) => Promise<void>;
+  decidirProcesso: (acao: UserDecision) => Promise<void>;
+  limparProcesso: () => void;
+
   // Theme
   theme: Theme;
   setTheme: (theme: Theme) => void;
@@ -114,6 +131,20 @@ export function useApp() {
 }
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
+  // Auth hook — Supabase + Gov.br
+  const { user: authUser, loading: authLoading, signOut } = useAuth();
+
+  // Process hook — fluxo cíclico (Part 20.3)
+  const {
+    process: currentProcess,
+    loading: processLoading,
+    error: processError,
+    criar: criarProcesso,
+    carregar: carregarProcesso,
+    decidir: decidirProcesso,
+    limpar: limparProcesso,
+  } = useProcess();
+
   const [theme, setThemeState] = useState<Theme>('light');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [artifactsPanelOpen, setArtifactsPanelOpen] = useState(false);
@@ -194,17 +225,33 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setHasStartedChat(false);
     setCurrentArtifact(null);
     setArtifactsPanelOpen(false);
-  }, []);
+    limparProcesso();
+  }, [limparProcesso]);
 
   return (
     <AppContext.Provider
       value={{
+        // Auth
+        authUser,
+        authLoading,
+        signOut,
+        // Process
+        currentProcess,
+        processLoading,
+        processError,
+        criarProcesso,
+        carregarProcesso,
+        decidirProcesso,
+        limparProcesso,
+        // Theme
         theme,
         setTheme,
         toggleTheme,
+        // Sidebar
         sidebarOpen,
         setSidebarOpen,
         toggleSidebar,
+        // Artifacts
         artifactsPanelOpen,
         setArtifactsPanelOpen,
         currentArtifact,
@@ -213,9 +260,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         artifactsWidth,
         handleResize,
         handleResizeEnd,
+        // Chat
         hasStartedChat,
         setHasStartedChat,
         resetChat,
+        // Notifications
         notifications,
         setNotifications,
         notificationsModalOpen,

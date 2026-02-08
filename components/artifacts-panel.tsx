@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Copy, ExternalLink } from "lucide-react"; // Import Copy and ExternalLink
 
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import { useApp } from "@/contexts/app-context";
+import { ProcessStepper } from "@/components/process-stepper";
+import { AuditorChecklist } from "@/components/auditor-checklist";
+import { DecisionBar } from "@/components/decision-bar";
 import {
   Tooltip,
   TooltipContent,
@@ -47,8 +50,13 @@ export interface ArtifactData {
 }
 
 export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: ArtifactsPanelProps) {
+  const { currentProcess, processLoading, decidirProcesso } = useApp();
   const [isExpanded, setIsExpanded] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+
+  const showStepper = !!currentProcess;
+  const showAuditor = !!currentProcess?.parecer_auditor;
+  const showDecisionBar = currentProcess?.estado === 'AGUARDANDO_DECISAO';
 
   const getIcon = () => {
     if (!artifact) return <FileText className="size-5" />;
@@ -64,29 +72,37 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <TooltipProvider>
+    <>
       {/* Mobile overlay backdrop */}
-      {isOpen && (
-        <div
-          className="fixed top-14 inset-x-0 bottom-0 bg-black/50 z-40 md:hidden"
-          onClick={onClose}
-        />
-      )}
-      
       <div
+        className="fixed top-14 inset-x-0 bottom-0 bg-black/50 z-40 hidden max-md:block"
+        onClick={onClose}
+      />
+
+      <aside
+        aria-label="Painel de artefatos"
         className={cn(
-          "bg-background transition-all duration-300 ease-in-out flex flex-col shrink-0 border-l border-border/40",
-          // Mobile: fixed overlay below header (h-14 = top-14)
-          "fixed top-14 bottom-0 right-0 z-50 md:relative md:top-auto md:z-auto",
-          isOpen 
-            ? "translate-x-0" 
-            : "translate-x-full md:hidden"
+          "bg-background flex flex-col shrink-0 border-l border-border/40 h-full overflow-hidden",
+          // Mobile: fixed overlay below header; Desktop: normal flex child
+          "max-md:fixed max-md:top-14 max-md:bottom-0 max-md:right-0 max-md:z-50"
         )}
-        style={{ width: isOpen ? width : undefined }}
+        style={{ width }}
       >
-        {isOpen && artifact && (
+        {artifact ? (
           <>
+            {/* Process Stepper — shows visual progress when process is active */}
+            {showStepper && (
+              <div className="px-3 pt-3 pb-1 border-b border-border/20 shrink-0">
+                <ProcessStepper
+                  estado={currentProcess.estado}
+                  iteracao={currentProcess.iteracao}
+                />
+              </div>
+            )}
+
             {/* Panel Header */}
             <div className="p-3 sm:p-4 border-b border-border/30 shrink-0">
               {/* Title Row */}
@@ -103,6 +119,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Ampliar"
                         onClick={() => setIsExpanded(true)}
                         className="size-7 rounded-full hover:bg-muted cursor-pointer"
                       >
@@ -116,6 +133,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Fechar painel"
                         onClick={onClose}
                         className="size-7 rounded-full hover:bg-muted cursor-pointer"
                       >
@@ -126,7 +144,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                   </Tooltip>
                 </div>
               </div>
-              
+
               {/* Version info and action buttons */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
@@ -146,6 +164,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                           <Button
                             variant="ghost"
                             size="icon"
+                            aria-label="Salvar nova versão"
                             onClick={() => setIsEditing(false)}
                             className="size-7 rounded-full hover:bg-green-100 text-green-600 cursor-pointer"
                           >
@@ -159,6 +178,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                           <Button
                             variant="ghost"
                             size="icon"
+                            aria-label="Cancelar edição"
                             onClick={() => setIsEditing(false)}
                             className="size-7 rounded-full hover:bg-red-100 text-red-500 cursor-pointer"
                           >
@@ -175,6 +195,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                           <Button
                             variant="ghost"
                             size="icon"
+                            aria-label="Editar"
                             onClick={() => setIsEditing(true)}
                             className="size-7 rounded-full hover:bg-muted cursor-pointer"
                           >
@@ -188,6 +209,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                           <Button
                             variant="ghost"
                             size="icon"
+                            aria-label="Baixar"
                             className="size-7 rounded-full hover:bg-muted cursor-pointer"
                           >
                             <Download className="size-3.5" />
@@ -200,6 +222,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                           <Button
                             variant="ghost"
                             size="icon"
+                            aria-label="Imprimir"
                             onClick={() => window.print()}
                             className="size-7 rounded-full hover:bg-muted cursor-pointer"
                           >
@@ -213,6 +236,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                           <Button
                             variant="ghost"
                             size="icon"
+                            aria-label="Inserir em processo"
                             className="size-7 rounded-full hover:bg-muted cursor-pointer"
                           >
                             <FolderPlus className="size-3.5" />
@@ -228,15 +252,33 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
             {/* Panel Content */}
             <ScrollArea className="flex-1 min-h-0">
               <div className="p-3 sm:p-4">
-                {artifact.editableContent 
-                  ? artifact.editableContent(isEditing) 
+                {artifact.editableContent
+                  ? artifact.editableContent(isEditing)
                   : artifact.content}
               </div>
-            </ScrollArea>
-          </>
-        )}
 
-        {isOpen && !artifact && (
+              {/* Auditor Checklist — shows when parecer is available */}
+              {showAuditor && currentProcess.parecer_auditor && (
+                <div className="px-3 sm:px-4 pb-3">
+                  <AuditorChecklist resultado={currentProcess.parecer_auditor} />
+                </div>
+              )}
+            </ScrollArea>
+
+            {/* Decision Bar — shows when awaiting user decision */}
+            {showDecisionBar && (
+              <div className="shrink-0 border-t border-border/30">
+                <DecisionBar
+                  onDecision={decidirProcesso}
+                  loading={processLoading}
+                  sugestoesRestantes={currentProcess?.sugestoes_restantes ?? 0}
+                  reauditoriasRestantes={currentProcess?.reauditorias_restantes ?? 0}
+                  seloAprovado={currentProcess?.selo_aprovado ?? false}
+                />
+              </div>
+            )}
+          </>
+        ) : (
           <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
             <div className="text-center">
               <div className="size-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
@@ -251,10 +293,11 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
             </div>
           </div>
         )}
-      </div>
+      </aside>
+
       {/* Expanded Dialog View */}
       <Dialog open={isExpanded} onOpenChange={setIsExpanded}>
-        <DialogContent 
+        <DialogContent
           className="max-w-4xl w-[95vw] h-[90vh] p-0 bg-background border border-border/40 rounded-2xl overflow-hidden flex flex-col"
           showCloseButton={false}
         >
@@ -276,6 +319,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                           <Button
                             variant="ghost"
                             size="icon"
+                            aria-label="Salvar"
                             onClick={() => setIsEditing(false)}
                             className="size-9 rounded-full hover:bg-green-100 text-green-600 cursor-pointer"
                           >
@@ -289,6 +333,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                           <Button
                             variant="ghost"
                             size="icon"
+                            aria-label="Cancelar edição"
                             onClick={() => setIsEditing(false)}
                             className="size-9 rounded-full hover:bg-red-100 text-red-500 cursor-pointer"
                           >
@@ -304,6 +349,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                         <Button
                           variant="ghost"
                           size="icon"
+                          aria-label="Editar"
                           onClick={() => setIsEditing(true)}
                           className="size-9 rounded-full hover:bg-muted cursor-pointer"
                         >
@@ -319,6 +365,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Baixar"
                         className="size-9 rounded-full hover:bg-muted cursor-pointer"
                       >
                         <Download className="size-4" />
@@ -332,6 +379,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Imprimir"
                         onClick={() => window.print()}
                         className="size-9 rounded-full hover:bg-muted cursor-pointer"
                       >
@@ -346,6 +394,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Inserir em processo"
                         className="size-9 rounded-full hover:bg-muted cursor-pointer"
                       >
                         <FolderPlus className="size-4" />
@@ -359,6 +408,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Reduzir"
                         onClick={() => setIsExpanded(false)}
                         className="size-9 rounded-full hover:bg-muted cursor-pointer"
                       >
@@ -373,6 +423,7 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
                       <Button
                         variant="ghost"
                         size="icon"
+                        aria-label="Fechar"
                         onClick={() => {
                           setIsExpanded(false);
                           setIsEditing(false);
@@ -391,8 +442,8 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
               {/* Expanded Content */}
               <ScrollArea className="flex-1 min-h-0">
                 <div className="p-6">
-                  {artifact.editableContent 
-                    ? artifact.editableContent(isEditing) 
+                  {artifact.editableContent
+                    ? artifact.editableContent(isEditing)
                     : artifact.content}
                 </div>
               </ScrollArea>
@@ -400,6 +451,6 @@ export function ArtifactsPanel({ isOpen, onClose, artifact, width = 480 }: Artif
           )}
         </DialogContent>
       </Dialog>
-    </TooltipProvider>
+    </>
   );
 }
