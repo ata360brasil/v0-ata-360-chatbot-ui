@@ -1,104 +1,57 @@
 /**
  * ATA360 — Dados Cadastrais e Identidade da Empresa
  *
- * Fonte: Junta Comercial de Minas Gerais (JUCEMG)
- * CNPJ consultado: 61.291.296/0001-31
+ * CNPJ: 61.291.296/0001-31
  *
- * IMPORTANTE — Regra de Gênero:
+ * IMPORTANTE — Regra de Genero:
  *   "o ATA360" (masculino) → refere-se ao SISTEMA/IA
- *   "a ATA360" (feminino) → refere-se à EMPRESA
+ *   "a ATA360" (feminino) → refere-se a EMPRESA
+ *
+ * SEGURANCA: Dados sensiveis (QSA, endereco, capital social) removidos.
+ * Consultar via Receita Federal se necessario. NUNCA expor no repositorio.
  *
  * @see Lei 9.279/1996 — Propriedade Industrial
  * @see Lei 9.609/1998 — Software
- * @see LGPD (Lei 13.709/2018) — Proteção de Dados
+ * @see LGPD (Lei 13.709/2018) — Protecao de Dados
  * @see LC 182/2021 — Marco Legal das Startups
  */
 
-// ─── Dados Cadastrais ────────────────────────────────────────────────────────
+// ─── Dados Cadastrais (Publicos) ─────────────────────────────────────────────
 
 export const EMPRESA_ATA360 = {
-  // Identificação
+  // Identificacao publica
   razao_social: 'ATA360 TECNOLOGIA LTDA',
   nome_fantasia: 'ATA360',
   cnpj: '61.291.296/0001-31',
-  inscricao_estadual: 'ISENTA',
 
-  // Natureza Jurídica
+  // Natureza Juridica
   natureza_juridica: {
     codigo: '234-8',
-    descricao: 'Empresa Simples de Inovação (Inova Simples)',
+    descricao: 'Empresa Simples de Inovacao (Inova Simples)',
     lei_base: 'LC 182/2021 (Marco Legal das Startups)',
   },
 
-  // Endereço
-  endereco: {
-    logradouro: 'Rua Acácia',
-    numero: '55',
-    complemento: 'Sala 1',
-    bairro: 'Jardim Canadá',
-    municipio: 'Vespasiano',
-    uf: 'MG',
-    cep: '33200-000',
-    codigo_ibge: '3171006',
-    regiao_metropolitana: 'Belo Horizonte',
-  },
+  // Localizacao (apenas UF — sem endereco completo)
+  uf: 'MG',
+  regiao_metropolitana: 'Belo Horizonte',
 
-  // Capital Social
-  capital_social: {
-    valor: 100_000.00,
-    moeda: 'BRL',
-    integralizado: true,
-    data_registro: '2024-11-15',
-  },
-
-  // Quadro Societário (QSA)
-  socios: [
-    {
-      nome: 'RENATO AZEVEDO DE OLIVEIRA',
-      cpf_masked: '***.***.***-**',
-      qualificacao: {
-        codigo: '49',
-        descricao: 'Sócio-Administrador',
-      },
-      participacao_percentual: 90,
-      data_entrada: '2024-11-15',
-    },
-    {
-      nome: 'ROBERTO DE OLIVEIRA FONSECA',
-      cpf_masked: '***.***.***-**',
-      qualificacao: {
-        codigo: '22',
-        descricao: 'Sócio',
-      },
-      participacao_percentual: 10,
-      data_entrada: '2024-11-15',
-      cargo_funcional: 'CEO',
-    },
-  ],
-
-  // Atividades
+  // Atividade principal
   cnae_principal: {
     codigo: '6202-3/00',
-    descricao: 'Desenvolvimento e licenciamento de programas de computador customizáveis',
+    descricao: 'Desenvolvimento e licenciamento de programas de computador customizaveis',
   },
-  cnaes_secundarios: [
-    { codigo: '6311-9/00', descricao: 'Tratamento de dados, provedores de serviços de aplicação e hospedagem na internet' },
-    { codigo: '6319-4/00', descricao: 'Portais, provedores de conteúdo e outros serviços de informação na internet' },
-    { codigo: '7490-1/04', descricao: 'Atividades de intermediação e agenciamento de serviços e negócios em geral' },
-  ],
 
-  // Dados operacionais
-  data_abertura: '2024-11-15',
-  situacao_cadastral: 'ATIVA',
-  porte: 'ME', // Microempresa
-  optante_simples: true,
-  optante_mei: false,
-
-  // CATSER para contratação pública
+  // CATSER para contratacao publica
   catser: {
     principal: '27502', // Desenvolvimento de software
     alternativo: '26123', // Processamento de dados
-    descricao_servico: 'Licenciamento de software SaaS para inteligência em contratações públicas',
+    descricao_servico: 'Licenciamento de software SaaS para inteligencia em contratacoes publicas',
+  },
+
+  // Contato oficial (UNICO canal)
+  contato: {
+    email: 'contato@ata360.com.br',
+    site: 'https://www.ata360.com.br',
   },
 } as const
 
@@ -106,13 +59,13 @@ export const EMPRESA_ATA360 = {
 
 export const IDENTIDADE_ATA360 = {
   /**
-   * Regra de gênero obrigatória em TODOS os textos do sistema:
-   *   "o ATA360" = o sistema, a plataforma, a inteligência artificial
-   *   "a ATA360" = a empresa, a pessoa jurídica, a sociedade
+   * Regra de genero obrigatoria em TODOS os textos do sistema:
+   *   "o ATA360" = o sistema, a plataforma, a inteligencia artificial
+   *   "a ATA360" = a empresa, a pessoa juridica, a sociedade
    */
   genero: {
     sistema: { artigo: 'o', exemplo: 'o ATA360 identificou 3 irregularidades' },
-    empresa: { artigo: 'a', exemplo: 'a ATA360 é uma empresa de tecnologia' },
+    empresa: { artigo: 'a', exemplo: 'a ATA360 e uma empresa de tecnologia' },
   },
 
   // Cores (OKLCH — Tailwind 4)
@@ -126,8 +79,8 @@ export const IDENTIDADE_ATA360 = {
 
   // Selo de Qualidade
   selo: {
-    nome: 'Certificado de Qualidade ATA360 — Governança Ouro',
-    descricao: 'Certifica conformidade Lei 14.133/2021, boa-fé, dados oficiais, validação AUDITOR',
+    nome: 'Certificado de Qualidade ATA360 — Governanca Ouro',
+    descricao: 'Certifica conformidade Lei 14.133/2021, boa-fe, dados oficiais',
     arquivo: 'selo-ata360-governanca-ouro.png',
     resolucao: '300 DPI',
     formato: 'PNG alpha (fundo transparente)',
@@ -138,81 +91,34 @@ export const IDENTIDADE_ATA360 = {
     corpo: 'Palatino Linotype',
     fallback: 'Book Antiqua, Georgia, serif',
     titulos: 'Palatino Linotype, serif',
-    escala: 'Áurea (1.618)',
+    escala: 'Aurea (1.618)',
   },
 } as const
 
 // ─── Compliance e Integridade ────────────────────────────────────────────────
 
 export const COMPLIANCE_ATA360 = {
-  // Classificação PBIA
-  classificacao_ia: {
-    nivel_risco: 'ALTO',
-    fundamento: 'PL 2.338/2023, Art. 14 — IA em administração pública',
-    principios_conformes: 9,
-    principios_total: 10,
-    pendencia: 'Política formal de governança de IA publicável',
-  },
-
-  // Programa de Integridade (CGU)
-  integridade_cgu: {
-    pilares: [
-      'Comprometimento da alta direção e instância responsável',
-      'Análise de perfil e riscos',
-      'Estruturação de regras e instrumentos',
-      'Estratégias de comunicação e treinamento',
-      'Monitoramento contínuo',
-    ],
-    score: 85,
-    nivel: 'AVANCADO',
-    fundamentacao: 'Portaria CGU 226/2025',
-  },
-
-  // ESG
-  esg: {
-    ambiental: {
-      score: 72,
-      destaque: 'Cloud-first (zero hardware on-premise), paperless por design',
-    },
-    social: {
-      score: 88,
-      destaque: 'Acessibilidade WCAG AA, inclusão digital de municípios pequenos',
-    },
-    governanca: {
-      score: 91,
-      destaque: 'Auditoria automática AUDITOR, trilha completa, selo de qualidade',
-    },
-  },
-
-  // ODS ONU
-  ods_alinhados: [
-    { numero: 5, nome: 'Igualdade de Gênero', relacao: 'Acessibilidade e inclusão' },
-    { numero: 9, nome: 'Indústria, Inovação e Infraestrutura', relacao: 'IA para setor público' },
-    { numero: 10, nome: 'Redução das Desigualdades', relacao: 'Precificação proporcional (entes menores pagam menos)' },
-    { numero: 12, nome: 'Consumo e Produção Responsáveis', relacao: 'Sustentabilidade nas contratações (Dec. 7.746/2012)' },
-    { numero: 16, nome: 'Paz, Justiça e Instituições Eficazes', relacao: 'Transparência, conformidade, anticorrupção' },
-    { numero: 17, nome: 'Parcerias e Meios de Implementação', relacao: 'APIs abertas, integração Gov.br' },
-  ],
-
-  // Certificações alvo
-  certificacoes_alvo: [
-    'Pró-Ética CGU',
-    'ABES (Associação Brasileira das Empresas de Software)',
-    'TCU Diamante (selo governança)',
-    'TCE-MG (selo conformidade)',
-  ],
-
-  // Legislação base
+  // Legislacao aplicavel
   legislacao_aplicavel: [
-    { lei: 'Lei 14.133/2021', descricao: 'Nova Lei de Licitações e Contratos' },
-    { lei: 'LGPD (Lei 13.709/2018)', descricao: 'Proteção de dados pessoais' },
-    { lei: 'Lei 12.846/2013', descricao: 'Lei Anticorrupção (responsabilidade empresarial)' },
-    { lei: 'Lei 9.279/1996', descricao: 'Propriedade industrial (segredo industrial ATA360)' },
-    { lei: 'Lei 9.609/1998', descricao: 'Proteção de software' },
+    { lei: 'Lei 14.133/2021', descricao: 'Nova Lei de Licitacoes e Contratos' },
+    { lei: 'LGPD (Lei 13.709/2018)', descricao: 'Protecao de dados pessoais' },
+    { lei: 'Lei 12.846/2013', descricao: 'Lei Anticorrupcao' },
+    { lei: 'Lei 9.279/1996', descricao: 'Propriedade industrial' },
+    { lei: 'Lei 9.609/1998', descricao: 'Protecao de software' },
     { lei: 'LINDB (Lei 13.655/2018)', descricao: '6 artigos aplicados (Arts. 20-23, 28, 30)' },
     { lei: 'LC 182/2021', descricao: 'Marco Legal das Startups' },
-    { lei: 'PL 2.338/2023', descricao: 'Marco Regulatório da IA (em tramitação)' },
-    { lei: 'EC 105/2019', descricao: 'Emendas parlamentares (PIX, RP6/RP7/RP8)' },
-    { lei: 'Lei 14.063/2020', descricao: 'Assinatura eletrônica (3 níveis)' },
+    { lei: 'PL 2.338/2023', descricao: 'Marco Regulatorio da IA (em tramitacao)' },
+    { lei: 'Lei 14.063/2020', descricao: 'Assinatura eletronica (3 niveis)' },
+  ],
+
+  // ODS ONU alinhados
+  ods_alinhados: [5, 9, 10, 12, 16, 17],
+
+  // Certificacoes alvo
+  certificacoes_alvo: [
+    'Pro-Etica CGU',
+    'ABES',
+    'TCU Diamante',
+    'TCE-MG',
   ],
 } as const

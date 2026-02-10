@@ -85,8 +85,6 @@ export const metadata: Metadata = {
   other: {
     'geo.region': 'BR',
     'geo.placename': 'Brasil',
-    'geo.position': '-19.6285;-43.8953',
-    'ICBM': '-19.6285, -43.8953',
   },
 }
 

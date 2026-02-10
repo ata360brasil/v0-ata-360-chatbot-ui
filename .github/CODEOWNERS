@@ -1,0 +1,24 @@
+# CODEOWNERS — ATA360
+# Todas as alteracoes requerem aprovacao dos proprietarios.
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Proprietarios globais — TODO o repositorio
+* @ata360brasil/core
+
+# Seguranca e compliance — requer revisao obrigatoria
+middleware.ts @ata360brasil/core
+lib/lgpd.ts @ata360brasil/core
+workers/src/orchestrator/chat-guard.ts @ata360brasil/core
+workers/src/compliance/ @ata360brasil/core
+
+# Configuracoes criticas
+.env.example @ata360brasil/core
+next.config.mjs @ata360brasil/core
+workers/wrangler.toml @ata360brasil/core
+
+# Schemas e tipos (contrato entre frontend/backend)
+lib/schemas/ @ata360brasil/core
+workers/src/orchestrator/types.ts @ata360brasil/core
+
+# Migrações de banco
+supabase/migrations/ @ata360brasil/core

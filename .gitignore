@@ -25,3 +25,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# security — certificados e chaves
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+
+# dados sensiveis — especificacoes internas
+specs/

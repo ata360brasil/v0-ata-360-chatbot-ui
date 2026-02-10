@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
 // ─── Public Routes (no auth required) ───────────────────────────────────────
-const PUBLIC_ROUTES = new Set(['/login', '/api/auth/callback/govbr'])
+const PUBLIC_ROUTES = new Set(['/login', '/api/auth/callback/govbr', '/privacidade', '/termos', '/lgpd'])
 const STATIC_PREFIXES = ['/images/', '/favicon', '/_next/', '/api/auth/']
 
 function isStaticOrPublic(pathname: string): boolean {
@@ -75,6 +75,11 @@ export async function middleware(request: NextRequest) {
   ].join('; ')
 
   response.headers.set('Content-Security-Policy', csp)
+
+  // ─── Anti-Scraping: impedir cache de paginas internas por buscadores ───
+  if (!isStaticOrPublic(pathname) && !pathname.startsWith('/privacidade') && !pathname.startsWith('/termos') && !pathname.startsWith('/lgpd')) {
+    response.headers.set('X-Robots-Tag', 'noarchive, nosnippet')
+  }
 
   // ─── Cache-Control ──────────────────────────────────────────────────────
   if (pathname.startsWith('/images/') || pathname.startsWith('/favicon') || pathname === '/icon.png') {

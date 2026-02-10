@@ -13,5 +13,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/files`, lastModified, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${baseUrl}/history`, lastModified, changeFrequency: 'daily', priority: 0.5 },
     { url: `${baseUrl}/team`, lastModified, changeFrequency: 'weekly', priority: 0.5 },
+    // Paginas legais (publicas)
+    { url: `${baseUrl}/privacidade`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
+    { url: `${baseUrl}/termos`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
+    { url: `${baseUrl}/lgpd`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
   ]
 }

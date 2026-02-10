@@ -29,6 +29,9 @@ const nextConfig = {
           value: 'max-age=63072000; includeSubDomains; preload',
         },
         { key: 'X-DNS-Prefetch-Control', value: 'on' },
+        // Isolamento de contexto (protecao contra side-channel attacks)
+        { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+        { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
       ],
     },
     {
