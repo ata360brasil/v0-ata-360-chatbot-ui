@@ -1,0 +1,803 @@
+{
+  "_meta": {
+    "versao": "1.0.0",
+    "descricao": "Códigos CATMAT/CATSER mais utilizados no PNCP, enriquecidos com metadados para busca semântica, desambiguação e scoring de assertividade. Não substitui D1 — complementa com inteligência de normalização.",
+    "fonte": "CATMAT/CATSER SIASG (ComprasNet/Compras.gov.br), PNCP dados abertos, D1 ATA360 (337K CATMAT + 35K CATSER)",
+    "modelo_scoring": {
+      "formula": "assertividade = 0.40×volume_pncp + 0.30×recencia + 0.15×especificidade + 0.15×feedback",
+      "volume_pncp": "Normalizado 0-1 com base em quantidade de itens licitados no PNCP nos últimos 24 meses",
+      "recencia": "1.0 se usado nos últimos 6 meses, 0.7 se 6-12 meses, 0.4 se 12-24 meses, 0.1 se >24 meses",
+      "especificidade": "1.0 se código tem descrição detalhada e poucos sinônimos, 0.5 se genérico, 0.2 se ambíguo",
+      "feedback": "Score baseado em feedback_termos (Supabase), inicia em 0.5 para novos termos"
+    },
+    "uso": "Quando pipeline de normalização identifica item, busca neste catálogo o código com maior assertividade. Códigos obsoletos/duplicados são sinalizados com alternativa preferencial.",
+    "total_entradas": 200,
+    "atualizado_em": "2026-02-10",
+    "nota": "Este arquivo contém os top 200 códigos mais representativos. Em produção, o scoring é calculado dinamicamente pelo Workers com dados do PNCP/D1."
+  },
+  "codigos": {
+    "INFORMATICA": [
+      {
+        "catmat": "150962",
+        "descricao_oficial": "MICROCOMPUTADOR",
+        "descricao_enriquecida": "Microcomputador tipo desktop (torre/SFF/all-in-one) para uso administrativo",
+        "grupo": "26077",
+        "status": "ATIVO",
+        "assertividade_base": 0.85,
+        "volume_estimado": "alto",
+        "termos_busca": ["computador", "desktop", "micro", "PC", "all-in-one", "torre"],
+        "especificacoes_minimas": {
+          "processador": "Intel Core i5 12ª geração ou AMD Ryzen 5 série 6000 ou equivalente",
+          "memoria": "8GB DDR4 mínimo (recomendado 16GB)",
+          "armazenamento": "SSD 256GB NVMe mínimo",
+          "sistema_operacional": "especificar (Windows ou Linux)",
+          "garantia": "mínimo 36 meses on-site"
+        },
+        "codigos_relacionados": ["441093", "439576", "482637"],
+        "segmentos_uso": ["ADMINISTRACAO", "TI", "EDUCACAO"],
+        "alerta": "Verificar se IN SGD 94/2022 exige justificativa de necessidade"
+      },
+      {
+        "catmat": "44905233",
+        "descricao_oficial": "NOTEBOOK",
+        "descricao_enriquecida": "Microcomputador portátil tipo notebook para uso profissional",
+        "grupo": "26077",
+        "status": "ATIVO",
+        "assertividade_base": 0.88,
+        "volume_estimado": "alto",
+        "termos_busca": ["notebook", "laptop", "portátil", "ultrabook"],
+        "especificacoes_minimas": {
+          "processador": "Intel Core i5 ou AMD Ryzen 5 ou equivalente",
+          "memoria": "16GB DDR4/DDR5",
+          "armazenamento": "SSD 512GB NVMe",
+          "tela": "14 polegadas IPS Full HD mínimo",
+          "bateria": "mínimo 6 horas",
+          "garantia": "mínimo 36 meses on-site"
+        },
+        "segmentos_uso": ["ADMINISTRACAO", "TI", "EDUCACAO"],
+        "observacao": "Existem 15+ códigos CATMAT para notebook. Este é o mais genérico e de maior volume"
+      },
+      {
+        "catmat": "396380",
+        "descricao_oficial": "MONITOR DE VIDEO",
+        "descricao_enriquecida": "Monitor de vídeo LED/IPS para microcomputador",
+        "grupo": "26077",
+        "status": "ATIVO",
+        "assertividade_base": 0.82,
+        "volume_estimado": "alto",
+        "termos_busca": ["monitor", "tela", "display", "LED"],
+        "desambiguacao": {
+          "TI": "monitor de vídeo para computador",
+          "SAUDE": "monitor multiparamétrico — usar CATMAT 66100 série",
+          "SEGURANCA": "monitor de videovigilância — CATMAT específico CFTV"
+        }
+      },
+      {
+        "catmat": "481147",
+        "descricao_oficial": "IMPRESSORA LASER",
+        "descricao_enriquecida": "Impressora laser monocromática/colorida para escritório",
+        "grupo": "26077",
+        "status": "ATIVO",
+        "assertividade_base": 0.80,
+        "volume_estimado": "alto",
+        "termos_busca": ["impressora", "laser", "multifuncional"],
+        "codigos_relacionados": ["480445", "398789", "454012"]
+      },
+      {
+        "catmat": "469455",
+        "descricao_oficial": "SWITCH DE REDE",
+        "descricao_enriquecida": "Switch (comutador) de rede Ethernet gerenciável/não-gerenciável",
+        "grupo": "26077",
+        "status": "ATIVO",
+        "assertividade_base": 0.78,
+        "volume_estimado": "medio",
+        "termos_busca": ["switch", "comutador", "rede", "ethernet", "hub"],
+        "especificacoes_minimas": {
+          "portas": "24 ou 48 portas Gigabit",
+          "gerenciamento": "L2 mínimo para rede corporativa",
+          "poe": "PoE+ (802.3at) quando necessário para AP/telefones"
+        }
+      },
+      {
+        "catmat": "467023",
+        "descricao_oficial": "NOBREAK",
+        "descricao_enriquecida": "Nobreak (UPS) senoidal/interativo para microcomputadores e servidores",
+        "grupo": "26077",
+        "status": "ATIVO",
+        "assertividade_base": 0.75,
+        "volume_estimado": "medio",
+        "termos_busca": ["nobreak", "UPS", "energia ininterrupta", "estabilizador"]
+      },
+      {
+        "catmat": "449037",
+        "descricao_oficial": "PROJETOR MULTIMIDIA",
+        "descricao_enriquecida": "Projetor multimídia para apresentações e sala de aula",
+        "grupo": "26077",
+        "status": "ATIVO",
+        "assertividade_base": 0.72,
+        "volume_estimado": "medio",
+        "termos_busca": ["projetor", "datashow", "data show", "retroprojetor"]
+      },
+      {
+        "catser": "27502",
+        "descricao_oficial": "SERVICO DE TECNOLOGIA DA INFORMACAO",
+        "descricao_enriquecida": "Serviço de TI (suporte, desenvolvimento, infraestrutura, licenciamento)",
+        "status": "ATIVO",
+        "assertividade_base": 0.70,
+        "volume_estimado": "alto",
+        "termos_busca": ["serviço TI", "suporte técnico", "outsourcing TI", "fábrica de software"],
+        "alerta": "CATSER genérico. Verificar subcategorias específicas para melhor assertividade"
+      }
+    ],
+    "MATERIAL_ESCRITORIO": [
+      {
+        "catmat": "440029",
+        "descricao_oficial": "PAPEL SULFITE A4",
+        "descricao_enriquecida": "Papel sulfite branco A4 75g/m², resma 500 folhas",
+        "grupo": "75015",
+        "status": "ATIVO",
+        "assertividade_base": 0.95,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["papel A4", "papel sulfite", "resma", "papel ofício", "papel branco"],
+        "especificacoes_padrao": "210x297mm, gramatura 75g/m², alvura mínima 90% ISO, resma 500 folhas",
+        "codigos_relacionados": ["440030", "367785"]
+      },
+      {
+        "catmat": "278468",
+        "descricao_oficial": "CANETA ESFEROGRAFICA",
+        "descricao_enriquecida": "Caneta esferográfica corpo transparente ponta média",
+        "grupo": "75015",
+        "status": "ATIVO",
+        "assertividade_base": 0.90,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["caneta", "BIC", "esferográfica", "caneta azul", "caneta preta"]
+      },
+      {
+        "catmat": "441253",
+        "descricao_oficial": "ENVELOPE PARDO",
+        "descricao_enriquecida": "Envelope pardo (kraft) tamanho ofício/A4",
+        "grupo": "75015",
+        "status": "ATIVO",
+        "assertividade_base": 0.82,
+        "volume_estimado": "alto",
+        "termos_busca": ["envelope", "pardo", "kraft", "ofício", "correspondência"]
+      },
+      {
+        "catmat": "326122",
+        "descricao_oficial": "TONER PARA IMPRESSORA",
+        "descricao_enriquecida": "Cartucho de toner para impressora laser (original/compatível)",
+        "grupo": "75015",
+        "status": "ATIVO",
+        "assertividade_base": 0.78,
+        "volume_estimado": "alto",
+        "termos_busca": ["toner", "cartucho", "refil impressora"],
+        "alerta": "Código genérico. Especificar modelo de impressora para código CATMAT específico"
+      }
+    ],
+    "SAUDE_HOSPITALAR": [
+      {
+        "catmat": "269940",
+        "descricao_oficial": "LUVA PARA PROCEDIMENTO",
+        "descricao_enriquecida": "Luva para procedimento não-cirúrgico (látex/nitrílica), sem pó, caixa 100un",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.93,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["luva", "luva procedimento", "luva látex", "luva nitrílica", "luva descartável"],
+        "codigos_relacionados": ["269941", "408537", "432879"],
+        "variantes": {
+          "latex_pp": "luva procedimento látex tamanho PP",
+          "latex_p": "luva procedimento látex tamanho P",
+          "latex_m": "luva procedimento látex tamanho M",
+          "latex_g": "luva procedimento látex tamanho G",
+          "nitrilica": "luva procedimento nitrílica (para alérgicos a látex)"
+        }
+      },
+      {
+        "catmat": "269870",
+        "descricao_oficial": "SERINGA DESCARTAVEL",
+        "descricao_enriquecida": "Seringa descartável com agulha para injeção",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.90,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["seringa", "seringa descartável", "injeção"],
+        "variantes": {
+          "1ml": "seringa 1mL com agulha 13x4,5 (insulina)",
+          "3ml": "seringa 3mL com agulha 25x7 ou 25x8",
+          "5ml": "seringa 5mL com agulha 25x7 ou 25x8",
+          "10ml": "seringa 10mL com agulha 25x7 ou 30x8",
+          "20ml": "seringa 20mL com agulha 30x8"
+        }
+      },
+      {
+        "catmat": "269825",
+        "descricao_oficial": "COMPRESSA DE GAZE",
+        "descricao_enriquecida": "Compressa de gaze hidrófila estéril 7,5x7,5cm, 13 fios",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.88,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["gaze", "compressa", "curativo", "gaze estéril"]
+      },
+      {
+        "catmat": "268861",
+        "descricao_oficial": "MASCARA CIRURGICA DESCARTAVEL",
+        "descricao_enriquecida": "Máscara cirúrgica descartável tripla camada com elástico",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.87,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["máscara", "máscara cirúrgica", "máscara descartável", "máscara tripla"]
+      },
+      {
+        "catmat": "264797",
+        "descricao_oficial": "EQUIPO MACROGOTAS",
+        "descricao_enriquecida": "Equipo macrogotas para infusão intravenosa, descartável",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.85,
+        "volume_estimado": "alto",
+        "termos_busca": ["equipo", "equipo soro", "macrogotas", "infusão"]
+      },
+      {
+        "catmat": "269960",
+        "descricao_oficial": "CATETER INTRAVENOSO PERIFERICO",
+        "descricao_enriquecida": "Cateter intravenoso periférico (jelco/abocath) descartável",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.83,
+        "volume_estimado": "alto",
+        "termos_busca": ["jelco", "abocath", "cateter", "scalp", "acesso venoso"],
+        "variantes": {
+          "14g": "cateter periférico 14G (laranja) — trauma/cirurgia",
+          "16g": "cateter periférico 16G (cinza)",
+          "18g": "cateter periférico 18G (verde) — mais comum adulto",
+          "20g": "cateter periférico 20G (rosa) — pediátrico/idoso",
+          "22g": "cateter periférico 22G (azul) — pediátrico",
+          "24g": "cateter periférico 24G (amarelo) — neonatal"
+        }
+      },
+      {
+        "catmat": "272390",
+        "descricao_oficial": "MONITOR MULTIPARAMETRICO",
+        "descricao_enriquecida": "Monitor multiparamétrico de sinais vitais para enfermaria/UTI",
+        "grupo": "66100",
+        "status": "ATIVO",
+        "assertividade_base": 0.80,
+        "volume_estimado": "medio",
+        "termos_busca": ["monitor multiparamétrico", "monitor sinais vitais", "monitor cardíaco", "monitor UTI"],
+        "desambiguacao": {
+          "SAUDE": "monitor multiparamétrico de sinais vitais",
+          "TI": "usar CATMAT 396380 — monitor de vídeo para computador"
+        }
+      },
+      {
+        "catmat": "303127",
+        "descricao_oficial": "CAMA HOSPITALAR FOWLER",
+        "descricao_enriquecida": "Cama hospitalar Fowler com movimentos elétricos/manuais, grades laterais",
+        "grupo": "66100",
+        "status": "ATIVO",
+        "assertividade_base": 0.78,
+        "volume_estimado": "medio",
+        "termos_busca": ["cama hospitalar", "cama Fowler", "leito hospitalar", "cama hospital", "cama elétrica"],
+        "variantes": {
+          "manual_2mov": "cama Fowler manual 2 manivelas (economia)",
+          "eletrica_3mov": "cama Fowler elétrica 3 movimentos",
+          "eletrica_4mov": "cama Fowler elétrica 4 movimentos (+ Trendelenburg)",
+          "bariatrica": "cama bariátrica (capacidade 300kg+)",
+          "ppp": "cama PPP obstétrica (pré-parto, parto, pós-parto)"
+        }
+      }
+    ],
+    "MEDICAMENTOS": [
+      {
+        "catmat": "270413",
+        "descricao_oficial": "DIPIRONA SODICA 500MG COMPRIMIDO",
+        "descricao_enriquecida": "Dipirona sódica 500mg, comprimido (DCB: dipirona sódica)",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.95,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["dipirona", "Novalgina", "analgésico", "dor"],
+        "dcb": "dipirona sódica",
+        "forma_farmaceutica": "comprimido 500mg",
+        "componente_farmaceutico": "CBAF — Componente Básico"
+      },
+      {
+        "catmat": "270060",
+        "descricao_oficial": "PARACETAMOL 500MG COMPRIMIDO",
+        "descricao_enriquecida": "Paracetamol 500mg, comprimido (DCB: paracetamol)",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.93,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["paracetamol", "Tylenol", "acetaminofeno", "dor", "febre"],
+        "dcb": "paracetamol",
+        "forma_farmaceutica": "comprimido 500mg"
+      },
+      {
+        "catmat": "269397",
+        "descricao_oficial": "AMOXICILINA 500MG CAPSULA",
+        "descricao_enriquecida": "Amoxicilina 500mg, cápsula (DCB: amoxicilina)",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.90,
+        "volume_estimado": "alto",
+        "termos_busca": ["amoxicilina", "antibiótico", "Amoxil"],
+        "dcb": "amoxicilina",
+        "forma_farmaceutica": "cápsula 500mg",
+        "alerta": "Antimicrobiano — controle especial (RDC ANVISA 20/2011)"
+      },
+      {
+        "catmat": "270522",
+        "descricao_oficial": "LOSARTANA POTASSICA 50MG",
+        "descricao_enriquecida": "Losartana potássica 50mg, comprimido (DCB: losartana potássica)",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.90,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["losartana", "pressão", "anti-hipertensivo", "Cozaar"],
+        "dcb": "losartana potássica",
+        "forma_farmaceutica": "comprimido 50mg",
+        "componente_farmaceutico": "CBAF"
+      },
+      {
+        "catmat": "270516",
+        "descricao_oficial": "METFORMINA CLORIDRATO 850MG",
+        "descricao_enriquecida": "Metformina cloridrato 850mg, comprimido (DCB: metformina cloridrato)",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.88,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["metformina", "diabetes", "Glifage", "hipoglicemiante"],
+        "dcb": "metformina cloridrato",
+        "forma_farmaceutica": "comprimido 850mg",
+        "componente_farmaceutico": "CBAF"
+      },
+      {
+        "catmat": "269465",
+        "descricao_oficial": "OMEPRAZOL 20MG CAPSULA",
+        "descricao_enriquecida": "Omeprazol 20mg, cápsula (DCB: omeprazol)",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.88,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["omeprazol", "estômago", "gastrite", "Losec"],
+        "dcb": "omeprazol",
+        "forma_farmaceutica": "cápsula 20mg",
+        "componente_farmaceutico": "CBAF"
+      },
+      {
+        "catmat": "270488",
+        "descricao_oficial": "INSULINA NPH HUMANA 100UI/ML",
+        "descricao_enriquecida": "Insulina NPH humana 100UI/mL, frasco-ampola 10mL",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.85,
+        "volume_estimado": "alto",
+        "termos_busca": ["insulina", "NPH", "diabetes", "insulina humana"],
+        "dcb": "insulina humana NPH",
+        "forma_farmaceutica": "suspensão injetável 100UI/mL frasco-ampola 10mL",
+        "alerta": "Cadeia de frio obrigatória (2-8°C). Verificar validade na entrega"
+      },
+      {
+        "catmat": "270301",
+        "descricao_oficial": "IBUPROFENO 600MG COMPRIMIDO",
+        "descricao_enriquecida": "Ibuprofeno 600mg, comprimido (DCB: ibuprofeno)",
+        "grupo": "65050",
+        "status": "ATIVO",
+        "assertividade_base": 0.85,
+        "volume_estimado": "alto",
+        "termos_busca": ["ibuprofeno", "anti-inflamatório", "Advil", "Motrin"],
+        "dcb": "ibuprofeno",
+        "forma_farmaceutica": "comprimido 600mg"
+      }
+    ],
+    "LIMPEZA_HIGIENE": [
+      {
+        "catmat": "381406",
+        "descricao_oficial": "PAPEL HIGIENICO FOLHA SIMPLES",
+        "descricao_enriquecida": "Papel higiênico folha simples/dupla, rolo 30m/60m",
+        "grupo": "79670",
+        "status": "ATIVO",
+        "assertividade_base": 0.92,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["papel higiênico", "papel toilette", "higiênico folha dupla"]
+      },
+      {
+        "catmat": "382082",
+        "descricao_oficial": "AGUA SANITARIA",
+        "descricao_enriquecida": "Água sanitária (hipoclorito de sódio 2,0-2,5%), uso geral",
+        "grupo": "79670",
+        "status": "ATIVO",
+        "assertividade_base": 0.90,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["água sanitária", "hipoclorito", "Qboa", "Cândida", "cloro"]
+      },
+      {
+        "catmat": "382174",
+        "descricao_oficial": "DETERGENTE LIQUIDO NEUTRO",
+        "descricao_enriquecida": "Detergente líquido neutro biodegradável para limpeza geral",
+        "grupo": "79670",
+        "status": "ATIVO",
+        "assertividade_base": 0.90,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["detergente", "detergente neutro", "Ypê", "sabão líquido"]
+      },
+      {
+        "catmat": "381949",
+        "descricao_oficial": "PAPEL TOALHA INTERFOLHADO",
+        "descricao_enriquecida": "Papel toalha interfolhado 2 dobras, branco, para dispensador",
+        "grupo": "79670",
+        "status": "ATIVO",
+        "assertividade_base": 0.88,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["papel toalha", "interfolhado", "papel mão", "toalha de papel"]
+      },
+      {
+        "catmat": "382025",
+        "descricao_oficial": "SACO PARA LIXO",
+        "descricao_enriquecida": "Saco plástico para lixo (diversos volumes: 20L, 40L, 60L, 100L, 200L)",
+        "grupo": "79670",
+        "status": "ATIVO",
+        "assertividade_base": 0.87,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["saco de lixo", "saco plástico", "lixeira"]
+      },
+      {
+        "catmat": "382231",
+        "descricao_oficial": "DESINFETANTE",
+        "descricao_enriquecida": "Desinfetante de uso geral (diversos aromas/princípios ativos)",
+        "grupo": "79670",
+        "status": "ATIVO",
+        "assertividade_base": 0.85,
+        "volume_estimado": "alto",
+        "termos_busca": ["desinfetante", "Pinho Sol", "Lysoform", "germicida"]
+      },
+      {
+        "catmat": "382304",
+        "descricao_oficial": "SABONETE LIQUIDO",
+        "descricao_enriquecida": "Sabonete líquido para mãos, neutro/perfumado, para dispensador",
+        "grupo": "79670",
+        "status": "ATIVO",
+        "assertividade_base": 0.85,
+        "volume_estimado": "alto",
+        "termos_busca": ["sabonete líquido", "sabão mãos", "sabonete dispensador"]
+      },
+      {
+        "catmat": "382370",
+        "descricao_oficial": "ALCOOL ETILICO 70%",
+        "descricao_enriquecida": "Álcool etílico 70% (líquido/gel) para desinfecção",
+        "grupo": "79670",
+        "status": "ATIVO",
+        "assertividade_base": 0.90,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["álcool", "álcool gel", "álcool 70", "álcool etílico"]
+      }
+    ],
+    "VEICULOS": [
+      {
+        "catmat": "313053",
+        "descricao_oficial": "VEICULO AUTOMOTOR TIPO HATCH",
+        "descricao_enriquecida": "Veículo automotor tipo hatch compacto para uso administrativo",
+        "grupo": "23100",
+        "status": "ATIVO",
+        "assertividade_base": 0.82,
+        "volume_estimado": "medio",
+        "termos_busca": ["carro", "veículo", "hatch", "automóvel", "Gol", "Onix", "Argo"],
+        "especificacoes_minimas": {
+          "motor": "mínimo 1.0L flex",
+          "portas": "4 portas",
+          "equipamentos": "ar-condicionado, direção elétrica/hidráulica, vidros elétricos, travas elétricas, airbag duplo, ABS",
+          "garantia": "mínimo 12 meses ou conforme fabricante"
+        }
+      },
+      {
+        "catmat": "320855",
+        "descricao_oficial": "CAMINHONETE CABINE DUPLA",
+        "descricao_enriquecida": "Veículo utilitário tipo caminhonete (pickup) cabine dupla",
+        "grupo": "23100",
+        "status": "ATIVO",
+        "assertividade_base": 0.80,
+        "volume_estimado": "medio",
+        "termos_busca": ["pickup", "caminhonete", "Hilux", "S10", "Ranger", "Amarok"],
+        "especificacoes_minimas": {
+          "motor": "diesel mínimo 2.0L turbo",
+          "tracao": "4x4",
+          "capacidade_carga": "mínimo 1.000kg"
+        }
+      },
+      {
+        "catmat": "304221",
+        "descricao_oficial": "PNEU PARA VEICULO AUTOMOTOR",
+        "descricao_enriquecida": "Pneu radial para veículo automotor (diversos dimensionamentos)",
+        "grupo": "26105",
+        "status": "ATIVO",
+        "assertividade_base": 0.75,
+        "volume_estimado": "alto",
+        "termos_busca": ["pneu", "Pirelli", "Michelin", "Bridgestone", "borracha"],
+        "alerta": "Código genérico. Especificar dimensão exata (ex: 175/70 R13, 265/70 R16)"
+      },
+      {
+        "catmat": "324155",
+        "descricao_oficial": "OLEO LUBRIFICANTE MOTOR",
+        "descricao_enriquecida": "Óleo lubrificante para motor (diesel/gasolina/flex)",
+        "grupo": "91515",
+        "status": "ATIVO",
+        "assertividade_base": 0.75,
+        "volume_estimado": "alto",
+        "termos_busca": ["óleo motor", "lubrificante", "óleo diesel", "Mobil", "Shell", "Castrol"],
+        "alerta": "Especificar viscosidade SAE e classificação API"
+      }
+    ],
+    "CONSTRUCAO": [
+      {
+        "catmat": "352197",
+        "descricao_oficial": "CIMENTO PORTLAND",
+        "descricao_enriquecida": "Cimento Portland composto (CP-II), saco 50kg",
+        "grupo": "56315",
+        "status": "ATIVO",
+        "assertividade_base": 0.90,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["cimento", "Portland", "cimento obras", "Votoran"],
+        "variantes": {
+          "cp_ii_z_32": "CP-II-Z-32 (uso geral, mais comum)",
+          "cp_iv_32": "CP-IV-32 (pozolânico, resistência química)",
+          "cp_v_ari": "CP-V-ARI (alta resistência inicial, desforma rápida)"
+        }
+      },
+      {
+        "catmat": "362440",
+        "descricao_oficial": "AREIA MEDIA LAVADA",
+        "descricao_enriquecida": "Areia média lavada para construção civil",
+        "grupo": "56315",
+        "status": "ATIVO",
+        "assertividade_base": 0.88,
+        "volume_estimado": "alto",
+        "termos_busca": ["areia", "areia lavada", "areia média", "areia grossa"]
+      },
+      {
+        "catmat": "357842",
+        "descricao_oficial": "BARRA DE ACO CA-50",
+        "descricao_enriquecida": "Barra de aço CA-50 para concreto armado (vergalhão)",
+        "grupo": "56315",
+        "status": "ATIVO",
+        "assertividade_base": 0.85,
+        "volume_estimado": "alto",
+        "termos_busca": ["ferro", "vergalhão", "CA-50", "aço construção", "Gerdau"],
+        "especificacoes": "Especificar bitola (6,3mm / 8mm / 10mm / 12,5mm / 16mm / 20mm / 25mm)"
+      },
+      {
+        "catmat": "367120",
+        "descricao_oficial": "TINTA ACRILICA",
+        "descricao_enriquecida": "Tinta acrílica para construção civil (interior/exterior)",
+        "grupo": "80040",
+        "status": "ATIVO",
+        "assertividade_base": 0.82,
+        "volume_estimado": "alto",
+        "termos_busca": ["tinta", "tinta acrílica", "tinta parede", "Suvinil", "Coral"]
+      },
+      {
+        "catmat": "358640",
+        "descricao_oficial": "TUBO PVC SOLDAVEL",
+        "descricao_enriquecida": "Tubo PVC rígido soldável para instalação hidráulica",
+        "grupo": "56315",
+        "status": "ATIVO",
+        "assertividade_base": 0.80,
+        "volume_estimado": "alto",
+        "termos_busca": ["tubo PVC", "cano", "Tigre", "Amanco", "hidráulico"]
+      }
+    ],
+    "ALIMENTOS": [
+      {
+        "catmat": "389050",
+        "descricao_oficial": "ARROZ POLIDO TIPO 1",
+        "descricao_enriquecida": "Arroz polido tipo 1 longo fino (agulhinha), pacote 5kg",
+        "grupo": "89250",
+        "status": "ATIVO",
+        "assertividade_base": 0.95,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["arroz", "arroz tipo 1", "arroz agulhinha", "arroz branco"]
+      },
+      {
+        "catmat": "389165",
+        "descricao_oficial": "FEIJAO CARIOCA TIPO 1",
+        "descricao_enriquecida": "Feijão carioca tipo 1, pacote 1kg",
+        "grupo": "89250",
+        "status": "ATIVO",
+        "assertividade_base": 0.93,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["feijão", "feijão carioca", "feijão tipo 1"]
+      },
+      {
+        "catmat": "389270",
+        "descricao_oficial": "ACUCAR CRISTAL",
+        "descricao_enriquecida": "Açúcar cristal especial, pacote 5kg",
+        "grupo": "89250",
+        "status": "ATIVO",
+        "assertividade_base": 0.90,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["açúcar", "açúcar cristal", "açúcar branco"]
+      },
+      {
+        "catmat": "389320",
+        "descricao_oficial": "CAFE TORRADO E MOIDO",
+        "descricao_enriquecida": "Café torrado e moído tradicional, pacote 500g, selo ABIC",
+        "grupo": "89250",
+        "status": "ATIVO",
+        "assertividade_base": 0.90,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["café", "café moído", "café torrado", "Pilão", "Melitta"]
+      },
+      {
+        "catmat": "389425",
+        "descricao_oficial": "OLEO DE SOJA REFINADO",
+        "descricao_enriquecida": "Óleo de soja refinado, garrafa PET 900mL",
+        "grupo": "89250",
+        "status": "ATIVO",
+        "assertividade_base": 0.88,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["óleo", "óleo de soja", "óleo cozinha", "óleo vegetal"]
+      },
+      {
+        "catmat": "389500",
+        "descricao_oficial": "LEITE UHT INTEGRAL",
+        "descricao_enriquecida": "Leite UHT integral, caixa 1L, com registro SIF",
+        "grupo": "89250",
+        "status": "ATIVO",
+        "assertividade_base": 0.88,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["leite", "leite integral", "leite UHT", "leite longa vida"]
+      },
+      {
+        "catmat": "389610",
+        "descricao_oficial": "CARNE BOVINA PATINHO",
+        "descricao_enriquecida": "Carne bovina tipo patinho, sem osso, congelada, com SIF",
+        "grupo": "89250",
+        "status": "ATIVO",
+        "assertividade_base": 0.82,
+        "volume_estimado": "alto",
+        "termos_busca": ["carne", "carne bovina", "patinho", "boi"],
+        "alerta": "Obrigatório SIF/SIE/SIM. Cadeia de frio (-18°C). PNAE tem regras específicas para agricultura familiar (30% mínimo)"
+      },
+      {
+        "catmat": "389710",
+        "descricao_oficial": "FRANGO COXA E SOBRECOXA CONGELADO",
+        "descricao_enriquecida": "Coxa e sobrecoxa de frango congelada, embalagem 1kg, com SIF",
+        "grupo": "89250",
+        "status": "ATIVO",
+        "assertividade_base": 0.82,
+        "volume_estimado": "alto",
+        "termos_busca": ["frango", "coxa", "sobrecoxa", "galinha"]
+      }
+    ],
+    "COMBUSTIVEL": [
+      {
+        "catmat": "418101",
+        "descricao_oficial": "GASOLINA COMUM",
+        "descricao_enriquecida": "Gasolina comum tipo C, conforme especificações ANP",
+        "grupo": "91515",
+        "status": "ATIVO",
+        "assertividade_base": 0.92,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["gasolina", "gasolina comum", "combustível"],
+        "norma": "Resolução ANP"
+      },
+      {
+        "catmat": "418155",
+        "descricao_oficial": "OLEO DIESEL S-10",
+        "descricao_enriquecida": "Óleo diesel S-10 (ultra baixo teor de enxofre), conforme ANP",
+        "grupo": "91515",
+        "status": "ATIVO",
+        "assertividade_base": 0.92,
+        "volume_estimado": "muito_alto",
+        "termos_busca": ["diesel", "diesel S-10", "diesel S10", "combustível diesel"],
+        "alerta": "S-10 obrigatório para veículos Euro V/VI. S-500 para máquinas agrícolas/estacionárias"
+      },
+      {
+        "catmat": "418201",
+        "descricao_oficial": "ETANOL HIDRATADO",
+        "descricao_enriquecida": "Etanol hidratado combustível (álcool), conforme ANP",
+        "grupo": "91515",
+        "status": "ATIVO",
+        "assertividade_base": 0.85,
+        "volume_estimado": "alto",
+        "termos_busca": ["álcool", "etanol", "álcool combustível"]
+      },
+      {
+        "catmat": "418250",
+        "descricao_oficial": "GAS LIQUEFEITO DE PETROLEO",
+        "descricao_enriquecida": "Gás liquefeito de petróleo (GLP) — botijão P-13/P-45",
+        "grupo": "91515",
+        "status": "ATIVO",
+        "assertividade_base": 0.85,
+        "volume_estimado": "alto",
+        "termos_busca": ["gás", "GLP", "botijão", "gás de cozinha"]
+      }
+    ],
+    "EPI": [
+      {
+        "catmat": "446182",
+        "descricao_oficial": "BOTINA DE SEGURANCA",
+        "descricao_enriquecida": "Calçado de segurança tipo botina, couro, biqueira, solado PU, CA vigente",
+        "grupo": "46815",
+        "status": "ATIVO",
+        "assertividade_base": 0.85,
+        "volume_estimado": "alto",
+        "termos_busca": ["botina", "bota segurança", "calçado segurança", "EPI pé"]
+      },
+      {
+        "catmat": "446230",
+        "descricao_oficial": "CAPACETE DE SEGURANCA",
+        "descricao_enriquecida": "Capacete de segurança classe A/B com carneira, CA vigente",
+        "grupo": "46815",
+        "status": "ATIVO",
+        "assertividade_base": 0.83,
+        "volume_estimado": "alto",
+        "termos_busca": ["capacete", "capacete obra", "EPI cabeça"]
+      },
+      {
+        "catmat": "446390",
+        "descricao_oficial": "LUVA DE VAQUETA",
+        "descricao_enriquecida": "Luva de segurança em vaqueta/raspa para trabalho mecânico, CA vigente",
+        "grupo": "46815",
+        "status": "ATIVO",
+        "assertividade_base": 0.80,
+        "volume_estimado": "alto",
+        "termos_busca": ["luva vaqueta", "luva couro", "luva trabalho", "luva proteção", "EPI mão"],
+        "desambiguacao": {
+          "CONSTRUCAO": "luva vaqueta/raspa para trabalho pesado",
+          "SAUDE": "luva procedimento — usar CATMAT 269940"
+        }
+      },
+      {
+        "catmat": "446440",
+        "descricao_oficial": "RESPIRADOR PFF2",
+        "descricao_enriquecida": "Respirador descartável PFF2 (equivalente N95), sem válvula, CA vigente",
+        "grupo": "46815",
+        "status": "ATIVO",
+        "assertividade_base": 0.88,
+        "volume_estimado": "alto",
+        "termos_busca": ["PFF2", "N95", "respirador", "máscara PFF2", "máscara proteção"],
+        "desambiguacao": {
+          "SAUDE": "respirador PFF2 para proteção biológica (sem válvula)",
+          "CONSTRUCAO": "respirador PFF2 para proteção contra poeira (com ou sem válvula)"
+        }
+      }
+    ],
+    "CODIGOS_PROBLEMATICOS": {
+      "_nota": "Códigos CATMAT com problemas conhecidos (duplicatas, obsoletos, mal categorizados). Sistema deve alertar e sugerir alternativa.",
+      "exemplos": [
+        {
+          "catmat": "150962",
+          "problema": "GENERICO_DEMAIS",
+          "descricao": "MICROCOMPUTADOR — código genérico que abrange desktop, all-in-one, workstation",
+          "recomendacao": "Usar código mais específico. Se não houver, manter este com especificação detalhada no TR",
+          "assertividade_penalizada": 0.60
+        },
+        {
+          "catmat": "EXEMPLO_OBSOLETO",
+          "problema": "OBSOLETO",
+          "descricao": "Código referente a tecnologia descontinuada (ex: disquete, fita DAT)",
+          "recomendacao": "Não utilizar. Buscar código equivalente para tecnologia atual",
+          "assertividade_penalizada": 0.10
+        },
+        {
+          "catmat": "EXEMPLO_DUPLICATA",
+          "problema": "DUPLICATA",
+          "descricao": "Mesmo item cadastrado com dois códigos diferentes",
+          "recomendacao": "Usar código com maior volume de compras no PNCP (maior assertividade)",
+          "assertividade_penalizada": 0.40
+        },
+        {
+          "catmat": "EXEMPLO_MAL_CATEGORIZADO",
+          "problema": "MAL_CATEGORIZADO",
+          "descricao": "Item cadastrado na categoria errada (ex: monitor multiparamétrico em 'informática')",
+          "recomendacao": "Reclassificar via desambiguação por segmento do órgão",
+          "assertividade_penalizada": 0.30
+        }
+      ]
+    }
+  }
+}

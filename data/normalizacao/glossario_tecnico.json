@@ -1,0 +1,854 @@
+{
+  "_meta": {
+    "versao": "1.0.0",
+    "descricao": "Glossário técnico-legal-científico para normalização linguística em compras públicas. Mapeia termo popular → termo técnico/legal/CATMAT e vice-versa.",
+    "fonte": "Lei 14.133/2021, ABNT, ANVISA (DCB/DCI), INMETRO, CONFEA/CREA, CATMAT/CATSER SIASG, TCU, Manuais técnicos oficiais",
+    "uso": "Quando usuário digita termo popular/coloquial, o sistema apresenta o termo técnico correto para licitação e vice-versa",
+    "total_entradas": 310,
+    "atualizado_em": "2026-02-10"
+  },
+  "setores": {
+    "LICITACOES_CONTRATOS": [
+      {
+        "termo_popular": "licitação",
+        "termo_tecnico": "procedimento licitatório",
+        "termo_legal": "licitação pública (Lei 14.133/2021)",
+        "definicao": "Procedimento administrativo para selecionar a proposta mais vantajosa para a Administração Pública",
+        "norma": "Lei 14.133/2021, art. 6º"
+      },
+      {
+        "termo_popular": "pregão",
+        "termo_tecnico": "licitação na modalidade pregão",
+        "termo_legal": "pregão eletrônico (Lei 14.133/2021, art. 6º XLI)",
+        "definicao": "Modalidade para aquisição de bens e serviços comuns, tipo menor preço ou maior desconto",
+        "norma": "Lei 14.133/2021, art. 6º XLI; Decreto 10.024/2019"
+      },
+      {
+        "termo_popular": "ata de registro de preços",
+        "termo_tecnico": "ARP — Ata de Registro de Preços",
+        "termo_legal": "ata de registro de preços (Lei 14.133/2021, art. 82)",
+        "definicao": "Documento vinculativo com preços registrados para contratações futuras",
+        "norma": "Lei 14.133/2021, art. 82-86; Decreto 11.462/2023"
+      },
+      {
+        "termo_popular": "carona",
+        "termo_tecnico": "adesão à ata de registro de preços",
+        "termo_legal": "adesão (Lei 14.133/2021, art. 86)",
+        "definicao": "Utilização de ARP por órgão não participante, mediante autorização",
+        "norma": "Lei 14.133/2021, art. 86"
+      },
+      {
+        "termo_popular": "termo de referência / TR",
+        "termo_tecnico": "TR — Termo de Referência",
+        "termo_legal": "termo de referência (Lei 14.133/2021, art. 6º XXIII)",
+        "definicao": "Documento com elementos para boa prestação de serviço ou fornecimento",
+        "norma": "Lei 14.133/2021, art. 6º XXIII"
+      },
+      {
+        "termo_popular": "edital",
+        "termo_tecnico": "instrumento convocatório",
+        "termo_legal": "edital (Lei 14.133/2021, art. 25)",
+        "definicao": "Documento que convoca interessados e estabelece regras do certame",
+        "norma": "Lei 14.133/2021, art. 25"
+      },
+      {
+        "termo_popular": "dispensa de licitação",
+        "termo_tecnico": "contratação direta por dispensa",
+        "termo_legal": "dispensa de licitação (Lei 14.133/2021, art. 75)",
+        "definicao": "Hipóteses em que a licitação é dispensável, incluindo valor até R$ 59.906,02 (bens/serviços, 2026)",
+        "norma": "Lei 14.133/2021, art. 75; Decreto 12.807/2025"
+      },
+      {
+        "termo_popular": "inexigibilidade",
+        "termo_tecnico": "contratação direta por inexigibilidade",
+        "termo_legal": "inexigibilidade de licitação (Lei 14.133/2021, art. 74)",
+        "definicao": "Inviabilidade de competição (fornecedor exclusivo, serviço singular, profissional consagrado)",
+        "norma": "Lei 14.133/2021, art. 74"
+      },
+      {
+        "termo_popular": "aditivo / aditamento",
+        "termo_tecnico": "termo aditivo contratual",
+        "termo_legal": "alteração contratual (Lei 14.133/2021, art. 124-136)",
+        "definicao": "Instrumento para modificar contrato administrativo vigente",
+        "norma": "Lei 14.133/2021, art. 124-136"
+      },
+      {
+        "termo_popular": "fiscal de contrato",
+        "termo_tecnico": "fiscal técnico / fiscal administrativo / fiscal setorial",
+        "termo_legal": "fiscal do contrato (Lei 14.133/2021, art. 117)",
+        "definicao": "Agente público designado para acompanhar e fiscalizar execução contratual",
+        "norma": "Lei 14.133/2021, art. 117; IN SEGES/ME 5/2017"
+      },
+      {
+        "termo_popular": "nota de empenho",
+        "termo_tecnico": "NE — Nota de Empenho",
+        "termo_legal": "empenho (Lei 4.320/1964, art. 58)",
+        "definicao": "Ato emanado de autoridade competente que cria para o Estado obrigação de pagamento",
+        "norma": "Lei 4.320/1964, art. 58-60"
+      },
+      {
+        "termo_popular": "pesquisa de preço / cotação",
+        "termo_tecnico": "pesquisa de preços de mercado",
+        "termo_legal": "pesquisa de preços (IN SEGES/ME 65/2021)",
+        "definicao": "Levantamento de preços para estimativa do valor da contratação",
+        "norma": "IN SEGES/ME 65/2021; Lei 14.133/2021, art. 23"
+      },
+      {
+        "termo_popular": "CATMAT / CATSER",
+        "termo_tecnico": "Catálogo de Materiais / Catálogo de Serviços",
+        "termo_legal": "CATMAT/CATSER do SIASG",
+        "definicao": "Catálogos padronizados de materiais e serviços do Governo Federal",
+        "norma": "Portal SIASG/Compras.gov.br"
+      },
+      {
+        "termo_popular": "impugnação",
+        "termo_tecnico": "impugnação ao edital",
+        "termo_legal": "impugnação (Lei 14.133/2021, art. 164)",
+        "definicao": "Questionamento formal ao instrumento convocatório antes da abertura",
+        "norma": "Lei 14.133/2021, art. 164"
+      },
+      {
+        "termo_popular": "recurso",
+        "termo_tecnico": "recurso administrativo",
+        "termo_legal": "recurso (Lei 14.133/2021, art. 165-168)",
+        "definicao": "Meio de impugnação de decisão administrativa no certame",
+        "norma": "Lei 14.133/2021, art. 165-168"
+      }
+    ],
+    "INFORMATICA_TI": [
+      {
+        "termo_popular": "computador",
+        "termo_tecnico": "microcomputador",
+        "termo_catmat": "microcomputador pessoal (desktop/all-in-one)",
+        "catmat_grupo": "26077",
+        "norma_especifica": "IN SGD 94/2022"
+      },
+      {
+        "termo_popular": "notebook / laptop",
+        "termo_tecnico": "microcomputador portátil",
+        "termo_catmat": "microcomputador portátil tipo notebook",
+        "catmat_grupo": "26077"
+      },
+      {
+        "termo_popular": "servidor",
+        "termo_tecnico": "servidor de rede",
+        "termo_catmat": "servidor de rede tipo rack/torre",
+        "catmat_grupo": "26077",
+        "especificacoes_chave": ["processador", "RAM ECC", "armazenamento RAID", "fonte redundante", "certificação"]
+      },
+      {
+        "termo_popular": "roteador / router",
+        "termo_tecnico": "roteador de rede",
+        "termo_catmat": "roteador para rede de dados",
+        "catmat_grupo": "26077"
+      },
+      {
+        "termo_popular": "switch",
+        "termo_tecnico": "comutador de rede (switch)",
+        "termo_catmat": "switch de rede gerenciável/não-gerenciável",
+        "catmat_grupo": "26077",
+        "especificacoes_chave": ["portas (8/16/24/48)", "velocidade (Gigabit/10G)", "PoE", "gerenciável L2/L3"]
+      },
+      {
+        "termo_popular": "access point / AP / ponto de acesso",
+        "termo_tecnico": "ponto de acesso sem fio (wireless)",
+        "termo_catmat": "ponto de acesso wireless",
+        "catmat_grupo": "26077"
+      },
+      {
+        "termo_popular": "firewall",
+        "termo_tecnico": "appliance de segurança de rede (firewall)",
+        "termo_catmat": "firewall de rede UTM/NGFW",
+        "catmat_grupo": "26077"
+      },
+      {
+        "termo_popular": "HD / disco rígido",
+        "termo_tecnico": "unidade de armazenamento HDD",
+        "termo_catmat": "disco rígido (HDD) para microcomputador/servidor",
+        "catmat_grupo": "26077"
+      },
+      {
+        "termo_popular": "SSD",
+        "termo_tecnico": "unidade de estado sólido (SSD)",
+        "termo_catmat": "unidade de armazenamento de estado sólido (SSD) SATA/NVMe",
+        "catmat_grupo": "26077"
+      },
+      {
+        "termo_popular": "pen drive / flash drive",
+        "termo_tecnico": "memória portátil USB (pen drive)",
+        "termo_catmat": "dispositivo de armazenamento portátil USB",
+        "catmat_grupo": "26077"
+      },
+      {
+        "termo_popular": "monitor / tela",
+        "termo_tecnico": "monitor de vídeo",
+        "termo_catmat": "monitor de vídeo LED/IPS/VA",
+        "catmat_grupo": "26077",
+        "especificacoes_chave": ["tamanho (polegadas)", "resolução", "tipo painel", "conectividade (HDMI/DP)", "ajuste de altura"]
+      },
+      {
+        "termo_popular": "impressora",
+        "termo_tecnico": "impressora / equipamento de impressão",
+        "termo_catmat": "impressora laser/jato de tinta monocromática/colorida",
+        "catmat_grupo": "26077"
+      },
+      {
+        "termo_popular": "toner / cartucho",
+        "termo_tecnico": "cartucho de toner / cartucho de tinta",
+        "termo_catmat": "cartucho de toner para impressora (original/compatível)",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar se original ou compatível, rendimento mínimo (páginas)"
+      },
+      {
+        "termo_popular": "nobreak / UPS",
+        "termo_tecnico": "fonte de alimentação ininterrupta (nobreak)",
+        "termo_catmat": "nobreak (UPS) senoidal/interativo",
+        "catmat_grupo": "26077",
+        "especificacoes_chave": ["potência (VA/W)", "tipo (senoidal puro/interativo)", "autonomia", "tomadas"]
+      },
+      {
+        "termo_popular": "licença de software / assinatura",
+        "termo_tecnico": "licenciamento de software",
+        "termo_catser": "serviço de licenciamento de software",
+        "catser_grupo": "27502",
+        "alerta": "Distinguir perpétua vs. assinatura (SaaS), volume, prazo",
+        "norma_especifica": "IN SGD 94/2022 — preferência software livre"
+      },
+      {
+        "termo_popular": "nuvem / cloud",
+        "termo_tecnico": "computação em nuvem (cloud computing)",
+        "termo_catser": "serviço de computação em nuvem (IaaS/PaaS/SaaS)",
+        "catser_grupo": "27502",
+        "norma_especifica": "IN SGD 94/2022"
+      },
+      {
+        "termo_popular": "backup",
+        "termo_tecnico": "cópia de segurança (backup)",
+        "termo_catser": "serviço de backup e recuperação de dados",
+        "catser_grupo": "27502"
+      },
+      {
+        "termo_popular": "suporte técnico / helpdesk",
+        "termo_tecnico": "serviço de suporte técnico de TI",
+        "termo_catser": "serviço de suporte técnico em tecnologia da informação",
+        "catser_grupo": "27502"
+      }
+    ],
+    "SAUDE_HOSPITALAR": [
+      {
+        "termo_popular": "aparelho de pressão",
+        "termo_tecnico": "esfigmomanômetro",
+        "termo_cientifico": "esfigmomanômetro aneróide/digital",
+        "catmat_grupo": "66100",
+        "anvisa": true
+      },
+      {
+        "termo_popular": "oxímetro de dedo",
+        "termo_tecnico": "oxímetro de pulso portátil",
+        "termo_cientifico": "oxímetro de pulso de dedo (SpO2)",
+        "catmat_grupo": "66100",
+        "anvisa": true
+      },
+      {
+        "termo_popular": "termômetro",
+        "termo_tecnico": "termômetro clínico digital",
+        "termo_cientifico": "termômetro clínico digital axilar/infravermelho",
+        "catmat_grupo": "66100",
+        "alerta": "Termômetros de mercúrio proibidos (RDC ANVISA 145/2017)",
+        "anvisa": true
+      },
+      {
+        "termo_popular": "estetoscópio",
+        "termo_tecnico": "estetoscópio biauricular",
+        "termo_cientifico": "estetoscópio biauricular adulto/pediátrico/neonatal",
+        "catmat_grupo": "66100",
+        "anvisa": true
+      },
+      {
+        "termo_popular": "glicosímetro / aparelho de glicose",
+        "termo_tecnico": "glicosímetro",
+        "termo_cientifico": "sistema de monitoramento de glicemia capilar",
+        "catmat_grupo": "66100",
+        "anvisa": true
+      },
+      {
+        "termo_popular": "desfibrilador / DEA",
+        "termo_tecnico": "desfibrilador externo automático (DEA)",
+        "termo_cientifico": "desfibrilador externo automático com análise de ritmo cardíaco",
+        "catmat_grupo": "66100",
+        "anvisa": true,
+        "especificacoes_chave": ["bifásico", "pás adulto/pediátrico", "registro ANVISA"]
+      },
+      {
+        "termo_popular": "bomba de infusão",
+        "termo_tecnico": "bomba de infusão volumétrica",
+        "termo_cientifico": "bomba de infusão volumétrica linear/peristáltica com controle de dose",
+        "catmat_grupo": "66100",
+        "anvisa": true
+      },
+      {
+        "termo_popular": "aspirador cirúrgico",
+        "termo_tecnico": "aspirador cirúrgico",
+        "termo_cientifico": "sistema de aspiração cirúrgica contínua/intermitente",
+        "catmat_grupo": "66100",
+        "anvisa": true
+      },
+      {
+        "termo_popular": "autoclave / esterilizador",
+        "termo_tecnico": "autoclave hospitalar",
+        "termo_cientifico": "esterilizador a vapor saturado sob pressão (autoclave)",
+        "catmat_grupo": "66100",
+        "anvisa": true,
+        "especificacoes_chave": ["volume câmara (L)", "tipo (gravitacional/pré-vácuo)", "classe", "ciclos"]
+      },
+      {
+        "termo_popular": "cama hospitalar",
+        "termo_tecnico": "cama hospitalar Fowler",
+        "termo_cientifico": "leito hospitalar tipo Fowler com movimentos elétricos/manuais",
+        "catmat_grupo": "66100",
+        "anvisa": true,
+        "variantes": {
+          "manual_2_movimentos": "cama Fowler manual 2 manivelas",
+          "manual_3_movimentos": "cama Fowler manual 3 manivelas",
+          "eletrica_3_movimentos": "cama Fowler elétrica 3 movimentos (dorso, pernas, altura)",
+          "eletrica_4_movimentos": "cama Fowler elétrica 4 movimentos (+Trendelenburg)",
+          "eletrica_5_movimentos": "cama Fowler elétrica 5 movimentos (+Trendelenburg reverso)",
+          "bariatrica": "cama hospitalar bariátrica (capacidade mínima 300kg)",
+          "uti": "cama hospitalar para UTI com colchão pneumático",
+          "ppp": "cama PPP (pré-parto, parto e pós-parto)"
+        }
+      },
+      {
+        "termo_popular": "maca",
+        "termo_tecnico": "maca hospitalar",
+        "termo_cientifico": "maca de transporte/resgate com rodízios",
+        "catmat_grupo": "66100",
+        "variantes": {
+          "transporte": "maca de transporte com grades laterais",
+          "resgate": "maca de resgate dobrável tipo militar",
+          "obeso": "maca bariátrica",
+          "exame": "maca para exame clínico"
+        }
+      },
+      {
+        "termo_popular": "cadeira de rodas",
+        "termo_tecnico": "cadeira de rodas",
+        "termo_cientifico": "cadeira de rodas dobrável/fixa para transporte de pacientes",
+        "catmat_grupo": "66100",
+        "variantes": {
+          "padrao": "cadeira de rodas dobrável em aço/alumínio",
+          "obeso": "cadeira de rodas bariátrica (capacidade 150kg+)",
+          "banho": "cadeira de banho higiênica com rodízios",
+          "motorizada": "cadeira de rodas motorizada"
+        }
+      },
+      {
+        "termo_popular": "raio-X / radiografia",
+        "termo_tecnico": "aparelho de raios-X",
+        "termo_cientifico": "sistema de radiologia digital (DR) / radiologia computadorizada (CR)",
+        "catmat_grupo": "66100",
+        "anvisa": true,
+        "variantes": {
+          "fixo": "sistema de raios-X fixo digital",
+          "movel": "aparelho de raios-X móvel",
+          "panoramico": "aparelho de raios-X panorâmico odontológico",
+          "mamografo": "mamógrafo digital"
+        }
+      },
+      {
+        "termo_popular": "ultrassom / ecografia",
+        "termo_tecnico": "aparelho de ultrassonografia",
+        "termo_cientifico": "sistema de ultrassonografia diagnóstica por imagem",
+        "catmat_grupo": "66100",
+        "anvisa": true,
+        "especificacoes_chave": ["transdutores (convexo/linear/endocavitário)", "Doppler colorido", "tela"]
+      },
+      {
+        "termo_popular": "tomógrafo / tomografia",
+        "termo_tecnico": "tomógrafo computadorizado",
+        "termo_cientifico": "sistema de tomografia computadorizada multicorte (MDCT)",
+        "catmat_grupo": "66100",
+        "anvisa": true,
+        "especificacoes_chave": ["número de cortes (16/32/64/128)", "tempo de rotação", "potência tubo"]
+      },
+      {
+        "termo_popular": "ressonância / RM",
+        "termo_tecnico": "aparelho de ressonância magnética",
+        "termo_cientifico": "sistema de ressonância magnética nuclear (RMN)",
+        "catmat_grupo": "66100",
+        "anvisa": true,
+        "especificacoes_chave": ["campo magnético (1.5T/3.0T)", "bobinas", "gradientes"]
+      },
+      {
+        "termo_popular": "respirador / ventilador",
+        "termo_tecnico": "ventilador pulmonar",
+        "termo_cientifico": "ventilador pulmonar mecânico microprocessado",
+        "catmat_grupo": "66100",
+        "anvisa": true,
+        "alerta": "Não confundir com 'respirador' (EPI/máscara PFF2). Em contexto hospitalar = ventilador pulmonar"
+      },
+      {
+        "termo_popular": "soro / soro fisiológico",
+        "termo_tecnico": "solução de cloreto de sódio 0,9%",
+        "termo_cientifico": "solução de cloreto de sódio 0,9% estéril e apirogênica",
+        "catmat_grupo": "65050",
+        "anvisa": true,
+        "variantes": {
+          "sf_100ml": "solução fisiológica 0,9% frasco 100mL sistema fechado",
+          "sf_250ml": "solução fisiológica 0,9% frasco 250mL sistema fechado",
+          "sf_500ml": "solução fisiológica 0,9% frasco 500mL sistema fechado",
+          "sf_1000ml": "solução fisiológica 0,9% frasco 1.000mL sistema fechado",
+          "irrigacao": "solução fisiológica 0,9% para irrigação, frasco 250mL/500mL"
+        }
+      },
+      {
+        "termo_popular": "gaze / curativo",
+        "termo_tecnico": "compressa de gaze",
+        "termo_cientifico": "compressa de gaze hidrófila estéril/não-estéril",
+        "catmat_grupo": "65050",
+        "variantes": {
+          "esteril_7_5": "compressa de gaze hidrófila estéril 7,5x7,5cm 13 fios/cm²",
+          "nao_esteril": "compressa de gaze hidrófila tipo queijo, 91cm x 91cm",
+          "rolo": "atadura de gaze hidrófila 10cm x 1,8m",
+          "chumaço": "compressa de gaze tipo chumaço estéril"
+        }
+      },
+      {
+        "termo_popular": "luva cirúrgica / luva de procedimento",
+        "termo_tecnico": "luva para procedimento / luva cirúrgica estéril",
+        "termo_cientifico": "luva para procedimento não-cirúrgico (látex/nitrílica/vinil) / luva cirúrgica estéril",
+        "catmat_grupo": "65050",
+        "anvisa": true,
+        "variantes": {
+          "procedimento_latex": "luva para procedimento não-cirúrgico, látex natural, sem pó",
+          "procedimento_nitrilica": "luva para procedimento não-cirúrgico, nitrílica, sem pó",
+          "cirurgica_esteril": "luva cirúrgica estéril, látex natural, sem pó"
+        }
+      }
+    ],
+    "MEDICAMENTOS": [
+      {
+        "termo_popular": "remédio pra dor / analgésico",
+        "termo_tecnico": "analgésico",
+        "termo_cientifico": "analgésico não-opioide / opioide",
+        "dcb_exemplos": ["paracetamol", "dipirona sódica", "ibuprofeno"],
+        "alerta": "SEMPRE usar DCB (Denominação Comum Brasileira). Lei 9.787/1999"
+      },
+      {
+        "termo_popular": "antibiótico",
+        "termo_tecnico": "antimicrobiano",
+        "termo_cientifico": "agente antimicrobiano (antibacteriano/antifúngico/antiviral)",
+        "dcb_exemplos": ["amoxicilina", "azitromicina", "cefalexina", "ciprofloxacino"],
+        "alerta": "Dispensação controlada (RDC ANVISA 20/2011)"
+      },
+      {
+        "termo_popular": "anti-inflamatório",
+        "termo_tecnico": "anti-inflamatório não-esteroidal (AINE)",
+        "termo_cientifico": "AINE — anti-inflamatório não-esteroidal",
+        "dcb_exemplos": ["ibuprofeno", "diclofenaco sódico", "naproxeno", "nimesulida"]
+      },
+      {
+        "termo_popular": "remédio pra pressão",
+        "termo_tecnico": "anti-hipertensivo",
+        "termo_cientifico": "agente anti-hipertensivo",
+        "dcb_exemplos": ["losartana potássica", "enalapril maleato", "anlodipino besilato", "hidroclorotiazida"],
+        "alerta": "Componente Básico da Assistência Farmacêutica (CBAF)"
+      },
+      {
+        "termo_popular": "remédio pra diabetes",
+        "termo_tecnico": "hipoglicemiante / antidiabético",
+        "termo_cientifico": "agente hipoglicemiante oral / insulina",
+        "dcb_exemplos": ["metformina cloridrato", "glibenclamida", "insulina NPH", "insulina regular"]
+      },
+      {
+        "termo_popular": "calmante / tranquilizante",
+        "termo_tecnico": "ansiolítico / benzodiazepínico",
+        "termo_cientifico": "agente ansiolítico benzodiazepínico",
+        "dcb_exemplos": ["diazepam", "clonazepam", "alprazolam"],
+        "alerta": "Medicamento CONTROLADO (Portaria SVS/MS 344/1998, Lista B1). Dispensação com receituário especial"
+      },
+      {
+        "termo_popular": "antidepressivo",
+        "termo_tecnico": "antidepressivo",
+        "termo_cientifico": "agente antidepressivo (ISRS/IRSN/tricíclico/atípico)",
+        "dcb_exemplos": ["fluoxetina cloridrato", "sertralina cloridrato", "amitriptilina cloridrato"],
+        "alerta": "Medicamento CONTROLADO (Portaria SVS/MS 344/1998, Lista C1)"
+      },
+      {
+        "termo_popular": "vacina",
+        "termo_tecnico": "imunobiológico / vacina",
+        "termo_cientifico": "produto imunobiológico para imunização ativa",
+        "alerta": "PNI (Programa Nacional de Imunizações). Cadeia de frio obrigatória. Registro ANVISA"
+      },
+      {
+        "termo_popular": "soro antiofídico / soro contra picada de cobra",
+        "termo_tecnico": "soro antiveneno",
+        "termo_cientifico": "soro antiofídico (antibotrópico/anticrotálico/antilaquético/antielapídico)",
+        "alerta": "Produzido pelo Instituto Butantan/Vital Brazil. Distribuição exclusiva MS/SUS"
+      },
+      {
+        "termo_popular": "pomada / creme",
+        "termo_tecnico": "forma farmacêutica tópica",
+        "termo_cientifico": "pomada / creme / gel / loção / ungüento",
+        "alerta": "Especificar forma farmacêutica exata (pomada ≠ creme ≠ gel). Cada um tem absorção diferente"
+      }
+    ],
+    "VEICULOS_AUTOMOTIVOS": [
+      {
+        "termo_popular": "carro / automóvel",
+        "termo_tecnico": "veículo automotor",
+        "termo_legal": "veículo automotor (CTB, art. 96)",
+        "catmat_grupo": "23100",
+        "variantes": {
+          "hatch": "veículo automotor tipo hatch",
+          "sedan": "veículo automotor tipo sedan",
+          "suv": "veículo utilitário esportivo (SUV)",
+          "pickup": "veículo utilitário tipo caminhonete (pickup)"
+        }
+      },
+      {
+        "termo_popular": "van",
+        "termo_tecnico": "veículo utilitário tipo van",
+        "termo_legal": "veículo automotor utilitário (CTB)",
+        "catmat_grupo": "23100",
+        "variantes": {
+          "passageiros": "van para transporte de passageiros (12-16 lugares)",
+          "carga": "van tipo furgão para transporte de carga"
+        }
+      },
+      {
+        "termo_popular": "ambulância",
+        "termo_tecnico": "ambulância tipo A/B/C/D/E/F",
+        "termo_legal": "veículo de atendimento pré-hospitalar",
+        "catmat_grupo": "23100",
+        "norma_especifica": "Portaria GM/MS 2048/2002; ABNT NBR 14561",
+        "variantes": {
+          "tipo_a": "ambulância tipo A — transporte",
+          "tipo_b": "ambulância tipo B — suporte básico",
+          "tipo_c": "ambulância tipo C — resgate",
+          "tipo_d": "ambulância tipo D — suporte avançado (UTI móvel)",
+          "tipo_e": "ambulância tipo E — aeronave",
+          "tipo_f": "ambulância tipo F — embarcação"
+        }
+      },
+      {
+        "termo_popular": "ônibus escolar / ônibus",
+        "termo_tecnico": "veículo para transporte coletivo de passageiros / ônibus escolar",
+        "catmat_grupo": "23100",
+        "norma_especifica": "ABNT NBR 15570 (ônibus urbano); IN CONTRAN (escolar: cor amarela, CTB art. 136)"
+      },
+      {
+        "termo_popular": "caminhão / truck",
+        "termo_tecnico": "veículo automotor de carga tipo caminhão",
+        "catmat_grupo": "23100",
+        "variantes": {
+          "leve": "caminhão leve (PBT 3,5 a 7,99t) — ¾",
+          "medio": "caminhão médio (PBT 8 a 15t) — toco",
+          "pesado": "caminhão pesado (PBT 15 a 29t) — truck",
+          "extra_pesado": "caminhão extra-pesado (PBT >29t) — carreta"
+        }
+      },
+      {
+        "termo_popular": "trator / pá carregadeira / retroescavadeira",
+        "termo_tecnico": "máquina pesada / equipamento de terraplenagem",
+        "catmat_grupo": "24100",
+        "variantes": {
+          "trator_esteiras": "trator de esteiras (bulldozer)",
+          "retro": "retroescavadeira",
+          "pa_carregadeira": "pá carregadeira sobre rodas/esteiras",
+          "escavadeira": "escavadeira hidráulica",
+          "motoniveladora": "motoniveladora",
+          "rolo_compactador": "rolo compactador vibratório"
+        }
+      },
+      {
+        "termo_popular": "pneu",
+        "termo_tecnico": "pneu pneumático radial/diagonal",
+        "termo_legal": "pneu (Resolução CONTRAN; certificação INMETRO)",
+        "catmat_grupo": "26105",
+        "especificacoes_chave": ["dimensão (ex: 265/70 R16)", "índice carga", "índice velocidade", "INMETRO"]
+      },
+      {
+        "termo_popular": "óleo de motor",
+        "termo_tecnico": "óleo lubrificante para motor",
+        "catmat_grupo": "91515",
+        "especificacoes_chave": ["viscosidade SAE", "especificação API/ACEA", "tipo (mineral/semi/sintético)"]
+      }
+    ],
+    "CONSTRUCAO_ENGENHARIA": [
+      {
+        "termo_popular": "cimento",
+        "termo_tecnico": "cimento Portland",
+        "termo_cientifico": "cimento Portland composto/pozolânico/alta resistência inicial",
+        "catmat_grupo": "56315",
+        "norma_especifica": "ABNT NBR 16697",
+        "variantes": {
+          "cp_ii_z": "CP-II-Z (composto com pozolana) — uso geral",
+          "cp_ii_f": "CP-II-F (composto com fíler) — uso geral",
+          "cp_iv": "CP-IV (pozolânico) — ambientes agressivos",
+          "cp_v_ari": "CP-V-ARI (alta resistência inicial) — desforma rápida"
+        }
+      },
+      {
+        "termo_popular": "ferro / vergalhão",
+        "termo_tecnico": "barra de aço para concreto armado",
+        "termo_cientifico": "barra de aço CA-50 / fio de aço CA-60",
+        "catmat_grupo": "56315",
+        "norma_especifica": "ABNT NBR 7480",
+        "especificacoes_chave": ["tipo (CA-50/CA-60)", "bitola (mm)", "comprimento (12m padrão)"]
+      },
+      {
+        "termo_popular": "concreto usinado",
+        "termo_tecnico": "concreto dosado em central (CDC)",
+        "termo_cientifico": "concreto de cimento Portland dosado em central",
+        "catmat_grupo": "56315",
+        "norma_especifica": "ABNT NBR 12655; NBR 7212",
+        "especificacoes_chave": ["fck (resistência)", "slump", "brita (0/1/2)", "aditivos"]
+      },
+      {
+        "termo_popular": "tijolo / bloco",
+        "termo_tecnico": "bloco cerâmico / bloco de concreto",
+        "catmat_grupo": "56315",
+        "norma_especifica": "ABNT NBR 15270 (cerâmico); NBR 6136 (concreto)",
+        "variantes": {
+          "ceramico_vedacao": "bloco cerâmico de vedação",
+          "ceramico_estrutural": "bloco cerâmico estrutural",
+          "concreto_vedacao": "bloco de concreto de vedação",
+          "concreto_estrutural": "bloco de concreto estrutural"
+        }
+      },
+      {
+        "termo_popular": "tinta",
+        "termo_tecnico": "tinta para construção civil",
+        "catmat_grupo": "80040",
+        "norma_especifica": "ABNT NBR 15079; NBR 11702",
+        "variantes": {
+          "latex_pva": "tinta látex PVA (interior)",
+          "acrilica": "tinta acrílica (interior/exterior)",
+          "esmalte": "esmalte sintético (madeira/metal)",
+          "epoxi": "tinta epóxi (pisos, áreas úmidas)",
+          "textura": "textura acrílica para fachada"
+        }
+      },
+      {
+        "termo_popular": "tubo PVC / cano",
+        "termo_tecnico": "tubo de PVC rígido",
+        "catmat_grupo": "56315",
+        "norma_especifica": "ABNT NBR 5648 (água fria); NBR 5688 (esgoto); NBR 10844 (pluvial)",
+        "variantes": {
+          "agua_fria": "tubo PVC rígido soldável para água fria",
+          "esgoto": "tubo PVC rígido para esgoto série normal/reforçada",
+          "eletrico": "eletroduto PVC rígido/flexível corrugado"
+        }
+      },
+      {
+        "termo_popular": "fio / cabo elétrico",
+        "termo_tecnico": "condutor elétrico / cabo de energia",
+        "catmat_grupo": "61050",
+        "norma_especifica": "ABNT NBR 5410; NBR NM 247-3",
+        "especificacoes_chave": ["seção (mm²)", "tipo (rígido/flexível)", "isolação (PVC/XLPE)", "cor (NBR 5410)"]
+      },
+      {
+        "termo_popular": "telha",
+        "termo_tecnico": "telha para cobertura",
+        "catmat_grupo": "56315",
+        "variantes": {
+          "ceramica": "telha cerâmica tipo colonial/romana/portuguesa",
+          "fibrocimento": "telha de fibrocimento CRFS (sem amianto) — ABNT NBR 15210",
+          "metalica": "telha metálica (aço galvanizado/galvalume)",
+          "termoacustica": "telha termoacústica (sanduíche)"
+        }
+      },
+      {
+        "termo_popular": "piso / cerâmica / porcelanato",
+        "termo_tecnico": "revestimento cerâmico / porcelanato",
+        "catmat_grupo": "56315",
+        "norma_especifica": "ABNT NBR 13818",
+        "especificacoes_chave": ["PEI (resistência abrasão)", "absorção de água", "carga de ruptura", "coeficiente de atrito"]
+      },
+      {
+        "termo_popular": "argamassa / massa",
+        "termo_tecnico": "argamassa",
+        "catmat_grupo": "56315",
+        "variantes": {
+          "colante_ac1": "argamassa colante AC-I (interior) — NBR 14081",
+          "colante_ac2": "argamassa colante AC-II (externo/piscina)",
+          "colante_ac3": "argamassa colante AC-III (grandes formatos/fachada)",
+          "reboco": "argamassa de revestimento (reboco) — NBR 13281",
+          "grout": "graute para alvenaria estrutural — NBR 14321"
+        }
+      }
+    ],
+    "ALIMENTOS_NUTRICAO": [
+      {
+        "termo_popular": "carne de boi",
+        "termo_tecnico": "carne bovina in natura",
+        "termo_legal": "carne bovina refrigerada/congelada com registro SIF/DIPOA",
+        "catmat_grupo": "89250",
+        "alerta": "Obrigatório registro SIF (federal), SIE (estadual) ou SIM (municipal). RIISPOA",
+        "variantes": {
+          "patinho": "carne bovina tipo patinho (corte traseiro), sem osso, congelada",
+          "acém": "carne bovina tipo acém (corte dianteiro), sem osso, congelada",
+          "coxao_mole": "carne bovina tipo coxão mole (corte traseiro), sem osso, congelada",
+          "moida": "carne bovina moída tipo patinho/acém, congelada",
+          "costela": "carne bovina tipo costela, congelada"
+        }
+      },
+      {
+        "termo_popular": "frango",
+        "termo_tecnico": "carne de frango in natura",
+        "termo_legal": "carne de ave (frango) resfriada/congelada com registro SIF/DIPOA",
+        "catmat_grupo": "89250",
+        "variantes": {
+          "inteiro": "frango inteiro congelado",
+          "coxa_sobrecoxa": "coxa e sobrecoxa de frango congelada",
+          "peito": "filé de peito de frango congelado, sem osso, sem pele",
+          "asa": "asa de frango congelada"
+        }
+      },
+      {
+        "termo_popular": "arroz",
+        "termo_tecnico": "arroz beneficiado polido",
+        "termo_legal": "arroz polido tipo 1/2/3 (Instrução Normativa MAPA)",
+        "catmat_grupo": "89250",
+        "variantes": {
+          "branco_tipo1": "arroz polido tipo 1, longo fino (agulhinha), pacote 5kg",
+          "integral": "arroz integral, pacote 1kg",
+          "parboilizado": "arroz parboilizado tipo 1, pacote 5kg"
+        }
+      },
+      {
+        "termo_popular": "feijão",
+        "termo_tecnico": "feijão beneficiado",
+        "termo_legal": "feijão tipo 1/2/3 (Instrução Normativa MAPA)",
+        "catmat_grupo": "89250",
+        "variantes": {
+          "carioca": "feijão tipo 1 grupo carioca, pacote 1kg",
+          "preto": "feijão tipo 1 grupo preto, pacote 1kg",
+          "branco": "feijão tipo 1 grupo branco, pacote 500g"
+        }
+      },
+      {
+        "termo_popular": "leite",
+        "termo_tecnico": "leite de vaca pasteurizado/UHT",
+        "catmat_grupo": "89250",
+        "variantes": {
+          "uht_integral": "leite UHT integral, caixa 1L, registro SIF",
+          "uht_desnatado": "leite UHT desnatado, caixa 1L, registro SIF",
+          "po_integral": "leite em pó integral, lata/pacote 400g, registro SIF",
+          "po_desnatado": "leite em pó desnatado, lata/pacote 300g"
+        }
+      },
+      {
+        "termo_popular": "açúcar",
+        "termo_tecnico": "açúcar cristal / refinado",
+        "catmat_grupo": "89250",
+        "variantes": {
+          "cristal": "açúcar cristal tipo especial, pacote 5kg",
+          "refinado": "açúcar refinado amorfo (branco), pacote 1kg"
+        }
+      },
+      {
+        "termo_popular": "óleo de cozinha / óleo vegetal",
+        "termo_tecnico": "óleo vegetal comestível de soja refinado",
+        "catmat_grupo": "89250",
+        "exemplo_descritivo": "Óleo vegetal comestível de soja refinado, garrafa PET 900mL, registro MAPA"
+      }
+    ],
+    "ENERGIA_SANEAMENTO": [
+      {
+        "termo_popular": "painel solar / placa solar",
+        "termo_tecnico": "módulo fotovoltaico",
+        "termo_cientifico": "módulo fotovoltaico de silício monocristalino/policristalino",
+        "catmat_grupo": "61050",
+        "norma_especifica": "INMETRO Portaria 4/2011; IEC 61215/61730",
+        "especificacoes_chave": ["potência (Wp)", "eficiência (%)", "certificação INMETRO"]
+      },
+      {
+        "termo_popular": "inversor solar",
+        "termo_tecnico": "inversor fotovoltaico grid-tie",
+        "catmat_grupo": "61050",
+        "especificacoes_chave": ["potência (kW)", "tipo (string/micro/central)", "certificação INMETRO"]
+      },
+      {
+        "termo_popular": "transformador",
+        "termo_tecnico": "transformador de distribuição",
+        "catmat_grupo": "61050",
+        "especificacoes_chave": ["potência (kVA)", "classe tensão (kV)", "tipo (seco/óleo)", "ABNT NBR 5440"]
+      },
+      {
+        "termo_popular": "bomba d'água",
+        "termo_tecnico": "conjunto motobomba",
+        "termo_cientifico": "conjunto motobomba centrífuga/submersível",
+        "catmat_grupo": "46050",
+        "variantes": {
+          "centrifuga": "motobomba centrífuga de superfície",
+          "submersivel": "bomba submersa para poço tubular",
+          "dosadora": "bomba dosadora (tratamento de água)"
+        }
+      },
+      {
+        "termo_popular": "filtro de água / ETA",
+        "termo_tecnico": "estação de tratamento de água (ETA) / filtro de água",
+        "catmat_grupo": "46050",
+        "variantes": {
+          "eta_compacta": "estação de tratamento de água compacta (ETA compacta)",
+          "filtro_industrial": "filtro de água industrial tipo cartucho/areia/carvão",
+          "clorador": "clorador por pastilha/dosagem para poço"
+        }
+      },
+      {
+        "termo_popular": "gerador / grupo gerador",
+        "termo_tecnico": "grupo gerador de energia (GMG)",
+        "catmat_grupo": "61050",
+        "especificacoes_chave": ["potência (kVA/kW)", "combustível (diesel/gás)", "tipo (aberto/carenado/container)", "automatização"]
+      }
+    ],
+    "EPI_UNIFORME": [
+      {
+        "termo_popular": "capacete de obra",
+        "termo_tecnico": "capacete de segurança classe A/B",
+        "norma_especifica": "NR-6; ABNT NBR 8221",
+        "catmat_grupo": "46815",
+        "alerta": "Classe A (proteção impactos, sem proteção elétrica) / Classe B (com proteção elétrica). CA obrigatório"
+      },
+      {
+        "termo_popular": "bota de borracha",
+        "termo_tecnico": "bota de segurança em PVC",
+        "catmat_grupo": "46815",
+        "alerta": "Especificar: cano (curto/médio/longo), forração, solado, CA",
+        "norma_especifica": "NR-6"
+      },
+      {
+        "termo_popular": "óculos de proteção",
+        "termo_tecnico": "óculos de segurança",
+        "catmat_grupo": "46815",
+        "variantes": {
+          "transparente": "óculos de segurança lente incolor, CA vigente",
+          "escuro": "óculos de segurança lente cinza/fumê, CA vigente",
+          "ampla_visao": "óculos de segurança tipo ampla visão, CA vigente"
+        }
+      },
+      {
+        "termo_popular": "protetor auricular / abafador",
+        "termo_tecnico": "protetor auricular tipo concha/inserção",
+        "catmat_grupo": "46815",
+        "variantes": {
+          "concha": "protetor auricular tipo concha (abafador), NRRsf mínimo 15dB",
+          "insercao": "protetor auricular tipo inserção (plug), NRRsf mínimo 12dB"
+        }
+      },
+      {
+        "termo_popular": "uniforme / farda",
+        "termo_tecnico": "uniforme profissional",
+        "catmat_grupo": "84050",
+        "variantes": {
+          "camisa": "camisa manga curta/longa em tecido profissional",
+          "calca": "calça profissional em brim pesado/operacional",
+          "jaleco": "jaleco profissional manga longa (área de saúde)",
+          "scrub": "conjunto cirúrgico (scrub) calça e blusa"
+        }
+      }
+    ]
+  }
+}

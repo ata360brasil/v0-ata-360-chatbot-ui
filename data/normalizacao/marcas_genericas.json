@@ -1,0 +1,631 @@
+{
+  "_meta": {
+    "versao": "1.0.0",
+    "descricao": "Marcas registradas que devem ser substituídas por termos genéricos em licitações públicas. Lei 14.133/2021 art. 41 §I veda indicação de marca salvo justificativa técnica.",
+    "fonte": "CATMAT/CATSER SIASG, PNCP, Jurisprudência TCU (Súmula 270), Acórdãos TCU",
+    "base_legal": [
+      "Lei 14.133/2021, art. 41 §I — vedação de marca",
+      "Súmula TCU 270 — vedação de marca em licitação",
+      "Acórdão TCU 1521/2003 — marca como referência somente com justificativa",
+      "Lei 8.666/1993, art. 15 §7º (vigência residual)"
+    ],
+    "uso": "Quando o usuário digita uma marca, o sistema sugere o termo genérico equivalente e alerta sobre vedação legal",
+    "total_entradas": 160,
+    "atualizado_em": "2026-02-10"
+  },
+  "categorias": {
+    "INFORMATICA_HARDWARE": [
+      {
+        "marca": "Dell",
+        "termo_generico": "microcomputador / notebook / servidor",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar por configuração (processador, RAM, armazenamento), não por marca",
+        "exemplo_descritivo": "Microcomputador tipo notebook, processador mínimo Intel Core i5 12ª geração ou AMD Ryzen 5 série 6000 ou equivalente, 16GB RAM DDR5, SSD 512GB NVMe, tela 14 polegadas IPS Full HD"
+      },
+      {
+        "marca": "HP / Hewlett-Packard",
+        "termo_generico": "microcomputador / notebook / impressora",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar por configuração técnica mínima",
+        "exemplo_descritivo": "Microcomputador tipo desktop, processador mínimo Intel Core i5 ou AMD Ryzen 5 ou equivalente"
+      },
+      {
+        "marca": "Lenovo",
+        "termo_generico": "microcomputador / notebook",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar por configuração técnica mínima"
+      },
+      {
+        "marca": "Apple / MacBook / iMac / iPad",
+        "termo_generico": "microcomputador / notebook / tablet",
+        "catmat_grupo": "26077",
+        "alerta": "Exige justificativa técnica robusta (compatibilidade software específico). TCU recomenda alternativas",
+        "exemplo_descritivo": "Microcomputador portátil com sistema operacional macOS (quando justificado por necessidade de software exclusivo)"
+      },
+      {
+        "marca": "Samsung (eletrônicos)",
+        "termo_generico": "monitor de vídeo / tablet / smartphone",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar por características técnicas (resolução, tamanho, painel)"
+      },
+      {
+        "marca": "LG (monitores/TVs)",
+        "termo_generico": "monitor de vídeo / televisor",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar resolução, tamanho, tipo de painel"
+      },
+      {
+        "marca": "Intel",
+        "termo_generico": "processador",
+        "catmat_grupo": "26077",
+        "alerta": "Usar 'processador com desempenho mínimo equivalente a Intel Core i5 12ª geração ou superior, conforme benchmark Passmark mínimo de X pontos'",
+        "referencia_benchmark": "Passmark CPU Mark"
+      },
+      {
+        "marca": "AMD",
+        "termo_generico": "processador",
+        "catmat_grupo": "26077",
+        "alerta": "Usar benchmark neutro (Passmark, SPEC) como referência de desempenho mínimo"
+      },
+      {
+        "marca": "Kingston / Corsair / Crucial",
+        "termo_generico": "módulo de memória RAM",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar tipo (DDR4/DDR5), velocidade (MHz), capacidade (GB)"
+      },
+      {
+        "marca": "Western Digital / WD / Seagate",
+        "termo_generico": "disco rígido / unidade de armazenamento",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar tipo (HDD/SSD/NVMe), capacidade, velocidade leitura/gravação"
+      },
+      {
+        "marca": "NVIDIA / GeForce / Quadro",
+        "termo_generico": "placa de vídeo / unidade de processamento gráfico",
+        "catmat_grupo": "26077",
+        "alerta": "Usar benchmark neutro ou especificar CUDA cores/VRAM quando para computação científica"
+      },
+      {
+        "marca": "TP-Link / Cisco / Ubiquiti",
+        "termo_generico": "roteador / switch de rede / ponto de acesso wireless",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar padrão (Wi-Fi 6/6E), velocidade, número de portas, PoE"
+      }
+    ],
+    "INFORMATICA_SOFTWARE": [
+      {
+        "marca": "Microsoft Windows",
+        "termo_generico": "sistema operacional para microcomputadores",
+        "catmat_grupo": "43233",
+        "alerta": "Pode ser indicado como referência se houver justificativa de compatibilidade. Considerar alternativas livres (Linux)",
+        "base_legal_especifica": "IN SGD 94/2022 — preferência por software livre quando viável"
+      },
+      {
+        "marca": "Microsoft Office / Office 365 / Microsoft 365",
+        "termo_generico": "suíte de aplicativos de escritório",
+        "catmat_grupo": "43233",
+        "alerta": "Considerar LibreOffice e alternativas. Se Office necessário, justificar compatibilidade",
+        "alternativa_livre": "LibreOffice, OnlyOffice"
+      },
+      {
+        "marca": "Adobe Acrobat",
+        "termo_generico": "software editor de documentos PDF",
+        "catmat_grupo": "43233",
+        "alerta": "Há alternativas livres para leitura. Editor profissional pode exigir justificativa"
+      },
+      {
+        "marca": "Adobe Creative Suite / Photoshop / Illustrator",
+        "termo_generico": "software de edição de imagens / design gráfico",
+        "catmat_grupo": "43233",
+        "alerta": "Considerar GIMP, Inkscape. Se Adobe necessário, justificar funcionalidade específica"
+      },
+      {
+        "marca": "AutoCAD / Autodesk",
+        "termo_generico": "software de desenho técnico assistido por computador (CAD)",
+        "catmat_grupo": "43233",
+        "alerta": "Considerar FreeCAD, LibreCAD. AutoCAD como referência com justificativa de compatibilidade DWG"
+      },
+      {
+        "marca": "VMware / Hyper-V",
+        "termo_generico": "software de virtualização de servidores",
+        "catmat_grupo": "43233",
+        "alerta": "Especificar requisitos (quantidade de VMs, HA, migração ao vivo)"
+      },
+      {
+        "marca": "Oracle Database",
+        "termo_generico": "sistema gerenciador de banco de dados relacional (SGBD)",
+        "catmat_grupo": "43233",
+        "alerta": "Considerar PostgreSQL. Se Oracle necessário, justificar funcionalidade exclusiva"
+      },
+      {
+        "marca": "SAP",
+        "termo_generico": "sistema integrado de gestão empresarial (ERP)",
+        "catmat_grupo": "43233",
+        "alerta": "Especificar módulos e funcionalidades necessárias, não a marca"
+      },
+      {
+        "marca": "Kaspersky / Norton / McAfee / Symantec",
+        "termo_generico": "software antivírus / solução de segurança endpoint",
+        "catmat_grupo": "43233",
+        "alerta": "Especificar funcionalidades (EDR, firewall, anti-ransomware), certificações"
+      },
+      {
+        "marca": "Zoom / Teams / Google Meet",
+        "termo_generico": "solução de videoconferência",
+        "catmat_grupo": "43233",
+        "alerta": "Especificar requisitos (número de participantes, gravação, integração)"
+      }
+    ],
+    "IMPRESSAO_REPROGRAFIA": [
+      {
+        "marca": "Xerox",
+        "termo_generico": "copiadora / impressora multifuncional",
+        "catmat_grupo": "26077",
+        "alerta": "'Xerox' é frequentemente usado como sinônimo genérico de cópia, mas é marca registrada. Usar 'copiadora' ou 'impressora multifuncional'",
+        "observacao": "Termo coloquial 'tirar um xerox' deve ser normalizado para 'reprodução reprográfica'"
+      },
+      {
+        "marca": "Epson",
+        "termo_generico": "impressora jato de tinta / impressora matricial",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar tecnologia (laser/jato de tinta), velocidade (ppm), resolução (dpi)"
+      },
+      {
+        "marca": "Brother",
+        "termo_generico": "impressora / multifuncional",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar por capacidade e funcionalidades"
+      },
+      {
+        "marca": "HP LaserJet / DeskJet",
+        "termo_generico": "impressora laser / impressora jato de tinta",
+        "catmat_grupo": "26077",
+        "alerta": "LaserJet/DeskJet são linhas de produto HP, não termos genéricos"
+      }
+    ],
+    "MATERIAL_ESCRITORIO": [
+      {
+        "marca": "Post-it (3M)",
+        "termo_generico": "bloco de notas adesivas / bloco autoadesivo",
+        "catmat_grupo": "75015",
+        "alerta": "'Post-it' é marca registrada 3M. Usar 'bloco de notas adesivas removíveis'"
+      },
+      {
+        "marca": "Pilot (canetas)",
+        "termo_generico": "caneta esferográfica / caneta hidrográfica",
+        "catmat_grupo": "75015",
+        "alerta": "Especificar tipo (esferográfica, gel, hidrográfica), cor, ponta"
+      },
+      {
+        "marca": "BIC",
+        "termo_generico": "caneta esferográfica",
+        "catmat_grupo": "75015",
+        "alerta": "Marca frequentemente usada como genérico. Usar 'caneta esferográfica corpo transparente, ponta média 1.0mm'"
+      },
+      {
+        "marca": "Faber-Castell",
+        "termo_generico": "lápis grafite / lápis de cor / borracha",
+        "catmat_grupo": "75015",
+        "alerta": "Especificar graduação (HB, 2B), material, tipo"
+      },
+      {
+        "marca": "Chamex / Report / Suzano",
+        "termo_generico": "papel sulfite / papel para impressão",
+        "catmat_grupo": "75015",
+        "alerta": "Especificar gramatura (75g/m²), formato (A4), alvura (ISO), resma",
+        "exemplo_descritivo": "Papel sulfite A4, 210x297mm, gramatura 75g/m², alvura mínima 90% ISO, resma com 500 folhas"
+      },
+      {
+        "marca": "Scotch (3M) / Durex (Henkel)",
+        "termo_generico": "fita adesiva transparente",
+        "catmat_grupo": "75015",
+        "alerta": "'Durex' é marca Henkel. Usar 'fita adesiva transparente, largura 12mm, rolo 30m'"
+      },
+      {
+        "marca": "Tilibra / Caderno Espiral",
+        "termo_generico": "caderno espiral / caderno brochura",
+        "catmat_grupo": "75015",
+        "alerta": "Especificar tipo de encadernação, número de folhas, formato"
+      }
+    ],
+    "VEICULOS": [
+      {
+        "marca": "Toyota Hilux",
+        "termo_generico": "veículo utilitário tipo caminhonete (pickup) cabine dupla",
+        "catmat_grupo": "23100",
+        "alerta": "Especificar: tipo (pickup), cabine (simples/dupla), tração (4x2/4x4), motorização mínima, capacidade de carga",
+        "exemplo_descritivo": "Veículo automotor tipo caminhonete (pickup), cabine dupla, tração 4x4, motor diesel mínimo 2.8L turbo, capacidade mínima de carga 1.000kg"
+      },
+      {
+        "marca": "Fiat Uno / Mobi / Argo",
+        "termo_generico": "veículo automotor tipo hatch compacto",
+        "catmat_grupo": "23100",
+        "alerta": "Especificar motorização mínima, número de portas, ar-condicionado, direção"
+      },
+      {
+        "marca": "Chevrolet S10",
+        "termo_generico": "veículo utilitário tipo caminhonete (pickup)",
+        "catmat_grupo": "23100",
+        "alerta": "Especificar requisitos técnicos, não modelo"
+      },
+      {
+        "marca": "Toyota Corolla / Chevrolet Cruze",
+        "termo_generico": "veículo automotor tipo sedan médio",
+        "catmat_grupo": "23100",
+        "alerta": "Especificar motorização, potência mínima, itens de conforto e segurança"
+      },
+      {
+        "marca": "Mercedes-Benz Sprinter",
+        "termo_generico": "veículo utilitário tipo van / furgão",
+        "catmat_grupo": "23100",
+        "alerta": "Especificar capacidade de passageiros ou carga, comprimento, altura interna",
+        "exemplo_descritivo": "Veículo utilitário tipo van, capacidade mínima 15 passageiros, motor diesel mínimo 2.2L turbo, ar-condicionado, direção hidráulica"
+      },
+      {
+        "marca": "Volkswagen Constellation / Mercedes Atego",
+        "termo_generico": "veículo automotor tipo caminhão",
+        "catmat_grupo": "23100",
+        "alerta": "Especificar PBT (peso bruto total), tipo de carroceria, eixos"
+      },
+      {
+        "marca": "Renault Master / Fiat Ducato",
+        "termo_generico": "veículo utilitário tipo furgão / ambulância",
+        "catmat_grupo": "23100",
+        "alerta": "Para ambulância: especificar tipo (A, B, C, D conforme Portaria GM/MS 2048/2002)"
+      }
+    ],
+    "PNEUS_LUBRIFICANTES": [
+      {
+        "marca": "Pirelli / Michelin / Bridgestone / Goodyear / Continental",
+        "termo_generico": "pneu para veículo automotor",
+        "catmat_grupo": "26105",
+        "alerta": "Especificar dimensão (ex: 265/70 R16), índice de carga, índice de velocidade, certificação INMETRO",
+        "exemplo_descritivo": "Pneu radial para veículo utilitário, dimensão 265/70 R16, índice de carga mínimo 112, índice de velocidade mínimo S, certificado INMETRO"
+      },
+      {
+        "marca": "Mobil / Shell Helix / Castrol / Petronas",
+        "termo_generico": "óleo lubrificante para motor",
+        "catmat_grupo": "91515",
+        "alerta": "Especificar viscosidade (SAE), especificação API, tipo (mineral/semissintético/sintético)",
+        "exemplo_descritivo": "Óleo lubrificante para motor diesel, viscosidade SAE 15W-40, especificação API CI-4 ou superior, galão de 20 litros"
+      },
+      {
+        "marca": "Fram / Mann / Tecfil / Wega",
+        "termo_generico": "filtro de óleo / filtro de ar / filtro de combustível",
+        "catmat_grupo": "29400",
+        "alerta": "Especificar aplicação (veículo/equipamento) e dimensões ou código de referência cruzada"
+      }
+    ],
+    "SAUDE_MEDICAMENTOS": [
+      {
+        "marca": "Dipirona Novalgina (Sanofi)",
+        "termo_generico": "dipirona sódica (DCB)",
+        "catmat_grupo": "65050",
+        "alerta": "OBRIGATÓRIO usar Denominação Comum Brasileira (DCB) ou DCI. Lei 9.787/1999",
+        "base_legal_especifica": "Lei 9.787/1999 — prescrição genérica em serviço público",
+        "forma_farmaceutica": "comprimido 500mg / solução oral 500mg/mL / solução injetável 500mg/mL"
+      },
+      {
+        "marca": "Tylenol (Johnson & Johnson)",
+        "termo_generico": "paracetamol (DCB)",
+        "catmat_grupo": "65050",
+        "alerta": "Usar DCB: paracetamol. Especificar forma farmacêutica e concentração",
+        "forma_farmaceutica": "comprimido 500mg / comprimido 750mg / solução oral 200mg/mL"
+      },
+      {
+        "marca": "Dorflex (Sanofi)",
+        "termo_generico": "dipirona sódica + orfenadrina citrato + cafeína (DCB)",
+        "catmat_grupo": "65050",
+        "alerta": "Usar composição DCB completa, não nome comercial"
+      },
+      {
+        "marca": "Amoxil (GSK)",
+        "termo_generico": "amoxicilina (DCB)",
+        "catmat_grupo": "65050",
+        "alerta": "Usar DCB. Especificar forma farmacêutica e concentração",
+        "forma_farmaceutica": "cápsula 500mg / suspensão oral 250mg/5mL"
+      },
+      {
+        "marca": "Voltaren (Novartis)",
+        "termo_generico": "diclofenaco sódico (DCB)",
+        "catmat_grupo": "65050",
+        "forma_farmaceutica": "comprimido 50mg / gel tópico 11,6mg/g / solução injetável 25mg/mL"
+      },
+      {
+        "marca": "Buscopan (Boehringer)",
+        "termo_generico": "escopolamina butilbrometo (DCB)",
+        "catmat_grupo": "65050",
+        "alerta": "Usar DCB: butilbrometo de escopolamina",
+        "forma_farmaceutica": "comprimido 10mg / solução injetável 20mg/mL"
+      },
+      {
+        "marca": "Rivotril (Roche)",
+        "termo_generico": "clonazepam (DCB)",
+        "catmat_grupo": "65050",
+        "alerta": "Medicamento controlado (Portaria SVS/MS 344/1998). Usar DCB",
+        "forma_farmaceutica": "comprimido 0,5mg / comprimido 2mg / solução oral 2,5mg/mL"
+      },
+      {
+        "marca": "Insulina Lantus (Sanofi) / Novorapid (Novo Nordisk)",
+        "termo_generico": "insulina glargina / insulina asparte (DCB)",
+        "catmat_grupo": "65050",
+        "alerta": "Biológicos podem ter biosimilares. Especificar por DCB e forma farmacêutica"
+      },
+      {
+        "marca": "Glifage (Merck)",
+        "termo_generico": "metformina cloridrato (DCB)",
+        "catmat_grupo": "65050",
+        "forma_farmaceutica": "comprimido 500mg / comprimido 850mg / comprimido liberação prolongada 500mg"
+      },
+      {
+        "marca": "Losartana Cozaar (MSD)",
+        "termo_generico": "losartana potássica (DCB)",
+        "catmat_grupo": "65050",
+        "forma_farmaceutica": "comprimido 50mg / comprimido 100mg"
+      }
+    ],
+    "EQUIPAMENTOS_MEDICOS": [
+      {
+        "marca": "Philips / GE Healthcare / Siemens Healthineers",
+        "termo_generico": "monitor multiparamétrico",
+        "catmat_grupo": "66100",
+        "alerta": "Especificar parâmetros monitorados (ECG, SpO2, PNI, temperatura, capnografia), tamanho da tela, certificação ANVISA",
+        "exemplo_descritivo": "Monitor multiparamétrico para sinais vitais com ECG 7 derivações, oximetria de pulso (SpO2), pressão não-invasiva (PNI), temperatura, tela mínima 12 polegadas, registro ANVISA vigente"
+      },
+      {
+        "marca": "Mindray",
+        "termo_generico": "monitor multiparamétrico / ultrassom",
+        "catmat_grupo": "66100",
+        "alerta": "Especificar funcionalidades e requisitos técnicos mínimos"
+      },
+      {
+        "marca": "Dräger",
+        "termo_generico": "ventilador pulmonar / aparelho de anestesia",
+        "catmat_grupo": "66100",
+        "alerta": "Especificar modalidades ventilatórias (VCV, PCV, SIMV, PSV), faixa de volume, alarmes",
+        "exemplo_descritivo": "Ventilador pulmonar microprocessado para UTI adulto/pediátrico/neonatal, modalidades VCV, PCV, PSV, SIMV, CPAP, Bilevel, com monitorização gráfica de curvas"
+      },
+      {
+        "marca": "Stryker / Baumer",
+        "termo_generico": "cama hospitalar Fowler elétrica",
+        "catmat_grupo": "66100",
+        "alerta": "Especificar movimentos (Fowler, Trendelenburg, altura), capacidade de peso, material",
+        "exemplo_descritivo": "Cama hospitalar Fowler motorizada com no mínimo 4 movimentos elétricos (elevação de dorso, elevação de pernas, Trendelenburg, Trendelenburg reverso), ajuste de altura elétrico, capacidade mínima 250kg, grades laterais escamoteáveis, rodízios com freio"
+      },
+      {
+        "marca": "Hill-Rom",
+        "termo_generico": "cama hospitalar / maca de transporte",
+        "catmat_grupo": "66100",
+        "alerta": "Especificar tipo (enfermaria, UTI, PPP), movimentos, capacidade"
+      },
+      {
+        "marca": "Shimadzu / GE Healthcare (raios-X)",
+        "termo_generico": "aparelho de raios-X / sistema de radiologia digital",
+        "catmat_grupo": "66100",
+        "alerta": "Especificar tipo (fixo/móvel/portátil), potência (kW), resolução detector, ANVISA"
+      },
+      {
+        "marca": "Tuttnaeur / Baumer (autoclaves)",
+        "termo_generico": "autoclave hospitalar / esterilizador a vapor",
+        "catmat_grupo": "66100",
+        "alerta": "Especificar volume câmara (litros), tipo (gravitacional/pré-vácuo), ciclos, ANVISA"
+      }
+    ],
+    "LIMPEZA_HIGIENE": [
+      {
+        "marca": "Bombril",
+        "termo_generico": "esponja de lã de aço / esponja de aço",
+        "catmat_grupo": "79670",
+        "alerta": "'Bombril' é marca registrada usada como genérico popular. Usar 'esponja de lã de aço para limpeza'"
+      },
+      {
+        "marca": "Ypê / Limpol",
+        "termo_generico": "detergente líquido neutro",
+        "catmat_grupo": "79670",
+        "alerta": "Especificar tipo (neutro/biodegradável), concentração, volume",
+        "exemplo_descritivo": "Detergente líquido neutro biodegradável, frasco 500mL, registro ANVISA, laudo de biodegradabilidade"
+      },
+      {
+        "marca": "Veja (Reckitt)",
+        "termo_generico": "desinfetante / limpador multiuso",
+        "catmat_grupo": "79670",
+        "alerta": "Especificar tipo (desinfetante, limpador), princípio ativo, concentração, registro ANVISA"
+      },
+      {
+        "marca": "Pinho Sol / Pinho Bril",
+        "termo_generico": "desinfetante à base de óleo de pinho",
+        "catmat_grupo": "79670",
+        "alerta": "Especificar concentração, registro ANVISA"
+      },
+      {
+        "marca": "Qboa / Cândida",
+        "termo_generico": "água sanitária / hipoclorito de sódio",
+        "catmat_grupo": "79670",
+        "alerta": "'Cândida' e 'Qboa' são marcas. Usar 'solução de hipoclorito de sódio, concentração 2,0 a 2,5%'",
+        "exemplo_descritivo": "Água sanitária (solução de hipoclorito de sódio 2,0 a 2,5%), galão 5 litros, registro ANVISA, validade mínima 6 meses"
+      },
+      {
+        "marca": "Lysol (Reckitt)",
+        "termo_generico": "desinfetante aerossol / spray desinfetante",
+        "catmat_grupo": "79670",
+        "alerta": "Especificar princípio ativo, volume, registro ANVISA"
+      },
+      {
+        "marca": "Scott / Neve / Personal (papel higiênico)",
+        "termo_generico": "papel higiênico folha simples/dupla",
+        "catmat_grupo": "79670",
+        "alerta": "Especificar tipo de folha (simples/dupla), metragem, largura, cor"
+      },
+      {
+        "marca": "Kleenex (Kimberly-Clark)",
+        "termo_generico": "lenço de papel descartável / papel toalha interfolhado",
+        "catmat_grupo": "79670",
+        "alerta": "'Kleenex' é marca. Usar 'lenço de papel descartável folha dupla'"
+      }
+    ],
+    "EPI_SEGURANCA": [
+      {
+        "marca": "3M (respiradores)",
+        "termo_generico": "respirador descartável PFF2 / máscara de proteção respiratória",
+        "catmat_grupo": "46815",
+        "alerta": "Especificar classe de proteção (PFF1/PFF2/PFF3), com/sem válvula, CA (Certificado de Aprovação)",
+        "exemplo_descritivo": "Respirador descartável tipo PFF2, sem válvula, com clipe nasal, tiras elásticas, CA vigente"
+      },
+      {
+        "marca": "Fujiwara / Vonder",
+        "termo_generico": "luva de proteção",
+        "catmat_grupo": "46815",
+        "alerta": "Especificar material (látex, nitrílica, vaqueta), tipo de proteção, CA"
+      },
+      {
+        "marca": "Honeywell / MSA",
+        "termo_generico": "capacete de segurança / protetor auricular / óculos de proteção",
+        "catmat_grupo": "46815",
+        "alerta": "Especificar classe (A/B), tipo, CA vigente"
+      },
+      {
+        "marca": "Marluvas / Bracol / Fujiwara",
+        "termo_generico": "calçado de segurança / botina de proteção",
+        "catmat_grupo": "46815",
+        "alerta": "Especificar tipo (botina/bota/sapato), biqueira (aço/composite), solado, CA",
+        "exemplo_descritivo": "Calçado de segurança tipo botina, couro curtido ao cromo, biqueira de composite, solado PU bidensidade, CA vigente"
+      }
+    ],
+    "CONSTRUCAO_OBRAS": [
+      {
+        "marca": "Votoran / Votorantim / Nassau / InterCement",
+        "termo_generico": "cimento Portland",
+        "catmat_grupo": "56315",
+        "alerta": "Especificar tipo (CP-II-Z-32, CP-IV-32, CP-V-ARI), classe de resistência, norma ABNT NBR 16697",
+        "exemplo_descritivo": "Cimento Portland composto CP-II-Z-32, saco 50kg, conforme ABNT NBR 16697"
+      },
+      {
+        "marca": "Quartzolit / Weber",
+        "termo_generico": "argamassa colante / rejunte",
+        "catmat_grupo": "56315",
+        "alerta": "Especificar tipo (AC-I, AC-II, AC-III), uso (interno/externo), norma ABNT NBR 14081"
+      },
+      {
+        "marca": "Tigre / Amanco",
+        "termo_generico": "tubo e conexões de PVC",
+        "catmat_grupo": "56315",
+        "alerta": "Especificar diâmetro, classe de pressão, norma ABNT (NBR 5648 água fria, NBR 5688 esgoto)"
+      },
+      {
+        "marca": "Suvinil / Coral / Sherwin-Williams",
+        "termo_generico": "tinta látex / tinta acrílica",
+        "catmat_grupo": "80040",
+        "alerta": "Especificar tipo (látex PVA, acrílica), acabamento (fosco, semi-brilho), rendimento, norma ABNT NBR 15079",
+        "exemplo_descritivo": "Tinta látex acrílica premium, acabamento fosco, rendimento mínimo 10m²/L por demão, cor branca, galão 18 litros, conforme ABNT NBR 15079"
+      },
+      {
+        "marca": "Gerdau / ArcelorMittal",
+        "termo_generico": "vergalhão de aço / barra de aço CA-50/CA-60",
+        "catmat_grupo": "56315",
+        "alerta": "Especificar tipo (CA-50, CA-60), bitola, norma ABNT NBR 7480"
+      },
+      {
+        "marca": "Deca / Docol / Roca",
+        "termo_generico": "louça sanitária / metais sanitários",
+        "catmat_grupo": "56315",
+        "alerta": "Especificar tipo de peça, norma ABNT, cor, dimensões"
+      },
+      {
+        "marca": "Tramontina (ferramentas)",
+        "termo_generico": "ferramenta manual",
+        "catmat_grupo": "51015",
+        "alerta": "Especificar tipo, tamanho, material, norma aplicável"
+      }
+    ],
+    "ALIMENTOS_NUTRICAO": [
+      {
+        "marca": "Nescafé / Pilão / Melitta / 3 Corações",
+        "termo_generico": "café torrado e moído",
+        "catmat_grupo": "89250",
+        "alerta": "Especificar tipo (tradicional/extra-forte), torrefação, selo ABIC, embalagem",
+        "exemplo_descritivo": "Café torrado e moído, tipo tradicional, selo de pureza ABIC, pacote a vácuo 500g"
+      },
+      {
+        "marca": "Ninho (Nestlé) / Itambé / Piracanjuba",
+        "termo_generico": "leite em pó integral",
+        "catmat_grupo": "89250",
+        "alerta": "Especificar tipo (integral/desnatado), embalagem, registro SIF/DIPOA"
+      },
+      {
+        "marca": "Maizena (Unilever)",
+        "termo_generico": "amido de milho",
+        "catmat_grupo": "89250",
+        "alerta": "'Maizena' é marca Unilever. Usar 'amido de milho, caixa 500g'"
+      },
+      {
+        "marca": "Leite Moça (Nestlé)",
+        "termo_generico": "leite condensado",
+        "catmat_grupo": "89250",
+        "alerta": "'Leite Moça' é marca registrada. Usar 'leite condensado, lata 395g, registro SIF'"
+      },
+      {
+        "marca": "Hellmann's / Quero",
+        "termo_generico": "maionese / molho de tomate",
+        "catmat_grupo": "89250",
+        "alerta": "Especificar tipo, ingredientes, embalagem, registro MAPA"
+      },
+      {
+        "marca": "Sadia / Perdigão / Seara / Aurora",
+        "termo_generico": "carne de frango congelada / embutidos",
+        "catmat_grupo": "89250",
+        "alerta": "Especificar corte, tipo, embalagem, registro SIF, temperatura de conservação",
+        "exemplo_descritivo": "Coxa e sobrecoxa de frango congelada, embalagem primária individual mínimo 1kg, com registro SIF/DIPOA, temperatura de conservação -18°C"
+      }
+    ],
+    "COMBUSTIVEL_ENERGIA": [
+      {
+        "marca": "Petrobras / Shell / Ipiranga / Raízen",
+        "termo_generico": "combustível automotivo (gasolina/diesel/etanol)",
+        "catmat_grupo": "91515",
+        "alerta": "Especificar tipo (gasolina comum/aditivada, diesel S-10/S-500, etanol hidratado), conforme ANP",
+        "exemplo_descritivo": "Óleo diesel S-10, conforme especificações da Resolução ANP nº 50/2013"
+      },
+      {
+        "marca": "Ultragaz / Liquigás / Consigaz",
+        "termo_generico": "gás liquefeito de petróleo (GLP)",
+        "catmat_grupo": "91515",
+        "alerta": "Especificar tipo de recipiente (botijão P-13, P-45, cilindro), conforme ANP"
+      }
+    ],
+    "EDUCACAO": [
+      {
+        "marca": "Positivo (tablets/notebooks educacionais)",
+        "termo_generico": "equipamento de informática educacional / tablet educacional",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar configuração mínima, software educacional requerido, resistência para uso escolar"
+      },
+      {
+        "marca": "Epson / BenQ (projetores)",
+        "termo_generico": "projetor multimídia",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar luminosidade (lúmens ANSI), resolução, tecnologia (LCD/DLP), conectividade"
+      },
+      {
+        "marca": "Casio / Texas Instruments (calculadoras)",
+        "termo_generico": "calculadora científica / calculadora gráfica",
+        "catmat_grupo": "26077",
+        "alerta": "Especificar funções, tipo (científica/gráfica/financeira), certificação INMETRO"
+      }
+    ],
+    "MOBILIARIO": [
+      {
+        "marca": "Marelli / Flexform",
+        "termo_generico": "cadeira giratória para escritório",
+        "catmat_grupo": "71050",
+        "alerta": "Especificar tipo (presidente/diretor/operador), regulagens, norma ABNT NBR 13962",
+        "exemplo_descritivo": "Cadeira giratória tipo presidente, base cromada 5 rodízios, assento e encosto estofados, regulagem de altura a gás, apoio de braços regulável, conforme ABNT NBR 13962"
+      },
+      {
+        "marca": "Tok&Stok / Tramontina (móveis)",
+        "termo_generico": "mobiliário para escritório",
+        "catmat_grupo": "71050",
+        "alerta": "Especificar tipo, dimensões, material, acabamento, norma ABNT"
+      }
+    ]
+  }
+}

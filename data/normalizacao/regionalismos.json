@@ -1,0 +1,527 @@
+{
+  "_meta": {
+    "versao": "1.0.0",
+    "descricao": "Regionalismos brasileiros — termos populares vs técnicos em compras públicas",
+    "total_entradas": 0,
+    "atualizado_em": "2026-02-10",
+    "fontes_primarias": [
+      "TACO — Tabela de Composição de Alimentos (UNICAMP)",
+      "IBGE — Pesquisa de Orçamentos Familiares (POF)",
+      "MAPA — Classificação de Produtos de Origem Vegetal/Animal",
+      "Dicionário Houaiss — Regionalismos",
+      "EMBRAPA — Nomenclatura técnica de culturas",
+      "PNAE/FNDE — Guia de Produtos da Agricultura Familiar"
+    ],
+    "regioes": {
+      "N": "Norte (AC, AM, AP, PA, RO, RR, TO)",
+      "NE": "Nordeste (AL, BA, CE, MA, PB, PE, PI, RN, SE)",
+      "CO": "Centro-Oeste (DF, GO, MS, MT)",
+      "SE": "Sudeste (ES, MG, RJ, SP)",
+      "S": "Sul (PR, RS, SC)",
+      "BR": "Todo o Brasil"
+    }
+  },
+  "alimentos": [
+    {
+      "termo_regional": "macaxeira",
+      "termo_oficial": "mandioca",
+      "nome_cientifico": "Manihot esculenta Crantz",
+      "regiao": ["N", "NE"],
+      "catmat": "234209",
+      "fonte": "TACO UNICAMP + EMBRAPA",
+      "nota": "Norte e Nordeste. Mesma planta, uso culinário idêntico."
+    },
+    {
+      "termo_regional": "aipim",
+      "termo_oficial": "mandioca",
+      "nome_cientifico": "Manihot esculenta Crantz",
+      "regiao": ["SE", "S"],
+      "catmat": "234209",
+      "fonte": "TACO UNICAMP + EMBRAPA"
+    },
+    {
+      "termo_regional": "castelinha",
+      "termo_oficial": "mandioca",
+      "nome_cientifico": "Manihot esculenta Crantz",
+      "regiao": ["N"],
+      "catmat": "234209",
+      "fonte": "IBGE POF"
+    },
+    {
+      "termo_regional": "farinha d'água",
+      "termo_oficial": "farinha de mandioca subgrupo d'água",
+      "regiao": ["N", "NE"],
+      "catmat": "234210",
+      "fonte": "MAPA IN 52/2011",
+      "nota": "Farinha de mandioca processada por fermentação em água. Diferente da farinha seca."
+    },
+    {
+      "termo_regional": "beiju",
+      "termo_oficial": "tapioca (goma de mandioca)",
+      "regiao": ["N", "NE"],
+      "catmat": "234211",
+      "fonte": "TACO UNICAMP"
+    },
+    {
+      "termo_regional": "tapioca",
+      "termo_oficial": "fécula de mandioca (polvilho/goma)",
+      "regiao": ["NE"],
+      "catmat": "234212",
+      "fonte": "TACO UNICAMP + MAPA",
+      "nota": "No NE, 'tapioca' é a preparação culinária. No SE/S, 'tapioca' é a fécula/polvilho."
+    },
+    {
+      "termo_regional": "polvilho",
+      "termo_oficial": "fécula de mandioca",
+      "regiao": ["SE", "CO"],
+      "catmat": "234212",
+      "fonte": "TACO UNICAMP"
+    },
+    {
+      "termo_regional": "goma",
+      "termo_oficial": "fécula de mandioca",
+      "regiao": ["NE"],
+      "catmat": "234212",
+      "fonte": "TACO UNICAMP"
+    },
+    {
+      "termo_regional": "jerimum",
+      "termo_oficial": "abóbora",
+      "nome_cientifico": "Cucurbita spp.",
+      "regiao": ["N", "NE"],
+      "catmat": "234213",
+      "fonte": "TACO UNICAMP + EMBRAPA"
+    },
+    {
+      "termo_regional": "abóbora moranga",
+      "termo_oficial": "abóbora tipo moranga",
+      "nome_cientifico": "Cucurbita maxima",
+      "regiao": ["S", "SE"],
+      "catmat": "234213",
+      "fonte": "EMBRAPA"
+    },
+    {
+      "termo_regional": "quiabo",
+      "termo_oficial": "quiabo",
+      "nome_cientifico": "Abelmoschus esculentus",
+      "regiao": ["BR"],
+      "catmat": "234214",
+      "fonte": "TACO UNICAMP",
+      "nota": "Termo universal no Brasil, mas pode ser chamado 'quingombó' em textos técnicos antigos."
+    },
+    {
+      "termo_regional": "chuchu",
+      "termo_oficial": "chuchu (chayote)",
+      "nome_cientifico": "Sechium edule",
+      "regiao": ["BR"],
+      "catmat": "234215",
+      "fonte": "TACO UNICAMP",
+      "nota": "Termo mais comum 'chuchu'. No NE: também 'machucho' ou 'xuxu'."
+    },
+    {
+      "termo_regional": "xuxu",
+      "termo_oficial": "chuchu",
+      "nome_cientifico": "Sechium edule",
+      "regiao": ["NE"],
+      "catmat": "234215",
+      "fonte": "IBGE POF"
+    },
+    {
+      "termo_regional": "maxixe",
+      "termo_oficial": "maxixe",
+      "nome_cientifico": "Cucumis anguria",
+      "regiao": ["N", "NE", "CO"],
+      "catmat": "234216",
+      "fonte": "TACO UNICAMP + EMBRAPA"
+    },
+    {
+      "termo_regional": "bergamota",
+      "termo_oficial": "tangerina (mexerica)",
+      "nome_cientifico": "Citrus reticulata",
+      "regiao": ["S"],
+      "catmat": "234217",
+      "fonte": "TACO UNICAMP + EMBRAPA"
+    },
+    {
+      "termo_regional": "mexerica",
+      "termo_oficial": "tangerina",
+      "nome_cientifico": "Citrus reticulata",
+      "regiao": ["SE"],
+      "catmat": "234217",
+      "fonte": "TACO UNICAMP"
+    },
+    {
+      "termo_regional": "mimosa",
+      "termo_oficial": "tangerina (tipo ponkan/mimosa)",
+      "nome_cientifico": "Citrus reticulata var. ponkan",
+      "regiao": ["SE", "CO"],
+      "catmat": "234217",
+      "fonte": "EMBRAPA Citros"
+    },
+    {
+      "termo_regional": "laranja-cravo",
+      "termo_oficial": "tangerina tipo cravo",
+      "nome_cientifico": "Citrus reticulata",
+      "regiao": ["NE", "CO"],
+      "catmat": "234217",
+      "fonte": "EMBRAPA"
+    },
+    {
+      "termo_regional": "poncã",
+      "termo_oficial": "tangerina tipo ponkan",
+      "nome_cientifico": "Citrus reticulata var. ponkan",
+      "regiao": ["SE"],
+      "catmat": "234217",
+      "fonte": "EMBRAPA"
+    },
+    {
+      "termo_regional": "abacate manteiga",
+      "termo_oficial": "abacate",
+      "nome_cientifico": "Persea americana",
+      "regiao": ["NE"],
+      "catmat": "234218",
+      "fonte": "TACO UNICAMP"
+    },
+    {
+      "termo_regional": "banana-prata",
+      "termo_oficial": "banana tipo prata",
+      "nome_cientifico": "Musa paradisiaca",
+      "regiao": ["BR"],
+      "catmat": "234219",
+      "fonte": "MAPA Classificação + TACO",
+      "nota": "Tipos MAPA: prata, nanica/caturra, maçã, terra, da-terra, ouro."
+    },
+    {
+      "termo_regional": "banana-nanica",
+      "termo_oficial": "banana tipo nanica (caturra/d'água)",
+      "nome_cientifico": "Musa paradisiaca",
+      "regiao": ["SE", "S"],
+      "catmat": "234220",
+      "fonte": "MAPA"
+    },
+    {
+      "termo_regional": "banana-d'água",
+      "termo_oficial": "banana tipo nanica",
+      "regiao": ["N", "NE"],
+      "catmat": "234220",
+      "fonte": "MAPA"
+    },
+    {
+      "termo_regional": "banana-da-terra",
+      "termo_oficial": "banana tipo terra (plátano)",
+      "nome_cientifico": "Musa paradisiaca",
+      "regiao": ["N", "NE"],
+      "catmat": "234221",
+      "fonte": "MAPA + FAO"
+    },
+    {
+      "termo_regional": "feijão-de-corda",
+      "termo_oficial": "feijão-caupi (vigna)",
+      "nome_cientifico": "Vigna unguiculata",
+      "regiao": ["NE", "N"],
+      "catmat": "234222",
+      "fonte": "EMBRAPA + TACO UNICAMP",
+      "nota": "Diferente do feijão comum (Phaseolus vulgaris). Grupo CATMAT diferente."
+    },
+    {
+      "termo_regional": "feijão-fradinho",
+      "termo_oficial": "feijão-caupi (vigna)",
+      "nome_cientifico": "Vigna unguiculata",
+      "regiao": ["NE", "SE"],
+      "catmat": "234222",
+      "fonte": "EMBRAPA"
+    },
+    {
+      "termo_regional": "feijão-macassa",
+      "termo_oficial": "feijão-caupi (vigna)",
+      "regiao": ["NE"],
+      "catmat": "234222",
+      "fonte": "EMBRAPA"
+    },
+    {
+      "termo_regional": "charque",
+      "termo_oficial": "carne bovina salgada curada (charque/jabá)",
+      "regiao": ["S", "SE"],
+      "catmat": "234223",
+      "fonte": "MAPA IN 22/2000 + RIISPOA"
+    },
+    {
+      "termo_regional": "jabá",
+      "termo_oficial": "carne bovina salgada curada (charque/jabá)",
+      "regiao": ["N", "NE"],
+      "catmat": "234223",
+      "fonte": "MAPA"
+    },
+    {
+      "termo_regional": "carne-de-sol",
+      "termo_oficial": "carne bovina salgada e dessecada (carne-de-sol)",
+      "regiao": ["NE"],
+      "catmat": "234224",
+      "fonte": "MAPA + RIISPOA",
+      "nota": "Diferente do charque: menor teor de sal, não é curada, vida útil menor."
+    },
+    {
+      "termo_regional": "carne seca",
+      "termo_oficial": "carne bovina salgada curada (charque)",
+      "regiao": ["SE"],
+      "catmat": "234223",
+      "fonte": "MAPA"
+    },
+    {
+      "termo_regional": "rapadura",
+      "termo_oficial": "rapadura de cana-de-açúcar",
+      "regiao": ["NE", "N"],
+      "catmat": "234225",
+      "fonte": "MAPA + TACO",
+      "nota": "Produto da agricultura familiar, elegível para PNAE com DAP."
+    },
+    {
+      "termo_regional": "peta",
+      "termo_oficial": "rapadura de cana-de-açúcar",
+      "regiao": ["N"],
+      "catmat": "234225",
+      "fonte": "IBGE POF"
+    },
+    {
+      "termo_regional": "açaí",
+      "termo_oficial": "polpa de açaí congelada",
+      "nome_cientifico": "Euterpe oleracea",
+      "regiao": ["N"],
+      "catmat": "234226",
+      "fonte": "MAPA IN 37/2018 + TACO",
+      "nota": "Polpa deve atender padrão MAPA. Açaí tipo A: grosso. Tipo B: médio. Tipo C: fino."
+    },
+    {
+      "termo_regional": "tucupi",
+      "termo_oficial": "tucupi (caldo de mandioca brava fermentado)",
+      "regiao": ["N"],
+      "catmat": "234227",
+      "fonte": "TACO + patrimônio imaterial IPHAN (culinária paraense)"
+    },
+    {
+      "termo_regional": "tacacá",
+      "termo_oficial": "preparação à base de tucupi, goma e jambu",
+      "regiao": ["N"],
+      "catmat": "234228",
+      "fonte": "TACO + IPHAN"
+    },
+    {
+      "termo_regional": "pequi",
+      "termo_oficial": "fruto de pequizeiro (pequi) in natura ou polpa",
+      "nome_cientifico": "Caryocar brasiliense",
+      "regiao": ["CO", "N"],
+      "catmat": "234229",
+      "fonte": "EMBRAPA Cerrados + TACO"
+    },
+    {
+      "termo_regional": "pinhão",
+      "termo_oficial": "semente de araucária (pinhão)",
+      "nome_cientifico": "Araucaria angustifolia",
+      "regiao": ["S"],
+      "catmat": "234230",
+      "fonte": "EMBRAPA Florestas + TACO",
+      "nota": "Produto sazonal (abril-agosto). Coleta regulamentada (IBAMA)."
+    },
+    {
+      "termo_regional": "erva-mate",
+      "termo_oficial": "erva-mate beneficiada para chimarrão/tereré",
+      "nome_cientifico": "Ilex paraguariensis",
+      "regiao": ["S", "CO"],
+      "catmat": "234231",
+      "fonte": "MAPA IN 30/2005 + EMBRAPA"
+    },
+    {
+      "termo_regional": "chimarrão",
+      "termo_oficial": "erva-mate para chimarrão",
+      "regiao": ["S"],
+      "catmat": "234231",
+      "fonte": "MAPA"
+    },
+    {
+      "termo_regional": "tereré",
+      "termo_oficial": "erva-mate para tereré (infusão fria)",
+      "regiao": ["CO"],
+      "catmat": "234232",
+      "fonte": "MAPA + patrimônio cultural MS/MT"
+    },
+    {
+      "termo_regional": "pão francês",
+      "termo_oficial": "pão tipo francês (pão de sal)",
+      "regiao": ["SE", "S"],
+      "catmat": "234233",
+      "fonte": "ANVISA RDC 90/2000"
+    },
+    {
+      "termo_regional": "pão de sal",
+      "termo_oficial": "pão tipo francês",
+      "regiao": ["BR"],
+      "catmat": "234233",
+      "fonte": "ANVISA"
+    },
+    {
+      "termo_regional": "cacetinho",
+      "termo_oficial": "pão tipo francês",
+      "regiao": ["S"],
+      "catmat": "234233",
+      "fonte": "IBGE POF"
+    },
+    {
+      "termo_regional": "pão jacó",
+      "termo_oficial": "pão tipo francês",
+      "regiao": ["NE"],
+      "catmat": "234233",
+      "fonte": "IBGE POF"
+    },
+    {
+      "termo_regional": "média",
+      "termo_oficial": "pão tipo francês",
+      "regiao": ["SE"],
+      "catmat": "234233",
+      "fonte": "IBGE POF",
+      "nota": "Em SP, 'média' pode se referir ao pão francês ou ao café com leite."
+    },
+    {
+      "termo_regional": "bolacha",
+      "termo_oficial": "biscoito (bolacha)",
+      "regiao": ["S", "SE"],
+      "catmat": "234234",
+      "fonte": "ANVISA RDC 263/2005",
+      "nota": "ANVISA considera 'biscoito' e 'bolacha' sinônimos oficiais."
+    },
+    {
+      "termo_regional": "biscoito",
+      "termo_oficial": "biscoito (bolacha)",
+      "regiao": ["N", "NE", "CO"],
+      "catmat": "234234",
+      "fonte": "ANVISA RDC 263/2005"
+    }
+  ],
+  "construcao": [
+    {
+      "termo_regional": "tijolo baiano",
+      "termo_oficial": "bloco cerâmico de vedação com furos",
+      "regiao": ["NE", "SE"],
+      "catmat": "234104",
+      "fonte": "ABNT NBR 15270-1:2017",
+      "nota": "No Sul, mais comum 'tijolo furado'. Norma: 'bloco cerâmico'."
+    },
+    {
+      "termo_regional": "laje pré-moldada",
+      "termo_oficial": "laje pré-fabricada treliçada com enchimento",
+      "regiao": ["BR"],
+      "catmat": "234111",
+      "fonte": "ABNT NBR 14859:2016 + SINAPI"
+    },
+    {
+      "termo_regional": "masseira",
+      "termo_oficial": "argamassadeira metálica para preparo de argamassa",
+      "regiao": ["SE", "S"],
+      "catmat": "234112",
+      "fonte": "SINAPI"
+    },
+    {
+      "termo_regional": "betoneira",
+      "termo_oficial": "betoneira (misturador de concreto) com capacidade em litros",
+      "regiao": ["BR"],
+      "catmat": "234113",
+      "fonte": "SINAPI + ABNT"
+    },
+    {
+      "termo_regional": "pedreiro",
+      "termo_oficial": "oficial pedreiro (mão de obra)",
+      "regiao": ["BR"],
+      "catmat": null,
+      "fonte": "SINAPI composição 88309",
+      "nota": "SINAPI usa 'pedreiro' e 'servente'. CATMAT não se aplica (é serviço/CATSER)."
+    }
+  ],
+  "saude": [
+    {
+      "termo_regional": "aparelho de pressão",
+      "termo_oficial": "esfigmomanômetro",
+      "regiao": ["BR"],
+      "catmat": "265906",
+      "fonte": "CATMAT Grupo 6515",
+      "nota": "Termo popular universalmente usado. O técnico é 'esfigmomanômetro aneroide adulto'."
+    },
+    {
+      "termo_regional": "soro na veia",
+      "termo_oficial": "solução de cloreto de sódio 0,9% para infusão intravenosa",
+      "regiao": ["BR"],
+      "catmat": "265903",
+      "fonte": "DCB ANVISA",
+      "nota": "Popular: 'soro na veia'. Técnico: 'solução fisiológica IV'. CATMAT: soro fisiológico SF 0,9%."
+    },
+    {
+      "termo_regional": "maca",
+      "termo_oficial": "maca hospitalar com rodízios",
+      "regiao": ["BR"],
+      "catmat": "266421",
+      "fonte": "CATMAT Grupo 6530",
+      "nota": "Universalmente 'maca'. Em textos antigos: 'padiola' (sem rodas, manual)."
+    },
+    {
+      "termo_regional": "padiola",
+      "termo_oficial": "maca rígida para transporte manual (sem rodízios)",
+      "regiao": ["BR"],
+      "catmat": "266422",
+      "fonte": "CATMAT Grupo 6530",
+      "nota": "Padiola é maca sem rodas, para resgate. Diferente de maca hospitalar."
+    },
+    {
+      "termo_regional": "estetoscópio de Pinard",
+      "termo_oficial": "estetoscópio obstétrico de Pinard",
+      "regiao": ["BR"],
+      "catmat": "265909",
+      "fonte": "CATMAT Grupo 6515",
+      "nota": "Específico para obstetrícia. Não confundir com estetoscópio biauricular."
+    }
+  ],
+  "geral": [
+    {
+      "termo_regional": "ar-condicionado",
+      "termo_oficial": "condicionador de ar tipo split/janela com capacidade em BTU/h",
+      "regiao": ["BR"],
+      "catmat": "234901",
+      "fonte": "CATMAT Grupo 4120 + INMETRO Programa Brasileiro de Etiquetagem",
+      "nota": "Especificar: tipo (split/janela), capacidade (BTU), selo INMETRO (A/B/C)."
+    },
+    {
+      "termo_regional": "geladeira",
+      "termo_oficial": "refrigerador doméstico/comercial com capacidade em litros",
+      "regiao": ["BR"],
+      "catmat": "234902",
+      "fonte": "CATMAT Grupo 4110 + INMETRO",
+      "nota": "Popular: 'geladeira'. Técnico: 'refrigerador'. Comercial: especificar 'frost-free' ou não."
+    },
+    {
+      "termo_regional": "freezer",
+      "termo_oficial": "congelador horizontal/vertical com capacidade em litros",
+      "regiao": ["BR"],
+      "catmat": "234903",
+      "fonte": "CATMAT Grupo 4110 + INMETRO"
+    },
+    {
+      "termo_regional": "micro-ondas",
+      "termo_oficial": "forno de micro-ondas com capacidade em litros",
+      "regiao": ["BR"],
+      "catmat": "234904",
+      "fonte": "CATMAT Grupo 7310 + INMETRO"
+    },
+    {
+      "termo_regional": "ventilador",
+      "termo_oficial": "ventilador de mesa/parede/teto/coluna",
+      "regiao": ["BR"],
+      "catmat": "234905",
+      "fonte": "CATMAT Grupo 4140 + INMETRO",
+      "nota": "Não confundir com 'ventilador pulmonar' (equipamento médico CATMAT 265892)."
+    },
+    {
+      "termo_regional": "bebedouro",
+      "termo_oficial": "bebedouro de pressão industrial/escolar com refrigeração",
+      "regiao": ["BR"],
+      "catmat": "234906",
+      "fonte": "CATMAT Grupo 4110 + INMETRO"
+    }
+  ]
+}

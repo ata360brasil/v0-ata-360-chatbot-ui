@@ -1,0 +1,1134 @@
+{
+  "_meta": {
+    "versao": "1.0.0",
+    "descricao": "Sinônimos para normalização de termos em compras públicas",
+    "total_entradas": 0,
+    "atualizado_em": "2026-02-10",
+    "fontes_primarias": [
+      "CATMAT/CATSER — ComprasNet/Compras.gov.br",
+      "PNCP — Portal Nacional de Contratações Públicas",
+      "ANVISA — Denominação Comum Brasileira (DCB)",
+      "ABNT — Normas Técnicas Brasileiras",
+      "SINAPI/SICRO — Custos Referência Obras",
+      "INMETRO — Regulamentos Técnicos",
+      "RENAME — Relação Nacional de Medicamentos Essenciais (SUS)",
+      "TACO — Tabela de Composição de Alimentos (UNICAMP)",
+      "ANP — Agência Nacional do Petróleo",
+      "ANEEL — Agência Nacional de Energia Elétrica",
+      "CONTRAN — Conselho Nacional de Trânsito",
+      "IN SGD 94/2022 — Contratação de TIC",
+      "NR-6 — Equipamento de Proteção Individual"
+    ],
+    "regras": {
+      "confianca": "0.0 a 1.0 — 1.0 = sinônimo exato confirmado em fonte oficial",
+      "fonte": "Referência primária que confirma a equivalência",
+      "catmat_preferencial": "Código com maior volume de compras no PNCP (assertividade)"
+    }
+  },
+  "setores": {
+    "TI": {
+      "descricao": "Tecnologia da Informação — Grupo CATMAT 70, IN SGD 94/2022",
+      "termos": [
+        {
+          "termo_usuario": "notebook",
+          "termo_normalizado": "microcomputador portátil (notebook)",
+          "catmat_preferencial": "469455",
+          "variantes": ["laptop", "computador portátil", "note", "nb"],
+          "confianca": 0.95,
+          "fonte": "CATMAT Grupo 7021 — Equipamentos de Processamento Automático de Dados"
+        },
+        {
+          "termo_usuario": "desktop",
+          "termo_normalizado": "microcomputador de mesa (desktop)",
+          "catmat_preferencial": "469457",
+          "variantes": ["computador de mesa", "PC", "micro", "CPU", "workstation"],
+          "confianca": 0.95,
+          "fonte": "CATMAT Grupo 7021"
+        },
+        {
+          "termo_usuario": "servidor de rede",
+          "termo_normalizado": "servidor de rede para rack",
+          "catmat_preferencial": "469459",
+          "variantes": ["server", "servidor rack", "servidor torre", "servidor blade", "server rack 2U", "servidor 1U", "servidor 4U"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 7021 + IN SGD 94/2022 Art. 11"
+        },
+        {
+          "termo_usuario": "monitor",
+          "termo_normalizado": "monitor de vídeo LED",
+          "catmat_preferencial": "469460",
+          "variantes": ["tela", "display", "monitor LCD", "monitor LED", "monitor IPS", "monitor 24 polegadas", "monitor widescreen"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 7025 — Equipamentos de Entrada/Saída",
+          "desambiguacao": "Se órgão SAÚDE, pode ser 'monitor multiparamétrico' (CATMAT 265XXX)"
+        },
+        {
+          "termo_usuario": "impressora",
+          "termo_normalizado": "impressora a laser monocromática",
+          "catmat_preferencial": "469461",
+          "variantes": ["printer", "impressora laser", "impressora jato de tinta", "impressora multifuncional", "multifuncional"],
+          "confianca": 0.88,
+          "fonte": "CATMAT Grupo 7025"
+        },
+        {
+          "termo_usuario": "impressora multifuncional",
+          "termo_normalizado": "equipamento multifuncional (impressora/copiadora/scanner)",
+          "catmat_preferencial": "469462",
+          "variantes": ["multifuncional", "MFP", "all-in-one", "impressora 3 em 1"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 7025"
+        },
+        {
+          "termo_usuario": "switch",
+          "termo_normalizado": "comutador de rede (switch) gerenciável",
+          "catmat_preferencial": "469464",
+          "variantes": ["switch de rede", "switch gerenciável", "switch L2", "switch L3", "switch PoE", "switch 24 portas", "switch 48 portas"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 7025"
+        },
+        {
+          "termo_usuario": "roteador",
+          "termo_normalizado": "roteador de rede sem fio (wireless)",
+          "catmat_preferencial": "469465",
+          "variantes": ["router", "roteador wifi", "roteador wireless", "access point", "AP", "ponto de acesso"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 7025"
+        },
+        {
+          "termo_usuario": "nobreak",
+          "termo_normalizado": "fonte de alimentação ininterrupta (nobreak/UPS)",
+          "catmat_preferencial": "469466",
+          "variantes": ["UPS", "no-break", "estabilizador com bateria", "nobreak senoidal", "nobreak online"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 6130 — Equipamentos de Energia"
+        },
+        {
+          "termo_usuario": "HD",
+          "termo_normalizado": "unidade de disco rígido (HD/HDD)",
+          "catmat_preferencial": "469467",
+          "variantes": ["disco rígido", "hard disk", "HDD", "HD externo", "HD interno", "disco mecânico"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 7025"
+        },
+        {
+          "termo_usuario": "SSD",
+          "termo_normalizado": "unidade de armazenamento em estado sólido (SSD)",
+          "catmat_preferencial": "469468",
+          "variantes": ["disco SSD", "SSD SATA", "SSD NVMe", "SSD M.2", "solid state drive", "armazenamento flash"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 7025"
+        },
+        {
+          "termo_usuario": "memória RAM",
+          "termo_normalizado": "módulo de memória RAM DDR4/DDR5",
+          "catmat_preferencial": "469469",
+          "variantes": ["RAM", "pente de memória", "memória DDR4", "memória DDR5", "DIMM", "SO-DIMM", "memória para notebook", "memória para servidor ECC"],
+          "confianca": 0.91,
+          "fonte": "CATMAT Grupo 7025"
+        },
+        {
+          "termo_usuario": "teclado",
+          "termo_normalizado": "teclado padrão ABNT2 USB",
+          "catmat_preferencial": "469470",
+          "variantes": ["keyboard", "teclado USB", "teclado sem fio", "teclado ABNT", "teclado ABNT2", "teclado mecânico"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 7025 + ABNT NBR 10346"
+        },
+        {
+          "termo_usuario": "mouse",
+          "termo_normalizado": "dispositivo apontador (mouse) USB óptico",
+          "catmat_preferencial": "469471",
+          "variantes": ["mouse USB", "mouse óptico", "mouse sem fio", "mouse wireless", "mouse ergonômico"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 7025"
+        },
+        {
+          "termo_usuario": "projetor",
+          "termo_normalizado": "projetor multimídia (datashow)",
+          "catmat_preferencial": "469472",
+          "variantes": ["datashow", "data show", "projetor de imagem", "projetor LED", "projetor DLP", "projetor laser"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 7025"
+        },
+        {
+          "termo_usuario": "cabo de rede",
+          "termo_normalizado": "cabo de rede par trançado categoria 6/6A UTP",
+          "catmat_preferencial": "469473",
+          "variantes": ["cabo UTP", "cabo CAT5", "cabo CAT5e", "cabo CAT6", "cabo CAT6A", "patch cord", "cabo ethernet", "cabo de dados"],
+          "confianca": 0.91,
+          "fonte": "CATMAT Grupo 5995 + ABNT NBR 14565"
+        },
+        {
+          "termo_usuario": "rack",
+          "termo_normalizado": "rack padrão 19 polegadas para servidor/rede",
+          "catmat_preferencial": "469474",
+          "variantes": ["rack de rede", "rack 19 polegadas", "rack 42U", "rack 24U", "rack de piso", "rack de parede", "gabinete rack"],
+          "confianca": 0.91,
+          "fonte": "CATMAT Grupo 7025 + ABNT NBR 14565"
+        },
+        {
+          "termo_usuario": "firewall",
+          "termo_normalizado": "appliance de segurança de rede (firewall/UTM)",
+          "catmat_preferencial": "469475",
+          "variantes": ["UTM", "next-gen firewall", "NGFW", "firewall de rede", "appliance de segurança"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 7025 + IN SGD 94/2022"
+        },
+        {
+          "termo_usuario": "licença Windows",
+          "termo_normalizado": "licença de uso de sistema operacional Microsoft Windows",
+          "catmat_preferencial": "469480",
+          "variantes": ["Windows", "Windows 11", "Windows 11 Pro", "SO Windows", "sistema operacional Windows", "licença Microsoft"],
+          "confianca": 0.88,
+          "fonte": "CATMAT Grupo 7030 — Software"
+        },
+        {
+          "termo_usuario": "licença Office",
+          "termo_normalizado": "licença de uso de suíte de escritório Microsoft Office/365",
+          "catmat_preferencial": "469481",
+          "variantes": ["Office 365", "Microsoft 365", "M365", "Office", "pacote Office", "suíte Office", "licença Microsoft 365"],
+          "confianca": 0.88,
+          "fonte": "CATMAT Grupo 7030"
+        },
+        {
+          "termo_usuario": "antivírus",
+          "termo_normalizado": "licença de software de proteção endpoint (antivírus/EDR)",
+          "catmat_preferencial": "469482",
+          "variantes": ["antimalware", "EDR", "endpoint protection", "segurança endpoint", "licença antivírus"],
+          "confianca": 0.87,
+          "fonte": "CATMAT Grupo 7030 + IN SGD 94/2022"
+        },
+        {
+          "termo_usuario": "backup",
+          "termo_normalizado": "solução de cópia de segurança (backup) em nuvem ou local",
+          "catmat_preferencial": "469483",
+          "variantes": ["storage backup", "solução de backup", "backup em nuvem", "fita LTO", "NAS backup", "backup local"],
+          "confianca": 0.85,
+          "fonte": "CATMAT Grupo 7030 + IN SGD 94/2022"
+        },
+        {
+          "termo_usuario": "scanner",
+          "termo_normalizado": "digitalizador de documentos (scanner)",
+          "catmat_preferencial": "469484",
+          "variantes": ["digitalizador", "scanner de mesa", "scanner ADF", "scanner de produção", "scanner duplex"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 7025"
+        },
+        {
+          "termo_usuario": "toner",
+          "termo_normalizado": "cartucho de toner para impressora laser",
+          "catmat_preferencial": "469485",
+          "variantes": ["toner original", "toner compatível", "cartucho toner", "suprimento de impressão laser"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 7510 — Suprimentos para Impressão"
+        },
+        {
+          "termo_usuario": "webcam",
+          "termo_normalizado": "câmera de videoconferência USB (webcam)",
+          "catmat_preferencial": "469486",
+          "variantes": ["câmera USB", "câmera para videoconferência", "webcam full HD", "webcam 1080p"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 7025"
+        },
+        {
+          "termo_usuario": "headset",
+          "termo_normalizado": "fone de ouvido com microfone (headset) USB",
+          "catmat_preferencial": "469487",
+          "variantes": ["fone com microfone", "headset USB", "headset bluetooth", "fone de ouvido USB"],
+          "confianca": 0.89,
+          "fonte": "CATMAT Grupo 5965"
+        }
+      ]
+    },
+    "SAUDE": {
+      "descricao": "Saúde e Equipamentos Hospitalares — Grupo CATMAT 65, ANVISA, RENAME SUS",
+      "termos": [
+        {
+          "termo_usuario": "cama Fowler",
+          "termo_normalizado": "cama hospitalar Fowler elétrica com 3 movimentos",
+          "catmat_preferencial": "266419",
+          "variantes": ["cama hospitalar elétrica", "cama Fowler elétrica", "cama hospitalar motorizada", "cama hospitalar 3 movimentos", "cama hospitalar com grade", "leito hospitalar elétrico"],
+          "confianca": 0.94,
+          "fonte": "CATMAT Grupo 6530 — Mobiliário Hospitalar + ANVISA RDC 185/2001"
+        },
+        {
+          "termo_usuario": "cama hospitalar manual",
+          "termo_normalizado": "cama hospitalar Fowler manual com 2 movimentos e manivela",
+          "catmat_preferencial": "266420",
+          "variantes": ["cama Fowler manual", "cama hospitalar com manivela", "leito hospitalar manual"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 6530"
+        },
+        {
+          "termo_usuario": "maca",
+          "termo_normalizado": "maca hospitalar com rodízios e grades laterais",
+          "catmat_preferencial": "266421",
+          "variantes": ["maca com rodas", "maca de transporte", "padiola", "maca fixa", "maca SAMU"],
+          "confianca": 0.91,
+          "fonte": "CATMAT Grupo 6530"
+        },
+        {
+          "termo_usuario": "monitor multiparamétrico",
+          "termo_normalizado": "monitor multiparamétrico de sinais vitais",
+          "catmat_preferencial": "265890",
+          "variantes": ["monitor de sinais vitais", "monitor cardíaco", "monitor de paciente", "monitor beira-leito", "monitor multiparâmetro", "monitor de UTI"],
+          "confianca": 0.94,
+          "fonte": "CATMAT Grupo 6515 — Equipamentos Médicos + ANVISA"
+        },
+        {
+          "termo_usuario": "desfibrilador",
+          "termo_normalizado": "desfibrilador externo automático (DEA)",
+          "catmat_preferencial": "265891",
+          "variantes": ["DEA", "desfibrilador automático", "desfibrilador portátil", "cardioversor", "desfibrilador bifásico"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 6515 + ANVISA"
+        },
+        {
+          "termo_usuario": "ventilador pulmonar",
+          "termo_normalizado": "ventilador pulmonar mecânico microprocessado",
+          "catmat_preferencial": "265892",
+          "variantes": ["respirador", "ventilador mecânico", "respirador mecânico", "ventilador de UTI", "ventilador de transporte", "aparelho de ventilação mecânica"],
+          "confianca": 0.94,
+          "fonte": "CATMAT Grupo 6515 + ANVISA RDC 185/2001"
+        },
+        {
+          "termo_usuario": "bomba de infusão",
+          "termo_normalizado": "bomba de infusão volumétrica com controle eletrônico",
+          "catmat_preferencial": "265893",
+          "variantes": ["bomba infusora", "bomba de medicamento", "bomba volumétrica", "bomba de seringa", "bomba de infusão peristáltica"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 6515 + ANVISA"
+        },
+        {
+          "termo_usuario": "autoclave",
+          "termo_normalizado": "autoclave horizontal de esterilização a vapor",
+          "catmat_preferencial": "265894",
+          "variantes": ["esterilizador a vapor", "autoclave hospitalar", "autoclave de mesa", "autoclave gravitacional", "autoclave pré-vácuo"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 6530 + ANVISA RDC 15/2012"
+        },
+        {
+          "termo_usuario": "oxímetro",
+          "termo_normalizado": "oxímetro de pulso portátil",
+          "catmat_preferencial": "265895",
+          "variantes": ["oxímetro de dedo", "oxímetro digital", "saturômetro", "medidor de saturação"],
+          "confianca": 0.94,
+          "fonte": "CATMAT Grupo 6515 + ANVISA"
+        },
+        {
+          "termo_usuario": "bisturi elétrico",
+          "termo_normalizado": "unidade eletrocirúrgica de alta frequência (bisturi elétrico)",
+          "catmat_preferencial": "265896",
+          "variantes": ["eletrocautério", "bisturi eletrônico", "unidade eletrocirúrgica", "cautério elétrico"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 6515 + ANVISA + NBR IEC 60601"
+        },
+        {
+          "termo_usuario": "mesa cirúrgica",
+          "termo_normalizado": "mesa cirúrgica elétrica com movimentos hidráulicos/eletro-hidráulicos",
+          "catmat_preferencial": "265897",
+          "variantes": ["mesa de cirurgia", "mesa operatória", "mesa cirúrgica hidráulica", "mesa cirúrgica elétrica"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 6530 + ANVISA"
+        },
+        {
+          "termo_usuario": "foco cirúrgico",
+          "termo_normalizado": "foco cirúrgico LED de teto com braço articulado",
+          "catmat_preferencial": "265898",
+          "variantes": ["foco de teto", "foco operatório", "iluminação cirúrgica", "foco LED cirúrgico", "foco auxiliar"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 6530"
+        },
+        {
+          "termo_usuario": "raio-X",
+          "termo_normalizado": "equipamento de radiografia diagnóstica (raios-X)",
+          "catmat_preferencial": "265899",
+          "variantes": ["aparelho de raio-X", "raio X", "equipamento radiológico", "raio-X digital", "raio-X portátil"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 6525 — Equipamentos Radiológicos + ANVISA + CNEN"
+        },
+        {
+          "termo_usuario": "ultrassom",
+          "termo_normalizado": "equipamento de ultrassonografia diagnóstica com transdutor",
+          "catmat_preferencial": "265900",
+          "variantes": ["ecógrafo", "aparelho de ultrassom", "ultrassonógrafo", "ecografia", "USG"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 6515 + ANVISA"
+        },
+        {
+          "termo_usuario": "cadeira de rodas",
+          "termo_normalizado": "cadeira de rodas dobrável em aço/alumínio",
+          "catmat_preferencial": "265901",
+          "variantes": ["cadeira de rodas dobrável", "cadeira de rodas motorizada", "cadeira de rodas obeso", "cadeira de rodas pediátrica", "cadeira de rodas de banho"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 6530 + ABNT NBR ISO 7176"
+        },
+        {
+          "termo_usuario": "seringa",
+          "termo_normalizado": "seringa descartável com agulha hipodérmica",
+          "catmat_preferencial": "265902",
+          "variantes": ["seringa descartável", "seringa 3ml", "seringa 5ml", "seringa 10ml", "seringa 20ml", "seringa de insulina", "seringa luer lock", "seringa luer slip"],
+          "confianca": 0.95,
+          "fonte": "CATMAT Grupo 6515 + ANVISA"
+        },
+        {
+          "termo_usuario": "luva de procedimento",
+          "termo_normalizado": "luva para procedimento não cirúrgico descartável",
+          "catmat_preferencial": "269925",
+          "variantes": ["luva descartável", "luva látex", "luva nitrílica", "luva vinil", "luva de exame", "luva sem pó", "luva procedimento P", "luva procedimento M", "luva procedimento G"],
+          "confianca": 0.95,
+          "fonte": "CATMAT Grupo 6515 + ANVISA + NR-32"
+        },
+        {
+          "termo_usuario": "luva cirúrgica",
+          "termo_normalizado": "luva cirúrgica estéril em látex natural",
+          "catmat_preferencial": "269926",
+          "variantes": ["luva estéril", "luva de cirurgia", "luva cirúrgica estéril"],
+          "confianca": 0.94,
+          "fonte": "CATMAT Grupo 6515 + ANVISA"
+        },
+        {
+          "termo_usuario": "máscara cirúrgica",
+          "termo_normalizado": "máscara cirúrgica descartável tripla camada com elástico",
+          "catmat_preferencial": "269927",
+          "variantes": ["máscara descartável", "máscara 3 camadas", "máscara TNT", "máscara hospitalar"],
+          "confianca": 0.94,
+          "fonte": "CATMAT Grupo 6515 + ANVISA + ABNT NBR 15052"
+        },
+        {
+          "termo_usuario": "máscara N95",
+          "termo_normalizado": "respirador semifacial PFF2/N95 sem válvula",
+          "catmat_preferencial": "269928",
+          "variantes": ["PFF2", "N95", "respirador N95", "máscara PFF2", "máscara bico de pato"],
+          "confianca": 0.94,
+          "fonte": "CATMAT Grupo 6515 + ANVISA + ABNT NBR 13698"
+        },
+        {
+          "termo_usuario": "gaze",
+          "termo_normalizado": "compressa de gaze estéril 7,5 x 7,5 cm",
+          "catmat_preferencial": "269929",
+          "variantes": ["gaze estéril", "compressa de gaze", "gaze 7,5x7,5", "gaze tipo queijo"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 6510 — Material Cirúrgico"
+        },
+        {
+          "termo_usuario": "esparadrapo",
+          "termo_normalizado": "fita adesiva hospitalar (esparadrapo) impermeável",
+          "catmat_preferencial": "269930",
+          "variantes": ["esparadrapo impermeável", "micropore", "fita microporosa", "fita cirúrgica", "esparadrapo de papel"],
+          "confianca": 0.91,
+          "fonte": "CATMAT Grupo 6510 + ANVISA"
+        },
+        {
+          "termo_usuario": "soro fisiológico",
+          "termo_normalizado": "solução de cloreto de sódio 0,9% (soro fisiológico) sistema fechado",
+          "catmat_preferencial": "265903",
+          "variantes": ["soro", "SF 0,9%", "NaCl 0,9%", "solução fisiológica", "soro 500ml", "soro 250ml", "soro 1000ml"],
+          "confianca": 0.95,
+          "fonte": "CATMAT Grupo 6505 — Medicamentos + DCB ANVISA"
+        },
+        {
+          "termo_usuario": "equipo",
+          "termo_normalizado": "equipo de infusão intravenosa macrogotas descartável",
+          "catmat_preferencial": "265904",
+          "variantes": ["equipo macrogotas", "equipo microgotas", "equipo de soro", "equipo fotossensível", "equipo com câmara flexível"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 6515 + ANVISA"
+        },
+        {
+          "termo_usuario": "cateter",
+          "termo_normalizado": "cateter intravenoso periférico com dispositivo de segurança",
+          "catmat_preferencial": "265905",
+          "variantes": ["cateter periférico", "abocath", "jelco", "cateter IV", "scalp", "cateter venoso", "acesso venoso"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 6515 + ANVISA + NR-32"
+        },
+        {
+          "termo_usuario": "esfigmomanômetro",
+          "termo_normalizado": "esfigmomanômetro aneroide adulto com estetoscópio",
+          "catmat_preferencial": "265906",
+          "variantes": ["aparelho de pressão", "medidor de pressão", "esfigmo", "tensiômetro"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 6515 + INMETRO"
+        },
+        {
+          "termo_usuario": "estetoscópio",
+          "termo_normalizado": "estetoscópio biauricular adulto",
+          "catmat_preferencial": "265907",
+          "variantes": ["estetoscópio adulto", "estetoscópio pediátrico", "estetoscópio neonatal", "estetoscópio cardíaco"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 6515"
+        },
+        {
+          "termo_usuario": "termômetro",
+          "termo_normalizado": "termômetro clínico digital axilar",
+          "catmat_preferencial": "265908",
+          "variantes": ["termômetro digital", "termômetro clínico", "termômetro infravermelho", "termômetro de testa", "termômetro timpânico"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 6515 + INMETRO"
+        }
+      ]
+    },
+    "MEDICAMENTOS": {
+      "descricao": "Medicamentos — DCB ANVISA, RENAME SUS, CMED",
+      "termos": [
+        {
+          "termo_usuario": "dipirona",
+          "termo_normalizado": "metamizol sódico (dipirona) 500mg comprimido",
+          "catmat_preferencial": "269001",
+          "variantes": ["dipirona sódica", "dipirona 500mg", "metamizol", "analgésico dipirona", "novalgina"],
+          "confianca": 0.95,
+          "fonte": "DCB ANVISA — Denominação Comum Brasileira + RENAME SUS",
+          "marca_referencia": "Novalgina® (uso como referência técnica, especificar 'ou similar')"
+        },
+        {
+          "termo_usuario": "paracetamol",
+          "termo_normalizado": "paracetamol 500mg comprimido",
+          "catmat_preferencial": "269002",
+          "variantes": ["acetaminofeno", "paracetamol 750mg", "paracetamol gotas", "paracetamol solução oral"],
+          "confianca": 0.95,
+          "fonte": "DCB ANVISA + RENAME SUS"
+        },
+        {
+          "termo_usuario": "amoxicilina",
+          "termo_normalizado": "amoxicilina 500mg cápsula",
+          "catmat_preferencial": "269003",
+          "variantes": ["amoxicilina tri-hidratada", "amoxicilina 250mg/5ml suspensão", "amoxicilina + clavulanato"],
+          "confianca": 0.95,
+          "fonte": "DCB ANVISA + RENAME SUS"
+        },
+        {
+          "termo_usuario": "omeprazol",
+          "termo_normalizado": "omeprazol 20mg cápsula gastrorresistente",
+          "catmat_preferencial": "269004",
+          "variantes": ["omeprazol 20mg", "omeprazol 40mg", "inibidor de bomba de prótons"],
+          "confianca": 0.95,
+          "fonte": "DCB ANVISA + RENAME SUS"
+        },
+        {
+          "termo_usuario": "losartana",
+          "termo_normalizado": "losartana potássica 50mg comprimido",
+          "catmat_preferencial": "269005",
+          "variantes": ["losartan", "losartana 50mg", "losartana 100mg", "anti-hipertensivo losartana"],
+          "confianca": 0.95,
+          "fonte": "DCB ANVISA + RENAME SUS"
+        },
+        {
+          "termo_usuario": "metformina",
+          "termo_normalizado": "cloridrato de metformina 850mg comprimido",
+          "catmat_preferencial": "269006",
+          "variantes": ["metformina 500mg", "metformina 850mg", "metformina XR", "antidiabético metformina"],
+          "confianca": 0.95,
+          "fonte": "DCB ANVISA + RENAME SUS"
+        },
+        {
+          "termo_usuario": "insulina",
+          "termo_normalizado": "insulina humana NPH 100UI/mL frasco-ampola",
+          "catmat_preferencial": "269007",
+          "variantes": ["insulina NPH", "insulina regular", "insulina glargina", "insulina lispro", "insulina asparte"],
+          "confianca": 0.93,
+          "fonte": "DCB ANVISA + RENAME SUS + Protocolo Clínico CONITEC"
+        },
+        {
+          "termo_usuario": "ibuprofeno",
+          "termo_normalizado": "ibuprofeno 600mg comprimido revestido",
+          "catmat_preferencial": "269008",
+          "variantes": ["ibuprofeno 200mg", "ibuprofeno 400mg", "ibuprofeno gotas", "anti-inflamatório ibuprofeno"],
+          "confianca": 0.95,
+          "fonte": "DCB ANVISA + RENAME SUS"
+        },
+        {
+          "termo_usuario": "soro glicosado",
+          "termo_normalizado": "solução de glicose 5% sistema fechado 500mL",
+          "catmat_preferencial": "269009",
+          "variantes": ["SG 5%", "glicose 5%", "soro glicosado 5%", "dextrose 5%"],
+          "confianca": 0.94,
+          "fonte": "DCB ANVISA + RENAME SUS"
+        },
+        {
+          "termo_usuario": "lidocaína",
+          "termo_normalizado": "cloridrato de lidocaína 2% sem vasoconstritor injetável",
+          "catmat_preferencial": "269010",
+          "variantes": ["lidocaína 2%", "xilocaína", "anestésico local", "lidocaína com epinefrina", "lidocaína gel"],
+          "confianca": 0.94,
+          "fonte": "DCB ANVISA + RENAME SUS"
+        }
+      ]
+    },
+    "VEICULOS": {
+      "descricao": "Veículos, Peças e Acessórios — Grupo CATMAT 23/24, CONTRAN, INMETRO, DENATRAN",
+      "termos": [
+        {
+          "termo_usuario": "carro",
+          "termo_normalizado": "veículo automotor tipo sedan/hatch 1.0 a 2.0 flex",
+          "catmat_preferencial": "234001",
+          "variantes": ["automóvel", "veículo de passeio", "veículo leve", "carro popular", "veículo sedan", "veículo hatch"],
+          "confianca": 0.88,
+          "fonte": "CATMAT Grupo 2310 — Veículos de Passeio + CONTRAN"
+        },
+        {
+          "termo_usuario": "SUV",
+          "termo_normalizado": "veículo utilitário esportivo (SUV) 4x2 ou 4x4 flex/diesel",
+          "catmat_preferencial": "234002",
+          "variantes": ["utilitário esportivo", "veículo SUV", "SUV 4x4", "SUV 4x2", "veículo tipo jipe"],
+          "confianca": 0.89,
+          "fonte": "CATMAT Grupo 2310 + CONTRAN"
+        },
+        {
+          "termo_usuario": "picape",
+          "termo_normalizado": "veículo utilitário tipo picape cabine dupla 4x4 diesel",
+          "catmat_preferencial": "234003",
+          "variantes": ["pickup", "picape cabine dupla", "picape cabine simples", "caminhonete", "picape 4x4"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 2310 + CONTRAN"
+        },
+        {
+          "termo_usuario": "van",
+          "termo_normalizado": "veículo utilitário tipo furgão para transporte de passageiros",
+          "catmat_preferencial": "234004",
+          "variantes": ["furgão", "van de passageiros", "van de carga", "veículo tipo van", "micro-ônibus"],
+          "confianca": 0.89,
+          "fonte": "CATMAT Grupo 2310 + CONTRAN"
+        },
+        {
+          "termo_usuario": "ambulância",
+          "termo_normalizado": "veículo tipo ambulância de suporte básico/avançado conforme ABNT NBR 14561",
+          "catmat_preferencial": "234005",
+          "variantes": ["ambulância tipo A", "ambulância tipo B", "ambulância tipo C", "ambulância tipo D", "ambulância SAMU", "UTI móvel"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 2310 + ABNT NBR 14561 + CONTRAN Res. 316/2009"
+        },
+        {
+          "termo_usuario": "ônibus",
+          "termo_normalizado": "ônibus rodoviário/urbano para transporte coletivo",
+          "catmat_preferencial": "234006",
+          "variantes": ["ônibus urbano", "ônibus escolar", "ônibus rodoviário", "micro-ônibus"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 2310 + CONTRAN"
+        },
+        {
+          "termo_usuario": "ônibus escolar",
+          "termo_normalizado": "ônibus para transporte escolar conforme CONTRAN Res. 316/2009",
+          "catmat_preferencial": "234007",
+          "variantes": ["ônibus escolar amarelo", "transporte escolar", "veículo escolar"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 2310 + CONTRAN Res. 316/2009 + INMETRO"
+        },
+        {
+          "termo_usuario": "caminhão",
+          "termo_normalizado": "veículo de carga tipo caminhão toco/truck",
+          "catmat_preferencial": "234008",
+          "variantes": ["caminhão toco", "caminhão truck", "caminhão 3/4", "caminhão basculante", "caminhão baú", "caminhão carroceria"],
+          "confianca": 0.89,
+          "fonte": "CATMAT Grupo 2320 — Veículos de Carga + CONTRAN"
+        },
+        {
+          "termo_usuario": "pneu",
+          "termo_normalizado": "pneu novo radial para veículo conforme especificação do fabricante",
+          "catmat_preferencial": "294001",
+          "variantes": ["pneu radial", "pneu diagonal", "pneu 175/70 R13", "pneu 205/55 R16", "pneu 265/70 R16", "pneu recapado", "pneu remold"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 2610 — Pneus + INMETRO Portaria 544/2012"
+        },
+        {
+          "termo_usuario": "óleo de motor",
+          "termo_normalizado": "lubrificante para motor automotivo (óleo de motor) SAE 5W30/15W40 API SN ou superior",
+          "catmat_preferencial": "294002",
+          "variantes": ["óleo lubrificante", "óleo de motor", "óleo SAE 5W30", "óleo SAE 15W40", "óleo sintético", "óleo semissintético", "óleo mineral"],
+          "confianca": 0.91,
+          "fonte": "CATMAT Grupo 9150 — Lubrificantes + ANP Res. 669/2017"
+        },
+        {
+          "termo_usuario": "filtro de óleo",
+          "termo_normalizado": "filtro de óleo lubrificante para motor automotivo",
+          "catmat_preferencial": "294003",
+          "variantes": ["filtro de óleo do motor", "elemento filtrante de óleo"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 2940 — Filtros Automotivos"
+        },
+        {
+          "termo_usuario": "filtro de ar",
+          "termo_normalizado": "filtro de ar do motor (elemento filtrante de admissão)",
+          "catmat_preferencial": "294004",
+          "variantes": ["elemento filtrante de ar", "filtro de ar motor", "filtro de admissão"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 2940"
+        },
+        {
+          "termo_usuario": "filtro de combustível",
+          "termo_normalizado": "filtro de combustível (elemento filtrante) para motor diesel/flex",
+          "catmat_preferencial": "294005",
+          "variantes": ["filtro diesel", "filtro de gasolina", "filtro separador de água", "pré-filtro", "filtro racor"],
+          "confianca": 0.91,
+          "fonte": "CATMAT Grupo 2940"
+        },
+        {
+          "termo_usuario": "bateria",
+          "termo_normalizado": "bateria automotiva 12V chumbo-ácido livre de manutenção",
+          "catmat_preferencial": "294006",
+          "variantes": ["bateria de carro", "bateria 12V", "acumulador", "bateria 60Ah", "bateria 90Ah", "bateria 150Ah", "bateria selada"],
+          "confianca": 0.91,
+          "fonte": "CATMAT Grupo 6140 — Baterias + INMETRO + CONAMA Res. 401/2008"
+        }
+      ]
+    },
+    "CONSTRUCAO": {
+      "descricao": "Construção Civil e Engenharia — SINAPI, SICRO, ABNT, CONFEA/CREA",
+      "termos": [
+        {
+          "termo_usuario": "cimento",
+          "termo_normalizado": "cimento Portland composto CP II-E-32 ou CP II-Z-32 saco 50kg",
+          "catmat_preferencial": "234101",
+          "variantes": ["cimento Portland", "cimento CP II", "cimento CP III", "cimento CP IV", "cimento CP V ARI", "saco de cimento"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 5610 + SINAPI + ABNT NBR 16697:2018"
+        },
+        {
+          "termo_usuario": "concreto usinado",
+          "termo_normalizado": "concreto dosado em central (concreto usinado) fck conforme projeto",
+          "catmat_preferencial": "234102",
+          "variantes": ["concreto dosado em central", "CDC", "concreto bombeado", "concreto FCK 20", "concreto FCK 25", "concreto FCK 30"],
+          "confianca": 0.93,
+          "fonte": "SINAPI código 74138/001 + ABNT NBR 12655:2015"
+        },
+        {
+          "termo_usuario": "aço CA-50",
+          "termo_normalizado": "vergalhão de aço CA-50 nervurado para concreto armado",
+          "catmat_preferencial": "234103",
+          "variantes": ["vergalhão", "barra de aço", "ferro CA-50", "aço para construção", "barra de aço 10mm", "barra de aço 12,5mm", "barra de aço 16mm"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 9515 + SINAPI + ABNT NBR 7480:2007"
+        },
+        {
+          "termo_usuario": "tijolo",
+          "termo_normalizado": "bloco cerâmico de vedação 9x19x19 cm",
+          "catmat_preferencial": "234104",
+          "variantes": ["tijolo cerâmico", "tijolo furado", "tijolo baiano", "bloco cerâmico", "tijolo 6 furos", "tijolo 8 furos"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 5610 + SINAPI + ABNT NBR 15270-1:2017"
+        },
+        {
+          "termo_usuario": "areia",
+          "termo_normalizado": "areia média lavada para construção civil",
+          "catmat_preferencial": "234105",
+          "variantes": ["areia lavada", "areia média", "areia fina", "areia grossa", "areia para reboco", "areia para concreto"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 5610 + SINAPI + ABNT NBR 7211:2019"
+        },
+        {
+          "termo_usuario": "brita",
+          "termo_normalizado": "agregado graúdo (brita/pedra britada) nº 1 ou nº 2",
+          "catmat_preferencial": "234106",
+          "variantes": ["pedra britada", "brita 0", "brita 1", "brita 2", "brita 3", "pedrisco", "pedra brita", "agregado graúdo"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 5610 + SINAPI + ABNT NBR 7211:2019"
+        },
+        {
+          "termo_usuario": "tinta",
+          "termo_normalizado": "tinta látex acrílica premium para parede interna/externa",
+          "catmat_preferencial": "234107",
+          "variantes": ["tinta acrílica", "tinta látex", "tinta PVA", "tinta para parede", "tinta econômica", "tinta premium", "tinta semi-brilho"],
+          "confianca": 0.88,
+          "fonte": "CATMAT Grupo 8010 — Tintas + SINAPI + ABNT NBR 11702:2019"
+        },
+        {
+          "termo_usuario": "tubo PVC",
+          "termo_normalizado": "tubo de PVC rígido para esgoto predial DN 100mm (4 polegadas)",
+          "catmat_preferencial": "234108",
+          "variantes": ["cano PVC", "tubo esgoto", "tubo PVC 100mm", "tubo PVC soldável", "tubo PVC esgoto", "tubo marrom", "tubo branco"],
+          "confianca": 0.89,
+          "fonte": "CATMAT Grupo 4710 + SINAPI + ABNT NBR 5688:2018"
+        },
+        {
+          "termo_usuario": "fio elétrico",
+          "termo_normalizado": "fio/cabo elétrico flexível 750V isolação PVC seção conforme projeto",
+          "catmat_preferencial": "234109",
+          "variantes": ["cabo elétrico", "fio 2,5mm", "fio 4mm", "fio 6mm", "fio 10mm", "cabo flexível", "fio rígido"],
+          "confianca": 0.89,
+          "fonte": "CATMAT Grupo 6145 — Fios e Cabos + SINAPI + ABNT NBR 5410:2004"
+        },
+        {
+          "termo_usuario": "telha",
+          "termo_normalizado": "telha de fibrocimento ondulada 6mm (sem amianto)",
+          "catmat_preferencial": "234110",
+          "variantes": ["telha fibrocimento", "telha ondulada", "telha cerâmica", "telha colonial", "telha metálica", "telha sanduíche", "telha termoacústica", "telha de barro"],
+          "confianca": 0.87,
+          "fonte": "CATMAT Grupo 5640 + SINAPI + ABNT NBR 15210:2018"
+        }
+      ]
+    },
+    "ALIMENTOS": {
+      "descricao": "Alimentos e Gêneros Alimentícios — CATMAT 89, TACO UNICAMP, PNAE/FNDE, MAPA",
+      "termos": [
+        {
+          "termo_usuario": "arroz",
+          "termo_normalizado": "arroz beneficiado polido tipo 1 longo fino pacote 5kg",
+          "catmat_preferencial": "234201",
+          "variantes": ["arroz branco", "arroz tipo 1", "arroz agulhinha", "arroz longo fino", "arroz parboilizado", "arroz integral"],
+          "confianca": 0.95,
+          "fonte": "CATMAT Grupo 8945 + MAPA Instrução Normativa 06/2009"
+        },
+        {
+          "termo_usuario": "feijão",
+          "termo_normalizado": "feijão carioca tipo 1 pacote 1kg",
+          "catmat_preferencial": "234202",
+          "variantes": ["feijão carioca", "feijão preto", "feijão mulatinho", "feijão tipo 1", "feijão rajado", "feijão fradinho", "feijão de corda"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 8945 + MAPA IN 12/2008"
+        },
+        {
+          "termo_usuario": "açúcar",
+          "termo_normalizado": "açúcar cristal branco tipo especial pacote 5kg",
+          "catmat_preferencial": "234203",
+          "variantes": ["açúcar cristal", "açúcar refinado", "açúcar demerara", "açúcar mascavo", "açúcar tipo especial"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 8945 + MAPA"
+        },
+        {
+          "termo_usuario": "óleo de soja",
+          "termo_normalizado": "óleo de soja refinado tipo 1 garrafa PET 900mL",
+          "catmat_preferencial": "234204",
+          "variantes": ["óleo de cozinha", "óleo vegetal", "óleo comestível", "óleo de soja 900ml"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 8945 + MAPA + ANVISA RDC 270/2005"
+        },
+        {
+          "termo_usuario": "leite",
+          "termo_normalizado": "leite UHT integral caixa 1 litro",
+          "catmat_preferencial": "234205",
+          "variantes": ["leite longa vida", "leite integral", "leite desnatado", "leite UHT", "leite em pó", "leite em pó integral"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 8910 + MAPA IN 76/2018"
+        },
+        {
+          "termo_usuario": "café",
+          "termo_normalizado": "café torrado e moído tipo tradicional pacote 500g",
+          "catmat_preferencial": "234206",
+          "variantes": ["café em pó", "café torrado moído", "café extra forte", "café gourmet", "café tradicional", "pó de café"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 8945 + MAPA + ABIC (selo de pureza)"
+        },
+        {
+          "termo_usuario": "carne bovina",
+          "termo_normalizado": "carne bovina in natura resfriada conforme corte especificado",
+          "catmat_preferencial": "234207",
+          "variantes": ["carne vermelha", "carne de boi", "carne resfriada", "carne congelada", "patinho", "alcatra", "coxão mole", "acém", "músculo"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 8905 + MAPA + SIF/SIE/SIM"
+        },
+        {
+          "termo_usuario": "frango",
+          "termo_normalizado": "frango inteiro resfriado/congelado com registro SIF/SIE/SIM",
+          "catmat_preferencial": "234208",
+          "variantes": ["frango inteiro", "frango congelado", "peito de frango", "coxa e sobrecoxa", "filé de frango", "ave resfriada"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 8905 + MAPA + SIF"
+        },
+        {
+          "termo_usuario": "mandioca",
+          "termo_normalizado": "mandioca (raiz de mandioca) in natura",
+          "catmat_preferencial": "234209",
+          "variantes": ["macaxeira", "aipim", "castelinha", "maniva", "raiz de mandioca"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 8915 + TACO UNICAMP + PNAE/FNDE",
+          "nota_regional": "Norte/Nordeste: macaxeira. Sul/Sudeste: aipim. Centro-Oeste: mandioca."
+        },
+        {
+          "termo_usuario": "farinha de mandioca",
+          "termo_normalizado": "farinha de mandioca torrada tipo 1 pacote 1kg",
+          "catmat_preferencial": "234210",
+          "variantes": ["farinha de mesa", "farinha d'água", "farinha seca", "farinha de mandioca fina", "farinha de mandioca grossa", "farinha torrada"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 8945 + MAPA IN 52/2011"
+        }
+      ]
+    },
+    "EDUCACAO": {
+      "descricao": "Material Educacional — CATMAT 77, FNDE/PDDE, MEC, ABNT",
+      "termos": [
+        {
+          "termo_usuario": "carteira escolar",
+          "termo_normalizado": "conjunto aluno (mesa + cadeira) conforme padrão FNDE/MEC",
+          "catmat_preferencial": "234301",
+          "variantes": ["mesa e cadeira escolar", "conjunto escolar", "carteira e cadeira", "mobiliário escolar", "carteira universitária"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 7105 + FNDE Especificação Técnica + ABNT NBR 14006:2008"
+        },
+        {
+          "termo_usuario": "quadro branco",
+          "termo_normalizado": "quadro branco magnético para marcador de quadro 120x200cm",
+          "catmat_preferencial": "234302",
+          "variantes": ["lousa branca", "quadro magnético", "whiteboard", "quadro para caneta", "lousa magnética"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 7105"
+        },
+        {
+          "termo_usuario": "livro didático",
+          "termo_normalizado": "livro didático conforme PNLD/FNDE",
+          "catmat_preferencial": "234303",
+          "variantes": ["material didático", "livro escolar", "livro PNLD", "apostila"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 7730 + FNDE/PNLD"
+        },
+        {
+          "termo_usuario": "kit escolar",
+          "termo_normalizado": "kit de material escolar individual conforme especificação FNDE",
+          "catmat_preferencial": "234304",
+          "variantes": ["material escolar", "kit aluno", "kit PDDE", "material didático individual"],
+          "confianca": 0.88,
+          "fonte": "CATMAT Grupo 7510/7520 + FNDE/PDDE"
+        },
+        {
+          "termo_usuario": "playground",
+          "termo_normalizado": "conjunto de brinquedos para parque infantil (playground) conforme ABNT NBR 16071",
+          "catmat_preferencial": "234305",
+          "variantes": ["parque infantil", "brinquedo de playground", "parquinho", "equipamento recreativo"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 7810 + ABNT NBR 16071:2012"
+        }
+      ]
+    },
+    "EPI": {
+      "descricao": "Equipamento de Proteção Individual — NR-6, CA INMETRO, ABNT",
+      "termos": [
+        {
+          "termo_usuario": "capacete de segurança",
+          "termo_normalizado": "capacete de segurança classe A/B com carneira e jugular conforme NR-6",
+          "catmat_preferencial": "234401",
+          "variantes": ["capacete obra", "capacete EPI", "capacete com aba", "capacete de proteção"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 8415 + NR-6 MTE + ABNT NBR 8221:2015",
+          "nota": "Obrigatório CA (Certificado de Aprovação) válido do INMETRO"
+        },
+        {
+          "termo_usuario": "bota de segurança",
+          "termo_normalizado": "calçado de segurança tipo botina com biqueira de composite/aço conforme NR-6",
+          "catmat_preferencial": "234402",
+          "variantes": ["botina de segurança", "bota EPI", "sapato de segurança", "bota com biqueira de aço", "botina com biqueira"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 8430 + NR-6 + ABNT NBR ISO 20345:2015"
+        },
+        {
+          "termo_usuario": "óculos de proteção",
+          "termo_normalizado": "óculos de segurança com lente incolor antirrisco conforme NR-6",
+          "catmat_preferencial": "234403",
+          "variantes": ["óculos EPI", "óculos de segurança", "óculos ampla visão", "óculos contra impacto"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 8415 + NR-6 + ABNT NBR 16549:2017"
+        },
+        {
+          "termo_usuario": "protetor auricular",
+          "termo_normalizado": "protetor auditivo tipo concha/plug conforme NR-6 e NR-15",
+          "catmat_preferencial": "234404",
+          "variantes": ["abafador de ruído", "protetor de ouvido", "plug auricular", "protetor auricular tipo concha", "protetor auricular tipo plug"],
+          "confianca": 0.92,
+          "fonte": "CATMAT Grupo 8415 + NR-6 + ABNT NBR 16076:2012"
+        },
+        {
+          "termo_usuario": "cinto de segurança EPI",
+          "termo_normalizado": "cinto de segurança tipo paraquedista para trabalho em altura conforme NR-35",
+          "catmat_preferencial": "234405",
+          "variantes": ["cinto paraquedista", "cinto para altura", "talabarte", "cinturão de segurança", "EPI altura"],
+          "confianca": 0.91,
+          "fonte": "CATMAT Grupo 8415 + NR-6 + NR-35 + ABNT NBR 15836:2010"
+        },
+        {
+          "termo_usuario": "luva de segurança",
+          "termo_normalizado": "luva de segurança conforme risco (mecânico/químico/elétrico/térmico)",
+          "catmat_preferencial": "234406",
+          "variantes": ["luva EPI", "luva de vaqueta", "luva de raspa", "luva anticorte", "luva isolante", "luva nitrílica EPI", "luva térmica"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 8415 + NR-6 + ABNT NBR 13712"
+        }
+      ]
+    },
+    "COMBUSTIVEL": {
+      "descricao": "Combustíveis e Lubrificantes — ANP, CATMAT 91",
+      "termos": [
+        {
+          "termo_usuario": "gasolina",
+          "termo_normalizado": "gasolina comum tipo C (aditivada ou não) conforme ANP",
+          "catmat_preferencial": "234501",
+          "variantes": ["gasolina comum", "gasolina aditivada", "gasolina premium", "gasolina tipo C"],
+          "confianca": 0.95,
+          "fonte": "CATMAT Grupo 9130 + ANP Resolução 807/2020"
+        },
+        {
+          "termo_usuario": "diesel",
+          "termo_normalizado": "óleo diesel S-10 (baixo teor de enxofre) conforme ANP",
+          "catmat_preferencial": "234502",
+          "variantes": ["diesel S10", "diesel S-10", "óleo diesel", "diesel S-500", "diesel comum", "diesel aditivado"],
+          "confianca": 0.95,
+          "fonte": "CATMAT Grupo 9130 + ANP Resolução 807/2020"
+        },
+        {
+          "termo_usuario": "etanol",
+          "termo_normalizado": "etanol hidratado combustível (álcool) conforme ANP",
+          "catmat_preferencial": "234503",
+          "variantes": ["álcool combustível", "álcool hidratado", "etanol combustível", "álcool etílico"],
+          "confianca": 0.94,
+          "fonte": "CATMAT Grupo 9130 + ANP"
+        },
+        {
+          "termo_usuario": "GNV",
+          "termo_normalizado": "gás natural veicular (GNV) conforme ANP",
+          "catmat_preferencial": "234504",
+          "variantes": ["gás natural veicular", "gás GNV", "metano veicular"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 9130 + ANP"
+        }
+      ]
+    },
+    "LIMPEZA": {
+      "descricao": "Material de Limpeza e Higienização — CATMAT 79, ANVISA",
+      "termos": [
+        {
+          "termo_usuario": "água sanitária",
+          "termo_normalizado": "solução de hipoclorito de sódio 2,0 a 2,5% (água sanitária)",
+          "catmat_preferencial": "234601",
+          "variantes": ["hipoclorito de sódio", "cloro líquido", "alvejante", "água de lavadeira"],
+          "confianca": 0.94,
+          "fonte": "CATMAT Grupo 7930 + ANVISA RDC 59/2010"
+        },
+        {
+          "termo_usuario": "detergente",
+          "termo_normalizado": "detergente líquido neutro para uso doméstico/institucional",
+          "catmat_preferencial": "234602",
+          "variantes": ["detergente neutro", "detergente de cozinha", "lava-louças", "detergente líquido"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 7930 + ANVISA"
+        },
+        {
+          "termo_usuario": "desinfetante",
+          "termo_normalizado": "desinfetante para uso geral com ação bactericida",
+          "catmat_preferencial": "234603",
+          "variantes": ["desinfetante hospitalar", "desinfetante institucional", "germicida", "bactericida"],
+          "confianca": 0.91,
+          "fonte": "CATMAT Grupo 7930 + ANVISA"
+        },
+        {
+          "termo_usuario": "papel higiênico",
+          "termo_normalizado": "papel higiênico folha dupla branco rolo 300m ou equivalente",
+          "catmat_preferencial": "234604",
+          "variantes": ["papel higiênico rolão", "papel higiênico interfolhado", "papel higiênico folha simples", "papel higiênico folha dupla"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 7920 + ABNT NBR 15464:2007"
+        },
+        {
+          "termo_usuario": "papel toalha",
+          "termo_normalizado": "papel toalha interfolhado 2 dobras 23x21cm branco",
+          "catmat_preferencial": "234605",
+          "variantes": ["papel toalha interfolhado", "toalha de papel", "papel interfolhado", "papel para dispenser"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 7920"
+        },
+        {
+          "termo_usuario": "saco de lixo",
+          "termo_normalizado": "saco plástico para acondicionamento de resíduos (lixo) conforme ABNT NBR 9191",
+          "catmat_preferencial": "234606",
+          "variantes": ["saco de lixo 100 litros", "saco de lixo 60 litros", "saco de lixo 200 litros", "saco plástico para lixo", "saco de lixo reforçado", "saco de lixo hospitalar"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 8135 + ABNT NBR 9191:2008"
+        }
+      ]
+    },
+    "ESCRITORIO": {
+      "descricao": "Material de Escritório e Expediente — CATMAT 75",
+      "termos": [
+        {
+          "termo_usuario": "caneta",
+          "termo_normalizado": "caneta esferográfica ponta média 1.0mm cor azul/preta",
+          "catmat_preferencial": "234701",
+          "variantes": ["caneta BIC", "caneta esferográfica", "caneta azul", "caneta preta", "caneta ponta fina"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 7510"
+        },
+        {
+          "termo_usuario": "papel A4",
+          "termo_normalizado": "papel sulfite branco A4 210x297mm 75g/m² resma 500 folhas",
+          "catmat_preferencial": "234702",
+          "variantes": ["resma de papel", "papel sulfite", "papel ofício", "papel A4 75g", "resma 500 folhas", "papel para impressão"],
+          "confianca": 0.95,
+          "fonte": "CATMAT Grupo 7530 + ABNT NBR NM ISO 216"
+        },
+        {
+          "termo_usuario": "envelope",
+          "termo_normalizado": "envelope kraft pardo tamanho ofício 240x340mm",
+          "catmat_preferencial": "234703",
+          "variantes": ["envelope pardo", "envelope ofício", "envelope A4", "envelope carta", "envelope saco"],
+          "confianca": 0.91,
+          "fonte": "CATMAT Grupo 7530"
+        },
+        {
+          "termo_usuario": "grampeador",
+          "termo_normalizado": "grampeador de mesa para grampo 26/6",
+          "catmat_preferencial": "234704",
+          "variantes": ["grampeador de mesa", "grampeador 26/6", "grampeador grande"],
+          "confianca": 0.93,
+          "fonte": "CATMAT Grupo 7520"
+        },
+        {
+          "termo_usuario": "cadeira de escritório",
+          "termo_normalizado": "cadeira giratória operacional com braços e rodízios conforme NR-17",
+          "catmat_preferencial": "234705",
+          "variantes": ["cadeira giratória", "cadeira operacional", "cadeira presidente", "cadeira ergonômica", "cadeira para escritório"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 7110 + NR-17 + ABNT NBR 13962:2018"
+        }
+      ]
+    },
+    "ENERGIA_SANEAMENTO": {
+      "descricao": "Energia Elétrica e Saneamento — ANEEL, ANA, ABNT",
+      "termos": [
+        {
+          "termo_usuario": "poste",
+          "termo_normalizado": "poste de concreto armado para rede de distribuição de energia elétrica",
+          "catmat_preferencial": "234801",
+          "variantes": ["poste de luz", "poste de concreto", "poste DT", "poste circular", "poste de iluminação pública"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 5680 + ABNT NBR 8451:2020 + ANEEL"
+        },
+        {
+          "termo_usuario": "luminária LED",
+          "termo_normalizado": "luminária pública LED para iluminação viária IP66",
+          "catmat_preferencial": "234802",
+          "variantes": ["luminária pública", "luminária de rua", "luminária LED pública", "luminária viária", "refletor LED"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 6210 + ABNT NBR ISO/CIE 8995-1:2013"
+        },
+        {
+          "termo_usuario": "transformador",
+          "termo_normalizado": "transformador de distribuição trifásico a óleo mineral",
+          "catmat_preferencial": "234803",
+          "variantes": ["transformador de energia", "transformador de distribuição", "transformador a óleo", "transformador a seco", "trafo"],
+          "confianca": 0.89,
+          "fonte": "CATMAT Grupo 6120 + ABNT NBR 5440:2014 + ANEEL"
+        },
+        {
+          "termo_usuario": "bomba d'água",
+          "termo_normalizado": "conjunto motor-bomba submersível/centrífuga para captação/recalque de água",
+          "catmat_preferencial": "234804",
+          "variantes": ["bomba submersa", "bomba centrífuga", "bomba de recalque", "motobomba", "bomba de poço", "bomba d'água"],
+          "confianca": 0.88,
+          "fonte": "CATMAT Grupo 4320 + ABNT NBR 6401"
+        },
+        {
+          "termo_usuario": "tubo PEAD",
+          "termo_normalizado": "tubo de polietileno de alta densidade (PEAD) para rede de água",
+          "catmat_preferencial": "234805",
+          "variantes": ["tubo polietileno", "tubo PEAD PE100", "tubo PE", "cano PEAD", "tubo para rede de água"],
+          "confianca": 0.90,
+          "fonte": "CATMAT Grupo 4710 + ABNT NBR 8417:2018"
+        },
+        {
+          "termo_usuario": "painel solar",
+          "termo_normalizado": "módulo fotovoltaico (painel solar) de silício monocristalino/policristalino",
+          "catmat_preferencial": "234806",
+          "variantes": ["placa solar", "painel fotovoltaico", "módulo solar", "sistema fotovoltaico", "energia solar"],
+          "confianca": 0.88,
+          "fonte": "CATMAT Grupo 6130 + ANEEL Res. Normativa 482/2012 + INMETRO"
+        }
+      ]
+    }
+  }
+}
