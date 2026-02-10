@@ -181,6 +181,58 @@ export const audit = {
     }),
 }
 
+// ─── Normalize API ─────────────────────────────────────────────────────────
+
+export const normalize = {
+  texto: (data: {
+    texto: string
+    setor_orgao?: string
+    regiao_uf?: string
+    incluir_catmat?: boolean
+    incluir_precos?: boolean
+  }) =>
+    apiFetch<{
+      texto_original: string
+      texto_normalizado: string
+      pipeline_aplicado: Array<{
+        camada: string
+        texto_entrada: string
+        texto_saida: string
+        transformacao: string | null
+        confianca: number
+        detalhes?: Record<string, unknown>
+      }>
+      catmat_sugeridos: Array<{
+        codigo: string
+        tipo: 'catmat' | 'catser'
+        descricao: string
+        assertividade: number
+        fonte: string
+      }>
+      alertas: Array<{
+        tipo: string
+        mensagem: string
+        sugestao: string | null
+        base_legal?: string
+      }>
+      cache_hit: boolean
+      duracao_ms: number
+    }>('/api/normalize', {
+      method: 'POST',
+      body: data,
+      timeout: 15_000, // normalização é rápida
+    }),
+
+  health: () =>
+    apiFetch<{
+      status: 'ok' | 'degraded'
+      d1_termos?: number
+      vectorize?: boolean
+      ai_gateway?: boolean
+      message?: string
+    }>('/api/normalize/health'),
+}
+
 // ─── PNCP API (via Workers) ────────────────────────────────────────────────
 
 export const pncp = {
