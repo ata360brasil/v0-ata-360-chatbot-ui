@@ -139,6 +139,97 @@ export interface Database {
         Insert: Omit<Database['public']['Tables']['perfil_usuario']['Row'], 'id' | 'created_at' | 'updated_at'>
         Update: Partial<Database['public']['Tables']['perfil_usuario']['Insert']>
       }
+      avaliacao_fornecedor: {
+        Row: {
+          id: string
+          orgao_id: string
+          usuario_id: string
+          processo_id: string | null
+          contrato_numero: string
+          fornecedor_cnpj: string
+          fornecedor_nome: string
+          objeto_contrato: string | null
+          nota_fornecedor: number
+          nota_entrega: number
+          nota_qualidade: number
+          nota_relacionamento: number
+          nota_media: number
+          observacao: string | null
+          recomendaria: boolean | null
+          periodo_avaliado: string | null
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['avaliacao_fornecedor']['Row'], 'id' | 'created_at' | 'nota_media'>
+        Update: Partial<Database['public']['Tables']['avaliacao_fornecedor']['Insert']>
+      }
+      avaliacao_plataforma: {
+        Row: {
+          id: string
+          orgao_id: string
+          usuario_id: string
+          nps_score: number
+          nota_geral: number
+          nota_facilidade: number | null
+          nota_velocidade: number | null
+          nota_precisao: number | null
+          nota_documentos: number | null
+          comentario: string | null
+          sugestao: string | null
+          duracao_sessao_minutos: number | null
+          documentos_gerados: number | null
+          pesquisas_realizadas: number | null
+          areas_melhoria: string[] | null
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['avaliacao_plataforma']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['avaliacao_plataforma']['Insert']>
+      }
+      avaliacao_resposta: {
+        Row: {
+          id: string
+          orgao_id: string
+          usuario_id: string
+          processo_id: string | null
+          mensagem_id: string | null
+          agente: string
+          tipo_resposta: string | null
+          nota: number
+          tipo_feedback: 'util' | 'parcial' | 'incorreto' | 'incompleto' | 'excelente'
+          comentario: string | null
+          correcao_sugerida: string | null
+          modelo_usado: string | null
+          tokens_input: number | null
+          tokens_output: number | null
+          latencia_ms: number | null
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['avaliacao_resposta']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['avaliacao_resposta']['Insert']>
+      }
+      avaliacao_artefato: {
+        Row: {
+          id: string
+          orgao_id: string
+          usuario_id: string
+          processo_id: string | null
+          documento_id: string | null
+          tipo_documento: string
+          versao: number
+          nota_geral: number
+          nota_precisao_juridica: number | null
+          nota_clareza: number | null
+          nota_completude: number | null
+          nota_formatacao: number | null
+          decisao: 'aprovado_sem_edicao' | 'aprovado_com_edicao' | 'rejeitado' | 'refeito'
+          percentual_edicao: number | null
+          comentario: string | null
+          secoes_editadas: string[] | null
+          iteracao: number
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['avaliacao_artefato']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['avaliacao_artefato']['Insert']>
+      }
     }
     Views: {
       v_feedback_propagavel: {
@@ -151,6 +242,53 @@ export interface Database {
           total_feedbacks: number
           confianca_media_original: number | null
           ultimo_feedback: string
+        }
+      }
+      v_nps_score: {
+        Row: {
+          mes: string
+          promotores: number
+          neutros: number
+          detratores: number
+          total: number
+          nps: number
+        }
+      }
+      v_ranking_fornecedores: {
+        Row: {
+          fornecedor_cnpj: string
+          fornecedor_nome: string
+          total_avaliacoes: number
+          nota_media: number
+          media_fornecedor: number
+          media_entrega: number
+          media_qualidade: number
+          media_relacionamento: number
+          recomendacoes: number
+        }
+      }
+      v_qualidade_agentes: {
+        Row: {
+          agente: string
+          tipo_resposta: string
+          semana: string
+          total: number
+          nota_media: number
+          positivas: number
+          negativas: number
+          taxa_aprovacao: number
+        }
+      }
+      v_qualidade_artefatos: {
+        Row: {
+          tipo_documento: string
+          mes: string
+          total: number
+          nota_media: number
+          aprovados_direto: number
+          aprovados_editados: number
+          rejeitados: number
+          edicao_media: number
         }
       }
     }

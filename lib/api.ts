@@ -268,6 +268,93 @@ export const feedback = {
     }>('/api/feedback'),
 }
 
+// ─── Avaliações API ────────────────────────────────────────────────────────
+
+export const avaliacoes = {
+  fornecedor: (data: {
+    contrato_numero: string
+    fornecedor_cnpj: string
+    fornecedor_nome: string
+    objeto_contrato?: string
+    processo_id?: string
+    nota_fornecedor: number
+    nota_entrega: number
+    nota_qualidade: number
+    nota_relacionamento: number
+    observacao?: string
+    recomendaria?: boolean
+    periodo_avaliado?: string
+  }) =>
+    apiFetch<{ sucesso: boolean; avaliacao: unknown }>('/api/avaliacoes?tipo=fornecedor', {
+      method: 'POST',
+      body: data,
+    }),
+
+  plataforma: (data: {
+    nps_score: number
+    nota_geral: number
+    nota_facilidade?: number
+    nota_velocidade?: number
+    nota_precisao?: number
+    nota_documentos?: number
+    comentario?: string
+    sugestao?: string
+    areas_melhoria?: string[]
+    duracao_sessao_minutos?: number
+    documentos_gerados?: number
+    pesquisas_realizadas?: number
+  }) =>
+    apiFetch<{ sucesso: boolean; avaliacao: unknown }>('/api/avaliacoes?tipo=plataforma', {
+      method: 'POST',
+      body: data,
+    }),
+
+  resposta: (data: {
+    processo_id?: string
+    mensagem_id?: string
+    agente: string
+    tipo_resposta?: string
+    nota: number
+    tipo_feedback: string
+    comentario?: string
+    correcao_sugerida?: string
+  }) =>
+    apiFetch<{ sucesso: boolean; avaliacao: unknown }>('/api/avaliacoes?tipo=resposta', {
+      method: 'POST',
+      body: data,
+    }),
+
+  artefato: (data: {
+    processo_id?: string
+    documento_id?: string
+    tipo_documento: string
+    versao?: number
+    nota_geral: number
+    nota_precisao_juridica?: number
+    nota_clareza?: number
+    nota_completude?: number
+    nota_formatacao?: number
+    decisao: string
+    percentual_edicao?: number
+    comentario?: string
+    secoes_editadas?: string[]
+    iteracao?: number
+  }) =>
+    apiFetch<{ sucesso: boolean; avaliacao: unknown }>('/api/avaliacoes?tipo=artefato', {
+      method: 'POST',
+      body: data,
+    }),
+
+  dashboard: () =>
+    apiFetch<{
+      nps: unknown[]
+      fornecedores: unknown[]
+      respostas: unknown[]
+      artefatos: unknown[]
+      comentarios: unknown[]
+    }>('/api/avaliacoes'),
+}
+
 // ─── PNCP API (via Workers) ────────────────────────────────────────────────
 
 export const pncp = {
