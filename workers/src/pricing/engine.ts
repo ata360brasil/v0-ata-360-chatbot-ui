@@ -590,3 +590,125 @@ export function gerarTabelaReferencia(params: PricingParams = PRICING_PARAMS_202
     }
   })
 }
+
+// ─── Análise Estatística de Preços ──────────────────────────────────────────
+//
+// Conformidade: IN SEGES 65/2021 (Art. 5º-8º) + TCU Acórdão 1.445/2015-P
+// Metodologia: Média aritmética, mediana, desvio padrão de Bessel, IQR
+// Outliers: Excluídos via IQR (valores < Q1 - 1.5*IQR ou > Q3 + 1.5*IQR)
+// Fórmulas: Strings transparentes para inserção no PDF do artefato.
+
+export interface AnaliseEstatisticaPrecos {
+  media: number
+  mediana: number
+  menor: number
+  maior: number
+  desvio_padrao: number
+  coeficiente_variacao: number   // CV = dp/media × 100 (%)
+  q1: number                     // 1º quartil
+  q3: number                     // 3º quartil
+  iqr: number                    // Q3 - Q1
+  n_total: number                // Quantidade total de preços
+  n_apos_iqr: number             // Quantidade após remoção de outliers
+  outliers_removidos: number     // Quantidade excluída
+  preco_estimado: number         // Mediana (IN SEGES 65/2021 recomenda mediana)
+  dispersao_alta: boolean        // CV > 25% = alta dispersão
+  // Fórmulas transparentes para inserção nos artefatos
+  formula_media: string
+  formula_mediana: string
+  formula_desvio: string
+  formula_cv: string
+  formula_iqr: string
+}
+
+/**
+ * Calcula estatísticas completas de uma lista de preços.
+ *
+ * Metodologia conforme IN SEGES 65/2021 e TCU Acórdão 1.445/2015-P:
+ *   1. Coleta todos os preços positivos
+ *   2. Calcula Q1, Q3 e IQR
+ *   3. Remove outliers (< Q1-1.5*IQR ou > Q3+1.5*IQR)
+ *   4. Recalcula média, mediana e desvio padrão SEM outliers
+ *   5. CV > 25% indica necessidade de justificativa técnica
+ *
+ * @param precos - Lista de preços unitários (R$)
+ * @returns Análise estatística completa com fórmulas transparentes
+ */
+export function calcularEstatisticaPrecos(precos: number[]): AnaliseEstatisticaPrecos | null {
+  const validos = precos.filter(p => p > 0)
+  if (validos.length < 2) return null
+
+  const sorted = [...validos].sort((a, b) => a - b)
+  const n = sorted.length
+
+  // Quartis (método inclusivo — interpolação linear)
+  const quartil = (arr: number[], q: number): number => {
+    const pos = (arr.length - 1) * q
+    const base = Math.floor(pos)
+    const rest = pos - base
+    if (base + 1 < arr.length) {
+      return (arr[base] ?? 0) + rest * ((arr[base + 1] ?? 0) - (arr[base] ?? 0))
+    }
+    return arr[base] ?? 0
+  }
+
+  const q1 = quartil(sorted, 0.25)
+  const q3 = quartil(sorted, 0.75)
+  const iqr = q3 - q1
+
+  // Remover outliers via IQR (Tukey's fences)
+  const limiteInferior = q1 - 1.5 * iqr
+  const limiteSuperior = q3 + 1.5 * iqr
+  const semOutliers = sorted.filter(p => p >= limiteInferior && p <= limiteSuperior)
+  const outliersRemovidos = n - semOutliers.length
+
+  // Se todos foram removidos, usar originais
+  const dados = semOutliers.length >= 2 ? semOutliers : sorted
+  const nFinal = dados.length
+
+  // Média aritmética
+  const soma = dados.reduce((a, b) => a + b, 0)
+  const media = soma / nFinal
+
+  // Mediana
+  const mediana: number = nFinal % 2 === 0
+    ? ((dados[nFinal / 2 - 1] ?? 0) + (dados[nFinal / 2] ?? 0)) / 2
+    : (dados[Math.floor(nFinal / 2)] ?? 0)
+
+  // Desvio padrão amostral (correção de Bessel: n-1)
+  const somaQuadrados = dados.reduce((acc, v) => acc + Math.pow(v - media, 2), 0)
+  const desvioPadrao = Math.sqrt(somaQuadrados / (nFinal - 1))
+
+  // Coeficiente de variação (%)
+  const cv = media > 0 ? (desvioPadrao / media) * 100 : 0
+
+  // Arredondamentos
+  const r = (v: number) => Math.round(v * 100) / 100
+
+  // Fórmulas transparentes para inserção nos artefatos (PDF)
+  const precosStr = dados.map(p => `R$ ${r(p).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`).join(' + ')
+
+  return {
+    media: r(media),
+    mediana: r(mediana),
+    menor: r(dados[0] ?? 0),
+    maior: r(dados[nFinal - 1] ?? 0),
+    desvio_padrao: r(desvioPadrao),
+    coeficiente_variacao: r(cv),
+    q1: r(q1),
+    q3: r(q3),
+    iqr: r(iqr),
+    n_total: n,
+    n_apos_iqr: nFinal,
+    outliers_removidos: outliersRemovidos,
+    preco_estimado: r(mediana), // IN SEGES 65/2021 recomenda mediana
+    dispersao_alta: cv > 25,
+    formula_media: `Média aritmética = (${precosStr}) / ${nFinal} = R$ ${r(media).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`,
+    formula_mediana: nFinal % 2 === 0
+      ? `Mediana = (V${nFinal / 2} + V${nFinal / 2 + 1}) / 2 = R$ ${r(mediana).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
+      : `Mediana = V${Math.ceil(nFinal / 2)} = R$ ${r(mediana).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`,
+    formula_desvio: `σ = √[Σ(xi - x̄)² / (n-1)] = √[${r(somaQuadrados).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} / ${nFinal - 1}] = R$ ${r(desvioPadrao).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`,
+    formula_cv: `CV = (σ / x̄) × 100 = (${r(desvioPadrao)} / ${r(media)}) × 100 = ${r(cv)}%${cv > 25 ? ' ⚠ ALTA DISPERSÃO' : ''}`,
+    formula_iqr: `IQR = Q3 - Q1 = ${r(q3)} - ${r(q1)} = ${r(iqr)} | Limites: [${r(limiteInferior)}, ${r(limiteSuperior)}]${outliersRemovidos > 0 ? ` | ${outliersRemovidos} outlier(s) removido(s)` : ''}`,
+  }
+}

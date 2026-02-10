@@ -87,3 +87,53 @@ export const embeddingRequestSchema = z.object({
 })
 
 export type EmbeddingRequest = z.infer<typeof embeddingRequestSchema>
+
+// ─── Custos por 1M Tokens (USD, fev/2026) ────────────────────────────────
+// Part 19: custos internos NUNCA expostos ao frontend.
+// Usados para estimativas internas e otimização de routing.
+
+export const TOKEN_COST_TABLE: Record<string, { input: number; output: number; label: string }> = {
+  // Claude (Anthropic) — primários
+  [AIModel.HAIKU]:  { input: 0.80, output: 4.00, label: 'Claude Haiku 4.5' },
+  [AIModel.SONNET]: { input: 3.00, output: 15.00, label: 'Claude Sonnet 4.5' },
+  [AIModel.OPUS]:   { input: 15.00, output: 75.00, label: 'Claude Opus 4.6' },
+  // OpenAI — fallback
+  [AIModel.GPT4O_MINI]: { input: 0.15, output: 0.60, label: 'GPT-4o Mini' },
+  [AIModel.GPT4O]:      { input: 2.50, output: 10.00, label: 'GPT-4o' },
+  // Google — fallback
+  [AIModel.GEMINI_FLASH]: { input: 0.075, output: 0.30, label: 'Gemini 2.0 Flash' },
+  [AIModel.GEMINI_PRO]:   { input: 1.25, output: 5.00, label: 'Gemini 2.0 Pro' },
+  // Embedding
+  'text-embedding-3-small': { input: 0.02, output: 0, label: 'OpenAI Embedding' },
+} as const
+
+/**
+ * Custo estimado por operação do ATA360 (USD).
+ *
+ * Baseado em tokens médios observados por operação:
+ *   - ACMA sugestão: ~2K input + ~1K output (seção de documento)
+ *   - AUDITOR checklist: ~3K input + ~200 output × N checks
+ *   - Insight normalização: ~500 input + ~200 output
+ *   - Chat resposta: ~1K input + ~500 output
+ *
+ * Part 19: NUNCA expor ao frontend.
+ */
+export const CUSTO_ESTIMADO_POR_OPERACAO = {
+  acma_sugestao_haiku: 0.0056,    // 2K×$0.80 + 1K×$4.00 = $5.60/M → ~$0.0056
+  acma_sugestao_sonnet: 0.0210,   // 2K×$3.00 + 1K×$15.00 = $21/M → ~$0.021
+  acma_sugestao_opus: 0.1050,     // 2K×$15.00 + 1K×$75.00 = $105/M → ~$0.105
+  auditor_check_sonnet: 0.0120,   // 3K×$3.00 + 0.2K×$15.00 per check
+  auditor_checklist_5: 0.0600,    // ~5 checks × $0.012
+  auditor_checklist_7: 0.0840,    // ~7 checks × $0.012
+  chat_resposta_haiku: 0.0028,    // 1K×$0.80 + 0.5K×$4.00
+  normalizacao_haiku: 0.0005,     // 500×$0.80 + 200×$4.00 (unitário)
+  embedding_busca: 0.00002,       // ~1K tokens × $0.02/M
+  // Compostos (por artefato completo)
+  artefato_simples: 0.09,         // 1 ACMA + 1 AUDITOR(5) + normalizações
+  artefato_complexo: 0.18,        // 1 ACMA(sonnet) + 1 AUDITOR(7) + normalizações
+  artefato_critico: 0.30,         // 1 ACMA(opus) + 1 AUDITOR(7) + embeds + normalizações
+  // Por trilha completa (pregão = 7 docs)
+  trilha_pregao_estimada: 0.95,   // 7 artefatos mistos (~$0.14 médio)
+  trilha_dispensa_estimada: 0.20, // 2 artefatos
+  trilha_arp_estimada: 1.50,      // 14 artefatos
+} as const

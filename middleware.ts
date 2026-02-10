@@ -59,9 +59,12 @@ export async function middleware(request: NextRequest) {
   const connectSrc = supabaseConfigured
     ? `${supabaseUrl} wss://${supabaseHost}`
     : 'https://*.supabase.co wss://*.supabase.co'
+  // CSP: usar nonce para scripts sempre que possível.
+  // 'unsafe-inline' mantido para styles (Tailwind CSS-in-JS requer).
+  // script-src: nonce + 'strict-dynamic' para Next.js SSR inline scripts.
   const csp = [
     `default-src 'self'`,
-    `script-src 'self' 'unsafe-inline'`,
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com`,
     `img-src 'self' data: blob: https:`,

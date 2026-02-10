@@ -367,8 +367,11 @@ export async function callAuditor(
     const severidade = threshold?.severidade || checkItem.defaultSeveridade
     const peso = threshold?.peso || checkItem.defaultPeso
 
-    // LLM interpreta conformidade
-    const aiResult = await env.AI.run('@cf/meta/llama-3.1-8b-instruct' as Parameters<Ai['run']>[0], {
+    // LLM interpreta conformidade — Claude Sonnet (tier GERACAO)
+    // NOTA: AUDITOR é crítico para conformidade legal.
+    // Llama 3.1 8B substituído por Claude Sonnet 4.5 (maior acurácia jurídica).
+    const auditorModel = '@cf/anthropic/claude-sonnet-4-5-20250929'
+    const aiResult = await env.AI.run(auditorModel as Parameters<Ai['run']>[0], {
       messages: [
         {
           role: 'system',
@@ -462,7 +465,7 @@ Analise se o documento atende ao requisito. Responda APENAS com JSON:
     iteracao: 1,
     checklist_publico: checklistPublico,
     thresholds_usados: thresholdsUsados,
-    modelo_usado: '@cf/meta/llama-3.1-8b-instruct',
+    modelo_usado: '@cf/anthropic/claude-sonnet-4-5-20250929',
     tokens_input: tokensInput,
     tokens_output: tokensOutput,
     latencia_ms: latenciaMs,
@@ -471,13 +474,25 @@ Analise se o documento atende ao requisito. Responda APENAS com JSON:
 
 // ─── Helper Functions ────────────────────────────────────────────────────────
 
+/**
+ * Consulta preços de referência no PNCP e calcula estatísticas completas.
+ *
+ * Metodologia conforme IN SEGES 65/2021 (Art. 5º-8º) + TCU Acórdão 1.445/2015-P:
+ *   - Média aritmética, mediana, desvio padrão de Bessel (n-1)
+ *   - Coeficiente de variação (CV) — >25% = alta dispersão
+ *   - IQR para detecção e remoção de outliers (Tukey's fences)
+ *   - Fórmulas transparentes para inserção no artefato (PDF)
+ *
+ * @see IN SEGES 65/2021 — Pesquisa de preços
+ * @see TCU Acórdão 1.445/2015-Plenário — Metodologia de preços
+ */
 async function fetchPrecos(
   objeto: string,
   env: Env,
 ): Promise<EnrichedContext['precos_referencia']> {
   try {
     const response = await fetch(
-      `${env.PNCP_BASE_URL || 'https://pncp.gov.br/api'}/consulta/v1/itens?q=${encodeURIComponent(objeto)}&limite=20`,
+      `${env.PNCP_BASE_URL || 'https://pncp.gov.br/api'}/consulta/v1/itens?q=${encodeURIComponent(objeto)}&limite=30`,
     )
     if (!response.ok) return null
 
@@ -485,16 +500,67 @@ async function fetchPrecos(
     if (!data || data.length === 0) return null
 
     const precos = data.map(item => item.valorUnitario).filter(p => p > 0)
+    if (precos.length === 0) return null
+
     const sorted = [...precos].sort((a, b) => a - b)
-    const media = precos.reduce((a, b) => a + b, 0) / precos.length
-    const mediana = sorted[Math.floor(sorted.length / 2)] || 0
+    const n = sorted.length
+
+    // Quartis (interpolação linear)
+    const quartil = (arr: number[], q: number): number => {
+      const pos = (arr.length - 1) * q
+      const base = Math.floor(pos)
+      const rest = pos - base
+      return base + 1 < arr.length ? (arr[base] ?? 0) + rest * ((arr[base + 1] ?? 0) - (arr[base] ?? 0)) : (arr[base] ?? 0)
+    }
+
+    const q1 = quartil(sorted, 0.25)
+    const q3 = quartil(sorted, 0.75)
+    const iqr = q3 - q1
+
+    // Remover outliers via IQR (Tukey's fences)
+    const limInf = q1 - 1.5 * iqr
+    const limSup = q3 + 1.5 * iqr
+    const semOutliers = sorted.filter(p => p >= limInf && p <= limSup)
+    const outliersRemovidos = n - semOutliers.length
+
+    const dados = semOutliers.length >= 2 ? semOutliers : sorted
+    const nFinal = dados.length
+
+    // Média aritmética
+    const soma = dados.reduce((a, b) => a + b, 0)
+    const media = soma / nFinal
+
+    // Mediana
+    const mediana: number = nFinal % 2 === 0
+      ? ((dados[nFinal / 2 - 1] ?? 0) + (dados[nFinal / 2] ?? 0)) / 2
+      : (dados[Math.floor(nFinal / 2)] ?? 0)
+
+    // Desvio padrão amostral (Bessel: n-1)
+    const somaQ = dados.reduce((acc, v) => acc + Math.pow(v - media, 2), 0)
+    const dp = nFinal > 1 ? Math.sqrt(somaQ / (nFinal - 1)) : 0
+
+    // Coeficiente de variação (%)
+    const cv = media > 0 ? (dp / media) * 100 : 0
+
+    const r = (v: number) => Math.round(v * 100) / 100
 
     return {
-      media: Math.round(media * 100) / 100,
-      mediana: Math.round(mediana * 100) / 100,
-      menor: sorted[0] || 0,
-      maior: sorted[sorted.length - 1] || 0,
+      media: r(media),
+      mediana: r(mediana),
+      menor: r(dados[0] ?? 0),
+      maior: r(dados[nFinal - 1] ?? 0),
       fontes: data.length,
+      desvio_padrao: r(dp),
+      coeficiente_variacao: r(cv),
+      iqr: r(iqr),
+      q1: r(q1),
+      q3: r(q3),
+      outliers_removidos: outliersRemovidos,
+      formula_media: `Média = Σ(preços) / ${nFinal} = R$ ${r(media).toFixed(2)}`,
+      formula_mediana: nFinal % 2 === 0
+        ? `Mediana = (V${nFinal / 2} + V${nFinal / 2 + 1}) / 2 = R$ ${r(mediana).toFixed(2)}`
+        : `Mediana = V${Math.ceil(nFinal / 2)} = R$ ${r(mediana).toFixed(2)}`,
+      formula_desvio: `σ = √[Σ(xi-x̄)²/(n-1)] = R$ ${r(dp).toFixed(2)} | CV = ${r(cv).toFixed(1)}%${cv > 25 ? ' ⚠ ALTA DISPERSÃO' : ''}`,
       itens: data.slice(0, 10).map(item => ({
         descricao: item.descricao || '',
         catmat: item.codigoCatmat || '',
@@ -557,22 +623,150 @@ async function fetchMunicipio(
   }
 }
 
+/**
+ * Consulta sanções ativas contra o órgão nos cadastros federais.
+ *
+ * Fontes consultadas (Portal da Transparência):
+ * - CEIS: Cadastro de Empresas Inidôneas e Suspensas
+ * - CNEP: Cadastro Nacional de Empresas Punidas (Lei 12.846/2013)
+ *
+ * @see https://portaldatransparencia.gov.br/api-de-dados
+ * @see Spec v8 Part 3.2 — Insight Engine (APIs governamentais)
+ */
 async function fetchSancoes(
-  _orgaoId: string,
-  _env: Env,
+  orgaoId: string,
+  env: Env,
 ): Promise<EnrichedContext['sancoes']> {
-  // Placeholder — implementar com Portal Transparência API
-  return []
+  try {
+    // 1. Buscar CNPJ do órgão no Supabase
+    const headers = {
+      'apikey': env.SUPABASE_SERVICE_KEY,
+      'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+    }
+    const orgaoResponse = await fetch(
+      `${env.SUPABASE_URL}/rest/v1/orgaos?id=eq.${orgaoId}&select=cnpj`,
+      { headers },
+    )
+    if (!orgaoResponse.ok) return []
+    const [orgao] = await orgaoResponse.json() as Array<{ cnpj: string }>
+    if (!orgao?.cnpj) return []
+
+    const cnpjLimpo = orgao.cnpj.replace(/[^\d]/g, '')
+    const sancoes: EnrichedContext['sancoes'] = []
+
+    const portalHeaders = {
+      'Accept': 'application/json',
+      'chave-api-dados': env.PORTAL_TRANSPARENCIA_KEY || '',
+    }
+
+    // 2. Consultar CEIS (Cadastro de Empresas Inidôneas e Suspensas)
+    const ceisResponse = await fetch(
+      `https://api.portaldatransparencia.gov.br/api-de-dados/ceis?cnpjSancionado=${cnpjLimpo}&pagina=1&tamanhoPagina=5`,
+      { headers: portalHeaders },
+    )
+    if (ceisResponse.ok) {
+      const ceisData = await ceisResponse.json() as Array<{
+        dataInicioSancao: string
+        dataFimSancao: string
+        tipoSancao: { descricaoTipoSancao: string }
+        fonteSancao: { nomeExibicaoFonteSancao: string }
+      }>
+      for (const item of ceisData || []) {
+        sancoes.push({
+          tipo: `CEIS — ${item.tipoSancao?.descricaoTipoSancao || 'Impedimento'}`,
+          razao_social: cnpjLimpo,
+          fundamentacao: `Fonte: ${item.fonteSancao?.nomeExibicaoFonteSancao || 'Portal Transparência'} | Vigência: ${item.dataInicioSancao || 'N/D'} a ${item.dataFimSancao || 'N/D'}`,
+        })
+      }
+    }
+
+    // 3. Consultar CNEP (Cadastro Nacional de Empresas Punidas)
+    const cnepResponse = await fetch(
+      `https://api.portaldatransparencia.gov.br/api-de-dados/cnep?cnpjSancionado=${cnpjLimpo}&pagina=1&tamanhoPagina=5`,
+      { headers: portalHeaders },
+    )
+    if (cnepResponse.ok) {
+      const cnepData = await cnepResponse.json() as Array<{
+        dataInicioSancao: string
+        dataFimSancao: string
+        tipoSancao: { descricaoTipoSancao: string }
+      }>
+      for (const item of cnepData || []) {
+        sancoes.push({
+          tipo: `CNEP — ${item.tipoSancao?.descricaoTipoSancao || 'Punição Lei 12.846'}`,
+          razao_social: cnpjLimpo,
+          fundamentacao: `Lei 12.846/2013 (Lei Anticorrupção) | Vigência: ${item.dataInicioSancao || 'N/D'} a ${item.dataFimSancao || 'N/D'}`,
+        })
+      }
+    }
+
+    return sancoes
+  } catch {
+    // Falha na consulta — retornar vazio (não bloquear pipeline)
+    return []
+  }
 }
 
+/**
+ * Consulta jurisprudência relevante do TCU para o objeto e tipo de documento.
+ *
+ * Busca contextualizada: combina o objeto da contratação com termos
+ * específicos do tipo de documento para maximizar relevância.
+ *
+ * @see https://pesquisa.apps.tcu.gov.br
+ * @see Spec v8 Part 3.2 — Insight Engine (jurisprudência)
+ */
 async function fetchJurisprudencia(
   objeto: string,
-  _documentoTipo: string,
+  documentoTipo: string,
   _env: Env,
 ): Promise<EnrichedContext['jurisprudencia']> {
-  // Placeholder — implementar com TCU API
-  // Por ora retorna vazio; dados reais virão da PoC existente
-  return []
+  try {
+    // Construir query de busca contextualizada por tipo de documento
+    // Cada tipo de documento tem termos TCU relevantes
+    const termosContexto: Record<string, string> = {
+      ETP: 'estudo técnico preliminar planejamento contratação',
+      TR: 'termo de referência especificação técnica',
+      DFD: 'documento de formalização de demanda justificativa',
+      PP: 'pesquisa de preços referência mercado IN 65',
+      JCD: 'justificativa contratação direta dispensa inexigibilidade',
+      MR: 'mapa de riscos gestão contratual',
+      PCA: 'plano de contratações anual planejamento',
+      ARP: 'ata registro de preços adesão carona',
+    }
+    const contexto = termosContexto[documentoTipo] || 'contratação pública Lei 14.133'
+    const query = `${objeto} ${contexto}`.trim().slice(0, 200)
+
+    // Consultar API de Jurisprudência TCU
+    const response = await fetch(
+      `https://pesquisa.apps.tcu.gov.br/rest/jurisprudencia?termo=${encodeURIComponent(query)}&ordenacao=RELEVANCIA&limit=5`,
+      { headers: { 'Accept': 'application/json' } },
+    )
+
+    if (!response.ok) return []
+
+    const data = await response.json() as {
+      items?: Array<{
+        numAcordao?: string
+        anoAcordao?: number
+        ementa?: string
+        relator?: string
+        colegiado?: string
+      }>
+    }
+
+    if (!data.items || !Array.isArray(data.items)) return []
+
+    return data.items.slice(0, 5).map((item, index) => ({
+      numero: item.numAcordao || `${index + 1}`,
+      ano: item.anoAcordao || new Date().getFullYear(),
+      ementa: item.ementa?.slice(0, 500) || 'Ementa não disponível',
+      relevancia: Math.max(0.5, 1.0 - (index * 0.1)),
+    }))
+  } catch {
+    // Falha na consulta TCU — retornar vazio (não bloquear pipeline)
+    return []
+  }
 }
 
 async function fetchPerfilUsuario(
@@ -700,10 +894,20 @@ function buildInsightContextBlock(context: EnrichedContext): string {
   }
 
   if (context.precos_referencia) {
-    lines.push(`\nPreços referência (${context.precos_referencia.fontes} fontes):`)
-    lines.push(`  Mediana: R$ ${context.precos_referencia.mediana.toFixed(2)}`)
-    lines.push(`  Média: R$ ${context.precos_referencia.media.toFixed(2)}`)
-    lines.push(`  Faixa: R$ ${context.precos_referencia.menor.toFixed(2)} — R$ ${context.precos_referencia.maior.toFixed(2)}`)
+    const pr = context.precos_referencia
+    lines.push(`\nPreços referência (${pr.fontes} fontes, ${pr.outliers_removidos || 0} outlier(s) excluído(s)):`)
+    lines.push(`  Mediana: R$ ${pr.mediana.toFixed(2)} (IN SEGES 65/2021 recomenda mediana)`)
+    lines.push(`  Média: R$ ${pr.media.toFixed(2)}`)
+    lines.push(`  Faixa: R$ ${pr.menor.toFixed(2)} — R$ ${pr.maior.toFixed(2)}`)
+    if (pr.desvio_padrao != null) {
+      lines.push(`  Desvio padrão: R$ ${pr.desvio_padrao.toFixed(2)}`)
+    }
+    if (pr.coeficiente_variacao != null) {
+      lines.push(`  CV: ${pr.coeficiente_variacao.toFixed(1)}%${pr.coeficiente_variacao > 25 ? ' ⚠ ALTA DISPERSÃO — justificativa técnica necessária' : ''}`)
+    }
+    if (pr.formula_media) {
+      lines.push(`  [Fórmulas] ${pr.formula_media}`)
+    }
   }
 
   if (context.jurisprudencia.length > 0) {
@@ -727,26 +931,86 @@ function buildInsightContextBlock(context: EnrichedContext): string {
   return lines.join('\n')
 }
 
-// Seleção de tier baseado em complexidade do documento/seção
+/**
+ * Seleção de tier baseado em complexidade do documento/seção.
+ *
+ * Distribuição alvo (Spec v8 Part 11):
+ *   Haiku ~80%  — triagem, classificação, extração simples
+ *   Sonnet ~15% — geração de texto, análise complexa
+ *   Opus ~5%    — jurisprudência, decisões críticas, revisão final
+ *
+ * @see Spec v8 Part 11 — IA Agnostic Strategy
+ */
 function selectTier(documentoTipo: string, secao: string): string {
-  // Documentos complexos usam Sonnet
-  const complexDocs = ['ETP', 'TR', 'JCD', 'MR']
-  const complexSections = ['fundamentacao', 'justificativa', 'pesquisa_precos', 'analise_risco']
+  // Opus 5%: documentos críticos que exigem análise jurídica profunda
+  const opusDocs = ['JCD', 'AIA']
+  const opusSections = ['fundamentacao_legal', 'enquadramento_modalidade', 'analise_juridica']
+  if (opusDocs.includes(documentoTipo) || opusSections.includes(secao)) {
+    return 'opus'
+  }
 
-  if (complexDocs.includes(documentoTipo) && complexSections.includes(secao)) {
+  // Sonnet 15%: documentos complexos com seções analíticas
+  const sonnetDocs = ['ETP', 'TR', 'MR', 'PP']
+  const sonnetSections = ['fundamentacao', 'justificativa', 'pesquisa_precos', 'analise_risco', 'especificacao']
+  if (sonnetDocs.includes(documentoTipo) && sonnetSections.includes(secao)) {
     return 'sonnet'
   }
-  // Default: Haiku (80% dos casos)
+
+  // Haiku 80%: default para triagem, extração, classificação
   return 'haiku'
 }
 
+/**
+ * Mapeia tier lógico → modelo Cloudflare AI Gateway.
+ *
+ * Nomes dos modelos conforme Cloudflare AI Gateway (fev/2026):
+ *   - claude-haiku-4-5-20251001 (Haiku 4.5)
+ *   - claude-sonnet-4-5-20250929 (Sonnet 4.5)
+ *   - claude-opus-4-6 (Opus 4.6)
+ *
+ * @see lib/schemas/ai-gateway.ts — AIModel, TIER_MODELS
+ */
 function tierToModel(tier: string): string {
   switch (tier) {
-    case 'opus': return '@cf/anthropic/claude-3-opus'
-    case 'sonnet': return '@cf/anthropic/claude-3.5-sonnet'
+    case 'opus': return '@cf/anthropic/claude-opus-4-6'
+    case 'sonnet': return '@cf/anthropic/claude-sonnet-4-5-20250929'
     case 'haiku':
-    default: return '@cf/anthropic/claude-3-haiku'
+    default: return '@cf/anthropic/claude-haiku-4-5-20251001'
   }
+}
+
+/**
+ * Tabela de custos por 1M tokens (USD, fev/2026).
+ *
+ * Usada para calcular custo estimado por operação e por artefato.
+ * Part 19: custos internos NUNCA expostos ao frontend.
+ *
+ * @see Spec v8 Part 11 — IA Agnostic Strategy
+ */
+const TOKEN_COSTS_PER_1M: Record<string, { input: number; output: number }> = {
+  // Claude (primário)
+  '@cf/anthropic/claude-haiku-4-5-20251001': { input: 0.80, output: 4.00 },
+  '@cf/anthropic/claude-sonnet-4-5-20250929': { input: 3.00, output: 15.00 },
+  '@cf/anthropic/claude-opus-4-6': { input: 15.00, output: 75.00 },
+  // Fallback
+  'gpt-4o-mini': { input: 0.15, output: 0.60 },
+  'gpt-4o': { input: 2.50, output: 10.00 },
+  'gemini-2.0-flash': { input: 0.075, output: 0.30 },
+  'gemini-2.0-pro': { input: 1.25, output: 5.00 },
+}
+
+/**
+ * Calcula custo estimado de uma chamada LLM em USD.
+ *
+ * @param modelo - Nome do modelo Cloudflare AI Gateway
+ * @param tokensInput - Quantidade de tokens de entrada
+ * @param tokensOutput - Quantidade de tokens de saída
+ * @returns Custo em USD
+ */
+function calcularCustoTokens(modelo: string, tokensInput: number, tokensOutput: number): number {
+  const costs = TOKEN_COSTS_PER_1M[modelo]
+  if (!costs) return 0
+  return (tokensInput / 1_000_000) * costs.input + (tokensOutput / 1_000_000) * costs.output
 }
 
 async function hashContent(content: string): Promise<string> {

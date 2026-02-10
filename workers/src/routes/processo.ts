@@ -123,9 +123,16 @@ app.post('/', async (c) => {
 
 app.get('/:id/status', async (c) => {
   const processoId = c.req.param('id')
+  const orgaoId = c.req.header('X-Orgao-Id')
+
   const processo = await loadProcesso(processoId, c.env)
 
   if (!processo) {
+    return c.json({ error: 'Processo não encontrado' }, 404)
+  }
+
+  // Segurança multi-tenant: impedir acesso cross-tenant (Part 19)
+  if (orgaoId && processo.orgao_id !== orgaoId) {
     return c.json({ error: 'Processo não encontrado' }, 404)
   }
 

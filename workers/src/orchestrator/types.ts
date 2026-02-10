@@ -111,6 +111,16 @@ export interface EnrichedContext {
     menor: number
     maior: number
     fontes: number
+    // Estatísticas complementares (IN SEGES 65/2021 + TCU Acórdão 1.445/2015-P)
+    desvio_padrao: number | null
+    coeficiente_variacao: number | null    // CV = dp/media (>25% = alta dispersão)
+    iqr: number | null                     // Intervalo interquartil (Q3-Q1)
+    q1: number | null                      // 1º quartil
+    q3: number | null                      // 3º quartil
+    outliers_removidos: number             // Quantidade de outliers excluídos via IQR
+    formula_media: string | null           // Fórmula transparente p/ inserção no artefato
+    formula_mediana: string | null
+    formula_desvio: string | null
     itens: Array<{ descricao: string; catmat: string; preco: number; fonte: string }>
   } | null
   dados_municipio: {
@@ -319,9 +329,12 @@ export interface Env {
   // SERPRO
   SERPRO_CONSUMER_KEY: string
   SERPRO_CONSUMER_SECRET: string
-  // External
+  // External APIs
   PNCP_BASE_URL: string
   IBGE_BASE_URL: string
+  PORTAL_TRANSPARENCIA_KEY: string
+  // Workers self-reference (para chamadas internas entre rotas)
+  WORKERS_URL: string
   // Secrets
   AI_GATEWAY_TOKEN: string
 }

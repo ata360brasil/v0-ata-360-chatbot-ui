@@ -1,6 +1,6 @@
 # ATA360 — Documentação Técnica Completa
 
-> **Versão:** 8.1 — 10/fev/2026
+> **Versão:** 8.2.1 — 10/fev/2026
 > **Repositório:** `ata360brasil/v0-ata-360-chatbot-ui`
 > **Stack:** Next.js 16 + Cloudflare Workers (Hono v4) + Supabase + D1 + R2 + KV + ClickHouse + AI Gateway
 
@@ -889,6 +889,86 @@ Fluxo digital com 6 etapas:
 | `/api/contratacao?orgaoId=X` | GET | Listar contratações |
 | `/api/adesao-arp` | POST | Iniciar adesão |
 | `/api/adesao-arp?orgaoId=X` | GET | Listar adesões |
+
+---
+
+## 22. Revisão Integral v8.2.1 — 10/fev/2026
+
+Revisão completa do codebase com foco em conformidade, segurança, custos e rigor estatístico.
+
+### 22.1 Roteamento de Modelos IA (agents.ts)
+
+**Problema:** `tierToModel()` usava nomes de modelo obsoletos (`@cf/anthropic/claude-3-*`), incompatíveis com AI Gateway.
+
+**Correção:** Modelos atualizados para nomes corretos do Cloudflare AI Gateway:
+- Haiku: `@cf/anthropic/claude-haiku-4-5-20251001` (80% das chamadas — triagem, normalização)
+- Sonnet: `@cf/anthropic/claude-sonnet-4-5-20250929` (15% — geração de texto, análise)
+- Opus: `@cf/anthropic/claude-opus-4-6` (5% — JCD, AIA, fundamentação jurídica)
+
+**selectTier():** Adicionada seleção de `opus` para documentos JCD/AIA e seções de fundamentação legal.
+
+**AUDITOR:** Modelo alterado de `@cf/meta/llama-3.1-8b-instruct` (insuficiente para conformidade legal) para Claude Sonnet 4.5.
+
+### 22.2 Tabela de Custos por Token (ai-gateway.ts)
+
+Adicionada `TOKEN_COST_TABLE` com custos USD/1M tokens para 7 modelos + embedding:
+
+| Modelo | Input (USD/1M) | Output (USD/1M) |
+|--------|----------------|-----------------|
+| Claude Opus 4.6 | $15.00 | $75.00 |
+| Claude Sonnet 4.5 | $3.00 | $15.00 |
+| Claude Haiku 4.5 | $0.80 | $4.00 |
+| GPT-4o | $2.50 | $10.00 |
+| GPT-4o-mini | $0.15 | $0.60 |
+| Gemini 2.0 Flash | $0.10 | $0.40 |
+| text-embedding-3-small | $0.02 | — |
+
+**CUSTO_ESTIMADO_POR_OPERACAO:** Custos estimados por tipo de operação (acma_sugestao, auditor_check, chat, embedding, insight_engine) e compostos por artefato/trilha.
+
+### 22.3 Fórmulas Estatísticas — IN SEGES 65/2021
+
+Implementada `calcularEstatisticaPrecos()` em `pricing/engine.ts` com metodologia completa:
+
+- **Média aritmética:** `Σ(xi) / n`
+- **Mediana:** Interpolação posicional (par/ímpar)
+- **Desvio padrão (Bessel):** `√(Σ(xi - x̄)² / (n-1))`
+- **Coeficiente de variação:** `CV = σ/x̄` (>25% indica alta dispersão — TCU Acórdão 1.445/2015-P)
+- **IQR outlier removal:** Fences de Tukey `[Q1 - 1.5×IQR, Q3 + 1.5×IQR]`
+- **Fórmulas transparentes:** Strings prontas para inserção no artefato PDF
+
+`fetchPrecos()` em `agents.ts` atualizado para retornar todas as estatísticas complementares ao `EnrichedContext`.
+
+### 22.4 Segurança e Hardening
+
+| Fix | Arquivo | Detalhe |
+|-----|---------|---------|
+| Hardcoded localhost | `chat-router.ts` | 2 ocorrências de `http://localhost:8787` → `env.WORKERS_URL` |
+| Cross-tenant | `processo.ts` | GET /:id/status sem validação `orgao_id` → adicionada verificação |
+| CSP unsafe-inline | `middleware.ts` | `script-src 'unsafe-inline'` → `'nonce-${nonce}' 'strict-dynamic'` |
+| Env type safety | `types.ts` | `PORTAL_TRANSPARENCIA_KEY` e `WORKERS_URL` adicionados ao `Env` |
+| .env.example | `.env.example` | `PORTAL_TRANSPARENCIA_KEY` documentada |
+
+### 22.5 Dados Cadastrais — lib/empresa-ata360.ts
+
+Arquivo criado com constantes tipadas:
+
+- **EMPRESA_ATA360:** CNPJ 61.291.296/0001-31, razão social, QSA (3 sócios), CNAE, endereço
+- **IDENTIDADE_ATA360:** Regras de gênero ("o ATA360" para sistema/IA, "a ATA360" para empresa), cores, selo, tipografia
+- **COMPLIANCE_ATA360:** Score CGU integridade (82/100), ESG (ambiental 75, social 88, governança 91), 6 ODS ONU
+
+### 22.6 Arquivos Modificados
+
+| Arquivo | Tipo de Mudança |
+|---------|----------------|
+| `workers/src/orchestrator/agents.ts` | selectTier (opus), tierToModel (nomes corretos), AUDITOR modelo, fetchPrecos (estatísticas), TOKEN_COSTS |
+| `workers/src/orchestrator/chat-router.ts` | Removido hardcoded localhost (2x), type safety env |
+| `workers/src/orchestrator/types.ts` | EnrichedContext +9 campos estatísticos, Env +2 campos |
+| `workers/src/routes/processo.ts` | Cross-tenant orgao_id validation |
+| `workers/src/pricing/engine.ts` | +calcularEstatisticaPrecos() (~90 linhas), +AnaliseEstatisticaPrecos interface |
+| `lib/schemas/ai-gateway.ts` | +TOKEN_COST_TABLE, +CUSTO_ESTIMADO_POR_OPERACAO |
+| `middleware.ts` | CSP script-src nonce + strict-dynamic |
+| `.env.example` | +PORTAL_TRANSPARENCIA_KEY |
+| `lib/empresa-ata360.ts` | **NOVO** — dados cadastrais, identidade, compliance |
 
 ---
 

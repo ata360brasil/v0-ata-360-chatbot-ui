@@ -317,7 +317,10 @@ async function handleNormalization(
   // Chamar pipeline de normalização via fetch interno
   // A rota /api/v1/normalize já existe no Workers
   try {
-    const normResponse = await fetch(`http://localhost:8787/api/v1/normalize`, {
+    // Chamada interna ao Workers — usar self-reference via env.WORKERS_URL ou relativo
+    // Em produção, o Worker pode chamar a si mesmo via Service Binding ou URL real
+    const workersBaseUrl = env.WORKERS_URL || 'https://api.ata360.com.br'
+    const normResponse = await fetch(`${workersBaseUrl}/api/v1/normalize`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -400,9 +403,9 @@ async function learnFromMessage(
         'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
       }
 
-      // Importação dinâmica seria melhor, mas por ora usar fetch interno
-      // updateUserProfile é chamado via a rota /api/v1/profile/learn
-      await fetch(`http://localhost:8787/api/v1/profile/learn`, {
+      // Chamada interna ao Workers — usar URL de produção ou env
+      const workersUrl = env.WORKERS_URL || 'https://api.ata360.com.br'
+      await fetch(`${workersUrl}/api/v1/profile/learn`, {
         method: 'POST',
         headers: {
           ...headers,
