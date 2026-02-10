@@ -452,6 +452,37 @@ export const auditor = {
   },
 }
 
+// ─── Profile API ──────────────────────────────────────────────────────────
+
+export const profile = {
+  carregar: () =>
+    apiFetch<{
+      segmento_principal: string | null
+      segmentos_secundarios: string[]
+      termos_frequentes: Array<{ termo: string; contagem: number }>
+      preferencias_terminologia: Record<string, string>
+      regiao_uf: string | null
+      temas_recorrentes: string[]
+      documentos_mais_gerados: string[]
+    }>('/api/profile'),
+
+  atualizar: (data: {
+    segmento_principal?: string | null
+    preferencias_terminologia?: Record<string, string>
+    regiao_uf?: string | null
+  }) =>
+    apiFetch<{ sucesso: boolean }>('/api/profile', {
+      method: 'PATCH',
+      body: data,
+    }),
+
+  learn: (textos: string[]) =>
+    apiFetch<{ atualizado: boolean; segmento_detectado?: string }>('/api/profile', {
+      method: 'POST',
+      body: { textos },
+    }),
+}
+
 // ─── PNCP API (via Workers) ────────────────────────────────────────────────
 
 export const pncp = {
