@@ -106,8 +106,8 @@ async function apiFetch<T>(
 // ─── Process API ────────────────────────────────────────────────────────────
 
 export const processo = {
-  criar: (data: { objeto: string; tipo_documento?: string }) =>
-    apiFetch<{ id: string; numero: string }>('/api/processo', {
+  criar: (data: { objeto: string; tipo_documento?: string; modalidade?: string }) =>
+    apiFetch<{ id: string; numero: string; modalidade: string; trilha: string[]; documento_atual: string | null }>('/api/processo', {
       method: 'POST',
       body: data,
     }),
@@ -115,18 +115,49 @@ export const processo = {
   status: (id: string) =>
     apiFetch<{
       id: string
+      numero: string
+      objeto: string
       estado: string
+      fase: string
+      modalidade: string
       iteracao: number
-      documento_atual: unknown
-      parecer_auditor: unknown | null
+      documento_atual: string | null
+      parecer_auditor: {
+        veredicto: string
+        score: number
+        checklist: Array<{ id: string; descricao: string; conforme: boolean; achado: string | null; fundamentacao: string | null }>
+        selo_aprovado: boolean
+        iteracao: number
+      } | null
       selo_aprovado: boolean
       proximo_sugerido: string | null
+      sugestao_acma: {
+        texto_sugerido: string
+        resumo: string
+        secoes_geradas: string[]
+        iteracao: number
+      } | null
+      documento: { url: string; hash: string | null; versao: number } | null
+      trilha: Array<{ tipo: string; status: string; versao: number | null; selo_aprovado: boolean | null }>
+      trilha_stats: { total: number; concluidos: number; pendentes: number; progresso_percentual: number; selos_aprovados: number }
+      sugestoes_restantes: number
+      reauditorias_restantes: number
     }>(`/api/processo/${id}/status`),
 
-  decisao: (id: string, acao: 'APROVAR' | 'EDITAR' | 'NOVA_SUGESTAO' | 'PROSSEGUIR' | 'DESCARTAR') =>
-    apiFetch<{ sucesso: boolean; novo_estado: string }>(`/api/processo/${id}/decisao`, {
+  decisao: (id: string, acao: 'APROVAR' | 'EDITAR' | 'NOVA_SUGESTAO' | 'PROSSEGUIR' | 'DESCARTAR', textoEditado?: string) =>
+    apiFetch<{
+      sucesso: boolean
+      novo_estado: string
+      sugestao_acma?: { texto_sugerido: string; resumo: string; secoes_geradas: string[]; iteracao: number }
+      parecer_auditor?: { veredicto: string; score: number; checklist: unknown[]; selo_aprovado: boolean; iteracao: number }
+      artefato?: { url: string; hash: string; versao: number }
+      trilha?: Array<{ tipo: string; status: string }>
+      proximo_documento?: string | null
+      mensagem: string
+      erro?: string
+    }>(`/api/processo/${id}/decisao`, {
       method: 'POST',
-      body: { acao },
+      body: { acao, texto_editado: textoEditado },
     }),
 
   documento: (id: string) =>
@@ -136,6 +167,46 @@ export const processo = {
     apiFetch<{ versoes: Array<{ versao: number; hash: string; created_at: string }> }>(
       `/api/processo/${id}/historico`,
     ),
+
+  insights: (id: string) =>
+    apiFetch<{
+      cards: Array<{
+        tipo: string
+        titulo: string
+        descricao: string
+        fonte: string
+        dados?: Record<string, unknown>
+        relevancia: number
+      }>
+    }>(`/api/processo/${id}/insights`),
+
+  trilha: (id: string) =>
+    apiFetch<{
+      trilha: Array<{
+        tipo: string
+        status: string
+        versao: number | null
+        hash: string | null
+        selo_aprovado: boolean | null
+        finalizado_em: string | null
+      }>
+      stats: { total: number; concluidos: number; pendentes: number; progresso_percentual: number; selos_aprovados: number }
+      documento_atual: string | null
+      posicao: number
+    }>(`/api/processo/${id}/trilha`),
+
+  mensagens: (id: string, params?: { limit?: number; offset?: number }) =>
+    apiFetch<{
+      mensagens: Array<{
+        id: string
+        role: string
+        content: string
+        artifact: Record<string, unknown> | null
+        insight_cards: unknown[] | null
+        estado: string
+        timestamp: string
+      }>
+    }>(`/api/processo/${id}/mensagens?limit=${params?.limit || 50}&offset=${params?.offset || 0}`),
 }
 
 // ─── Chat API ───────────────────────────────────────────────────────────────

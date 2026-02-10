@@ -351,6 +351,126 @@ export interface Database {
           calibrado_em?: string
         }
       }
+      processo_mensagens: {
+        Row: {
+          id: string
+          processo_id: string
+          orgao_id: string
+          role: 'user' | 'assistant' | 'system' | 'insight' | 'acma' | 'auditor' | 'design_law' | 'orquestrador'
+          content: string
+          artefato: Record<string, unknown> | null
+          insight_cards: Array<Record<string, unknown>> | null
+          agente: string | null
+          estado_no_momento: string
+          metadata: Record<string, unknown>
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['processo_mensagens']['Row'], 'id' | 'created_at' | 'metadata'>
+        Update: Partial<Database['public']['Tables']['processo_mensagens']['Insert']>
+      }
+      biblioteca_legal_global: {
+        Row: {
+          id: string
+          tipo: string
+          numero: string
+          nome: string
+          ementa: string | null
+          orgao_emissor: string
+          esfera: 'federal' | 'estadual' | 'municipal'
+          uf: string | null
+          data_publicacao: string | null
+          data_vigencia: string | null
+          revogada: boolean
+          revogada_por: string | null
+          url_oficial: string | null
+          texto_integral: string | null
+          categorias: string[]
+          setores_aplicaveis: string[]
+          aplicavel_lei_14133: boolean
+          metadata: Record<string, unknown>
+          atualizado_por: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['biblioteca_legal_global']['Row'], 'id' | 'created_at' | 'updated_at' | 'revogada' | 'atualizado_por'>
+        Update: Partial<Database['public']['Tables']['biblioteca_legal_global']['Insert']> & {
+          revogada?: boolean
+          atualizado_por?: string
+        }
+      }
+      biblioteca_legal_orgao: {
+        Row: {
+          id: string
+          orgao_id: string
+          tipo: string
+          numero: string
+          nome: string
+          ementa: string | null
+          orgao_emissor: string
+          data_publicacao: string | null
+          data_vigencia: string | null
+          revogada: boolean
+          url_oficial: string | null
+          texto_integral: string | null
+          categorias: string[]
+          setores_aplicaveis: string[]
+          complementa_federal: string | null
+          metadata: Record<string, unknown>
+          criado_por: string | null
+          atualizado_por: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['biblioteca_legal_orgao']['Row'], 'id' | 'created_at' | 'updated_at' | 'revogada' | 'atualizado_por'>
+        Update: Partial<Database['public']['Tables']['biblioteca_legal_orgao']['Insert']> & {
+          revogada?: boolean
+          atualizado_por?: string
+        }
+      }
+      parametros_globais: {
+        Row: {
+          id: string
+          chave: string
+          valor: unknown
+          tipo: 'sistema' | 'agente' | 'legal' | 'financeiro'
+          descricao: string | null
+          editavel_por: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['parametros_globais']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['parametros_globais']['Insert']>
+      }
+      parametros_orgao: {
+        Row: {
+          id: string
+          orgao_id: string
+          chave: string
+          valor: unknown
+          categoria: 'geral' | 'identidade_visual' | 'autoridades' | 'endereco' | 'contato' | 'documentacao' | 'financeiro'
+          descricao: string | null
+          criado_por: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['parametros_orgao']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['parametros_orgao']['Insert']>
+      }
+      parametros_membro: {
+        Row: {
+          id: string
+          usuario_id: string
+          orgao_id: string
+          chave: string
+          valor: unknown
+          categoria: 'geral' | 'identidade' | 'cargo' | 'assinatura' | 'preferencias' | 'pca_vivo' | 'memoria'
+          descricao: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['parametros_membro']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['parametros_membro']['Insert']>
+      }
     }
     Views: {
       v_feedback_propagavel: {
