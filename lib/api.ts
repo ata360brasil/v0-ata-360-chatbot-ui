@@ -610,3 +610,62 @@ export const gov = {
       }
     }>(`/api/gov/radar/${encodeURIComponent(municipioIbge)}`),
 }
+
+// ─── Dashboard Metrics API ────────────────────────────────────────────────
+
+export const dashboard = {
+  metrics: () =>
+    apiFetch<{
+      kpis: {
+        nps_score: number
+        acma_taxa_aprovacao: number
+        acma_total_sugestoes: number
+        auditor_taxa_conformidade: number
+        auditor_total_auditorias: number
+        feedback_total: number
+        feedback_propagados: number
+      }
+      nps: Array<{ mes: string; promotores: number; neutros: number; detratores: number; total: number; nps: number }>
+      fornecedores: Array<{ fornecedor_cnpj: string; fornecedor_nome: string; total_avaliacoes: number; nota_media: number }>
+      agentes: Array<{ agente: string; tipo_resposta: string; semana: string; total: number; nota_media: number; taxa_aprovacao: number }>
+      artefatos: Array<{ tipo_documento: string; mes: string; total: number; nota_media: number; aprovados_direto: number; aprovados_editados: number; rejeitados: number }>
+      acma_performance: unknown[]
+      auditor_conformidade: unknown[]
+      feedback: { total: number; pendentes: number; validados: number; propagados: number }
+      segmentos: Array<{ segmento: string; total: number }>
+      comentarios: Array<{ nps_score: number; nota_geral: number; comentario: string; created_at: string }>
+    }>('/api/dashboard'),
+
+  summary: () =>
+    apiFetch<{
+      total_processos: number
+      total_documentos: number
+      total_usuarios: number
+      total_orgaos: number
+    }>('/api/dashboard?view=summary'),
+}
+
+// ─── Publication API ──────────────────────────────────────────────────────
+
+export const publication = {
+  publicar: (data: {
+    processo_id: string
+    documento_id: string
+    assinar?: boolean
+    carimbar?: boolean
+    publicar_pncp?: boolean
+  }) =>
+    apiFetch<{
+      sucesso: boolean
+      etapas: Record<string, { status: string; detalhes?: unknown }>
+      erros: string[]
+    }>('/api/publicar', {
+      method: 'POST',
+      body: {
+        ...data,
+        assinar: data.assinar ?? true,
+        carimbar: data.carimbar ?? true,
+        publicar_pncp: data.publicar_pncp ?? false,
+      },
+    }),
+}
