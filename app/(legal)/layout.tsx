@@ -25,7 +25,7 @@ export default function LegalLayout({
             <span className="text-primary">▶</span>
             <span>ATA360</span>
           </Link>
-          <nav className="flex items-center gap-6 text-sm text-muted-foreground">
+          <nav className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
             <Link href={'/privacidade' as Route} className="hover:text-foreground transition-colors">
               Privacidade
             </Link>
@@ -34,6 +34,9 @@ export default function LegalLayout({
             </Link>
             <Link href={'/lgpd' as Route} className="hover:text-foreground transition-colors">
               LGPD
+            </Link>
+            <Link href={'/cookies' as Route} className="hover:text-foreground transition-colors">
+              Cookies
             </Link>
           </nav>
         </div>
@@ -48,7 +51,10 @@ export default function LegalLayout({
       <footer className="border-t border-border/40 bg-muted/30">
         <div className="mx-auto max-w-4xl px-6 py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 flex-wrap">
+              <Link href={'/quem-somos' as Route} className="hover:text-foreground transition-colors">
+                Quem Somos
+              </Link>
               <Link href={'/privacidade' as Route} className="hover:text-foreground transition-colors">
                 Privacidade
               </Link>
@@ -57,6 +63,9 @@ export default function LegalLayout({
               </Link>
               <Link href={'/lgpd' as Route} className="hover:text-foreground transition-colors">
                 LGPD
+              </Link>
+              <Link href={'/cookies' as Route} className="hover:text-foreground transition-colors">
+                Cookies
               </Link>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">

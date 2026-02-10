@@ -28,6 +28,14 @@ export function OrganizationJsonLd() {
         url: 'https://ata360.com.br',
         logo: `${BASE_URL}/icon.png`,
         description: 'Plataforma GovTech brasileira para contratacoes publicas.',
+        contactPoint: {
+          '@type': 'ContactPoint',
+          contactType: 'customer service',
+          email: 'contato@ata360.com.br',
+          url: `${BASE_URL}/contato`,
+          availableLanguage: 'Portuguese',
+          areaServed: 'BR',
+        },
         sameAs: [
           'https://ata360.com.br',
         ],
@@ -112,6 +120,22 @@ const FAQ_ITEMS = [
   {
     question: 'A ATA360 está em conformidade com a LGPD?',
     answer: 'Sim. A ATA360 implementa os princípios de privacy-by-design conforme a LGPD (Lei 13.709/2018), incluindo: consentimento granular (Art. 7), anonimização de dados pessoais (Art. 18, IV), políticas de retenção (Art. 15-16), direitos do titular (Art. 18) e bases legais adequadas para cada tratamento de dados.',
+  },
+  {
+    question: 'A IA da ATA360 pode inventar dados ou alucinar?',
+    answer: 'O ATA360 opera com múltiplas camadas de blindagem anti-alucinação. Todas as informações provêm de fontes oficiais (PNCP, IBGE, TCU, CGU, BCB). A geração de documentos utiliza motor determinístico, não IA generativa. Cada sugestão é auditada automaticamente e exige revisão humana obrigatória antes da finalização.',
+  },
+  {
+    question: 'Quais fontes de dados o ATA360 utiliza?',
+    answer: 'O ATA360 integra mais de 17 fontes oficiais do governo brasileiro, incluindo: PNCP, Compras.gov.br, IBGE, TCU, CGU, Portal da Transparência, BCB, TransfereGov, FNDE, FNS, SICONFI, Câmara, Senado e SERPRO. São 110+ endpoints de APIs governamentais consultados em tempo real.',
+  },
+  {
+    question: 'A ATA360 atende fornecedores ou licitantes?',
+    answer: 'Não. O ATA360 atende exclusivamente entes públicos (CNPJ) e seus servidores, empregados públicos e colaboradores (CPF vinculado ao ente). Essa restrição é deliberada e garante que os incentivos da plataforma estejam sempre alinhados com o interesse público.',
+  },
+  {
+    question: 'O ATA360 está alinhado aos ODS da ONU?',
+    answer: 'Sim. O ATA360 contribui diretamente para 6 dos 17 Objetivos de Desenvolvimento Sustentável da Agenda 2030: ODS 5 (Igualdade de Gênero), ODS 9 (Inovação e Infraestrutura), ODS 10 (Redução das Desigualdades), ODS 12 (Consumo Responsável, meta 12.7 — compras públicas sustentáveis), ODS 16 (Instituições Eficazes) e ODS 17 (Parcerias).',
   },
 ] as const
 

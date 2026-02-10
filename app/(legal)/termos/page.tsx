@@ -18,7 +18,7 @@ export default function TermosPage() {
     <article className="prose prose-neutral dark:prose-invert max-w-none">
       <h1>Termos de Uso</h1>
       <p className="text-sm text-muted-foreground">
-        Ultima atualizacao: 10 de fevereiro de 2026 &bull; Versao 1.0
+        Ultima atualizacao: 10 de fevereiro de 2026 &bull; ATA360 versao 1.0 jan/2026
       </p>
 
       <hr />
@@ -67,6 +67,24 @@ export default function TermosPage() {
         todas as atividades realizadas sob sua conta. Qualquer uso nao autorizado deve
         ser comunicado imediatamente a{' '}
         <a href="mailto:contato@ata360.com.br">contato@ata360.com.br</a>.
+      </p>
+
+      {/* 3.4 */}
+      <h3>3.4 Aceite obrigatorio</h3>
+      <p>
+        O uso da plataforma esta condicionado ao aceite integral destes Termos de Uso e
+        da <Link href={'/privacidade' as Route} className="font-medium">Politica de Privacidade</Link>.
+        <strong> O Usuario que nao concordar com os termos nao podera utilizar a plataforma.</strong> O
+        aceite e registrado eletronicamente com data, hora, IP e identificacao do usuario
+        via Gov.br.
+      </p>
+      <h3>3.5 Proibicao de compartilhamento</h3>
+      <p>
+        E <strong>expressamente proibido</strong> compartilhar credenciais de acesso, conceder
+        acesso a terceiros nao autorizados ou permitir que pessoas nao vinculadas ao ente
+        publico utilizem a plataforma. A violacao desta clausula enseja bloqueio imediato
+        da conta e apuracao de responsabilidade nos termos da Lei 14.133/2021 (Art. 155) e
+        do Codigo Penal (Art. 313-A — insercao de dados falsos em sistema de informacoes).
       </p>
 
       {/* 4 */}
@@ -168,8 +186,43 @@ export default function TermosPage() {
         e nao sao divulgados publicamente.
       </p>
 
-      {/* 8 */}
-      <h2>8. Disponibilidade e SLA</h2>
+      {/* 7.5 — Assinatura Eletronica */}
+      <h2>8. Assinatura Eletronica</h2>
+      <h3>8.1 Niveis de assinatura</h3>
+      <p>
+        O ATA360 suporta tres niveis de assinatura eletronica conforme a Lei 14.063/2020:
+      </p>
+      <ul>
+        <li>
+          <strong>Simples</strong> — Autenticacao Gov.br nivel bronze. Valida para atos
+          internos e comunicacoes administrativas.
+        </li>
+        <li>
+          <strong>Avancada</strong> — Gov.br nivel prata ou ouro. Valida para documentos
+          licitatorios e atos que exijam identificacao inequivoca do signatario.
+        </li>
+        <li>
+          <strong>Qualificada (ICP-Brasil)</strong> — Certificado digital A3 com fe publica.
+          Utiliza infraestrutura de assinatura com certificacao ICP-Brasil para atos que
+          exijam validade juridica plena.
+        </li>
+      </ul>
+      <h3>8.2 Registro de assinatura</h3>
+      <p>
+        Cada assinatura eletronica registra: endereco IP, user-agent, geolocalizacao
+        aproximada, metodo de autenticacao, timestamp UTC e hash SHA-256 do documento.
+        Carimbo de tempo conforme regulamentacao da ICP-Brasil garante prova temporal
+        irretratavel.
+      </p>
+      <h3>8.3 Clausula de aceite</h3>
+      <p>
+        Ao assinar eletronicamente qualquer documento via plataforma, o Usuario declara
+        ciencia e concordancia com o conteudo assinado, assumindo responsabilidade pessoal
+        pelo ato, nos termos do Art. 11 da Lei 14.133/2021.
+      </p>
+
+      {/* 9 */}
+      <h2>9. Disponibilidade e SLA</h2>
       <p>
         A ATA360 se compromete com uma disponibilidade minima de <strong>99,9%</strong> (noventa
         e nove virgula nove por cento) ao mes, calculada conforme formula padrao do mercado.
@@ -181,8 +234,8 @@ export default function TermosPage() {
         Janelas de manutencao preferenciais: sabados, das 02h00 as 06h00 (horario de Brasilia).
       </p>
 
-      {/* 9 */}
-      <h2>9. Limitacao de Responsabilidade</h2>
+      {/* 10 */}
+      <h2>10. Limitacao de Responsabilidade</h2>
       <p>
         Na extensao maxima permitida pela legislacao brasileira (Codigo de Defesa do Consumidor,
         Codigo Civil e legislacao aplicavel):
@@ -202,8 +255,28 @@ export default function TermosPage() {
         </li>
       </ul>
 
-      {/* 10 */}
-      <h2>10. Rescisao</h2>
+      {/* 11 */}
+      <h2>11. Bloqueio e Suspensao</h2>
+      <p>
+        A ATA360 reserva-se o direito de <strong>bloquear ou suspender</strong> o acesso do
+        Usuario, sem aviso previo, nas seguintes hipoteses:
+      </p>
+      <ul>
+        <li>Violacao de qualquer clausula destes Termos de Uso.</li>
+        <li>Tentativa de engenharia reversa, extracao nao autorizada de dados ou acesso a areas restritas.</li>
+        <li>Compartilhamento de credenciais ou acesso por terceiros nao autorizados.</li>
+        <li>Insercao de dados falsos ou fraudulentos na plataforma.</li>
+        <li>Suspeita fundamentada de uso para direcionamento de licitacao, conluio ou fraude.</li>
+        <li>Inadimplencia apos 30 dias do vencimento da fatura.</li>
+        <li>Determinacao judicial ou administrativa.</li>
+      </ul>
+      <p>
+        O bloqueio nao exime o Usuario das obrigacoes contratuais ja assumidas. Trilhas de
+        auditoria sao preservadas pelo prazo legal de 5 anos, mesmo apos bloqueio.
+      </p>
+
+      {/* 12 */}
+      <h2>12. Rescisao</h2>
       <p>
         Qualquer das partes pode rescindir a relacao contratual mediante comunicacao por
         escrito com antecedencia minima de 30 dias. Em caso de rescisao:
@@ -223,30 +296,36 @@ export default function TermosPage() {
         </li>
       </ul>
 
-      {/* 11 */}
-      <h2>11. Disposicoes Gerais</h2>
-      <h3>11.1 Legislacao Aplicavel</h3>
+      {/* 13 */}
+      <h2>13. Disposicoes Gerais</h2>
+      <h3>13.1 Legislacao Aplicavel</h3>
       <p>
         Estes Termos de Uso sao regidos pelas leis da Republica Federativa do Brasil,
         em especial: LGPD (Lei 13.709/2018), Lei 14.133/2021, Marco Civil da Internet
         (Lei 12.965/2014), Codigo de Defesa do Consumidor (Lei 8.078/1990) e Codigo Civil
         (Lei 10.406/2002).
       </p>
-      <h3>11.2 Foro</h3>
+      <h3>13.2 Foro</h3>
       <p>
         Fica eleito o <strong>Foro da Comarca de Belo Horizonte/MG</strong> para dirimir
         quaisquer controversias decorrentes destes Termos, com renuncia expressa a qualquer
         outro, por mais privilegiado que seja.
       </p>
-      <h3>11.3 Alteracoes</h3>
+      <h3>13.3 Versionamento</h3>
+      <p>
+        Estes Termos sao versionados. A versao vigente esta identificada no topo desta
+        pagina (ex: &quot;ATA360 versao 1.0 jan/2026&quot;). Versoes anteriores podem ser
+        solicitadas via <a href="mailto:contato@ata360.com.br">contato@ata360.com.br</a>.
+      </p>
+      <h3>13.4 Alteracoes</h3>
       <p>
         A ATA360 reserva-se o direito de alterar estes Termos de Uso, comunicando o Usuario
         com antecedencia minima de 30 dias. O uso continuado da plataforma apos a notificacao
         constitui aceite tacito dos novos termos.
       </p>
 
-      {/* 12 */}
-      <h2>12. Contato</h2>
+      {/* 14 */}
+      <h2>14. Contato</h2>
       <div className="rounded-lg border border-border p-6 bg-muted/20">
         <p className="font-semibold">ATA360 TECNOLOGIA LTDA</p>
         <p>CNPJ: 61.291.296/0001-31</p>

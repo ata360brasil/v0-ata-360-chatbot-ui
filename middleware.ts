@@ -3,7 +3,15 @@ import type { NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
 // ─── Public Routes (no auth required) ───────────────────────────────────────
-const PUBLIC_ROUTES = new Set(['/login', '/api/auth/callback/govbr', '/privacidade', '/termos', '/lgpd'])
+const PUBLIC_ROUTES = new Set([
+  '/login', '/api/auth/callback/govbr',
+  // Legal
+  '/privacidade', '/termos', '/lgpd',
+  // Institutional
+  '/', '/manifesto', '/quem-somos', '/missao-visao-valores',
+  '/compromissos', '/compliance', '/seguranca',
+  '/carta-servidor', '/contato', '/cookies',
+])
 const STATIC_PREFIXES = ['/images/', '/favicon', '/_next/', '/api/auth/']
 
 function isStaticOrPublic(pathname: string): boolean {
@@ -76,8 +84,9 @@ export async function middleware(request: NextRequest) {
 
   response.headers.set('Content-Security-Policy', csp)
 
-  // ─── Anti-Scraping: impedir cache de paginas internas por buscadores ───
-  if (!isStaticOrPublic(pathname) && !pathname.startsWith('/privacidade') && !pathname.startsWith('/termos') && !pathname.startsWith('/lgpd')) {
+  // ─── Anti-Scraping: impedir cache de paginas internas (app) por buscadores ───
+  // Paginas publicas (legal + institucional) sao indexaveis — nao aplicar noarchive
+  if (!isStaticOrPublic(pathname)) {
     response.headers.set('X-Robots-Tag', 'noarchive, nosnippet')
   }
 
