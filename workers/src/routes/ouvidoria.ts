@@ -100,6 +100,91 @@ app.post('/', async (c) => {
   })
 })
 
+// POST /ouvidoria/explicacao — Pedido de explicação (PL 2.338/2023, Art. 7º + LGPD Art. 20)
+app.post('/explicacao', async (c) => {
+  const body = await c.req.json() as {
+    orgao_id?: string
+    processo_id?: string
+    documento_tipo?: string
+    pergunta: string
+    contexto?: string
+    solicitante_nome?: string
+    solicitante_email?: string
+    anonimo?: boolean
+  }
+
+  if (!body.pergunta) {
+    return c.json({ erro: 'pergunta é obrigatória' }, 400)
+  }
+
+  // Gerar protocolo com prefixo EXP (explicação)
+  const now = new Date()
+  const dataPart = now.toISOString().slice(0, 10).replace(/-/g, '')
+  const randomPart = Math.random().toString(36).substring(2, 7).toUpperCase()
+  const protocolo = `EXP-${dataPart}-${randomPart}`
+
+  // Prazo de resposta: 15 dias (PL 2.338/2023)
+  const prazoResposta = new Date(now)
+  prazoResposta.setDate(prazoResposta.getDate() + 15)
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'apikey': c.env.SUPABASE_SERVICE_KEY,
+    'Authorization': `Bearer ${c.env.SUPABASE_SERVICE_KEY}`,
+    'Prefer': 'return=representation',
+  }
+
+  const ip = c.req.header('CF-Connecting-IP') || c.req.header('X-Forwarded-For') || '0.0.0.0'
+  const userId = c.req.header('X-User-Id')
+
+  const manifestacao = {
+    orgao_id: body.orgao_id || null,
+    protocolo,
+    tipo: 'pedido_explicacao',
+    categoria: 'explicacao_ia',
+    assunto: `Pedido de explicação: ${body.documento_tipo || 'geral'}`,
+    descricao: body.pergunta,
+    anonimo: body.anonimo ?? false,
+    denunciante_id: body.anonimo ? null : userId,
+    denunciante_nome: body.anonimo ? null : body.solicitante_nome,
+    denunciante_email: body.anonimo ? null : body.solicitante_email,
+    status: 'recebida',
+    prioridade: 'normal',
+    prazo_resposta: prazoResposta.toISOString(),
+    protecao_identidade: body.anonimo ?? false,
+    ip_origem: ip,
+    metadata: JSON.stringify({
+      tipo_pedido: 'explicacao_ia',
+      processo_id: body.processo_id || null,
+      documento_tipo: body.documento_tipo || null,
+      contexto: body.contexto || null,
+      base_legal: 'PL 2.338/2023 Art. 7º + LGPD Art. 20',
+      prazo_legal_dias: 15,
+    }),
+  }
+
+  const response = await fetch(`${c.env.SUPABASE_URL}/rest/v1/ouvidoria_manifestacoes`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(manifestacao),
+  })
+
+  if (!response.ok) {
+    return c.json({ erro: 'Erro ao registrar pedido de explicação' }, 500)
+  }
+
+  return c.json({
+    sucesso: true,
+    protocolo,
+    prazo_resposta: prazoResposta.toISOString(),
+    mensagem: `Pedido de explicação registrado com protocolo ${protocolo}. Conforme PL 2.338/2023 (Art. 7º) e LGPD (Art. 20), responderemos em até 15 dias.`,
+    base_legal: {
+      pl_2338: 'Art. 7º — Direito à explicação sobre decisão de sistema de IA',
+      lgpd: 'Art. 20 — Direito à revisão de decisão automatizada',
+    },
+  })
+})
+
 // GET /ouvidoria/protocolo/:protocolo — Consultar por protocolo
 app.get('/protocolo/:protocolo', async (c) => {
   const protocolo = c.req.param('protocolo')

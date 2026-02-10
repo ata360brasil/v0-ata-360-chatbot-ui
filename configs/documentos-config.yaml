@@ -1562,10 +1562,286 @@ PAU:
       tipo: "autoridade"
 
 # ============================================================
+# 21. AIA - AVALIAÇÃO DE IMPACTO ALGORÍTMICO
+# P0 — Alinhamento PBIA 2024-2028 + PL 2.338/2023
+# ============================================================
+AIA:
+  nome: "Avaliação de Impacto Algorítmico"
+  sigla: "AIA"
+  trilha_posicao: null
+  trilha_progresso: null
+  tipo: "conformidade_ia"
+  gerado_por: "AUDITOR Agent + Orquestrador"
+
+  fundamentacao_cabecalho:
+    - "PL 2.338/2023 (Marco Legal da IA): Art. 29 (avaliação de impacto algorítmico)"
+    - "PBIA 2024-2028 (Resolução CCT nº 4/2024): Eixo 3 — Governança e regulação"
+    - "LGPD — Lei 13.709/2018: Art. 20 (direito à revisão de decisão automatizada)"
+    - "Lei 14.133/2021: Art. 11, IV (governança em contratações)"
+    - "LINDB Art. 20: decisões com base em consequências práticas"
+    - "LINDB Art. 22: considerar dificuldades reais do gestor"
+    - "UNESCO Recommendation on Ethics of AI (2021)"
+
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Sistema de IA Avaliado"
+      fundamento: "PL 2.338/2023, Art. 29, I"
+      campos: [nome_sistema, versao, operador, desenvolvedor, data_avaliacao, periodicidade]
+
+    - numero: 2
+      titulo: "Classificação de Risco"
+      fundamento: "PL 2.338/2023, Art. 14 (sistemas de alto risco)"
+      campos: [nivel_risco, justificativa_classificacao, contexto_uso, publico_afetado, volume_decisoes_estimado]
+
+    - numero: 3
+      titulo: "Descrição do Funcionamento"
+      fundamento: "PL 2.338/2023, Art. 29, II"
+      campos: [proposito, dados_utilizados, fontes_dados, tecnicas_ia, limitacoes_conhecidas, taxa_intervencao_humana]
+
+    - numero: 4
+      titulo: "Análise de Riscos e Impactos"
+      fundamento: "PL 2.338/2023, Art. 29, III"
+      campos: [riscos_direitos_fundamentais, riscos_discriminacao, riscos_privacidade, riscos_transparencia, riscos_seguranca, impacto_socioeconomico]
+
+    - numero: 5
+      titulo: "Medidas de Mitigação"
+      fundamento: "PL 2.338/2023, Art. 29, IV"
+      campos: [medidas_prevencao, medidas_deteccao, medidas_correcao, medidas_compensacao, plano_contingencia]
+
+    - numero: 6
+      titulo: "Supervisão e Intervenção Humana"
+      fundamento: "PL 2.338/2023, Art. 16 (supervisão humana)"
+      campos: [mecanismos_supervisao, pontos_intervencao_humana, perfis_supervisores, frequencia_revisao]
+
+    - numero: 7
+      titulo: "Transparência e Explicabilidade"
+      fundamento: "PL 2.338/2023, Art. 7º (direito à explicação)"
+      campos: [nivel_explicabilidade, mecanismo_explicacao_usuario, canal_contestacao, prazo_resposta_explicacao]
+
+    - numero: 8
+      titulo: "Proteção de Dados Pessoais"
+      fundamento: "LGPD Arts. 18 e 20 + PL 2.338 Art. 29, V"
+      campos: [dados_pessoais_tratados, base_legal_lgpd, medidas_anonimizacao, encarregado_dados]
+
+    - numero: 9
+      titulo: "Auditabilidade e Rastreabilidade"
+      fundamento: "PL 2.338/2023, Art. 17 (registro de atividades)"
+      campos: [logs_mantidos, periodo_retencao, hash_versionamento, audit_trail_disponivel]
+
+    - numero: 10
+      titulo: "Parecer Conclusivo"
+      fundamento: "PL 2.338/2023, Art. 29 + PBIA Eixo 3"
+      campos: [parecer_global, recomendacoes, prazo_proxima_avaliacao, responsavel_acompanhamento]
+
+  checklist:
+    - codigo: "AIA-01"
+      texto: "Sistema classificado quanto ao nível de risco (PL 2.338)"
+      fundamento: "PL 2.338/2023, Art. 14"
+    - codigo: "AIA-02"
+      texto: "Descrição do funcionamento documentada em linguagem acessível"
+      fundamento: "PL 2.338/2023, Art. 29, II"
+    - codigo: "AIA-03"
+      texto: "Análise de riscos a direitos fundamentais realizada"
+      fundamento: "PL 2.338/2023, Art. 29, III"
+    - codigo: "AIA-04"
+      texto: "Medidas de mitigação definidas para cada risco identificado"
+      fundamento: "PL 2.338/2023, Art. 29, IV"
+    - codigo: "AIA-05"
+      texto: "Mecanismos de supervisão humana identificados"
+      fundamento: "PL 2.338/2023, Art. 16"
+    - codigo: "AIA-06"
+      texto: "Canal de explicação e contestação disponível ao usuário"
+      fundamento: "PL 2.338/2023, Art. 7º"
+    - codigo: "AIA-07"
+      texto: "Conformidade LGPD verificada (dados pessoais tratados)"
+      fundamento: "LGPD Art. 20"
+    - codigo: "AIA-08"
+      texto: "Audit trail e versionamento de decisões implementados"
+      fundamento: "PL 2.338/2023, Art. 17"
+    - codigo: "AIA-09"
+      texto: "Periodicidade de reavaliação definida (mínimo anual)"
+      fundamento: "PL 2.338/2023, Art. 29"
+    - codigo: "AIA-10"
+      texto: "Alinhamento com PBIA 2024-2028 verificado"
+      fundamento: "Resolução CCT nº 4/2024"
+
+  assinaturas:
+    - papel: "Responsável Técnico pelo Sistema de IA"
+      tipo: "responsavel"
+    - papel: "Encarregado de Dados (DPO/LGPD)"
+      tipo: "responsavel"
+    - papel: "Autoridade Competente"
+      tipo: "autoridade"
+
+# ============================================================
+# 22. JCC - JUSTIFICATIVA DE CONTRATAÇÃO POR CREDENCIAMENTO
+# P0 — Preparação SICX (Lei 15.266/2025)
+# ============================================================
+JCC:
+  nome: "Justificativa de Contratação por Credenciamento"
+  sigla: "JCC"
+  trilha_posicao: null
+  trilha_progresso: null
+  herda_de: [DFD, ETP]
+
+  fundamentacao_cabecalho:
+    - "Lei 14.133/2021: Art. 79, IV (credenciamento)"
+    - "Lei 14.133/2021: Art. 78 (inexigibilidade por credenciamento)"
+    - "Lei 15.266/2025: SICX — Sistema de Compras Expressas"
+    - "Decreto 11.878/2024: regulamentação do credenciamento"
+    - "IN SEGES/ME 58/2022: Art. 23 (contratação direta)"
+    - "TCU Acórdão 2.434/2018-P (justificação de preço)"
+    - "LINDB Art. 20: consequências práticas da decisão"
+    - "LINDB Art. 22: dificuldades reais do gestor"
+
+  secoes:
+    - numero: 1
+      titulo: "Identificação do Demandante e do Processo"
+      fundamento: "Art. 72, I, Lei 14.133/2021"
+      campos: [orgao_nome, uasg, processo_numero, unidade_requisitante, responsavel]
+
+    - numero: 2
+      titulo: "Objeto da Contratação"
+      fundamento: "Art. 72, II, Lei 14.133/2021"
+      campos: [descricao_objeto, catmat_catser, natureza, especificacoes_tecnicas]
+
+    - numero: 3
+      titulo: "Enquadramento Legal — Credenciamento"
+      fundamento: "Art. 79, IV, Lei 14.133/2021 + Dec. 11.878/2024"
+      campos: [tipo_credenciamento, hipotese_legal, justificativa_inviabilidade_competicao, demonstracao_padronizacao]
+
+    - numero: 4
+      titulo: "Demonstração de Enquadramento no SICX (quando aplicável)"
+      fundamento: "Lei 15.266/2025 — SICX"
+      campos: [item_disponivel_sicx, catalogo_consultado, justificativa_uso_sicx, comparativo_precos_sicx]
+
+    - numero: 5
+      titulo: "Justificativa da Necessidade"
+      fundamento: "Art. 72, IV, Lei 14.133/2021"
+      campos: [necessidade_publica, interesse_publico, consequencias_nao_contratacao]
+
+    - numero: 6
+      titulo: "Pesquisa de Preços"
+      fundamento: "Art. 72, V, Lei 14.133/2021 + IN 65/2021"
+      campos: [fontes_pesquisa, precos_coletados, preco_referencia, metodologia]
+
+    - numero: 7
+      titulo: "Critérios de Credenciamento"
+      fundamento: "Art. 79, IV, Lei 14.133/2021"
+      campos: [requisitos_habilitacao, requisitos_tecnicos, prazo_credenciamento, forma_pagamento]
+
+    - numero: 8
+      titulo: "Adequação Orçamentária"
+      fundamento: "Art. 72, VI, Lei 14.133/2021"
+      campos: [dotacao, fonte_recurso, valor_estimado]
+
+    - numero: 9
+      titulo: "Declarações Obrigatórias"
+      fundamento: "Art. 72, VIII, Lei 14.133/2021"
+      campos: [declaracao_inexistencia_impedimentos, parecer_juridico, ceis_cnep_consultados]
+
+  checklist:
+    - codigo: "JCC-01"
+      texto: "Enquadramento legal no Art. 79, IV fundamentado"
+      fundamento: "Art. 79, IV, Lei 14.133/2021"
+    - codigo: "JCC-02"
+      texto: "Inviabilidade de competição demonstrada"
+      fundamento: "Art. 78, Lei 14.133/2021"
+    - codigo: "JCC-03"
+      texto: "Padronização do objeto justificada"
+      fundamento: "Art. 79, IV, Lei 14.133/2021"
+    - codigo: "JCC-04"
+      texto: "Consulta SICX realizada (quando aplicável)"
+      fundamento: "Lei 15.266/2025"
+    - codigo: "JCC-05"
+      texto: "Pesquisa de preços realizada (mín. 3 fontes)"
+      fundamento: "Art. 72, V + IN 65/2021"
+    - codigo: "JCC-06"
+      texto: "Critérios de credenciamento objetivos e não restritivos"
+      fundamento: "Art. 79, IV, Lei 14.133/2021"
+    - codigo: "JCC-07"
+      texto: "CEIS/CNEP consultados"
+      fundamento: "Art. 91, Lei 14.133/2021"
+    - codigo: "JCC-08"
+      texto: "Dotação orçamentária confirmada"
+      fundamento: "Art. 72, VI, Lei 14.133/2021"
+    - codigo: "JCC-09"
+      texto: "Parecer jurídico favorável"
+      fundamento: "Art. 72, III, Lei 14.133/2021"
+
+  assinaturas:
+    - papel: "Elaboração"
+      tipo: "responsavel"
+    - papel: "Validação / Autoridade Competente"
+      tipo: "autoridade"
+    - papel: "Assessoria Jurídica"
+      tipo: "parecer"
+
+# ============================================================
+# PBIA / FINEP / SICX — ALINHAMENTO ESTRATÉGICO
+# Adicionado em 10/fev/2026
+# ============================================================
+PBIA_ALINHAMENTO:
+  titulo: "Plano Brasileiro de Inteligência Artificial 2024-2028"
+  norma: "Resolução CCT nº 4/2024"
+  classificacao_ata360: "ALTO RISCO (Art. 14, PL 2.338/2023 — IA em administração pública)"
+
+  principios_atendidos:
+    - principio: "Supervisão humana"
+      status: "CONFORME"
+      implementacao: "2 pontos de parada obrigatórios no fluxo cíclico"
+    - principio: "Transparência"
+      status: "CONFORME"
+      implementacao: "Audit trail SHA-256, rastreabilidade completa"
+    - principio: "Não discriminação"
+      status: "CONFORME"
+      implementacao: "Dados oficiais (PNCP/IBGE/TCU), sem viés"
+    - principio: "Responsabilidade"
+      status: "CONFORME"
+      implementacao: "Decisão humana é soberana, LINDB aplicada"
+    - principio: "Segurança e robustez"
+      status: "CONFORME"
+      implementacao: "Chat Guard, sanitizeResponse, Part 19"
+    - principio: "Proteção de dados"
+      status: "CONFORME"
+      implementacao: "RLS multi-tenant, LGPD, anonimização"
+    - principio: "Explicabilidade"
+      status: "CONFORME"
+      implementacao: "Canal explicação na ouvidoria, fundamentação legal em todos os artefatos"
+    - principio: "Governança"
+      status: "PARCIAL"
+      implementacao: "AIA implementado, política formal de IA publicável pendente"
+    - principio: "Bem-estar social"
+      status: "CONFORME"
+      implementacao: "LINDB Art. 22, contexto do ente, ODS ONU"
+    - principio: "Legalidade"
+      status: "CONFORME"
+      implementacao: "Lei 14.133 + LINDB + LGPD + normativos CGU/TCU"
+
+  finep_prioridades:
+    - programa: "Soluções de IA para o Poder Público (Rodada 4)"
+      fit: "MÁXIMO"
+      valor_estimado: "R$24M (não reembolsável)"
+      deadline: "Aguardando publicação"
+    - programa: "Tecnologias Digitais"
+      fit: "ALTO"
+      valor_estimado: "R$300M"
+      deadline: "31/08/2026"
+      requisito: "Parceria com ICT obrigatória"
+
+  sicx_posicionamento:
+    descricao: "ATA360 NÃO é produto no SICX — é a ferramenta que ajuda órgãos a operar no SICX"
+    contratacao_ata360: "Via pregão, inexigibilidade (Art. 74, III) ou diálogo competitivo (Art. 32)"
+    artefatos_sicx: ["JCC (Art. 79, IV)", "PCA com campo via_credenciamento"]
+    nota: "Gov.br é somente para órgãos públicos — não se aplica ao ATA360 como empresa"
+
+# ============================================================
 # FIM DO ARQUIVO DE CONFIGURAÇÃO
-# Versão 3.0 | Fevereiro 2026
+# Versão 3.1 | Fevereiro 2026
 # Atualizado: Painel de Preços removido, Dec. 12.807/2025 adicionado,
 # LINDB incluída, jurisprudência expandida (6→30 referências),
 # Manual TCU 5ª Ed. referenciado.
 # v3.0: Adicionados 6 artefatos P0 (CDF, ALF, ALP, ALV, RPP, PAU)
+# v3.1: Adicionados AIA (PBIA/PL 2.338), JCC (SICX/credenciamento),
+#        PBIA_ALINHAMENTO estratégico (FINEP, SICX, classificação risco)
 # ============================================================

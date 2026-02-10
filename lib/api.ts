@@ -1041,4 +1041,91 @@ export const ouvidoria = {
       por_prioridade: Record<string, number>
       taxa_resolucao: number
     }>(`/api/ouvidoria/estatisticas/${orgaoId}`),
+
+  pedirExplicacao: (data: {
+    orgao_id?: string
+    processo_id?: string
+    documento_tipo?: string
+    pergunta: string
+    contexto?: string
+    solicitante_nome?: string
+    solicitante_email?: string
+    anonimo?: boolean
+  }) =>
+    apiFetch<{
+      sucesso: boolean
+      protocolo: string
+      prazo_resposta: string
+      mensagem: string
+      base_legal: { pl_2338: string; lgpd: string }
+    }>('/api/ouvidoria', {
+      method: 'POST',
+      body: {
+        ...data,
+        tipo: 'pedido_explicacao',
+        categoria: 'explicacao_ia',
+        assunto: `Pedido de explicação: ${data.documento_tipo || 'geral'}`,
+        descricao: data.pergunta,
+      },
+    }),
+}
+
+// ─── AIA — Avaliação de Impacto Algorítmico API ────────────────────────
+
+export const aia = {
+  obter: (orgaoId: string) =>
+    apiFetch<{
+      avaliacoes: Array<{
+        id: string
+        versao: number
+        data_avaliacao: string
+        nivel_risco: string
+        parecer_global: string | null
+        sistema_nome: string
+        proxima_avaliacao: string | null
+        created_at: string
+      }>
+    }>(`/api/aia?orgaoId=${orgaoId}`),
+
+  criar: (data: {
+    orgao_id: string
+    nivel_risco?: string
+    sistema_versao?: string
+    riscos_identificados?: Record<string, unknown>[]
+    medidas_mitigacao?: Record<string, unknown>[]
+    recomendacoes?: string[]
+    responsavel_nome?: string
+    responsavel_cargo?: string
+  }) =>
+    apiFetch<{
+      sucesso: boolean
+      avaliacao_id: string
+      mensagem: string
+    }>('/api/aia', {
+      method: 'POST',
+      body: data,
+    }),
+
+  aprovar: (avaliacaoId: string) =>
+    apiFetch<{ sucesso: boolean }>(`/api/aia/${avaliacaoId}/aprovar`, {
+      method: 'PATCH',
+    }),
+
+  codigoConduta: () =>
+    apiFetch<{
+      titulo: string
+      versao: string
+      data: string
+      principios: Array<{
+        numero: number
+        titulo: string
+        descricao: string
+        base_legal: string
+      }>
+      compromissos_pbia: { itens: string[] }
+      canal_explicacao: {
+        prazo_dias: number
+        base_legal: string
+      }
+    }>('/api/aia/codigo-conduta'),
 }

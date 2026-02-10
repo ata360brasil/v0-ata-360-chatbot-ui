@@ -751,6 +751,57 @@ export interface Database {
           responsavel_id?: string
         }
       }
+
+      // ─── Avaliação de Impacto Algorítmico — AIA (v8.1 PBIA) ────────────────
+      aia_avaliacoes: {
+        Row: {
+          id: string
+          orgao_id: string
+          versao: number
+          data_avaliacao: string
+          periodicidade: 'semestral' | 'anual' | 'bianual' | 'sob_demanda'
+          // Classificação de risco
+          nivel_risco: 'baixo' | 'medio' | 'alto' | 'inaceitavel'
+          justificativa_risco: string
+          // Sistema avaliado
+          sistema_nome: string
+          sistema_versao: string | null
+          proposito: string
+          publico_afetado: string
+          volume_decisoes_estimado: string | null
+          // Análise
+          riscos_identificados: Record<string, unknown>[]
+          medidas_mitigacao: Record<string, unknown>[]
+          // Supervisão humana
+          pontos_intervencao_humana: string[]
+          taxa_intervencao_humana: number | null
+          // Transparência
+          nivel_explicabilidade: 'baixo' | 'medio' | 'alto' | 'total'
+          canal_explicacao_disponivel: boolean
+          // LGPD
+          dados_pessoais_tratados: string[]
+          base_legal_lgpd: string | null
+          dpo_designado: boolean
+          // Parecer
+          parecer_global: 'conforme' | 'conforme_com_ressalvas' | 'nao_conforme' | null
+          recomendacoes: string[]
+          // Vigência
+          proxima_avaliacao: string | null
+          responsavel_nome: string | null
+          responsavel_cargo: string | null
+          // Metadados
+          aprovado_por: string | null
+          aprovado_em: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['aia_avaliacoes']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['aia_avaliacoes']['Insert']> & {
+          parecer_global?: 'conforme' | 'conforme_com_ressalvas' | 'nao_conforme'
+          aprovado_por?: string
+          aprovado_em?: string
+        }
+      }
     }
     Views: {
       v_feedback_propagavel: {

@@ -707,6 +707,103 @@ v0-ata-360-chatbot-ui/
 
 ---
 
+## 19. Alinhamento PBIA / FINEP / SICX
+
+### 19.1 PBIA 2024-2028 (Resolução CCT nº 4/2024)
+
+ATA360 é classificado como **ALTO RISCO** conforme PL 2.338/2023 (Art. 14) — sistema de IA utilizado pela administração pública para avaliar critérios em contratações.
+
+**Princípios atendidos:**
+
+| Princípio | Status | Implementação |
+|-----------|--------|---------------|
+| Supervisão humana | ✅ CONFORME | 2 pontos de parada obrigatórios |
+| Transparência | ✅ CONFORME | Audit trail SHA-256, fundamentação legal |
+| Não discriminação | ✅ CONFORME | Dados oficiais PNCP/IBGE/TCU |
+| Responsabilidade | ✅ CONFORME | Decisão humana soberana + LINDB |
+| Segurança | ✅ CONFORME | Chat Guard + sanitizeResponse + Part 19 |
+| Proteção de dados | ✅ CONFORME | RLS multi-tenant + LGPD |
+| Explicabilidade | ✅ CONFORME | Canal explicação via ouvidoria |
+| Governança | ⚠️ PARCIAL | AIA implementado, política formal pendente |
+| Bem-estar social | ✅ CONFORME | LINDB Art. 22 + ODS ONU |
+| Legalidade | ✅ CONFORME | Lei 14.133 + LINDB + LGPD + CGU/TCU |
+
+### 19.2 Avaliação de Impacto Algorítmico (AIA)
+
+**Arquivo YAML:** `configs/documentos-config.yaml` — tipo `AIA`
+**Migration:** `supabase/migrations/007_pbia_sicx_alignment.sql`
+**Tabela:** `aia_avaliacoes`
+
+Documento obrigatório conforme PL 2.338/2023, Art. 29. Contém 10 seções:
+1. Identificação do sistema
+2. Classificação de risco
+3. Descrição do funcionamento
+4. Análise de riscos e impactos
+5. Medidas de mitigação
+6. Supervisão e intervenção humana
+7. Transparência e explicabilidade
+8. Proteção de dados pessoais
+9. Auditabilidade e rastreabilidade
+10. Parecer conclusivo
+
+Periodicidade: anual (mínimo).
+
+### 19.3 Código de Conduta de IA
+
+**Arquivo:** `workers/src/compliance/codigo-conduta-ia.ts`
+**Classificação:** PÚBLICO (pode ser publicado no site institucional)
+**Endpoint:** `GET /api/aia?view=codigo-conduta`
+
+Derivado das `ATA360_SYSTEM_RULES` (chat-guard.ts), com 10 princípios publicáveis e compromissos com o PBIA.
+
+### 19.4 Direito à Explicação
+
+**Endpoint:** `POST /api/v1/ouvidoria/explicacao`
+**Protocolo:** `EXP-YYYYMMDD-XXXXX`
+**Prazo:** 15 dias (PL 2.338/2023, Art. 7º + LGPD Art. 20)
+
+Qualquer pessoa afetada por decisão assistida pelo ATA360 pode solicitar explicação sobre critérios e dados utilizados.
+
+### 19.5 FINEP — Oportunidades de Financiamento 2026
+
+| Programa | Fit ATA360 | Valor | Deadline |
+|----------|-----------|-------|----------|
+| IA para Poder Público (Rod. 4) | MÁXIMO | R$24M (não reembolsável) | Aguardando |
+| Tecnologias Digitais | ALTO | R$300M | 31/08/2026 |
+| FNDCT Subvenção Econômica | MÉDIO | R$800M | Semestral |
+
+**Requisito Tecnologias Digitais:** Parceria com ICT obrigatória (universidade ou instituto de pesquisa).
+
+### 19.6 SICX — Sistema de Compras Expressas (Lei 15.266/2025)
+
+**Posicionamento:** ATA360 **NÃO** é produto no catálogo SICX. ATA360 é a ferramenta que ajuda órgãos públicos a operar no SICX.
+
+**Contratação do ATA360:** Via pregão, inexigibilidade (Art. 74, III — notória especialização) ou diálogo competitivo (Art. 32).
+
+**Preparação implementada:**
+- Campo `via_credenciamento` em `pca_itens` (indica elegibilidade para credenciamento)
+- Campo `sicx_disponivel` e `sicx_catalogo_ref` em `pca_itens`
+- Artefato JCC (Justificativa de Contratação por Credenciamento, Art. 79, IV)
+- YAML JCC com seção específica de enquadramento SICX
+
+**Nota:** Gov.br é exclusivo para órgãos públicos e cidadãos acessando serviços públicos. NÃO se aplica ao ATA360 como empresa privada SaaS.
+
+---
+
+## 20. Migrations
+
+| # | Arquivo | Conteúdo |
+|---|---------|----------|
+| 001 | `001_initial_schema.sql` | Tabelas base: orgaos, usuarios, processos, audit_trail |
+| 002 | `002_feedback_and_profiles.sql` | feedback_termos, perfil_usuario |
+| 003 | `003_avaliacoes.sql` | avaliacoes_acma, avaliacoes_auditor |
+| 004 | `004_acma_auditor_learning.sql` | acma_prompts, auditor_thresholds |
+| 005 | `005_orchestrator.sql` | Orquestrador, mensagens, biblioteca legal |
+| 006 | `006_pca_compliance_deadlines.sql` | PCA inteligente, compliance, prazos, assinatura, ouvidoria |
+| 007 | `007_pbia_sicx_alignment.sql` | AIA, SICX campos, ouvidoria explicação, compliance PBIA |
+
+---
+
 > **ATA360** — Decisões baseadas em dados que transformam as compras públicas.
 > Orientamos e construímos processos reais em prol da sociedade e do poder público,
 > com responsabilidade e robustez de dados.
