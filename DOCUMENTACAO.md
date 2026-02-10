@@ -683,7 +683,7 @@ v0-ata-360-chatbot-ui/
 │   │   └── cron/                  # Cron triggers
 │   └── migrations/                # D1 migrations
 ├── supabase/                      # Supabase config
-│   └── migrations/                # PostgreSQL migrations (001-006)
+│   └── migrations/                # PostgreSQL migrations (001-008)
 ├── clickhouse/                    # ClickHouse config
 │   └── migrations/                # Métricas (001-003)
 ├── configs/                       # YAML configs
@@ -801,6 +801,94 @@ Qualquer pessoa afetada por decisão assistida pelo ATA360 pode solicitar explic
 | 005 | `005_orchestrator.sql` | Orquestrador, mensagens, biblioteca legal |
 | 006 | `006_pca_compliance_deadlines.sql` | PCA inteligente, compliance, prazos, assinatura, ouvidoria |
 | 007 | `007_pbia_sicx_alignment.sql` | AIA, SICX campos, ouvidoria explicação, compliance PBIA |
+| 008 | `008_pricing_contracting.sql` | Precificação, simulações, contratações ATA360, adesão ARP |
+
+---
+
+## 21. Precificação Universal e Contratação
+
+### 21.1 Equação Universal de Precificação
+
+```
+Preço Anual = max(PISO, PISO × (BASE / BASE_MIN) ^ α)
+```
+
+**Parâmetros 2026:**
+| Parâmetro | Valor | Fonte |
+|-----------|-------|-------|
+| PISO | R$ 38.900,00 | Menor investimento anual |
+| BASE_MIN | R$ 5.000.000 | Base fiscal mínima de referência |
+| α (alpha) | 0,35 | Expoente sub-linear (maior base → menor alíquota proporcional) |
+| Limite dispensa | R$ 65.492,11 | Decreto 12.807/2025 |
+
+**Princípios:** Transparência (fórmula pública), Proporcionalidade, Universalidade, Equidade, Verificabilidade.
+
+**NÃO** são planos fixos. Preço é calculado individualmente. 5 categorias (essencial, básico, intermediário, avançado, enterprise) são apenas para identificação de grupos no sistema.
+
+### 21.2 Hierarquia de Base de Cálculo
+
+1. **Primária:** Contratações PNCP (dados públicos verificáveis)
+2. **Subsidiária:** Orçamento LOA (transparência fiscal)
+3. **Proxy:** Fiscal (FPM/FPE, para entes sem dados PNCP)
+
+### 21.3 Coeficientes FPM
+
+Fonte: DN TCU 219/2025 + DL 1.881/1981. 18 faixas populacionais, coeficientes 0,6 a 4,0.
+
+### 21.4 Modalidades de Contratação (6)
+
+| Modalidade | Fundamento | Quando usar |
+|-----------|-----------|------------|
+| Dispensa Eletrônica | Art. 75, II + Dec. 12.807/2025 | Preço ≤ R$65.492,11 |
+| Inexigibilidade | Art. 74, I | Preço > R$65.492,11 (exclusividade técnica) |
+| Adesão a ARP | Art. 86 | ATA vigente disponível |
+| Diálogo Competitivo | Art. 32 | Solução inovadora sem spec definida |
+| Contratação de Inovação | Art. 81 (ETEC) | Encomenda tecnológica |
+| Emenda Parlamentar | EC 105/2019 + LDO | Recurso RP6/RP7/RP8 disponível |
+
+### 21.5 Vigência Contratual
+
+- **Padrão:** 1 ano renovável até 5 anos (Art. 106)
+- **TIC (longa duração):** até 10 anos (Art. 106-107)
+- **Renovação:** Automática com cláusula expressa (Art. 107)
+- **Adesão ARP:** Restante da vigência da ATA mãe
+
+### 21.6 Autocontratação (Prova de Fogo)
+
+O ATA360 gera os próprios documentos de contratação:
+1. Calcula preço pela equação universal
+2. Recomenda modalidade
+3. Gera PCA automaticamente (`POST /api/contratacao?action=auto-pca`)
+4. Trilha de documentos conforme modalidade
+5. CATSER: 27502 (dev/manutenção software) ou 26123 (processamento dados)
+
+### 21.7 Adesão a ARP Online (Art. 86)
+
+Fluxo digital com 6 etapas:
+1. **Busca:** Localizar ATA com saldo via PNCP (`quantidadeEmpenhada`)
+2. **Análise:** Verificar saldo e vigência (Art. 86, §4º e §5º)
+3. **Solicitação:** Docs + link enviados ao gerenciador
+4. **Gerenciador:** Autorização (via link externo se não-usuário)
+5. **Fornecedor:** Aceite (via link externo se não-usuário)
+6. **Conclusão:** 10 documentos gerados automaticamente
+
+**Limites Art. 86:** 50% do total (§4º), 50% por órgão aderente (§5º).
+
+### 21.8 API Endpoints
+
+| Endpoint | Método | Descrição |
+|----------|--------|-----------|
+| `/api/pricing?view=simular&base=X` | GET | Simular preço |
+| `/api/pricing?view=tabela` | GET | Tabela referência (SuperADM) |
+| `/api/pricing?view=parametros` | GET | Parâmetros vigentes |
+| `/api/pricing?view=categorias` | GET | 5 categorias |
+| `/api/pricing?view=modalidades` | GET | 6 modalidades |
+| `/api/pricing?view=fpm` | GET | Coeficientes FPM |
+| `/api/contratacao` | POST | Iniciar contratação |
+| `/api/contratacao?action=auto-pca` | POST | PCA automático |
+| `/api/contratacao?orgaoId=X` | GET | Listar contratações |
+| `/api/adesao-arp` | POST | Iniciar adesão |
+| `/api/adesao-arp?orgaoId=X` | GET | Listar adesões |
 
 ---
 

@@ -1129,3 +1129,307 @@ export const aia = {
       }
     }>('/api/aia/codigo-conduta'),
 }
+
+// ─── Precificação Universal API ──────────────────────────────────────────
+
+export const pricing = {
+  simular: (params: {
+    base: number
+    fonte?: string
+    arp_disponivel?: boolean
+    emenda_disponivel?: boolean
+    inovacao?: boolean
+  }) => {
+    const qs = new URLSearchParams()
+    qs.set('base', String(params.base))
+    if (params.fonte) qs.set('fonte', params.fonte)
+    if (params.arp_disponivel) qs.set('arp_disponivel', 'true')
+    if (params.emenda_disponivel) qs.set('emenda_disponivel', 'true')
+    if (params.inovacao) qs.set('inovacao', 'true')
+    return apiFetch<{
+      calculo: {
+        preco_anual: number
+        preco_mensal_equivalente: number
+        aliquota_efetiva: number
+        categoria: string
+        categoria_nome: string
+        modalidade_recomendada: string
+        modalidade_fundamento: string
+        base_calculo: number
+        fonte_base: string
+      }
+      modalidade_recomendada: {
+        id: string
+        nome: string
+        fundamento: string
+        limite_valor: number | null
+        prazo_estimado: string
+        documentos_obrigatorios: string[]
+        quando_usar: string
+        vigencia_contrato: string
+        renovacao: string
+      }
+      vigencia_opcoes: Array<{
+        duracao_anos: number
+        renovavel: boolean
+        renovacao_max_anos: number
+        renovacao_automatica: boolean
+        fundamento: string
+        justificativa: string
+      }>
+      autocontratacao: {
+        catser: string
+        catser_alternativo: string
+        descricao_objeto: string
+        trilha_documentos: string[]
+      }
+    }>(`/api/pricing?view=simular&${qs.toString()}`)
+  },
+
+  tabela: () =>
+    apiFetch<{
+      titulo: string
+      vigencia_ano: number
+      parametros: Record<string, unknown>
+      equacao: string
+      tabela: Array<{
+        orgao_descricao: string
+        tipo_ente: string
+        base_referencia: number
+        preco_anual: number
+        preco_mensal: number
+        aliquota_efetiva: number
+        modalidade: string
+        categoria: string
+      }>
+      total_itens: number
+      nota: string
+    }>('/api/pricing?view=tabela'),
+
+  parametros: () =>
+    apiFetch<{ parametros: Record<string, unknown>; fonte: string }>('/api/pricing?view=parametros'),
+
+  atualizarParametros: (data: {
+    vigencia_ano: number
+    piso?: number
+    base_min?: number
+    alpha?: number
+    limite_dispensa?: number
+  }) =>
+    apiFetch<{ sucesso: boolean; mensagem: string }>('/api/pricing?action=parametros', {
+      method: 'POST',
+      body: data,
+    }),
+
+  categorias: () =>
+    apiFetch<{
+      categorias: Array<{
+        id: string
+        nome: string
+        descricao: string
+        faixa_preco_min: number
+        faixa_preco_max: number
+        cor: string
+        icone: string
+      }>
+      nota: string
+    }>('/api/pricing?view=categorias'),
+
+  modalidades: () =>
+    apiFetch<{
+      modalidades: Array<{
+        id: string
+        nome: string
+        fundamento: string
+        limite_valor: number | null
+        prazo_estimado: string
+        documentos_obrigatorios: string[]
+        quando_usar: string
+        vigencia_contrato: string
+        renovacao: string
+      }>
+    }>('/api/pricing?view=modalidades'),
+
+  fpm: () =>
+    apiFetch<{
+      fonte: string
+      faixas: Array<{
+        populacao_min: number
+        populacao_max: number
+        coeficiente: number
+        percentual_municipios: number
+        quantidade_aprox: number
+      }>
+    }>('/api/pricing?view=fpm'),
+
+  simularLote: (entes: Array<{ base: number; fonte?: string; descricao?: string }>) =>
+    apiFetch<{
+      total: number
+      resultados: Array<{
+        descricao: string
+        base: number
+        preco_anual: number
+        preco_mensal_equivalente: number
+        categoria: string
+        modalidade_recomendada: string
+      }>
+    }>('/api/pricing?action=simular-lote', {
+      method: 'POST',
+      body: { entes },
+    }),
+}
+
+// ─── Contratação do ATA360 API ───────────────────────────────────────────
+
+export const contratacao = {
+  iniciar: (data: {
+    base_calculo: number
+    fonte_base?: string
+    modalidade_preferida?: string
+    vigencia_anos?: number
+    fonte_recurso?: string
+    emenda_numero?: string
+    arp_disponivel?: boolean
+    emenda_disponivel?: boolean
+  }) =>
+    apiFetch<{
+      sucesso: boolean
+      contratacao_id: string
+      simulacao_id: string
+      calculo: Record<string, unknown>
+      modalidade: string
+      modalidade_nome: string
+      fundamento_legal: string
+      trilha_documentos: string[]
+      catser: string
+      objeto: string
+      mensagem: string
+    }>('/api/contratacao', {
+      method: 'POST',
+      body: data,
+    }),
+
+  obter: (id: string) =>
+    apiFetch<{ contratacao: Record<string, unknown> }>(`/api/contratacao?id=${id}`),
+
+  listar: (orgaoId: string) =>
+    apiFetch<{
+      contratacoes: Array<{
+        id: string
+        numero_contrato: string | null
+        modalidade: string
+        valor_anual: number
+        status: string
+        vigencia_inicio: string
+        vigencia_fim: string
+        created_at: string
+      }>
+    }>(`/api/contratacao?orgaoId=${orgaoId}`),
+
+  atualizarStatus: (id: string, data: { status: string; observacoes?: string }) =>
+    apiFetch<{ sucesso: boolean; status: string }>(`/api/contratacao?id=${id}`, {
+      method: 'PATCH',
+      body: data,
+    }),
+
+  autoPca: (data: {
+    base_calculo: number
+    fonte_base?: string
+    exercicio?: number
+    nome_ente?: string
+    cnpj?: string
+    populacao?: number
+    uf?: string
+  }) =>
+    apiFetch<{
+      sucesso: boolean
+      pca_id: string
+      mensagem: string
+      item_pca: Record<string, unknown>
+      calculo: Record<string, unknown>
+      modalidade_recomendada: {
+        id: string
+        nome: string
+        fundamento: string
+        documentos: string[]
+        prazo: string
+      }
+      trilha_documentos: string[]
+      proxima_etapa: string
+    }>('/api/contratacao?action=auto-pca', {
+      method: 'POST',
+      body: data,
+    }),
+}
+
+// ─── Adesão a ARP API ─────────────────────────────────────────────────
+
+export const adesaoArp = {
+  iniciar: (data: {
+    ata_numero: string
+    ata_pncp_id?: string
+    ata_vigencia_inicio?: string
+    ata_vigencia_fim?: string
+    gerenciador_nome: string
+    gerenciador_cnpj?: string
+    gerenciador_uasg?: string
+    fornecedor_nome?: string
+    fornecedor_cnpj?: string
+    itens: Array<{ descricao: string; catmat?: string; catser?: string; quantidade: number; valor_unitario: number }>
+    email_gerenciador?: string
+    email_fornecedor?: string
+  }) =>
+    apiFetch<{
+      sucesso: boolean
+      adesao_id: string
+      status: string
+      valor_total: number
+      link_gerenciador: string
+      link_fornecedor: string
+      links_expiram_em: string
+      etapas: Array<{ num: number; nome: string; descricao: string; status: string }>
+      documentos_a_gerar: string[]
+      mensagem: string
+    }>('/api/adesao-arp', {
+      method: 'POST',
+      body: data,
+    }),
+
+  obter: (id: string) =>
+    apiFetch<{ adesao: Record<string, unknown> }>(`/api/adesao-arp?id=${id}`),
+
+  listar: (orgaoId: string) =>
+    apiFetch<{
+      adesoes: Array<{
+        id: string
+        ata_numero: string
+        gerenciador_nome: string
+        status: string
+        valor_total: number | null
+        created_at: string
+      }>
+    }>(`/api/adesao-arp?orgaoId=${orgaoId}`),
+
+  atualizarStatus: (id: string, data: { status: string; percentual_utilizado?: number; saldo_disponivel?: number }) =>
+    apiFetch<{ sucesso: boolean; status: string }>(`/api/adesao-arp?id=${id}`, {
+      method: 'PATCH',
+      body: data,
+    }),
+
+  respostaExterna: (adesaoId: string, data: {
+    token: string
+    tipo: 'gerenciador' | 'fornecedor'
+    aprovado: boolean
+    observacoes?: string
+    nome_responsavel?: string
+    cargo_responsavel?: string
+  }) =>
+    apiFetch<{
+      sucesso: boolean
+      status: string
+      mensagem: string
+    }>(`/api/adesao-arp?action=resposta-externa&adesaoId=${adesaoId}`, {
+      method: 'POST',
+      body: data,
+    }),
+}

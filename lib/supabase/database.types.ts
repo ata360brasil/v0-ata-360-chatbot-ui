@@ -752,6 +752,143 @@ export interface Database {
         }
       }
 
+      // ─── Parâmetros de Precificação (v8.2) ───────────────────────────────────
+      pricing_parametros: {
+        Row: {
+          id: string
+          vigencia_ano: number
+          piso: number
+          base_min: number
+          alpha: number
+          limite_dispensa: number
+          decreto_limite: string
+          dn_tcu: string | null
+          ativo: boolean
+          criado_por: string | null
+          aprovado_por: string | null
+          aprovado_em: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['pricing_parametros']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['pricing_parametros']['Insert']> & {
+          aprovado_por?: string
+          aprovado_em?: string
+        }
+      }
+
+      // ─── Simulações de Preço (v8.2) ─────────────────────────────────────────
+      pricing_simulacoes: {
+        Row: {
+          id: string
+          orgao_id: string | null
+          tipo_ente: string
+          nome_ente: string | null
+          cnpj: string | null
+          populacao: number | null
+          uf: string | null
+          base_calculo: number
+          fonte_base: 'pncp_contratacoes' | 'orcamento_loa' | 'proxy_fiscal'
+          fonte_url: string | null
+          data_referencia_base: string | null
+          preco_anual: number
+          preco_mensal: number
+          aliquota_efetiva: number | null
+          categoria: 'essencial' | 'basico' | 'intermediario' | 'avancado' | 'enterprise'
+          modalidade_recomendada: string
+          vigencia_sugerida_anos: number | null
+          parametros_id: string | null
+          status: 'simulacao' | 'proposta' | 'aceita' | 'contratada' | 'expirada'
+          valida_ate: string | null
+          simulado_por: string | null
+          ip_origem: string | null
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['pricing_simulacoes']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['pricing_simulacoes']['Insert']> & {
+          status?: 'simulacao' | 'proposta' | 'aceita' | 'contratada' | 'expirada'
+        }
+      }
+
+      // ─── Contratações do ATA360 (v8.2) ──────────────────────────────────────
+      contratacoes_ata360: {
+        Row: {
+          id: string
+          orgao_id: string
+          simulacao_id: string | null
+          numero_contrato: string | null
+          modalidade: string
+          fundamento_legal: string
+          valor_anual: number
+          valor_total_contrato: number
+          vigencia_inicio: string
+          vigencia_fim: string
+          duracao_anos: number
+          renovavel: boolean
+          renovacao_automatica: boolean
+          renovacao_max_anos: number
+          renovacoes_realizadas: number
+          ultima_renovacao: string | null
+          proxima_renovacao: string | null
+          catser: string | null
+          processo_id: string | null
+          documentos_gerados: Record<string, unknown>[]
+          status: 'em_formalizacao' | 'vigente' | 'renovando' | 'suspenso' | 'encerrado' | 'cancelado'
+          fonte_recurso: 'proprio' | 'emenda_individual' | 'emenda_bancada' | 'emenda_comissao' | 'convenio' | 'transferencia'
+          emenda_numero: string | null
+          observacoes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['contratacoes_ata360']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['contratacoes_ata360']['Insert']> & {
+          status?: 'em_formalizacao' | 'vigente' | 'renovando' | 'suspenso' | 'encerrado' | 'cancelado'
+          renovacoes_realizadas?: number
+          ultima_renovacao?: string
+          proxima_renovacao?: string
+        }
+      }
+
+      // ─── Adesão a ARP (v8.2) ────────────────────────────────────────────────
+      adesao_arp: {
+        Row: {
+          id: string
+          orgao_aderente_id: string
+          ata_numero: string
+          ata_pncp_id: string | null
+          ata_vigencia_inicio: string | null
+          ata_vigencia_fim: string | null
+          gerenciador_nome: string
+          gerenciador_cnpj: string | null
+          gerenciador_uasg: string | null
+          gerenciador_usuario_ata360: boolean
+          fornecedor_nome: string | null
+          fornecedor_cnpj: string | null
+          itens: Record<string, unknown>[]
+          valor_total: number | null
+          percentual_utilizado: number | null
+          saldo_disponivel: number | null
+          quantidade_empenhada: number | null
+          status: 'busca' | 'analise' | 'solicitacao_enviada' | 'aguardando_gerenciador' | 'aguardando_fornecedor' | 'autorizada' | 'contratada' | 'recusada_gerenciador' | 'recusada_fornecedor' | 'expirada' | 'cancelada'
+          link_gerenciador: string | null
+          link_gerenciador_expira: string | null
+          link_fornecedor: string | null
+          link_fornecedor_expira: string | null
+          email_gerenciador: string | null
+          email_fornecedor: string | null
+          lembretes_enviados: number
+          documentos: Record<string, unknown>[]
+          processo_id: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['adesao_arp']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['adesao_arp']['Insert']> & {
+          status?: Database['public']['Tables']['adesao_arp']['Row']['status']
+          lembretes_enviados?: number
+        }
+      }
+
       // ─── Avaliação de Impacto Algorítmico — AIA (v8.1 PBIA) ────────────────
       aia_avaliacoes: {
         Row: {

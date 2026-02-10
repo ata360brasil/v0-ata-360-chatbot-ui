@@ -138,6 +138,21 @@ export const ArtifactType = {
   // 11 P1 (YAML pendente, 3-5 endpoints)
   EDL: 'EDL', MIN: 'MIN', PJU: 'PJU', CTR: 'CTR', OSD: 'OSD',
   DFI: 'DFI', TAR: 'TAR', RFI: 'RFI', RAC: 'RAC', DRC: 'DRC', RRE: 'RRE',
+  // v8.2 — Artefatos de contratação / adesão ARP
+  OFICIO_CONSULTA: 'oficio_consulta',
+  JUSTIFICATIVA_ADESAO: 'justificativa_adesao',
+  DECLARACAO_COMPATIBILIDADE: 'declaracao_compatibilidade',
+  MAPA_COMPARATIVO: 'mapa_comparativo',
+  AUTORIZACAO_GERENCIADOR: 'autorizacao_gerenciador',
+  ACEITE_FORNECEDOR: 'aceite_fornecedor',
+  TERMO_ADESAO: 'termo_adesao',
+  EXTRATO_PUBLICACAO: 'extrato_publicacao',
+  NOTA_EMPENHO: 'nota_empenho',
+  EDITAL_DIALOGO: 'edital_dialogo',
+  JUSTIFICATIVA_INOVACAO: 'justificativa_inovacao',
+  PLANO_TRABALHO: 'plano_trabalho',
+  JUSTIFICATIVA_DESTINACAO: 'justificativa_destinacao',
+  DECLARACAO_EXCLUSIVIDADE: 'declaracao_exclusividade',
 } as const
 
 export type ArtifactType = (typeof ArtifactType)[keyof typeof ArtifactType]
@@ -148,6 +163,16 @@ export const TRILHA_DOCUMENTOS: Record<string, ArtifactType[]> = {
   dispensa: ['DFD', 'JCD'],
   arp: ['PCA', 'DFD', 'ETP', 'PP', 'TR', 'MR', 'JCD', 'OFG', 'AUG', 'OFF', 'ACF', 'COM', 'REC', 'ARP'],
   credenciamento: ['DFD', 'ETP', 'TR', 'EDL'],
+  // v8.2 — Novas modalidades de contratação
+  inexigibilidade: ['DFD', 'ETP', 'TR', 'PP', 'JCD'],
+  adesao_arp_ata360: [
+    'oficio_consulta', 'justificativa_adesao', 'declaracao_compatibilidade',
+    'mapa_comparativo', 'autorizacao_gerenciador', 'aceite_fornecedor',
+    'termo_adesao', 'extrato_publicacao', 'nota_empenho',
+  ],
+  dialogo_competitivo: ['DFD', 'ETP', 'TR', 'PP', 'edital_dialogo'],
+  contratacao_inovacao: ['DFD', 'ETP', 'TR', 'justificativa_inovacao'],
+  emenda_parlamentar: ['DFD', 'plano_trabalho', 'justificativa_destinacao', 'TR', 'PP', 'JCD'],
 }
 
 // ─── Normativos Aplicáveis ─────────────────────────────────────────────────

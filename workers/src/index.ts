@@ -45,6 +45,11 @@ import compliance from './routes/compliance'
 // Ouvidoria e Canal de Denúncias (novo v8.1)
 import ouvidoria from './routes/ouvidoria'
 
+// Precificação, Contratação e Adesão ARP (novo v8.2)
+import pricing from './routes/pricing'
+import contratacao from './routes/contratacao'
+import adesaoArp from './routes/adesao-arp'
+
 // ─── Cron Imports ────────────────────────────────────────────────────────────
 
 import { propagateFeedback } from './cron/propagate-feedback'
@@ -74,12 +79,12 @@ app.use('*', cors({
 app.get('/', (c) => {
   return c.json({
     name: 'ATA360 API',
-    version: '1.1.0',
+    version: '1.2.0',
     status: 'ok',
     modulos: [
       'orquestrador', 'normalizacao', 'feedback', 'acma', 'auditor',
       'profile', 'dashboard', 'publicacao', 'pca', 'prazos',
-      'compliance', 'ouvidoria',
+      'compliance', 'ouvidoria', 'pricing', 'contratacao', 'adesao_arp',
     ],
     timestamp: new Date().toISOString(),
   })
@@ -168,6 +173,15 @@ app.route('/api/v1/compliance', compliance)
 
 // Ouvidoria e Canal de Denúncias (CGU Empresa Ética)
 app.route('/api/v1/ouvidoria', ouvidoria)
+
+// Precificação Universal (equação, categorias, tabela SuperADM)
+app.route('/api/v1/pricing', pricing)
+
+// Contratação do ATA360 (autocontratação, prova de fogo)
+app.route('/api/v1/contratacao', contratacao)
+
+// Adesão a ARP (Art. 86, Lei 14.133 — fluxo 6 etapas)
+app.route('/api/v1/adesao-arp', adesaoArp)
 
 // ─── Cron Triggers ───────────────────────────────────────────────────────────
 // Chamados pelo Cloudflare Cron Triggers (wrangler.toml)
@@ -273,6 +287,28 @@ app.notFound((c) => {
       'GET  /api/v1/ouvidoria/:orgaoId',
       'PATCH /api/v1/ouvidoria/:id/responder',
       'GET  /api/v1/ouvidoria/estatisticas/:orgaoId',
+      // Pricing
+      'GET  /api/v1/pricing/simular?base=X',
+      'GET  /api/v1/pricing/tabela (SuperADM)',
+      'GET  /api/v1/pricing/parametros',
+      'POST /api/v1/pricing/parametros (SuperADM)',
+      'GET  /api/v1/pricing/categorias',
+      'GET  /api/v1/pricing/modalidades',
+      'GET  /api/v1/pricing/fpm',
+      'POST /api/v1/pricing/vigencia',
+      'POST /api/v1/pricing/simular-lote (SuperADM)',
+      // Contratação
+      'POST /api/v1/contratacao',
+      'GET  /api/v1/contratacao/:id',
+      'GET  /api/v1/contratacao/orgao/:orgaoId',
+      'PATCH /api/v1/contratacao/:id/status',
+      'POST /api/v1/contratacao/auto-pca',
+      // Adesão ARP
+      'POST /api/v1/adesao-arp',
+      'GET  /api/v1/adesao-arp/:id',
+      'GET  /api/v1/adesao-arp/orgao/:orgaoId',
+      'PATCH /api/v1/adesao-arp/:id/status',
+      'POST /api/v1/adesao-arp/:id/resposta-externa',
     ],
   }, 404)
 })

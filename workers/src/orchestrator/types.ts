@@ -73,6 +73,16 @@ export const TRILHA_DOCUMENTOS: Record<string, string[]> = {
   dispensa: ['DFD', 'JCD'],
   arp: ['PCA', 'DFD', 'ETP', 'PP', 'TR', 'MR', 'JCD', 'OFG', 'AUG', 'OFF', 'ACF', 'COM', 'REC', 'ARP'],
   credenciamento: ['DFD', 'ETP', 'TR', 'EDL'],
+  // v8.2 — Novas modalidades de contratação
+  inexigibilidade: ['DFD', 'ETP', 'TR', 'PP', 'JCD'],
+  adesao_arp_ata360: [
+    'oficio_consulta', 'justificativa_adesao', 'declaracao_compatibilidade',
+    'mapa_comparativo', 'autorizacao_gerenciador', 'aceite_fornecedor',
+    'termo_adesao', 'extrato_publicacao', 'nota_empenho',
+  ],
+  dialogo_competitivo: ['DFD', 'ETP', 'TR', 'PP', 'edital_dialogo'],
+  contratacao_inovacao: ['DFD', 'ETP', 'TR', 'justificativa_inovacao'],
+  emenda_parlamentar: ['DFD', 'plano_trabalho', 'justificativa_destinacao', 'TR', 'PP', 'JCD'],
 }
 
 // ─── Enriched Context (Insight Engine output) ────────────────────────────────
