@@ -233,6 +233,41 @@ export const normalize = {
     }>('/api/normalize/health'),
 }
 
+// ─── Feedback API ──────────────────────────────────────────────────────────
+
+export const feedback = {
+  enviarTermo: (data: {
+    processo_id?: string
+    termo_original: string
+    termo_normalizado_sistema: string
+    catmat_sugerido_sistema?: string
+    termo_corrigido_usuario?: string
+    catmat_corrigido_usuario?: string
+    tipo_feedback: 'correcao_termo' | 'correcao_catmat' | 'aprovacao' | 'rejeicao'
+    setor?: string
+    regiao_uf?: string
+    confianca_original?: number
+  }) =>
+    apiFetch<{ sucesso: boolean; feedback: unknown }>('/api/feedback', {
+      method: 'POST',
+      body: data,
+    }),
+
+  stats: () =>
+    apiFetch<{
+      total: number
+      pendentes: number
+      validados: number
+      propagados: number
+      rejeitados: number
+      top_correcoes: Array<{
+        termo_original: string
+        termo_corrigido: string
+        total_usuarios: number
+      }>
+    }>('/api/feedback'),
+}
+
 // ─── PNCP API (via Workers) ────────────────────────────────────────────────
 
 export const pncp = {
