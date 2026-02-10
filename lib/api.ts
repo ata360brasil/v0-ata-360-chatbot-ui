@@ -355,6 +355,103 @@ export const avaliacoes = {
     }>('/api/avaliacoes'),
 }
 
+// ─── ACMA Learning API ────────────────────────────────────────────────────
+
+export const acma = {
+  registrarSugestao: (data: {
+    processo_id: string
+    documento_tipo: string
+    secao: string
+    texto_sugerido: string
+    texto_final?: string
+    decisao: 'APROVAR' | 'EDITAR' | 'NOVA_SUGESTAO' | 'DESCARTAR'
+    rating?: number
+    modelo_usado?: string
+    tier?: string
+    iteracao?: number
+  }) =>
+    apiFetch<{ sucesso: boolean; sugestao_id: string; edit_delta?: unknown }>('/api/acma/sugestao', {
+      method: 'POST',
+      body: data,
+    }),
+
+  rating: (data: { sugestao_id: string; rating: number }) =>
+    apiFetch<{ sucesso: boolean }>('/api/acma/rating', {
+      method: 'POST',
+      body: data,
+    }),
+
+  performance: (params?: { documento_tipo?: string; semanas?: number }) => {
+    const searchParams = new URLSearchParams()
+    if (params?.documento_tipo) searchParams.set('documento_tipo', params.documento_tipo)
+    if (params?.semanas) searchParams.set('semanas', String(params.semanas))
+    const qs = searchParams.toString()
+    return apiFetch<{
+      performance: Array<{
+        documento_tipo: string
+        secao: string
+        semana: string
+        total_sugestoes: number
+        aprovadas: number
+        editadas: number
+        descartadas: number
+        taxa_aprovacao: number
+        edit_ratio_medio: number
+        rating_medio: number | null
+      }>
+      padroes: Array<{
+        documento_tipo: string
+        secao: string
+        padrao_original: string
+        padrao_corrigido: string
+        frequencia: number
+        confianca: number
+      }>
+    }>(`/api/acma/performance${qs ? `?${qs}` : ''}`)
+  },
+}
+
+// ─── AUDITOR Learning API ─────────────────────────────────────────────────
+
+export const auditor = {
+  registrarResultado: (data: {
+    processo_id: string
+    documento_tipo: string
+    veredicto: 'CONFORME' | 'RESSALVAS' | 'NAO_CONFORME'
+    score: number
+    checklist: Array<{ id: string; descricao: string; conforme: boolean; achado: string | null }>
+    selo_aprovado: boolean
+    decisao_usuario?: string
+    setor?: string
+    iteracao?: number
+  }) =>
+    apiFetch<{ sucesso: boolean; resultado_id: string }>('/api/auditor/resultado', {
+      method: 'POST',
+      body: data,
+    }),
+
+  conformidade: (params?: { documento_tipo?: string; meses?: number }) => {
+    const searchParams = new URLSearchParams()
+    if (params?.documento_tipo) searchParams.set('documento_tipo', params.documento_tipo)
+    if (params?.meses) searchParams.set('meses', String(params.meses))
+    const qs = searchParams.toString()
+    return apiFetch<{
+      conformidade: Array<{
+        documento_tipo: string
+        setor: string | null
+        mes: string
+        total_auditorias: number
+        conformes: number
+        ressalvas: number
+        nao_conformes: number
+        taxa_conformidade: number
+        score_medio: number
+        selos_aprovados: number
+      }>
+    }>(`/api/auditor/conformidade${qs ? `?${qs}` : ''}`)
+  },
+}
+
 // ─── PNCP API (via Workers) ────────────────────────────────────────────────
 
 export const pncp = {

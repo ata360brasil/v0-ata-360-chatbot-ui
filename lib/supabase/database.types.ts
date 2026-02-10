@@ -230,6 +230,127 @@ export interface Database {
         Insert: Omit<Database['public']['Tables']['avaliacao_artefato']['Row'], 'id' | 'created_at'>
         Update: Partial<Database['public']['Tables']['avaliacao_artefato']['Insert']>
       }
+      acma_sugestoes: {
+        Row: {
+          id: string
+          orgao_id: string
+          processo_id: string
+          documento_tipo: string
+          secao: string
+          texto_sugerido: string
+          prompt_hash: string
+          modelo_usado: string
+          tier: string
+          decisao: 'APROVAR' | 'EDITAR' | 'NOVA_SUGESTAO' | 'DESCARTAR'
+          texto_final: string | null
+          edit_distance: number | null
+          edit_ratio: number | null
+          diferencas: Record<string, unknown> | null
+          rating: number | null
+          setor: string | null
+          iteracao: number
+          tokens_input: number | null
+          tokens_output: number | null
+          latency_ms: number | null
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['acma_sugestoes']['Row'], 'id' | 'created_at' | 'iteracao'>
+        Update: Partial<Database['public']['Tables']['acma_sugestoes']['Insert']> & {
+          rating?: number
+          decisao?: 'APROVAR' | 'EDITAR' | 'NOVA_SUGESTAO' | 'DESCARTAR'
+          texto_final?: string
+          edit_distance?: number
+          edit_ratio?: number
+          diferencas?: Record<string, unknown>
+        }
+      }
+      acma_prompt_versoes: {
+        Row: {
+          id: string
+          documento_tipo: string
+          secao: string
+          versao: number
+          prompt_template: string
+          prompt_hash: string
+          taxa_aprovacao: number | null
+          edit_distance_media: number | null
+          total_usos: number
+          ativo: number
+          criado_por: string
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['acma_prompt_versoes']['Row'], 'id' | 'created_at' | 'total_usos'>
+        Update: Partial<Database['public']['Tables']['acma_prompt_versoes']['Insert']> & {
+          total_usos?: number
+          taxa_aprovacao?: number
+          ativo?: number
+        }
+      }
+      acma_padroes_edicao: {
+        Row: {
+          id: string
+          documento_tipo: string
+          secao: string
+          padrao_original: string
+          padrao_corrigido: string
+          frequencia: number
+          confianca: number
+          setores: string[] | null
+          ativo: boolean
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['acma_padroes_edicao']['Row'], 'id' | 'created_at' | 'ativo'>
+        Update: Partial<Database['public']['Tables']['acma_padroes_edicao']['Insert']> & {
+          ativo?: boolean
+          frequencia?: number
+          confianca?: number
+        }
+      }
+      auditor_resultados: {
+        Row: {
+          id: string
+          orgao_id: string
+          processo_id: string
+          documento_tipo: string
+          veredicto: 'CONFORME' | 'RESSALVAS' | 'NAO_CONFORME'
+          score: number
+          checklist: Record<string, unknown>
+          selo_aprovado: boolean
+          decisao_usuario: string | null
+          setor: string | null
+          iteracao: number
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['auditor_resultados']['Row'], 'id' | 'created_at' | 'iteracao'>
+        Update: Partial<Database['public']['Tables']['auditor_resultados']['Insert']> & {
+          decisao_usuario?: string
+        }
+      }
+      auditor_thresholds: {
+        Row: {
+          id: string
+          check_id: string
+          documento_tipo: string
+          setor: string | null
+          severidade: string
+          peso: number
+          total_avaliacoes: number
+          taxa_override: number
+          auto_calibrado: boolean
+          calibrado_em: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['auditor_thresholds']['Row'], 'id' | 'created_at' | 'updated_at' | 'auto_calibrado' | 'total_avaliacoes' | 'taxa_override'>
+        Update: Partial<Database['public']['Tables']['auditor_thresholds']['Insert']> & {
+          severidade?: string
+          peso?: number
+          total_avaliacoes?: number
+          taxa_override?: number
+          auto_calibrado?: boolean
+          calibrado_em?: string
+        }
+      }
     }
     Views: {
       v_feedback_propagavel: {
@@ -289,6 +410,34 @@ export interface Database {
           aprovados_editados: number
           rejeitados: number
           edicao_media: number
+        }
+      }
+      v_acma_performance: {
+        Row: {
+          documento_tipo: string
+          secao: string
+          semana: string
+          total_sugestoes: number
+          aprovadas: number
+          editadas: number
+          descartadas: number
+          taxa_aprovacao: number
+          edit_ratio_medio: number
+          rating_medio: number | null
+        }
+      }
+      v_auditor_conformidade: {
+        Row: {
+          documento_tipo: string
+          setor: string | null
+          mes: string
+          total_auditorias: number
+          conformes: number
+          ressalvas: number
+          nao_conformes: number
+          taxa_conformidade: number
+          score_medio: number
+          selos_aprovados: number
         }
       }
     }
