@@ -471,6 +471,286 @@ export interface Database {
         Insert: Omit<Database['public']['Tables']['parametros_membro']['Row'], 'id' | 'created_at' | 'updated_at'>
         Update: Partial<Database['public']['Tables']['parametros_membro']['Insert']>
       }
+
+      // ─── PCA Inteligente (v8.1) ──────────────────────────────────────────────
+      pca_plano: {
+        Row: {
+          id: string
+          orgao_id: string
+          exercicio: number
+          status: 'rascunho' | 'sugerido' | 'em_revisao' | 'aprovado' | 'publicado'
+          origem: 'manual' | 'sugerido_ia' | 'importado'
+          dados_historicos_usados: Record<string, unknown> | null
+          confianca_sugestao: number | null
+          total_itens: number
+          valor_total_estimado: number
+          aprovado_por: string | null
+          aprovado_em: string | null
+          publicado_pncp_em: string | null
+          observacoes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['pca_plano']['Row'], 'id' | 'created_at' | 'updated_at' | 'total_itens' | 'valor_total_estimado'>
+        Update: Partial<Database['public']['Tables']['pca_plano']['Insert']> & {
+          status?: 'rascunho' | 'sugerido' | 'em_revisao' | 'aprovado' | 'publicado'
+          total_itens?: number
+          valor_total_estimado?: number
+          aprovado_por?: string
+          aprovado_em?: string
+          publicado_pncp_em?: string
+        }
+      }
+      pca_itens: {
+        Row: {
+          id: string
+          pca_id: string
+          orgao_id: string
+          numero_item: number
+          descricao: string
+          catmat_catser: string | null
+          tipo: 'material' | 'servico' | 'obra' | 'ti'
+          setor_requisitante: string | null
+          valor_unitario_estimado: number | null
+          quantidade_estimada: number | null
+          valor_total_estimado: number | null
+          unidade_medida: string | null
+          mes_previsto: number | null
+          prioridade: 'baixa' | 'normal' | 'alta' | 'urgente'
+          modalidade_sugerida: string | null
+          processo_id: string | null
+          status: 'pendente' | 'em_andamento' | 'concluido' | 'cancelado'
+          sugerido_por: 'manual' | 'ia' | 'historico'
+          confianca: number | null
+          justificativa: string | null
+          recorrente: boolean
+          fonte_dados: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['pca_itens']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['pca_itens']['Insert']> & {
+          status?: 'pendente' | 'em_andamento' | 'concluido' | 'cancelado'
+          processo_id?: string
+        }
+      }
+      pca_historico_compras: {
+        Row: {
+          id: string
+          orgao_id: string
+          ano: number
+          fonte: 'pncp' | 'compras_gov' | 'manual' | 'ata_registro'
+          descricao: string
+          catmat_catser: string | null
+          valor_unitario: number | null
+          quantidade: number | null
+          valor_total: number | null
+          fornecedor_cnpj: string | null
+          modalidade: string | null
+          numero_processo: string | null
+          recorrente: boolean
+          sazonalidade: number[] | null
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['pca_historico_compras']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['pca_historico_compras']['Insert']>
+      }
+
+      // ─── Compliance e Integridade (v8.1) ─────────────────────────────────────
+      compliance_programa: {
+        Row: {
+          id: string
+          orgao_id: string
+          // 5 pilares CGU (Portaria 226/2025)
+          comprometimento_lideranca: boolean
+          instancia_responsavel: boolean
+          analise_riscos: boolean
+          regras_instrumentos: boolean
+          monitoramento_continuo: boolean
+          // Instrumentos
+          codigo_conduta: boolean
+          canal_denuncias: boolean
+          due_diligence: boolean
+          treinamentos: boolean
+          // Certificações
+          certificacao_pro_etica_cgu: boolean
+          certificacao_abes: boolean
+          certificacao_tcu_diamante: boolean
+          certificacao_tce_mg: boolean
+          // Políticas
+          politica_anticorrupcao: boolean
+          politica_diversidade: boolean
+          politica_teletrabalho: boolean
+          politica_lgpd: boolean
+          politica_esg: boolean
+          // ESG
+          esg_ambiental_score: number | null
+          esg_social_score: number | null
+          esg_governanca_score: number | null
+          // ODS
+          ods_atendidos: number[] | null
+          // Scores
+          nivel_maturidade: 'inicial' | 'basico' | 'intermediario' | 'avancado' | 'excelencia'
+          score_integridade: number | null
+          ultima_avaliacao: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['compliance_programa']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['compliance_programa']['Insert']> & {
+          score_integridade?: number
+          nivel_maturidade?: 'inicial' | 'basico' | 'intermediario' | 'avancado' | 'excelencia'
+          ultima_avaliacao?: string
+        }
+      }
+      compliance_riscos: {
+        Row: {
+          id: string
+          orgao_id: string
+          programa_id: string | null
+          descricao: string
+          categoria: 'corrupcao' | 'fraude_licitacao' | 'conflito_interesse' | 'nepotismo' | 'desvio_recursos' | 'assedio' | 'discriminacao' | 'vazamento_dados'
+          probabilidade: 'muito_baixa' | 'baixa' | 'media' | 'alta' | 'muito_alta'
+          impacto: 'muito_baixo' | 'baixo' | 'medio' | 'alto' | 'muito_alto'
+          nivel_risco: 'baixo' | 'medio' | 'alto' | 'critico'
+          controles_existentes: string | null
+          controles_recomendados: string | null
+          responsavel: string | null
+          status: 'identificado' | 'mitigando' | 'monitorando' | 'aceito' | 'eliminado'
+          prazo_mitigacao: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['compliance_riscos']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['compliance_riscos']['Insert']> & {
+          status?: 'identificado' | 'mitigando' | 'monitorando' | 'aceito' | 'eliminado'
+          controles_existentes?: string
+        }
+      }
+
+      // ─── Prazos e Alertas (v8.1) ─────────────────────────────────────────────
+      prazos: {
+        Row: {
+          id: string
+          orgao_id: string
+          processo_id: string | null
+          tipo: string
+          descricao: string
+          data_inicio: string | null
+          data_limite: string
+          data_conclusao: string | null
+          nivel_alerta: 'informativo' | 'atencao' | 'urgente' | 'critico'
+          destinatario_tipo: 'membro' | 'setor' | 'orgao' | 'geral'
+          destinatario_id: string | null
+          base_legal: string | null
+          dias_legais: number | null
+          dias_uteis: boolean
+          recorrente: boolean
+          recorrencia_cron: string | null
+          status: 'ativo' | 'concluido' | 'vencido' | 'cancelado'
+          criado_por: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['prazos']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['prazos']['Insert']> & {
+          status?: 'ativo' | 'concluido' | 'vencido' | 'cancelado'
+          data_conclusao?: string
+          nivel_alerta?: 'informativo' | 'atencao' | 'urgente' | 'critico'
+        }
+      }
+      alertas: {
+        Row: {
+          id: string
+          orgao_id: string
+          prazo_id: string | null
+          tipo: string
+          nivel: 'info' | 'atencao' | 'urgente' | 'critico'
+          titulo: string
+          mensagem: string
+          destinatario_tipo: 'membro' | 'setor' | 'orgao' | 'geral'
+          destinatario_id: string | null
+          lido: boolean
+          lido_em: string | null
+          canal: 'sistema' | 'email' | 'push' | 'sms'
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['alertas']['Row'], 'id' | 'created_at' | 'lido'>
+        Update: Partial<Database['public']['Tables']['alertas']['Insert']> & {
+          lido?: boolean
+          lido_em?: string
+        }
+      }
+
+      // ─── Assinaturas Eletrônicas (v8.1) ──────────────────────────────────────
+      assinaturas: {
+        Row: {
+          id: string
+          orgao_id: string
+          processo_id: string | null
+          documento_id: string | null
+          documento_hash: string
+          signatario_id: string
+          signatario_nome: string | null
+          signatario_cpf: string | null
+          signatario_cargo: string | null
+          metodo_autenticacao: 'govbr_ouro' | 'govbr_prata' | 'certificado_icp' | 'senha_supabase'
+          nivel_assinatura: 'simples' | 'avancada' | 'qualificada'
+          ip_signatario: string
+          user_agent: string | null
+          assinatura_hash: string | null
+          certificado_emissor: string | null
+          carimbo_serpro: Record<string, unknown> | null
+          carimbo_serpro_timestamp: string | null
+          clausula_aceita: boolean
+          clausula_texto: string | null
+          valido: boolean
+          validado_em: string | null
+          created_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['assinaturas']['Row'], 'id' | 'created_at' | 'valido'>
+        Update: Partial<Database['public']['Tables']['assinaturas']['Insert']> & {
+          valido?: boolean
+          validado_em?: string
+        }
+      }
+
+      // ─── Ouvidoria e Canal de Denúncias (v8.1) ──────────────────────────────
+      ouvidoria_manifestacoes: {
+        Row: {
+          id: string
+          orgao_id: string | null
+          protocolo: string
+          tipo: string
+          categoria: string
+          assunto: string
+          descricao: string
+          anonimo: boolean
+          denunciante_id: string | null
+          denunciante_nome: string | null
+          denunciante_email: string | null
+          acusado_nome: string | null
+          acusado_cargo: string | null
+          acusado_orgao: string | null
+          status: 'recebida' | 'em_analise' | 'respondida' | 'encerrada' | 'arquivada'
+          prioridade: 'baixa' | 'normal' | 'alta' | 'urgente'
+          resposta: string | null
+          respondido_em: string | null
+          responsavel_id: string | null
+          prazo_resposta: string
+          protecao_identidade: boolean
+          ip_origem: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Omit<Database['public']['Tables']['ouvidoria_manifestacoes']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['ouvidoria_manifestacoes']['Insert']> & {
+          status?: 'recebida' | 'em_analise' | 'respondida' | 'encerrada' | 'arquivada'
+          resposta?: string
+          respondido_em?: string
+          responsavel_id?: string
+        }
+      }
     }
     Views: {
       v_feedback_propagavel: {

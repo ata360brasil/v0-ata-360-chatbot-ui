@@ -740,3 +740,305 @@ export const publication = {
       },
     }),
 }
+
+// ─── PCA Inteligente API ─────────────────────────────────────────────────
+
+export const pca = {
+  obter: (orgaoId: string, exercicio: number) =>
+    apiFetch<{
+      plano: {
+        id: string
+        exercicio: number
+        status: string
+        origem: string
+        total_itens: number
+        valor_total_estimado: number
+        confianca_sugestao: number | null
+      }
+      itens: Array<{
+        id: string
+        numero_item: number
+        descricao: string
+        catmat_catser: string | null
+        tipo: string
+        setor_requisitante: string | null
+        valor_total_estimado: number | null
+        mes_previsto: number | null
+        prioridade: string
+        modalidade_sugerida: string | null
+        status: string
+        recorrente: boolean
+        confianca: number | null
+      }>
+    }>(`/api/pca/${orgaoId}/${exercicio}`),
+
+  sugerir: (orgaoId: string, exercicio: number) =>
+    apiFetch<{
+      sucesso: boolean
+      plano_id: string
+      total_itens: number
+      valor_total: number
+      fontes_consultadas: string[]
+      confianca_geral: number
+      mensagem: string
+    }>('/api/pca/sugerir', {
+      method: 'POST',
+      body: { orgao_id: orgaoId, exercicio },
+    }),
+
+  conciliar: (pcaId: string, orgaoId: string) =>
+    apiFetch<{
+      sucesso: boolean
+      itens_vinculados: number
+      itens_sem_processo: number
+      processos_sem_pca: number
+      sugestoes_atualizacao: Array<{
+        item_id: string
+        tipo: string
+        descricao: string
+      }>
+    }>('/api/pca/conciliar', {
+      method: 'POST',
+      body: { pca_id: pcaId, orgao_id: orgaoId },
+    }),
+
+  vincular: (processoId: string, objeto: string) =>
+    apiFetch<{
+      sucesso: boolean
+      item_vinculado: string | null
+      mensagem: string
+    }>('/api/pca/vincular', {
+      method: 'POST',
+      body: { processo_id: processoId, objeto },
+    }),
+}
+
+// ─── Prazos e Alertas API ────────────────────────────────────────────────
+
+export const prazos = {
+  listar: (orgaoId: string, params?: { status?: string; processo_id?: string }) => {
+    const searchParams = new URLSearchParams()
+    if (params?.status) searchParams.set('status', params.status)
+    if (params?.processo_id) searchParams.set('processo_id', params.processo_id)
+    const qs = searchParams.toString()
+    return apiFetch<{
+      prazos: Array<{
+        id: string
+        tipo: string
+        descricao: string
+        data_limite: string
+        nivel_alerta: string
+        destinatario_tipo: string
+        base_legal: string | null
+        status: string
+        processo_id: string | null
+      }>
+    }>(`/api/prazos/${orgaoId}${qs ? `?${qs}` : ''}`)
+  },
+
+  alertas: (orgaoId: string, params?: { nao_lidos?: boolean }) =>
+    apiFetch<{
+      alertas: Array<{
+        id: string
+        tipo: string
+        nivel: string
+        titulo: string
+        mensagem: string
+        destinatario_tipo: string
+        lido: boolean
+        created_at: string
+      }>
+    }>(`/api/prazos/${orgaoId}/alertas${params?.nao_lidos ? '?lido=false' : ''}`),
+
+  criar: (data: {
+    orgao_id: string
+    tipo: string
+    descricao: string
+    data_limite: string
+    processo_id?: string
+    destinatario_tipo?: string
+    base_legal?: string
+    dias_legais?: number
+  }) =>
+    apiFetch<{ sucesso: boolean; prazo_id: string }>('/api/prazos', {
+      method: 'POST',
+      body: data,
+    }),
+
+  criarProcesso: (data: {
+    processo_id: string
+    orgao_id: string
+    modalidade: string
+    criado_por?: string
+  }) =>
+    apiFetch<{ sucesso: boolean; prazos_criados: number }>('/api/prazos/processo', {
+      method: 'POST',
+      body: data,
+    }),
+
+  marcarLido: (alertaId: string) =>
+    apiFetch<{ sucesso: boolean }>(`/api/prazos/${alertaId}/lido`, {
+      method: 'PATCH',
+    }),
+}
+
+// ─── Compliance e Integridade API ────────────────────────────────────────
+
+export const compliance = {
+  programa: (orgaoId: string) =>
+    apiFetch<{
+      programa: {
+        id: string
+        comprometimento_lideranca: boolean
+        instancia_responsavel: boolean
+        analise_riscos: boolean
+        regras_instrumentos: boolean
+        monitoramento_continuo: boolean
+        codigo_conduta: boolean
+        canal_denuncias: boolean
+        due_diligence: boolean
+        certificacao_pro_etica_cgu: boolean
+        certificacao_abes: boolean
+        certificacao_tcu_diamante: boolean
+        certificacao_tce_mg: boolean
+        politica_anticorrupcao: boolean
+        politica_diversidade: boolean
+        politica_teletrabalho: boolean
+        politica_lgpd: boolean
+        politica_esg: boolean
+        esg_ambiental_score: number | null
+        esg_social_score: number | null
+        esg_governanca_score: number | null
+        ods_atendidos: number[] | null
+        nivel_maturidade: string
+        score_integridade: number | null
+      } | null
+    }>(`/api/compliance/${orgaoId}`),
+
+  avaliar: (orgaoId: string) =>
+    apiFetch<{
+      score: number
+      nivel: string
+      gaps: string[]
+      recomendacoes: string[]
+      esg: {
+        ambiental: number
+        social: number
+        governanca: number
+        geral: number
+        classificacao: string
+      }
+    }>('/api/compliance/avaliar', {
+      method: 'POST',
+      body: { orgao_id: orgaoId },
+    }),
+
+  riscos: (orgaoId: string) =>
+    apiFetch<{
+      riscos: Array<{
+        id: string
+        descricao: string
+        categoria: string
+        probabilidade: string
+        impacto: string
+        nivel_risco: string
+        controles_existentes: string | null
+        controles_recomendados: string | null
+        status: string
+      }>
+    }>(`/api/compliance/${orgaoId}/riscos`),
+
+  gerarRiscosPadrao: (orgaoId: string) =>
+    apiFetch<{ sucesso: boolean; riscos_criados: number }>('/api/compliance/riscos/padrao', {
+      method: 'POST',
+      body: { orgao_id: orgaoId },
+    }),
+
+  ods: () =>
+    apiFetch<{
+      ods: Array<{
+        numero: number
+        titulo: string
+        descricao: string
+        contribuicao: string
+        metricas: string[]
+      }>
+    }>('/api/compliance/ods'),
+}
+
+// ─── Ouvidoria e Canal de Denúncias API ─────────────────────────────────
+
+export const ouvidoria = {
+  criar: (data: {
+    orgao_id?: string
+    tipo: string
+    categoria: string
+    assunto: string
+    descricao: string
+    anonimo?: boolean
+    denunciante_nome?: string
+    denunciante_email?: string
+    acusado_nome?: string
+    acusado_cargo?: string
+    acusado_orgao?: string
+  }) =>
+    apiFetch<{
+      sucesso: boolean
+      protocolo: string
+      prazo_resposta: string
+      mensagem: string
+      instrucoes: string
+    }>('/api/ouvidoria', {
+      method: 'POST',
+      body: data,
+    }),
+
+  consultar: (protocolo: string) =>
+    apiFetch<{
+      protocolo: string
+      tipo: string
+      categoria: string
+      assunto: string
+      status: string
+      prioridade: string
+      resposta: string | null
+      respondido_em: string | null
+      prazo_resposta: string
+      created_at: string
+    }>(`/api/ouvidoria/protocolo/${encodeURIComponent(protocolo)}`),
+
+  listar: (orgaoId: string, params?: { status?: string; tipo?: string }) => {
+    const searchParams = new URLSearchParams()
+    if (params?.status) searchParams.set('status', params.status)
+    if (params?.tipo) searchParams.set('tipo', params.tipo)
+    const qs = searchParams.toString()
+    return apiFetch<{
+      manifestacoes: Array<{
+        id: string
+        protocolo: string
+        tipo: string
+        categoria: string
+        assunto: string
+        status: string
+        prioridade: string
+        anonimo: boolean
+        created_at: string
+      }>
+    }>(`/api/ouvidoria/${orgaoId}${qs ? `?${qs}` : ''}`)
+  },
+
+  responder: (id: string, data: { resposta: string; status?: string }) =>
+    apiFetch<{ sucesso: boolean; mensagem: string }>(`/api/ouvidoria/${id}/responder`, {
+      method: 'PATCH',
+      body: data,
+    }),
+
+  estatisticas: (orgaoId: string) =>
+    apiFetch<{
+      total: number
+      por_tipo: Record<string, number>
+      por_status: Record<string, number>
+      por_prioridade: Record<string, number>
+      taxa_resolucao: number
+    }>(`/api/ouvidoria/estatisticas/${orgaoId}`),
+}

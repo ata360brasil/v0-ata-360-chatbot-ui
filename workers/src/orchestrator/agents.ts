@@ -29,6 +29,7 @@ import { AUDITOR_VERDICTS } from './types'
 import { buildPrompt } from '../acma/prompt-builder'
 import { loadCalibratedThresholds } from '../auditor/calibration'
 import { calcularSeloAprovado } from './engine'
+import { ATA360_SYSTEM_RULES, sanitizeResponse } from './chat-guard'
 
 // ─── 1. Insight Engine ───────────────────────────────────────────────────────
 // Consulta paralela: PNCP + IBGE + SERPRO + TCU + BCB + TransfereGov
@@ -197,7 +198,7 @@ export async function callACMA(
   const contextBlock = buildInsightContextBlock(insightContext)
 
   const messages = [
-    { role: 'system', content: builtPrompt.prompt },
+    { role: 'system', content: `${ATA360_SYSTEM_RULES}\n\n${builtPrompt.prompt}` },
     { role: 'user', content: `${contextBlock}\n\nGere o texto para a seção "${secao}" do ${documentoTipo}.\nObjeto: ${insightContext.objeto}` },
   ]
 
@@ -234,6 +235,9 @@ export async function callACMA(
   }
 
   const latenciaMs = Date.now() - startTime
+
+  // Sanitizar resposta — Part 19: nunca vazar dados internos
+  textoSugerido = sanitizeResponse(textoSugerido)
 
   return {
     processo_id: processoId,
@@ -368,7 +372,7 @@ export async function callAuditor(
       messages: [
         {
           role: 'system',
-          content: `Você é um auditor de conformidade para licitações públicas brasileiras (Lei 14.133/2021).
+          content: `${ATA360_SYSTEM_RULES}\n\nVocê é um auditor de conformidade para licitações públicas brasileiras (Lei 14.133/2021).
 Analise se o documento atende ao requisito. Responda APENAS com JSON:
 {"conforme": true/false, "achado": "descrição se não conforme ou null", "fundamentacao": "artigo/norma"}`,
         },

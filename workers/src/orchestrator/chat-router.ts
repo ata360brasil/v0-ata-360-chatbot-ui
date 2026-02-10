@@ -17,6 +17,7 @@ import type { ChatResponse, ProcessState, ProcessoRow, Env } from './types'
 import { PROCESS_STATES } from './types'
 import { loadProcesso, saveMessage } from './engine'
 import { runPipeline } from './pipeline'
+import { guardMessage, sanitizeResponse } from './chat-guard'
 
 // ─── Route Message ───────────────────────────────────────────────────────────
 
@@ -43,13 +44,33 @@ export async function routeMessage(
 
   const estado = processo.status as ProcessState
 
-  // 2. Salvar mensagem do usuário
+  // 2. Chat Guard — verificar segurança da mensagem (Part 19 + anti-fraude)
+  const guardResult = guardMessage(mensagem)
+  if (!guardResult.permitido && guardResult.resposta_segura) {
+    // Salvar mensagem do usuário (para audit trail) + resposta de bloqueio
+    await saveMessage(processoId, orgaoId, 'user', mensagem, estado, env)
+    await saveMessage(processoId, orgaoId, 'system', guardResult.resposta_segura, estado, env, {
+      agente: 'chat_guard',
+      metadata: {
+        tipo_bloqueio: guardResult.tipo_bloqueio,
+        termos_detectados: guardResult.termos_detectados,
+        confianca: guardResult.confianca,
+      },
+    })
+    return {
+      role: 'assistant',
+      content: guardResult.resposta_segura,
+      pipeline_acionado: false,
+    }
+  }
+
+  // 3. Salvar mensagem do usuário
   await saveMessage(processoId, orgaoId, 'user', mensagem, estado, env)
 
-  // 3. Aprender com a mensagem (profile learning — async, não bloqueia)
+  // 4. Aprender com a mensagem (profile learning — async, não bloqueia)
   learnFromMessage(userId, orgaoId, mensagem, env).catch(() => {})
 
-  // 4. Rotear com base no estado
+  // 5. Rotear com base no estado
   switch (estado) {
     case PROCESS_STATES.RASCUNHO:
       return await handleRascunhoChat(processo, mensagem, userId, orgaoId, env)

@@ -8,6 +8,7 @@
  *   Frontend → Next.js API Routes (BFF) → Este Worker → Supabase/D1/R2/KV/AI
  *
  * @see Spec v8 Part 20.9 — API do Orquestrador
+ * @see DOCUMENTACAO.md — Documentação completa
  * @see Hono v4 — lightweight framework for Cloudflare Workers
  */
 
@@ -18,20 +19,38 @@ import type { Env } from './orchestrator/types'
 
 // ─── Route Imports ───────────────────────────────────────────────────────────
 
+// Core
 import processo from './routes/processo'
 import normalize from './routes/normalize'
 import feedback from './routes/feedback'
+
+// Learning
 import acmaLearning from './routes/acma-learning'
 import auditorLearning from './routes/auditor-learning'
 import profile from './routes/profile'
+
+// Dashboard & Publication
 import dashboard from './routes/dashboard'
 import publication from './routes/publication'
+
+// PCA Inteligente (novo v8.1)
+import pca from './routes/pca'
+
+// Prazos e Alertas (novo v8.1)
+import prazos from './routes/prazos'
+
+// Compliance e Integridade (novo v8.1)
+import compliance from './routes/compliance'
+
+// Ouvidoria e Canal de Denúncias (novo v8.1)
+import ouvidoria from './routes/ouvidoria'
 
 // ─── Cron Imports ────────────────────────────────────────────────────────────
 
 import { propagateFeedback } from './cron/propagate-feedback'
 import { improvePrompts } from './cron/improve-prompts'
-import { calibrateThresholds } from '../src/auditor/calibration'
+import { calibrateThresholds } from './auditor/calibration'
+import { verificarPrazos } from './prazos/controller'
 
 // ─── App Setup ───────────────────────────────────────────────────────────────
 
@@ -55,8 +74,13 @@ app.use('*', cors({
 app.get('/', (c) => {
   return c.json({
     name: 'ATA360 API',
-    version: '1.0.0',
+    version: '1.1.0',
     status: 'ok',
+    modulos: [
+      'orquestrador', 'normalizacao', 'feedback', 'acma', 'auditor',
+      'profile', 'dashboard', 'publicacao', 'pca', 'prazos',
+      'compliance', 'ouvidoria',
+    ],
     timestamp: new Date().toISOString(),
   })
 })
@@ -131,9 +155,19 @@ app.route('/api/v1/profile', profile)
 app.route('/api/v1/dashboard', dashboard)
 
 // Publicação (assinatura + carimbo + PNCP)
-// Nota: publication usa rota /api/v1/processo/:id/publicar
-// que é sub-rota do processo, montada separadamente
 app.route('/api/v1/publicacao', publication)
+
+// PCA Inteligente (sugestão automática, conciliação, PCA vivo)
+app.route('/api/v1/pca', pca)
+
+// Prazos e Alertas (controle de prazos em tempo real)
+app.route('/api/v1/prazos', prazos)
+
+// Compliance e Integridade (CGU, ESG, ODS, certificações)
+app.route('/api/v1/compliance', compliance)
+
+// Ouvidoria e Canal de Denúncias (CGU Empresa Ética)
+app.route('/api/v1/ouvidoria', ouvidoria)
 
 // ─── Cron Triggers ───────────────────────────────────────────────────────────
 // Chamados pelo Cloudflare Cron Triggers (wrangler.toml)
@@ -178,6 +212,19 @@ app.get('/cron/calibrate-auditor', async (c) => {
   }
 })
 
+app.get('/cron/check-deadlines', async (c) => {
+  try {
+    const result = await verificarPrazos(
+      c.env.SUPABASE_URL,
+      c.env.SUPABASE_SERVICE_KEY,
+    )
+    return c.json({ sucesso: true, resultado: result })
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : 'Erro'
+    return c.json({ sucesso: false, erro: msg }, 500)
+  }
+})
+
 // ─── 404 Handler ─────────────────────────────────────────────────────────────
 
 app.notFound((c) => {
@@ -187,19 +234,45 @@ app.notFound((c) => {
     available_routes: [
       'GET  /',
       'GET  /health',
+      // Processo
       'POST /api/v1/processo',
       'GET  /api/v1/processo/:id/status',
       'POST /api/v1/processo/:id/chat',
       'POST /api/v1/processo/:id/decisao',
       'GET  /api/v1/processo/:id/insights',
       'GET  /api/v1/processo/:id/trilha',
+      // Normalização
       'POST /api/v1/normalize',
       'POST /api/v1/feedback',
+      // Learning
       'POST /api/v1/acma/sugestao',
       'POST /api/v1/auditor/resultado',
       'GET  /api/v1/profile',
+      // Dashboard
       'GET  /api/v1/dashboard/metrics',
       'POST /api/v1/publicacao/:id/publicar',
+      // PCA
+      'GET  /api/v1/pca/:orgaoId/:exercicio',
+      'POST /api/v1/pca/sugerir',
+      'POST /api/v1/pca/conciliar',
+      'POST /api/v1/pca/vincular',
+      // Prazos
+      'GET  /api/v1/prazos/:orgaoId',
+      'GET  /api/v1/prazos/:orgaoId/alertas',
+      'POST /api/v1/prazos',
+      'POST /api/v1/prazos/processo',
+      // Compliance
+      'GET  /api/v1/compliance/:orgaoId',
+      'POST /api/v1/compliance/avaliar',
+      'GET  /api/v1/compliance/:orgaoId/riscos',
+      'POST /api/v1/compliance/riscos/padrao',
+      'GET  /api/v1/compliance/ods',
+      // Ouvidoria
+      'POST /api/v1/ouvidoria',
+      'GET  /api/v1/ouvidoria/protocolo/:protocolo',
+      'GET  /api/v1/ouvidoria/:orgaoId',
+      'PATCH /api/v1/ouvidoria/:id/responder',
+      'GET  /api/v1/ouvidoria/estatisticas/:orgaoId',
     ],
   }, 404)
 })
@@ -210,7 +283,7 @@ app.onError((err, c) => {
   console.error('Unhandled error:', err)
   return c.json({
     error: 'Internal Server Error',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Erro interno',
+    message: 'Erro interno',
   }, 500)
 })
 
@@ -222,6 +295,15 @@ export default {
   // Cloudflare Cron Triggers
   async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext) {
     switch (event.cron) {
+      // A cada hora: verificar prazos e disparar alertas
+      case '0 * * * *':
+        ctx.waitUntil(
+          verificarPrazos(env.SUPABASE_URL, env.SUPABASE_SERVICE_KEY)
+            .then(r => console.log('Prazos verificados:', r))
+            .catch(e => console.error('Erro verificação prazos:', e))
+        )
+        break
+
       // A cada 6 horas: propagar feedback
       case '0 */6 * * *':
         ctx.waitUntil(
