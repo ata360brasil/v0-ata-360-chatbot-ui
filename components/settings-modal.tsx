@@ -64,7 +64,7 @@ import {
 
 type SettingsSection = "profile" | "legal-library" | "password" | "theme" | "accessibility" | "how-it-works";
 type ProfileTab = "institutional" | "member" | "parameters";
-type HelpSection = "contact" | "support" | "ombudsman";
+type HelpSection = "contact" | "support" | "faq" | "ombudsman";
 
 interface SettingsModalProps {
   open: boolean;
@@ -517,6 +517,369 @@ function SupportModal({
                 )}
               </div>
             ) : null}
+          </div>
+        </ScrollArea>
+      </div>
+    </div>
+  );
+}
+
+// ─── Sub-modal: FAQ / Perguntas Frequentes ──────────────────────────────
+
+type FaqCategory = "all" | "plataforma" | "documentos" | "ia" | "legal" | "seguranca" | "contratacao" | "dados";
+
+interface FaqItem {
+  q: string;
+  a: string;
+  category: FaqCategory;
+  level: "basico" | "intermediario" | "avancado";
+}
+
+const FAQ_CATEGORIES: { value: FaqCategory; label: string }[] = [
+  { value: "all", label: "Todos" },
+  { value: "plataforma", label: "Plataforma" },
+  { value: "documentos", label: "Documentos" },
+  { value: "ia", label: "IA" },
+  { value: "legal", label: "Legal" },
+  { value: "seguranca", label: "Seguranca" },
+  { value: "contratacao", label: "Contratacao" },
+  { value: "dados", label: "Dados" },
+];
+
+const FAQ_DATA: FaqItem[] = [
+  // ── Plataforma (basico)
+  {
+    q: "O que e o ATA360?",
+    a: "O ATA360 e uma plataforma de inteligencia em contratacoes publicas. Ele ajuda servidores a planejar, pesquisar precos, gerar documentos licitatorios e auditar conformidade — tudo fundamentado na Lei 14.133/2021 e em dados oficiais.",
+    category: "plataforma",
+    level: "basico",
+  },
+  {
+    q: "Quem pode usar o ATA360?",
+    a: "Exclusivamente entes publicos (CNPJ de orgao/entidade da administracao publica) e seus servidores, empregados publicos ou colaboradores vinculados (CPF). Fornecedores, licitantes e pessoas fisicas nao sao atendidos.",
+    category: "plataforma",
+    level: "basico",
+  },
+  {
+    q: "Como faco login?",
+    a: "O acesso e feito via Gov.br (autenticacao federada). Basta clicar em 'Acessar Plataforma' e utilizar suas credenciais Gov.br. Niveis prata ou ouro permitem assinatura avancada de documentos.",
+    category: "plataforma",
+    level: "basico",
+  },
+  {
+    q: "Existe versao gratuita ou periodo de teste?",
+    a: "O ATA360 oferece periodo de avaliacao de 14 dias com funcionalidades completas. Apos o periodo, a contratacao e formalizada conforme a modalidade adequada ao ente publico.",
+    category: "plataforma",
+    level: "basico",
+  },
+  {
+    q: "O ATA360 funciona no celular?",
+    a: "Sim. A interface e responsiva e funciona em qualquer navegador moderno (desktop, tablet ou celular). Nao e necessario instalar aplicativo.",
+    category: "plataforma",
+    level: "basico",
+  },
+  // ── Documentos (basico → intermediario)
+  {
+    q: "Quais documentos o ATA360 gera?",
+    a: "DFD, ETP, Pesquisa de Precos, Termo de Referencia, Mapa de Riscos, Justificativa de Contratacao Direta, Ata de Registro de Precos, entre outros — mais de 20 tipos de artefatos licitatorios.",
+    category: "documentos",
+    level: "basico",
+  },
+  {
+    q: "Posso editar os documentos gerados?",
+    a: "Sim. Toda sugestao gerada passa por revisao humana obrigatoria. Voce pode aceitar, editar ou rejeitar cada secao antes de finalizar. O documento so e considerado oficial apos sua aprovacao.",
+    category: "documentos",
+    level: "basico",
+  },
+  {
+    q: "Em qual formato os documentos sao exportados?",
+    a: "PDF com identidade visual padronizada, assinatura eletronica e selo de qualidade (quando conforme). O layout segue principios de Legal Design para leitura acessivel.",
+    category: "documentos",
+    level: "intermediario",
+  },
+  {
+    q: "O que e o Selo de Qualidade ATA360?",
+    a: "O selo certifica que o documento foi gerado com dados oficiais, fundamentacao legal rastreavel e passou pela auditoria automatica de conformidade. Ele aparece automaticamente quando os criterios sao atendidos — e fica ausente (sem explicacao) quando nao sao.",
+    category: "documentos",
+    level: "intermediario",
+  },
+  {
+    q: "Como funciona o ETP no ATA360?",
+    a: "O ETP (Estudo Tecnico Preliminar) segue a logica do Art. 18 da Lei 14.133/2021: primeiro diagnostica o problema, depois mapeia alternativas de mercado. O ATA360 impede a antecipacao da definicao do objeto na fase de estudo — um erro recorrente na administracao publica.",
+    category: "documentos",
+    level: "intermediario",
+  },
+  // ── IA (intermediario → avancado)
+  {
+    q: "A IA do ATA360 pode inventar dados?",
+    a: "Nao. A geracao de documentos utiliza motor deterministico (nao IA generativa). Todas as informacoes provem de fontes oficiais (PNCP, IBGE, TCU, BCB). Sugestoes inteligentes passam por 8 camadas de blindagem e exigem revisao humana obrigatoria.",
+    category: "ia",
+    level: "intermediario",
+  },
+  {
+    q: "A IA substitui o servidor publico?",
+    a: "Nao. O ATA360 amadurece a decisao antes da assinatura. A decisao humana e soberana (Art. 20 da LINDB). O sistema oferece dados oficiais e fundamentacao legal rastreavel — reduzindo o risco de erro que nasce da solidao tecnica, nao da falta de conhecimento.",
+    category: "ia",
+    level: "intermediario",
+  },
+  {
+    q: "Como a IA e auditada?",
+    a: "Toda sugestao gerada por IA e verificada automaticamente por um agente de auditoria independente que cruza a saida contra a legislacao, jurisprudencia e dados oficiais. Resultados sao classificados em Conforme, Ressalvas ou Nao Conforme — com fundamentacao explicita.",
+    category: "ia",
+    level: "avancado",
+  },
+  {
+    q: "Qual o papel da IA na pesquisa de precos?",
+    a: "A IA consulta fontes oficiais (PNCP, Compras.gov.br) conforme a IN SEGES 65/2021, calcula media, mediana, desvio padrao (Bessel) e coeficiente de variacao. Precos fora do intervalo interquartil sao sinalizados automaticamente. A decisao final sobre qual preco adotar e do servidor.",
+    category: "ia",
+    level: "avancado",
+  },
+  // ── Legal (intermediario → avancado)
+  {
+    q: "Qual lei fundamenta o ATA360?",
+    a: "A Lei 14.133/2021 (Nova Lei de Licitacoes e Contratos Administrativos). Alem dela, o sistema incorpora LINDB (Lei 13.655/2018), LGPD (Lei 13.709/2018), Marco Civil da Internet (Lei 12.965/2014), Lei Anticorrupcao (Lei 12.846/2013) e 560+ jurisprudencias de tribunais de contas.",
+    category: "legal",
+    level: "intermediario",
+  },
+  {
+    q: "O que e a LINDB e como se aplica?",
+    a: "A LINDB (Lei 13.655/2018) estabelece normas de seguranca juridica para decisoes publicas. O ATA360 aplica 6 artigos: Art. 20 (consequencias praticas), Art. 21 (transicao), Art. 22 (dificuldades do gestor), Art. 23 (mudancas de lei), Art. 28 (dolo/erro grosseiro) e Art. 30 (invalidade retroativa).",
+    category: "legal",
+    level: "avancado",
+  },
+  {
+    q: "O ATA360 acompanha mudancas na legislacao?",
+    a: "Sim. O sistema monitora o Diario Oficial da Uniao (DOU) e atualiza automaticamente as tabelas de referencia legal. Alteracoes normativas relevantes sao refletidas nos modelos de documentos e nas regras de auditoria.",
+    category: "legal",
+    level: "avancado",
+  },
+  // ── Seguranca (intermediario → avancado)
+  {
+    q: "O ATA360 esta em conformidade com a LGPD?",
+    a: "Sim. Implementa privacy-by-design conforme a LGPD: consentimento granular (Art. 7), anonimizacao (Art. 18, IV), politicas de retencao (Art. 15-16), direitos do titular (Art. 18) e bases legais adequadas para cada tratamento de dados.",
+    category: "seguranca",
+    level: "intermediario",
+  },
+  {
+    q: "Como funciona a assinatura eletronica?",
+    a: "Tres niveis conforme Lei 14.063/2020: Simples (Gov.br bronze), Avancada (Gov.br prata/ouro) e Qualificada (ICP-Brasil). Cada assinatura registra IP, user-agent, timestamp UTC, metodo de autenticacao e hash SHA-256 do documento.",
+    category: "seguranca",
+    level: "intermediario",
+  },
+  {
+    q: "Meus dados estao isolados de outros orgaos?",
+    a: "Sim. O ATA360 opera com isolamento multi-tenant rigoroso. Cada orgao acessa apenas seus proprios dados. A unica excecao sao dados publicos do PNCP, que sao abertos por natureza. Nao ha cruzamento de informacoes entre entes.",
+    category: "seguranca",
+    level: "avancado",
+  },
+  {
+    q: "A plataforma revela como funciona internamente?",
+    a: "Nao. Os documentos gerados mostram O QUE foi decidido e a CONCLUSAO fundamentada — nunca COMO (algoritmos, pesos, thresholds, modelos). A arquitetura interna e protegida como segredo industrial (Lei 9.279/1996 e Lei 9.609/1998).",
+    category: "seguranca",
+    level: "avancado",
+  },
+  // ── Contratacao (intermediario → avancado)
+  {
+    q: "Como contrato o ATA360 para meu orgao?",
+    a: "A contratacao pode ser feita por Dispensa Eletronica (Art. 75 II), Inexigibilidade (Art. 74 I), Adesao a ARP (Art. 86), Dialogo Competitivo (Art. 32) ou via Emenda Parlamentar. A modalidade recomendada depende do porte e contexto do orgao.",
+    category: "contratacao",
+    level: "intermediario",
+  },
+  {
+    q: "O preco e igual para todos os orgaos?",
+    a: "Nao. O preco e calculado individualmente com base no porte do ente (populacao, orcamento via FPM). Municipios menores pagam proporcionalmente menos. Nao existem 'planos fixos' — existe uma formula transparente com piso minimo.",
+    category: "contratacao",
+    level: "intermediario",
+  },
+  {
+    q: "O que e Adesao a ARP e como funciona?",
+    a: "Conforme Art. 86 da Lei 14.133, orgaos podem aderir a uma Ata de Registro de Precos existente. O limite e 50% do quantitativo total e 50% por orgao. O ATA360 acompanha o saldo em tempo real via PNCP e gera os 10 documentos necessarios automaticamente.",
+    category: "contratacao",
+    level: "avancado",
+  },
+  // ── Dados (intermediario → avancado)
+  {
+    q: "De onde vem os dados do ATA360?",
+    a: "De 17+ fontes oficiais do governo brasileiro: PNCP, Compras.gov.br, IBGE, TCU, CGU, Portal da Transparencia, BCB, TransfereGov, FNDE, FNS, SICONFI, Camara, Senado e SERPRO. Sao 110+ endpoints de APIs governamentais.",
+    category: "dados",
+    level: "intermediario",
+  },
+  {
+    q: "Os dados sao atualizados em tempo real?",
+    a: "Sim. APIs governamentais sao consultadas em tempo real. Indices economicos (IPCA, IGP-M, Selic, dolar) sao atualizados via BCB. Dados de licitacoes sao sincronizados com o PNCP continuamente.",
+    category: "dados",
+    level: "intermediario",
+  },
+  {
+    q: "O ATA360 tem acesso a dados de CATMAT e CATSER?",
+    a: "Sim. A base inclui 337 mil itens CATMAT (materiais) e 35 mil itens CATSER (servicos), alem de 1.200+ UASGs. A busca utiliza normalizacao linguistica para lidar com sinonimias e regionalismos.",
+    category: "dados",
+    level: "avancado",
+  },
+  {
+    q: "O que acontece com meus dados se eu cancelar?",
+    a: "Conforme LGPD Art. 18, V, voce tem direito a portabilidade dos dados em formato estruturado por ate 30 dias apos o termino. Trilhas de auditoria sao preservadas por 5 anos (obrigacao legal). Dados pessoais sao eliminados ou anonimizados conforme a Politica de Privacidade.",
+    category: "dados",
+    level: "avancado",
+  },
+];
+
+function FaqModal({
+  open,
+  onClose,
+}: { open: boolean; onClose: () => void }) {
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState<FaqCategory>("all");
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  if (!open) return null;
+
+  const filtered = FAQ_DATA.filter((item) => {
+    const matchesCategory = activeCategory === "all" || item.category === activeCategory;
+    const matchesSearch =
+      !search.trim() ||
+      item.q.toLowerCase().includes(search.toLowerCase()) ||
+      item.a.toLowerCase().includes(search.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  const levelLabel = (level: FaqItem["level"]) => {
+    switch (level) {
+      case "basico": return "Basico";
+      case "intermediario": return "Intermediario";
+      case "avancado": return "Avancado";
+    }
+  };
+
+  const levelColor = (level: FaqItem["level"]) => {
+    switch (level) {
+      case "basico": return "bg-emerald-500/10 text-emerald-600";
+      case "intermediario": return "bg-blue-500/10 text-blue-600";
+      case "avancado": return "bg-amber-500/10 text-amber-600";
+    }
+  };
+
+  return (
+    <div role="dialog" aria-modal="true" aria-labelledby="faq-dialog-title" className="fixed inset-0 z-[60] flex items-center justify-center">
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+      <div className="relative bg-background border border-border/50 rounded-2xl w-[90vw] max-w-lg shadow-lg max-h-[85vh] flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border/30 shrink-0">
+          <div className="flex items-center gap-2">
+            <HelpCircle className="size-4 text-foreground" />
+            <span id="faq-dialog-title" className="text-sm font-semibold text-foreground">
+              PERGUNTAS FREQUENTES
+            </span>
+          </div>
+          <button
+            onClick={onClose}
+            aria-label="Fechar perguntas frequentes"
+            className="size-8 rounded-full flex items-center justify-center hover:bg-muted transition-colors cursor-pointer"
+          >
+            <X className="size-4 text-muted-foreground" />
+          </button>
+        </div>
+
+        {/* Search */}
+        <div className="px-5 pt-4 pb-2 shrink-0">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Buscar pergunta..."
+              aria-label="Buscar nas perguntas frequentes"
+              className="w-full bg-background border border-border/50 rounded-full text-xs text-foreground placeholder:text-muted-foreground/50 focus:outline-none pl-9 pr-3 py-2.5"
+            />
+          </div>
+        </div>
+
+        {/* Category filters */}
+        <div className="px-5 pb-3 shrink-0">
+          <div className="flex flex-wrap gap-1.5">
+            {FAQ_CATEGORIES.map((cat) => (
+              <button
+                key={cat.value}
+                onClick={() => {
+                  setActiveCategory(cat.value);
+                  setExpandedIndex(null);
+                }}
+                className={cn(
+                  "text-[11px] px-3 py-1.5 rounded-full border transition-colors cursor-pointer",
+                  activeCategory === cat.value
+                    ? "bg-foreground text-background border-foreground"
+                    : "border-border/50 text-foreground hover:bg-muted",
+                )}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* FAQ list */}
+        <ScrollArea className="flex-1 min-h-0">
+          <div className="px-5 pb-5 space-y-1.5">
+            {filtered.length === 0 ? (
+              <div className="py-8 text-center">
+                <HelpCircle className="size-8 text-muted-foreground/30 mx-auto mb-2" />
+                <p className="text-xs text-muted-foreground">Nenhuma pergunta encontrada</p>
+                <p className="text-[10px] text-muted-foreground/60 mt-1">Tente outro termo ou categoria</p>
+              </div>
+            ) : (
+              filtered.map((item, i) => {
+                const isExpanded = expandedIndex === i;
+                return (
+                  <div
+                    key={`${item.category}-${i}`}
+                    className="border border-border/30 rounded-2xl overflow-hidden transition-colors"
+                  >
+                    <button
+                      onClick={() => setExpandedIndex(isExpanded ? null : i)}
+                      className="w-full text-left px-4 py-3 flex items-start gap-3 cursor-pointer hover:bg-muted/30 transition-colors"
+                    >
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-medium text-foreground leading-relaxed">
+                          {item.q}
+                        </p>
+                        {!isExpanded && (
+                          <div className="flex items-center gap-1.5 mt-1.5">
+                            <span className={cn("text-[9px] px-2 py-0.5 rounded-full font-medium", levelColor(item.level))}>
+                              {levelLabel(item.level)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      <ChevronDown
+                        className={cn(
+                          "size-3.5 text-muted-foreground shrink-0 mt-0.5 transition-transform",
+                          isExpanded && "rotate-180",
+                        )}
+                      />
+                    </button>
+                    {isExpanded && (
+                      <div className="px-4 pb-3.5 border-t border-border/20">
+                        <p className="text-[11px] text-muted-foreground leading-relaxed pt-3">
+                          {item.a}
+                        </p>
+                        <div className="flex items-center gap-1.5 mt-3">
+                          <span className={cn("text-[9px] px-2 py-0.5 rounded-full font-medium", levelColor(item.level))}>
+                            {levelLabel(item.level)}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })
+            )}
+            {/* Counter */}
+            {filtered.length > 0 && (
+              <p className="text-[10px] text-muted-foreground/50 text-center pt-2">
+                {filtered.length} {filtered.length === 1 ? "pergunta" : "perguntas"}
+                {activeCategory !== "all" && ` em ${FAQ_CATEGORIES.find(c => c.value === activeCategory)?.label}`}
+              </p>
+            )}
           </div>
         </ScrollArea>
       </div>
@@ -1013,6 +1376,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   // Help sub-modals
   const [contactOpen, setContactOpen] = useState(false);
   const [supportOpen, setSupportOpen] = useState(false);
+  const [faqOpen, setFaqOpen] = useState(false);
   const [ombudsmanOpen, setOmbudsmanOpen] = useState(false);
   // Legal Library
   const [legalSearch, setLegalSearch] = useState("");
@@ -1082,6 +1446,12 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
       desc: "Abra e acompanhe chamados",
     },
     {
+      id: "faq",
+      icon: HelpCircle,
+      label: "Perguntas frequentes",
+      desc: "Dúvidas e respostas",
+    },
+    {
       id: "ombudsman",
       icon: Shield,
       label: "Ouvidoria",
@@ -1092,6 +1462,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   const handleHelpClick = (id: HelpSection) => {
     if (id === "contact") setContactOpen(true);
     else if (id === "support") setSupportOpen(true);
+    else if (id === "faq") setFaqOpen(true);
     else if (id === "ombudsman") setOmbudsmanOpen(true);
   };
 
@@ -1951,6 +2322,10 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
       <SupportModal
         open={supportOpen}
         onClose={() => setSupportOpen(false)}
+      />
+      <FaqModal
+        open={faqOpen}
+        onClose={() => setFaqOpen(false)}
       />
       <OmbudsmanModal
         open={ombudsmanOpen}
