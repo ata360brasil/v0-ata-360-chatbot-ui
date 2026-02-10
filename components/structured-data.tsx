@@ -137,6 +137,14 @@ const FAQ_ITEMS = [
     question: 'O ATA360 está alinhado aos ODS da ONU?',
     answer: 'Sim. O ATA360 contribui diretamente para 6 dos 17 Objetivos de Desenvolvimento Sustentável da Agenda 2030: ODS 5 (Igualdade de Gênero), ODS 9 (Inovação e Infraestrutura), ODS 10 (Redução das Desigualdades), ODS 12 (Consumo Responsável, meta 12.7 — compras públicas sustentáveis), ODS 16 (Instituições Eficazes) e ODS 17 (Parcerias).',
   },
+  {
+    question: 'O ATA360 substitui o servidor público?',
+    answer: 'Não. O ATA360 é uma ferramenta de apoio à decisão que amadurece a decisão antes da assinatura. A decisão humana é soberana (conforme Art. 20 da LINDB). O sistema oferece dados oficiais, fundamentação legal rastreável e auditoria preventiva — reduzindo o risco de erro que nasce da solidão técnica, não da falta de conhecimento.',
+  },
+  {
+    question: 'Como o ATA360 trata o ETP (Estudo Técnico Preliminar)?',
+    answer: 'O ATA360 garante que o ETP (Art. 18, Lei 14.133/2021) cumpra sua função original: diagnosticar o problema e mapear alternativas de mercado — não descrever o objeto. A antecipação da definição do objeto na fase de estudo é um erro recorrente que a plataforma previne automaticamente, respeitando a sequência lógica do planejamento.',
+  },
 ] as const
 
 export function FAQJsonLd() {

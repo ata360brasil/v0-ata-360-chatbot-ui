@@ -95,6 +95,61 @@ export default function CompliancePage() {
         </div>
       </section>
 
+      {/* Jurisprudencia Aplicada */}
+      <section className="mb-20">
+        <h2 className="text-2xl font-bold mb-2">Jurisprudencia aplicada</h2>
+        <p className="text-sm text-muted-foreground mb-10">
+          O ATA360 incorpora entendimentos consolidados dos tribunais de contas
+          na logica de auditoria e geracao de documentos.
+        </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="rounded-lg border border-border p-6">
+            <p className="text-xs font-medium text-primary mb-2 uppercase tracking-wide">Responsabilidade</p>
+            <h3 className="font-semibold mb-2">LINDB Art. 28 + Lei 14.133 Art. 73</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Responsabilizacao pessoal do agente exige dolo ou erro grosseiro.
+              Em contratacao direta indevida, agente e contratada respondem
+              solidariamente pelo ressarcimento ao erario. O ATA360 atua de forma
+              preventiva: auditoria antes da assinatura reduz o risco de erro.
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-border p-6">
+            <p className="text-xs font-medium text-primary mb-2 uppercase tracking-wide">Planejamento</p>
+            <h3 className="font-semibold mb-2">ETP: diagnostico antes da solucao</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              O ETP (Art. 18, Lei 14.133) existe para entender o problema e mapear
+              alternativas — nao para descrever o objeto. A antecipacao da definicao
+              do objeto na fase de estudo e erro recorrente que compromete a logica
+              do planejamento. O ATA360 garante a sequencia correta.
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-border p-6">
+            <p className="text-xs font-medium text-primary mb-2 uppercase tracking-wide">Habilitacao</p>
+            <h3 className="font-semibold mb-2">TCE-MG: proporcionalidade no Art. 67</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              O TCE-MG orienta que exigencias de documentacao na habilitacao devem
+              respeitar razoabilidade e proporcionalidade (Arts. 12 e 64, Lei 14.133).
+              Excesso restringe competicao. O ATA360 calibra checklists conforme tipo
+              e porte da contratacao.
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-border p-6">
+            <p className="text-xs font-medium text-primary mb-2 uppercase tracking-wide">Prestacao de Contas</p>
+            <h3 className="font-semibold mb-2">Medicoes e responsabilidade solidaria</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Tribunais de contas consolidam entendimento de que a aprovacao de
+              medicoes irregulares gera responsabilidade solidaria entre agente e
+              contratada. O ATA360 registra trilha de auditoria em cada medicao
+              e etapa, reduzindo risco de irregularidade na prestacao de contas.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Canal de Denuncia */}
       <section className="mb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-8">

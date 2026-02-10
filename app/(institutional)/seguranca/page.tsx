@@ -190,6 +190,55 @@ export default function SegurancaPage() {
         </div>
       </section>
 
+      {/* Filosofia de Decisao */}
+      <section className="mb-20">
+        <h2 className="text-2xl font-bold mb-2">Ambiente tecnico, nao substituto</h2>
+        <p className="text-sm text-muted-foreground mb-10">
+          O ATA360 nao substitui o gestor. Ele amadurece a decisao antes da assinatura.
+        </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-8">
+          <div>
+            <h3 className="font-semibold mb-3">O problema da solidao tecnica</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+              O erro na administracao publica, na maioria das vezes, nao nasce da
+              falta de conhecimento. Nasce da solidao tecnica — decisoes publicas
+              exigem metodo, entendimento e validacao qualificada. Um servidor que
+              decide sozinho, sem ferramentas e sem segunda opiniao fundamentada,
+              esta exposto a riscos que poderiam ser evitados.
+            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              O Art. 28 da LINDB (Lei 13.655/2018) estabelece que a responsabilizacao
+              pessoal do agente exige dolo ou erro grosseiro. Mas a melhor protecao
+              nao e juridica — e preventiva. O ATA360 atua como ambiente de validacao
+              que reduz riscos antes que eles se materializem.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-semibold mb-3">Decisao preventiva, nao reativa</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+              Ambientes tecnicos como o ATA360 nao substituem o gestor — amadurecem
+              a decisao antes da assinatura de forma preventiva. A boa governanca
+              nasce quando o dever tecnico-legal supera o desconforto e tranquiliza
+              o agente publico com decisoes melhores e mais ageis.
+            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+              O TCE-MG alerta para o excesso de documentacao na habilitacao (Art. 67,
+              Lei 14.133/2021) — exigencias desproporcionais restringem competicao.
+              O ATA360 calibra checklists conforme o tipo e porte da contratacao,
+              respeitando razoabilidade e proporcionalidade.
+            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Um erro recorrente e antecipar a definicao do objeto na fase de ETP.
+              O ETP nao nasce para descrever — nasce para entender o problema e
+              mapear alternativas. O ATA360 garante essa sequencia logica: primeiro
+              o diagnostico (ETP), depois a solucao (TR).
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Assinatura Eletronica */}
       <section className="mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-8">

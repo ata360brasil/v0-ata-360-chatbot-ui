@@ -157,7 +157,30 @@ export default function ManifestoPage() {
           </p>
         </section>
 
-        {/* Bloco 6 */}
+        {/* Bloco 6 — Solidao tecnica */}
+        <section>
+          <h2 className="text-xl font-bold mb-4">O erro nasce da solidao tecnica</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+            Na maioria das vezes, o erro na administracao publica nao nasce da falta de
+            conhecimento. Nasce da solidao tecnica — de decisoes tomadas sem metodo, sem
+            validacao qualificada, sem um segundo par de olhos fundamentado. O servidor
+            sabe o que precisa fazer; o que falta e o ambiente para fazer com seguranca.
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+            Um exemplo concreto: o ETP (Estudo Tecnico Preliminar) nao nasce para descrever
+            o objeto — nasce para entender o problema e mapear alternativas no mercado. Mas
+            sem orientacao, muitos servidores antecipam a definicao do objeto ainda na fase
+            de estudo, comprometendo a logica do planejamento. O ATA360 garante a sequencia
+            correta: primeiro o diagnostico, depois a solucao.
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            A boa governanca nasce quando o dever tecnico-legal supera o desconforto. O
+            ATA360 e o ambiente que tranquiliza o agente publico com decisoes melhores,
+            mais ageis e auditaveis — antes da assinatura, nao depois.
+          </p>
+        </section>
+
+        {/* Bloco 7 */}
         <section>
           <h2 className="text-xl font-bold mb-4">O compromisso que assumimos</h2>
           <p className="text-sm text-muted-foreground leading-relaxed mb-4">
