@@ -753,9 +753,9 @@ function FaqModal({
 
   const levelColor = (level: FaqItem["level"]) => {
     switch (level) {
-      case "basico": return "bg-emerald-500/10 text-emerald-600";
-      case "intermediario": return "bg-blue-500/10 text-blue-600";
-      case "avancado": return "bg-amber-500/10 text-amber-600";
+      case "basico": return "bg-foreground/5 text-muted-foreground";
+      case "intermediario": return "bg-foreground/10 text-muted-foreground";
+      case "avancado": return "bg-foreground/15 text-foreground/70";
     }
   };
 

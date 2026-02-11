@@ -1,6 +1,6 @@
 # ATA360 — Documentação Técnica Completa
 
-> **Versão:** 8.2.1 — 10/fev/2026
+> **Versão:** 8.3 — 10/fev/2026
 > **Repositório:** `ata360brasil/v0-ata-360-chatbot-ui`
 > **Stack:** Next.js 16 + Cloudflare Workers (Hono v4) + Supabase + D1 + R2 + KV + ClickHouse + AI Gateway
 
@@ -621,11 +621,43 @@ Tabela `parametros_membro`:
 
 ### 15.2 Funcionalidades (Frontend)
 
-- Modal completo de ouvidoria
-- Formulário de denúncia anônima
+- Modal completo de ouvidoria (sub-modal do settings-modal)
+- Formulário de denúncia anônima (3 níveis: identificado, parcial, anônimo)
 - Acompanhamento por protocolo
 - Categorias: ética, assédio, corrupção, irregularidade, sugestão, elogio
 - Integração com Comissão de Ética Pública (CEP)
+
+### 15.3 Central de Ajuda (settings-modal.tsx)
+
+A Central de Ajuda fica no menu lateral do modal de configurações e contém 4 seções:
+
+| Seção | Tipo | Funcionalidade |
+|-------|------|----------------|
+| Fale Conosco | Sub-modal | Assunto + mensagem, envio direto |
+| Suporte Técnico | Sub-modal | Criar/acompanhar chamados (9 categorias), thread de mensagens |
+| **Perguntas Frequentes** | Sub-modal | 28 perguntas em 7 categorias, busca, filtros, accordion |
+| Ouvidoria | Sub-modal | Manifestação (5 tipos) + Denúncia (6 tipos), anonimato, compliance |
+
+### 15.4 FAQ — Perguntas Frequentes
+
+**Arquivo:** `components/settings-modal.tsx` (FaqModal)
+
+- **28 perguntas** organizadas em 7 categorias com filtros tipo chip/tag
+- **Busca por texto** em perguntas e respostas
+- **3 níveis de complexidade:** Básico, Intermediário, Avançado (badges monocromáticos)
+- **Accordion** com chevron abrir/fechar, compacto
+
+| Categoria | Perguntas | Nível predominante |
+|-----------|-----------|-------------------|
+| Plataforma | 5 | Básico |
+| Documentos | 5 | Básico → Intermediário |
+| IA | 4 | Intermediário → Avançado |
+| Legal | 3 | Intermediário → Avançado |
+| Segurança | 4 | Intermediário → Avançado |
+| Contratação | 3 | Intermediário → Avançado |
+| Dados | 4 | Intermediário → Avançado |
+
+**Cobertura temática:** Login Gov.br, tipos de documentos, ETP, selo de qualidade, anti-alucinação, LINDB, LGPD, assinatura eletrônica, multi-tenant, modalidades de contratação, precificação por FPM, adesão ARP, fontes de dados, CATMAT/CATSER, portabilidade.
 
 ---
 
@@ -652,10 +684,29 @@ v0-ata-360-chatbot-ui/
 ├── app/                           # Next.js App Router
 │   ├── api/                       # BFF Routes (proxy → Workers)
 │   │   ├── processo/              # Processo CRUD + chat + decisão
+│   │   ├── contato/               # Formulário de contato (POST)
+│   │   ├── aia/                   # AIA avaliações
+│   │   ├── pricing/               # Motor de precificação
 │   │   ├── dashboard/             # Métricas SuperADM
 │   │   └── publicar/              # Assinatura + PNCP
-│   ├── (auth)/                    # Páginas de autenticação
-│   └── (main)/                    # Páginas principais
+│   ├── (main)/                    # App autenticado (sidebar + chat + dashboard)
+│   ├── (institutional)/           # Páginas públicas institucionais (10 páginas)
+│   │   ├── layout.tsx             # Header nav + footer 4 colunas
+│   │   ├── page.tsx               # Landing/hero com números reais
+│   │   ├── manifesto/             # "Admiramos Quem Muda o Brasil"
+│   │   ├── quem-somos/            # Infraestrutura + indicadores
+│   │   ├── missao-visao-valores/  # Missão, Visão, 7 Valores
+│   │   ├── compromissos/          # ODS, ESG, Acordo de Paris
+│   │   ├── compliance/            # Anticorrupção, jurisprudência, canal denúncia
+│   │   ├── seguranca/             # IA FAZ/NÃO FAZ, solidão técnica
+│   │   ├── carta-servidor/        # Carta ao servidor público
+│   │   ├── contato/               # Formulário Fale Conosco (8 tipos)
+│   │   └── cookies/               # Política de cookies (4 categorias)
+│   ├── (legal)/                   # Páginas legais públicas
+│   │   ├── privacidade/           # Política de privacidade (14 seções)
+│   │   ├── termos/                # Termos de uso (14 seções)
+│   │   └── lgpd/                  # Direitos LGPD (9 seções)
+│   └── login/                     # Gov.br OAuth2 + modo demo
 ├── components/                    # React Components (shadcn/ui)
 ├── hooks/                         # React Hooks
 │   └── use-process.ts             # Estado do processo + trilha
@@ -969,6 +1020,210 @@ Arquivo criado com constantes tipadas:
 | `middleware.ts` | CSP script-src nonce + strict-dynamic |
 | `.env.example` | +PORTAL_TRANSPARENCIA_KEY |
 | `lib/empresa-ata360.ts` | **NOVO** — dados cadastrais, identidade, compliance |
+
+---
+
+## 23. Páginas Institucionais, Legais e FAQ — v8.3 (10/fev/2026)
+
+### 23.1 Visão Geral
+
+Implementação completa do site público do ATA360 com 10 páginas institucionais, 3 páginas legais, FAQ in-app e integração de jurisprudência aplicada.
+
+**Commits:**
+- `a6b3fa5` — Páginas legais, proteção de código, anti-spy hardening
+- `98c59b9` — 10 páginas institucionais + API contato + ODS/ESG/compliance
+- `df02358` — Jurisprudência, ETP, filosofia da solidão técnica
+- `747bcd2` — FAQ sub-modal (28 perguntas, 7 categorias)
+
+### 23.2 Arquitetura de Rotas
+
+```
+app/(institutional)/           ← Público, layout próprio (header + footer 4 colunas)
+  layout.tsx                   ← Nav: Quem Somos, Compromissos, Segurança, Contato + Login CTA
+  page.tsx                     ← Landing: hero, 6 números, 4 capacidades, 6 diferenciais
+  manifesto/page.tsx           ← "Admiramos Quem Muda o Brasil" + solidão técnica
+  quem-somos/page.tsx          ← Infraestrutura + 8 indicadores + "o que não somos"
+  missao-visao-valores/page.tsx ← Missão/Visão/Propósito + 7 valores + 6 leis base
+  compromissos/page.tsx        ← 6 ODS cores oficiais + ESG 3 pilares + Paris
+  compliance/page.tsx          ← 6 pilares CGU + jurisprudência (4 cards) + 16 normativos
+  seguranca/page.tsx           ← IA FAZ/NÃO FAZ + solidão técnica + 6 certificações
+  carta-servidor/page.tsx      ← Texto puro, max-w-3xl, "Você atende o público. Nós atendemos você."
+  contato/page.tsx             ← Form (8 tipos) + CNPJ regex + sidebar info + ouvidoria
+  cookies/page.tsx             ← 4 categorias com tabelas detalhadas
+
+app/(legal)/                   ← Público, layout minimalista (max-w-4xl)
+  privacidade/page.tsx         ← 14 seções LGPD
+  termos/page.tsx              ← 14 seções (v1.0 jan/2026) + aceite + bloqueio + assinatura
+  lgpd/page.tsx                ← 9 seções direitos do titular
+
+app/api/contato/route.ts       ← POST, validação CNPJ regex, 8 tipos, sanitização
+```
+
+### 23.3 Design System Aplicado
+
+- **Max-width:** 6xl (institucional), 4xl (legal)
+- **Grid:** 2 colunas (`lg:grid-cols-2`) para textos longos, 3-4 colunas para cards
+- **Tipografia:** DM Sans, OKLCH colors, espacamento generoso
+- **Responsivo:** Mobile-first, breakpoints sm/md/lg
+- **AI Crawlers (GEO):** metadata, JSON-LD Organization + FAQ (12 itens), sitemap com prioridades
+
+### 23.4 Conteúdo e Compliance
+
+**ODS ONU atendidos (com targets específicos):**
+- ODS 5: Igualdade de Gênero
+- ODS 9: Inovação e Infraestrutura
+- ODS 10: Redução das Desigualdades
+- ODS 12: Consumo Responsável (meta 12.7 — compras públicas sustentáveis)
+- ODS 16: Instituições Eficazes (metas 16.5, 16.6, 16.10)
+- ODS 17: Parcerias
+
+**ESG 3 pilares:**
+- Ambiental: cloud-first, paperless, compras sustentáveis, logística reversa
+- Social: WCAG AA, FPM pricing proporcional, diversidade
+- Governança: CGU integridade, AIA, canal denúncia, auditoria
+
+**Compliance (6 pilares CGU):**
+Anticorrupção, Código de Conduta, Brindes e Hospitalidade, Due Diligence, Diversidade, Proteção à Criança
+
+**Base legal (16 normativos):**
+CF Art. 37, Lei 14.133, LGPD, Lei 12.846, Decreto 11.129, LINDB, LAI, Marco Civil, Lei 14.063, Lei 9.279, Lei 9.609, LC 182/2021, PL 2.338/2023, PBIA, Portaria CGU 226/2025, Lei 13.608
+
+### 23.5 Jurisprudência Aplicada (incorporada em 3 páginas)
+
+| Tema | Fundamentação | Página |
+|------|--------------|--------|
+| Responsabilidade solidária | LINDB Art. 28 + Lei 14.133 Art. 73 | compliance |
+| ETP: diagnóstico antes da solução | Art. 18, Lei 14.133 | compliance, segurança, manifesto |
+| Habilitação proporcional | TCE-MG + Arts. 12, 64 Lei 14.133 | compliance |
+| Medições irregulares | Acórdão 111/2026 2ª Câmara TCE-PE | compliance |
+| Solidão técnica | LINDB + Trilhas PBH + Boletim 570 TCU | manifesto, segurança |
+
+**Filosofia central:** "O erro não nasce da falta de conhecimento. Nasce da solidão técnica." — Aplicada como princípio transversal no manifesto, segurança e compliance.
+
+### 23.6 Termos de Uso — Seções Adicionadas (14 total)
+
+| Seção | Conteúdo | Base legal |
+|-------|----------|-----------|
+| 3.4 | Aceite obrigatório (bloqueio se recusar) | LGPD Art. 7 |
+| 3.5 | Proibição de compartilhamento de credenciais | Art. 155 Lei 14.133, Art. 313-A CP |
+| 8 | Assinatura eletrônica (3 níveis) | Lei 14.063/2020 |
+| 11 | Bloqueio e suspensão (7 hipóteses) | Lei 14.133, LGPD |
+| 13.3 | Versionamento | Boas práticas |
+
+### 23.7 Structured Data (SEO/GEO)
+
+- **Schema.org Organization:** contactPoint com email e URL
+- **Schema.org WebApplication:** featureList, offers, screenshot
+- **Schema.org FAQPage:** 12 FAQ items para AI-citability
+- **Sitemap:** 30 URLs com prioridades diferenciadas (institucional 0.7-0.9, legal 0.4, cookies 0.3)
+
+### 23.8 FAQ In-App (Central de Ajuda)
+
+**Localização:** Settings Modal → Central de Ajuda → Perguntas Frequentes (entre Suporte e Ouvidoria)
+**Componente:** `FaqModal` em `components/settings-modal.tsx`
+
+- 28 perguntas em 7 categorias (Plataforma, Documentos, IA, Legal, Segurança, Contratação, Dados)
+- Busca textual em tempo real
+- Filtros por categoria (chip/tag pattern)
+- Accordion com chevron abrir/fechar
+- 3 níveis: Básico, Intermediário, Avançado (badges monocromáticos, tons cinza)
+- Contador de resultados filtrados
+- Estado vazio quando busca não encontra
+
+### 23.9 Middleware e Segurança
+
+- 15 rotas públicas configuradas (login, legal, institucional)
+- CSP nonce + strict-dynamic para scripts
+- Anti-scraping: `X-Robots-Tag: noarchive, nosnippet` apenas em rotas autenticadas
+- Cache-Control diferenciado (assets 24h, SEO 1h, dinâmico 60s s-maxage)
+- Páginas públicas indexáveis por buscadores e AI crawlers
+
+### 23.10 Proteção de Código (Anti-Spy)
+
+- `empresa-ata360.ts` SANITIZADO (sem QSA, endereço, capital social)
+- `structured-data.tsx` SANITIZADO (sem dados internos)
+- `.gitignore`: +*.pem, +*.key, +specs/
+- ZERO nomes de agentes, YAMLs, prompts, modelos IA nos PDFs/frontend
+- Contato ÚNICO: contato@ata360.com.br | www.ata360.com.br
+- Gênero: "o ATA360" (sistema/IA), "a ATA360" (empresa)
+
+### 23.11 Arquivos Criados/Modificados
+
+| Arquivo | Tipo | Descrição |
+|---------|------|-----------|
+| `app/(institutional)/layout.tsx` | NOVO | Layout institucional (header + footer 4 colunas) |
+| `app/(institutional)/page.tsx` | NOVO | Landing page (hero + números + CTAs) |
+| `app/(institutional)/manifesto/page.tsx` | NOVO | Manifesto + solidão técnica |
+| `app/(institutional)/quem-somos/page.tsx` | NOVO | Quem somos + indicadores |
+| `app/(institutional)/missao-visao-valores/page.tsx` | NOVO | Missão/Visão/Valores |
+| `app/(institutional)/compromissos/page.tsx` | NOVO | ODS + ESG + Paris |
+| `app/(institutional)/compliance/page.tsx` | NOVO | Compliance + jurisprudência |
+| `app/(institutional)/seguranca/page.tsx` | NOVO | Segurança + IA + solidão técnica |
+| `app/(institutional)/carta-servidor/page.tsx` | NOVO | Carta ao servidor |
+| `app/(institutional)/contato/page.tsx` | NOVO | Formulário de contato |
+| `app/(institutional)/cookies/page.tsx` | NOVO | Política de cookies |
+| `app/api/contato/route.ts` | NOVO | API contato (POST + validação) |
+| `components/settings-modal.tsx` | MOD | +FaqModal (28 perguntas, 7 categorias) |
+| `components/structured-data.tsx` | MOD | +contactPoint, +12 FAQ items |
+| `middleware.ts` | MOD | +15 rotas públicas, CSP nonce |
+| `app/sitemap.ts` | MOD | +9 rotas institucionais |
+| `app/(legal)/termos/page.tsx` | MOD | +5 seções (aceite, assinatura, bloqueio) |
+| `app/(legal)/layout.tsx` | MOD | +Cookies nav, +Quem Somos footer |
+
+---
+
+## 24. Avaliação Técnica — Estado do Frontend (10/fev/2026)
+
+### 24.1 Completude do Frontend
+
+| Área | Status | Observação |
+|------|--------|-----------|
+| Layout autenticado | COMPLETO | Header + sidebar + artifacts panel + resizable divider |
+| Layout institucional | COMPLETO | 10 páginas, layout próprio, footer 4 colunas |
+| Layout legal | COMPLETO | 3 páginas (privacidade, termos, LGPD) |
+| Auth (Gov.br) | ESTRUTURA | OAuth2 callback + demo mode — aguarda Supabase config |
+| Dashboard | ESTRUTURA | Componente skeleton, aguarda APIs |
+| Processos | ESTRUTURA | Stepper, checklist, decision-bar — aguarda Workers |
+| Chat | ESTRUTURA | Router, guard — aguarda Workers |
+| Configurações | COMPLETO | Perfil (3 tabs), biblioteca legal, senha, tema, acessibilidade, vídeos |
+| Central de Ajuda | COMPLETO | Fale Conosco, Suporte, FAQ (28 perguntas), Ouvidoria |
+| Sidebar | COMPLETO | 6 menus + perfil + logout com avaliação |
+| SEO/GEO | COMPLETO | JSON-LD, sitemap, robots, FAQ schema, metadata |
+| Middleware | COMPLETO | Auth, CSP nonce, cache-control, anti-scraping |
+| Schemas (Zod) | COMPLETO | Process, selo, AI gateway |
+| API Client | COMPLETO | lib/api.ts com 8 namespaces tipados |
+| Migrations SQL | COMPLETO | 8 Supabase + 1 D1 + 3 ClickHouse |
+
+### 24.2 O que Falta (Backend — Monostate)
+
+| Componente | Descrição | Dependência |
+|-----------|-----------|-------------|
+| Supabase config | Criar projeto, executar migrations 001-008 | Conta Supabase |
+| Cloudflare Workers | Deploy workers/src/ com Hono v4 | Conta Cloudflare |
+| D1 database | Popular CATMAT (337K) + CATSER (35K) + UASGs | Workers migration |
+| R2 storage | Bucket para PDFs, selo, templates | Cloudflare dashboard |
+| KV namespace | Cache ACMA, sessões, debounce | Workers binding |
+| ClickHouse | Tabelas métricas, 1.4M+ itens | ClickHouse Cloud |
+| AI Gateway | Config modelos (Haiku/Sonnet/Opus) | Cloudflare AI |
+| SERPRO APIs | 17 serviços (NFe, CNPJ, CPF, DataValid, CND) | Contratos SERPRO |
+| Gov.br OAuth2 | Provider Supabase (keycloak adapter) | Credenciais Gov.br |
+| PNCP integração | 29 endpoints em produção | Chave API PNCP |
+| Email sending | Contato form → email real | Resend/SES/SMTP |
+
+### 24.3 TypeScript — Estado
+
+- **0 erros** em todos os arquivos criados/modificados nesta sessão
+- **213 erros pré-existentes** em stubs de API/Workers (aguardam implementação backend)
+- Todos os erros são em: `app/api/`, `workers/`, `lib/api.ts` — tipos Supabase/Workers não conectados
+
+### 24.4 Qualidade de Código
+
+- Acessibilidade: ARIA labels, roles, semântica HTML5, WCAG AA
+- Responsivo: Mobile-first, breakpoints Tailwind
+- Performance: SSR Next.js, edge caching, lazy loading
+- Segurança: CSP nonce, RLS, sanitização inputs, CNPJ regex
+- SEO: JSON-LD, sitemap, metadata, Open Graph
+- Design: Consistente OKLCH, DM Sans, espacamento generoso
 
 ---
 
