@@ -1,43 +1,79 @@
-# ATA360 — Plataforma Inteligente de Contratações Públicas
+# ATA360 — Plataforma Inteligente de Contratacoes Publicas
 
-> ATA360 é uma plataforma GovTech brasileira que utiliza inteligência artificial especializada na Lei 14.133/2021 (Nova Lei de Licitações) para auxiliar municípios e órgãos públicos na gestão de contratações públicas.
+> O ATA360 e uma plataforma GovTech brasileira AI-first que utiliza inteligencia artificial especializada na Lei 14.133/2021 (Nova Lei de Licitacoes) para auxiliar municipios e orgaos publicos na gestao de contratacoes publicas. Sistema autonomo, vinculado a lei e decisao do servidor publico.
 
-## Funcionalidades principais
+## Arquitetura AI-First
 
-- **IA Especialista na Lei 14.133/2021**: Assistente inteligente treinado na Nova Lei de Licitações, NLLC, e regulamentações complementares (IN 65/2021, IN 73/2022, Decreto 11.462/2023).
-- **Geração de Documentos**: Criação automática de Termos de Referência (TR), Estudos Técnicos Preliminares (ETP), Documentos de Formalização de Demanda (DFD), e minutas de editais.
-- **Atas de Registro de Preços**: Rastreamento, gerenciamento e adesão a atas vigentes conforme Art. 82-86 da Lei 14.133/2021.
-- **Pesquisa de Preços**: Pesquisa automatizada conforme IN 65/2021 com fontes do PNCP, Banco de Preços e painel de preços do Governo Federal.
-- **Integração PNCP**: Conexão com o Portal Nacional de Contratações Públicas para publicação e consulta obrigatória.
-- **Compliance e Auditoria**: Verificação automática de conformidade com a Lei 14.133/2021, LGPD e normas de transparência pública.
+O ATA360 e concebido como sistema AI-first — a inteligencia artificial e a infraestrutura, nao o complemento. O sistema opera com:
+- **Multi-provider AI Gateway**: Claude (Anthropic), GPT (OpenAI), Gemini (Google), Llama (Meta), Mistral
+- **3 tiers de processamento**: Triagem (80%, Haiku), Geracao (15%, Sonnet), Critico (5%, Opus)
+- **8 camadas anti-alucinacao**: fontes oficiais, motor deterministico, auditoria automatica, cross-reference, revisao humana, rastreabilidade, alertas proativos, codigo de conduta IA
+- **Agentes especializados**: ACMA (geracao), AUDITOR (compliance), INSIGHT (dados), NORMALIZER (padronizacao)
+
+## Funcionalidades Principais
+
+- **IA Especialista na Lei 14.133/2021**: Assistente treinado na Nova Lei de Licitacoes e regulamentacoes complementares (IN 65/2021, IN 73/2022, Decreto 11.462/2023).
+- **Geracao de Documentos**: Criacao automatica de TR, ETP, DFD, minutas de editais e 40+ tipos de documentos licitatorios.
+- **Atas de Registro de Precos**: Rastreamento, gerenciamento e adesao a atas vigentes (Art. 82-86, Lei 14.133/2021).
+- **Pesquisa de Precos**: Pesquisa automatizada conforme IN 65/2021 com PNCP, Banco de Precos, painel de precos e 17+ fontes oficiais.
+- **Integracao PNCP**: Portal Nacional de Contratacoes Publicas para publicacao e consulta obrigatoria.
+- **Compliance e Auditoria**: Verificacao automatica de conformidade com Lei 14.133/2021, LGPD e normas de transparencia.
+- **Normalizacao de Texto**: Pipeline de 7 estagios (tokenizacao, abreviaturas, sinonimos, regionalismos, marcas, semantico).
+- **Indicadores Fiscais**: CAPAG, FPM, FPE integrados de fontes oficiais (STN, TCU).
+
+## Conteudo Disponivel
+
+### Blog (app.ata360.com.br/blog)
+- Guia completo da Lei 14.133/2021
+- ETP (Estudo Tecnico Preliminar) passo a passo
+- Pesquisa de Precos conforme IN 65/2021
+- IA em contratacoes publicas e anti-alucinacao
+- Termo de Referencia: como elaborar
+
+### Glossario (app.ata360.com.br/glossario)
+- 14+ termos de contratacoes publicas com definicoes legais
+- Categorias: modalidades, documentos, agentes, processos, financeiro, compliance, tecnologia, orgaos
+- Fundamentacao legal por termo (Art. e Lei)
 
 ## Contexto Legal
 
-A Lei 14.133/2021 é a Nova Lei de Licitações e Contratos Administrativos do Brasil, que substituiu a Lei 8.666/1993. Ela estabelece normas gerais de licitação e contratação para as administrações públicas de todos os entes federativos. Principais mudanças incluem:
-- Fase de julgamento antes da habilitação
-- Diálogo competitivo como nova modalidade
-- Portal Nacional de Contratações Públicas (PNCP) obrigatório
-- Segregação de funções
-- Gestão de riscos obrigatória
+A Lei 14.133/2021 e a Nova Lei de Licitacoes e Contratos Administrativos do Brasil. Principais mudancas:
+- Fase de julgamento antes da habilitacao
+- Dialogo competitivo como nova modalidade
+- PNCP obrigatorio (Art. 174)
+- Segregacao de funcoes
+- Gestao de riscos obrigatoria
+- ETP obrigatorio (Art. 18)
+- Agente de Contratacao (Art. 8)
 
-## Público-alvo
+## Publico-Alvo
 
-- Pregoeiros e agentes de contratação de municípios brasileiros
-- Comissões de licitação
+Exclusivamente entes publicos (CNPJ) e seus servidores:
+- Pregoeiros e agentes de contratacao
+- Comissoes de licitacao
 - Controladores internos e externos
-- Secretários municipais de administração e finanças
-- Assessores jurídicos especializados em licitações
+- Secretarios municipais de administracao e financas
+- Assessores juridicos
 
-## Conformidade LGPD
+## Conformidade
 
-A plataforma implementa privacy-by-design conforme a LGPD (Lei 13.709/2018):
-- Consentimento granular (Art. 7)
-- Anonimização de dados pessoais (Art. 18, IV)
-- Políticas de retenção (Art. 15-16)
-- Direitos do titular de dados (Art. 18)
+- **LGPD** (Lei 13.709/2018): privacy-by-design, consentimento granular, anonimizacao
+- **LINDB** (Lei 13.655/2018): decisao humana soberana (Art. 20)
+- **PL 2.338/2023**: preparacao para Marco Regulatorio da IA
+- **ODS ONU**: alinhado a 6 dos 17 Objetivos (5, 9, 10, 12, 16, 17)
+
+## Dados Tecnicos
+
+- **Frontend**: Next.js 16, React 19, Tailwind CSS 4, TypeScript
+- **Backend**: Cloudflare Workers, Supabase (PostgreSQL)
+- **IA**: Cloudflare AI Gateway (multi-model)
+- **Fontes de dados**: 17+ APIs governamentais, 110+ endpoints
+- **Seguranca**: AES-256, CSP, HSTS, rate limiting, audit trail
 
 ## Contato
 
 - Site: https://ata360.com.br
 - Plataforma: https://app.ata360.com.br
-- Localização: Lagoa Santa, MG, Brasil
+- Email: contato@ata360.com.br
+- CNPJ: 61.291.296/0001-31
+- Natureza Juridica: Empresa Simples de Inovacao (LC 182/2021)

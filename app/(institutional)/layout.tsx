@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 const NAV_LINKS = [
   { href: '/quem-somos', label: 'Quem Somos' },
-  { href: '/compromissos', label: 'Compromissos' },
-  { href: '/seguranca', label: 'Seguranca' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/glossario', label: 'Glossario' },
   { href: '/contato', label: 'Contato' },
 ] as const
 
@@ -22,6 +22,8 @@ const FOOTER_INSTITUTIONAL = [
   { href: '/compliance', label: 'Compliance' },
   { href: '/seguranca', label: 'Seguranca e IA' },
   { href: '/carta-servidor', label: 'Carta ao Servidor' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/glossario', label: 'Glossario' },
 ] as const
 
 const FOOTER_LEGAL = [

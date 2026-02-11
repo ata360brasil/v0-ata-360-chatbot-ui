@@ -1,10 +1,12 @@
 import { MetadataRoute } from 'next'
+import { BLOG_POSTS } from '@/lib/blog'
+import { GLOSSARY_TERMS } from '@/lib/glossary'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://app.ata360.com.br'
   const lastModified = new Date()
 
-  return [
+  const staticPages: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified, changeFrequency: 'daily', priority: 1 },
     { url: `${baseUrl}/dashboard`, lastModified, changeFrequency: 'hourly', priority: 0.9 },
     { url: `${baseUrl}/contracts`, lastModified, changeFrequency: 'daily', priority: 0.8 },
@@ -23,9 +25,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/carta-servidor`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/contato`, lastModified, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/cookies`, lastModified, changeFrequency: 'monthly', priority: 0.3 },
-    // Paginas legais (publicas)
+    // Blog e Glossario (SEO programatico — alta prioridade)
+    { url: `${baseUrl}/blog`, lastModified, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/glossario`, lastModified, changeFrequency: 'weekly', priority: 0.9 },
+    // Paginas legais
     { url: `${baseUrl}/privacidade`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
     { url: `${baseUrl}/termos`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
     { url: `${baseUrl}/lgpd`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
   ]
+
+  // Programmatic SEO: blog post pages
+  const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map(post => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt),
+    changeFrequency: 'weekly' as const,
+    priority: post.featured ? 0.85 : 0.7,
+  }))
+
+  // Programmatic SEO: glossary term pages
+  const glossaryPages: MetadataRoute.Sitemap = GLOSSARY_TERMS.map(term => ({
+    url: `${baseUrl}/glossario/${term.slug}`,
+    lastModified,
+    changeFrequency: 'monthly' as const,
+    priority: 0.65,
+  }))
+
+  return [...staticPages, ...blogPages, ...glossaryPages]
 }

@@ -11,27 +11,33 @@ export default function robots(): MetadataRoute.Robots {
       // AI crawlers — explicitly allowed for AI-citability (GEO strategy)
       {
         userAgent: 'GPTBot',
-        allow: '/',
+        allow: ['/', '/blog/', '/glossario/'],
         disallow: ['/api/', '/settings/', '/login'],
       },
       {
         userAgent: 'ChatGPT-User',
-        allow: '/',
+        allow: ['/', '/blog/', '/glossario/'],
         disallow: ['/api/', '/settings/', '/login'],
       },
       {
         userAgent: 'Google-Extended',
-        allow: '/',
+        allow: ['/', '/blog/', '/glossario/'],
         disallow: ['/api/', '/settings/', '/login'],
       },
       {
         userAgent: 'PerplexityBot',
-        allow: '/',
+        allow: ['/', '/blog/', '/glossario/'],
         disallow: ['/api/', '/settings/', '/login'],
       },
       {
         userAgent: 'ClaudeBot',
-        allow: '/',
+        allow: ['/', '/blog/', '/glossario/'],
+        disallow: ['/api/', '/settings/', '/login'],
+      },
+      // Bing AI (Copilot)
+      {
+        userAgent: 'bingbot',
+        allow: ['/', '/blog/', '/glossario/'],
         disallow: ['/api/', '/settings/', '/login'],
       },
     ],

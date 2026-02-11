@@ -1,8 +1,20 @@
-# ATA360 — Documentação Técnica Completa
+# ATA360 — Documentacao Tecnica Completa
 
-> **Versão:** 8.3 — 10/fev/2026
-> **Repositório:** `ata360brasil/v0-ata-360-chatbot-ui`
-> **Stack:** Next.js 16 + Cloudflare Workers (Hono v4) + Supabase + D1 + R2 + KV + ClickHouse + AI Gateway
+> **Versao:** 8.4 — 11/fev/2026
+> **Repositorio:** `ata360brasil/v0-ata-360-chatbot-ui`
+> **Stack:** Next.js 16 + Cloudflare Workers (Hono v4) + Supabase + D1 + R2 + KV + ClickHouse + AI Gateway (Multi-Provider)
+>
+> **v8.4 Changelog:**
+> - Blog automatizado 100% (5 posts, programmatic SEO)
+> - Glossario de contratacoes publicas (14 termos, 8 categorias, DefinedTermSet schema)
+> - Validadores/mascaras avancados (CPF, CNPJ, telefone, BRL, datas, emails, URLs, redes sociais)
+> - Google Analytics 4 com consent mode LGPD e eventos AI-native
+> - Multi-provider AI gateway (Anthropic, OpenAI, Google, Meta/Llama, Mistral)
+> - Anti-alucinacao: 8 camadas documentadas + agent training infrastructure
+> - Sitemap dinamico com blog + glossario (programmatic SEO)
+> - Robots.txt otimizado para AI crawlers (GPTBot, ClaudeBot, PerplexityBot, bingbot)
+> - llms.txt atualizado com arquitetura AI-first completa
+> - README atualizado com documentacao completa do sistema
 
 ---
 

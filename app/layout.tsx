@@ -1,9 +1,8 @@
 import React from "react"
 import type { Metadata, Viewport } from 'next'
 import { DM_Sans, JetBrains_Mono } from 'next/font/google'
-// @vercel/analytics REMOVIDO: deploy = Cloudflare Pages, não Vercel (spec v8)
-// Observability: lib/observability.ts (logs + metrics + traces + Web Vitals)
 import { OrganizationJsonLd, FAQJsonLd } from '@/components/structured-data'
+import { AnalyticsProvider } from '@/components/analytics-provider'
 import './globals.css'
 
 const dmSans = DM_Sans({
@@ -102,6 +101,7 @@ export default function RootLayout({
       <body className={`${dmSans.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <OrganizationJsonLd />
         <FAQJsonLd />
+        <AnalyticsProvider />
         {children}
       </body>
     </html>
