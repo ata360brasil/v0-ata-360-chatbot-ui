@@ -178,9 +178,77 @@ Incluir características técnicas mínimas e aceitáveis.`,
 Equilibrar direitos e deveres. Art. 92 da Lei 14.133/2021.
 Incluir prazos, penalidades, e condições de pagamento.`,
     },
+    EDITAL: {
+      preambulo: `Redija o preâmbulo do edital conforme Art. 25 da Lei 14.133/2021.
+Incluir: número do edital, modalidade, critério de julgamento, regime de execução,
+fundamentação legal completa, data/hora da sessão. Linguagem oficial conforme
+Manual de Redação da Presidência.`,
+      habilitacao: `Redija os requisitos de habilitação conforme Arts. 62-70 da Lei 14.133/2021.
+Habilitação jurídica (Art. 66), qualificação técnica (Art. 67), qualificação econômico-financeira
+(Art. 69), regularidade fiscal e trabalhista (Art. 68). Requisitos proporcionais ao objeto
+(Súmula TCU 263). NUNCA exigir além do necessário.`,
+      julgamento: `Redija os critérios de julgamento conforme Art. 33 da Lei 14.133/2021.
+Definir critérios de aceitabilidade de preços unitários e global (Súmula TCU 259).
+Incluir regras de desempate (Art. 60), margem de preferência quando aplicável (Art. 26).`,
+    },
+    DESPACHO: {
+      decisorio: `Redija despacho decisório fundamentado.
+Estrutura: (1) Referência ao processo, (2) Fundamento legal, (3) Análise sucinta,
+(4) Decisão: AUTORIZO/HOMOLOGO/ADJUDICO. Art. 72 da Lei 14.133/2021 para
+contratação direta. Linguagem direta: "AUTORIZO a contratação..." sem rodeios.`,
+      ordinatorio: `Redija despacho ordinatório para movimentação processual.
+Estrutura: "Ref. Processo nº [X]. [Fundamentação breve]. ENCAMINHE-SE ao [setor]
+para [providência]." Opções: ENCAMINHE-SE, JUNTE-SE, PUBLIQUE-SE, ARQUIVE-SE.`,
+      interlocutorio: `Redija despacho interlocutório solicitando esclarecimentos.
+Estrutura: "Ref. Processo nº [X]. Verificou-se [questão]. SOLICITO esclarecimentos
+sobre [ponto específico], no prazo de [X] dias úteis." Ser específico na solicitação.`,
+    },
+    PORTARIA: {
+      nomeacao_comissao: `Redija portaria de nomeação de Comissão de Contratação.
+Art. 8º da Lei 14.133/2021. Considerandos: necessidade + fundamentação legal.
+RESOLVE: nomear membros (presidente + mínimo 2 membros), definir competências,
+prazo de vigência. Incluir: Art. 7º (segregação de funções).`,
+      designacao_pregoeiro: `Redija portaria de designação de Pregoeiro.
+Art. 8º, §5º da Lei 14.133/2021. Considerar: capacitação mínima exigida,
+equipe de apoio, competências delegadas. Incluir: vedações (Art. 9º).`,
+      designacao_fiscal: `Redija portaria de designação de Fiscal de Contrato.
+Art. 117 da Lei 14.133/2021. Incluir: fiscal técnico + fiscal administrativo
+quando aplicável. Definir atribuições conforme contrato. Indicar substituto.`,
+    },
+    PARECER_JURIDICO: {
+      analise: `Redija parecer jurídico conforme Art. 53 da Lei 14.133/2021.
+Estrutura: (1) RELATÓRIO — resumo do processo, (2) FUNDAMENTAÇÃO — análise legal
+artigo por artigo, (3) CONCLUSÃO — parecer favorável/desfavorável/com ressalvas.
+Citar cada dispositivo legal analisado. Seguir modelos AGU (minutas-padrão).
+NUNCA emitir parecer genérico sem análise específica do caso.`,
+    },
+    NOTA_TECNICA: {
+      analise: `Redija nota técnica para subsidiar decisão administrativa.
+Estrutura: (1) CONTEXTUALIZAÇÃO — problema/demanda, (2) ANÁLISE TÉCNICA —
+com dados oficiais (IBGE, PNCP, BCB, SINAPI/DATASUS conforme setor),
+(3) CONCLUSÃO — recomendação fundamentada. Incluir fontes de dados com data.
+NUNCA usar dados inventados — indicar "[consultar fonte oficial]" se indisponível.`,
+    },
+    JUSTIFICATIVA_INEXIGIBILIDADE: {
+      analise: `Redija justificativa de inexigibilidade conforme Art. 74 da Lei 14.133/2021.
+DEMONSTRAR inviabilidade de competição. Para Art. 74, I: comprovar exclusividade
+(atestado de fabricante, ACERJ ou Sindicato — vedada preferência por marca).
+Para Art. 74, III: demonstrar notória especialização + natureza singular do serviço
+(Súmula TCU 252: três requisitos simultâneos). Incluir razão da escolha do fornecedor
+e justificativa do preço. Ratificação obrigatória pela autoridade máxima (Art. 72, VIII).`,
+    },
+    JUSTIFICATIVA_DISPENSA: {
+      analise: `Redija justificativa de dispensa conforme Art. 75 da Lei 14.133/2021.
+Identificar hipótese legal específica (inciso do Art. 75). Valores 2026 (Dec. 12.807/2025):
+Art. 75, I (obras): até R$ 130.984,20 | Art. 75, II (outros): até R$ 65.492,11.
+VEDADO fracionamento para enquadramento (Art. 75, §2º). Incluir: justificativa da
+escolha do fornecedor + razão do preço (Art. 72, III e IV). Publicação no PNCP obrigatória.`,
+    },
   }
 
   return templates[documentoTipo]?.[secao]
     ?? `Gere conteúdo para a seção "${secao}" do documento "${documentoTipo}".
-Siga a Lei 14.133/2021 e normas aplicáveis. Use linguagem técnica e precisa.`
+Siga a Lei 14.133/2021 e normas aplicáveis. Use linguagem técnica e precisa.
+NUNCA invente artigos ou dados. Inclua fundamentação legal em cada parágrafo.
+Evite expressões vazias como "destaca-se que" ou "é importante ressaltar".`
 }
