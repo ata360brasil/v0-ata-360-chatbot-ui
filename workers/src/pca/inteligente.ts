@@ -49,6 +49,10 @@ export interface PCAItem {
   sugerido_por: string
   confianca: number | null
   justificativa_sugestao: string | null
+  // Campos de conciliação (preenchidos quando item é executado)
+  processo_id?: string | null
+  processo_status?: string | null
+  executado?: boolean
 }
 
 export interface CompraHistorica {
@@ -453,23 +457,80 @@ async function fetchHistoricoPNCP(
 }
 
 async function fetchHistoricoComprasGov(
-  _orgaoId: string,
-  _exercicio: number,
-  _env: Env,
+  orgaoId: string,
+  exercicio: number,
+  env: Env,
 ): Promise<CompraHistorica[]> {
-  // Placeholder — implementar com API Compras.gov.br
-  // Retorna dados de SIASG, ARP, PGC
-  return []
+  // TODO(v8.3): Implementar integração com API Compras.gov.br (SIASG/ComprasNet)
+  // Endpoint: https://compras.dados.gov.br/docs/home.html
+  // Retorna dados de SIASG, ARP vigentes, PGC (Plano de Gerenciamento de Contratações)
+  // Por enquanto: fallback para PNCP que já cobre contratos publicados
+  try {
+    const headers = {
+      'apikey': env.SUPABASE_SERVICE_KEY,
+      'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+    }
+    // Tentar buscar do cache local (pca_historico_compras) onde PNCP já salvou
+    const cacheResponse = await fetch(
+      `${env.SUPABASE_URL}/rest/v1/pca_historico_compras?orgao_id=eq.${orgaoId}&fonte=eq.comprasgov&ano=gte.${exercicio - 3}&select=*&limit=100`,
+      { headers },
+    )
+    if (!cacheResponse.ok) return []
+    const rows = await cacheResponse.json() as Array<Record<string, unknown>>
+    return rows.map(r => ({
+      descricao: String(r.descricao || ''),
+      catmat_catser: r.catmat_catser as string | null,
+      tipo: String(r.tipo || 'material'),
+      valor_unitario: Number(r.valor_unitario || 0),
+      valor_total: Number(r.valor_total || 0),
+      quantidade: Number(r.quantidade || 1),
+      modalidade: String(r.modalidade || 'pregao'),
+      ano: Number(r.ano || exercicio - 1),
+      mes_compra: Number(r.mes_compra || 1),
+      recorrente: Boolean(r.recorrente),
+      sazonalidade: (r.sazonalidade as number[]) || [],
+    }))
+  } catch {
+    return []
+  }
 }
 
 async function fetchExecucaoOrcamentaria(
-  _orgaoId: string,
-  _exercicio: number,
-  _env: Env,
+  orgaoId: string,
+  exercicio: number,
+  env: Env,
 ): Promise<CompraHistorica[]> {
-  // Placeholder — implementar com SICONFI/FINBRA
-  // Retorna dados de execução orçamentária
-  return []
+  // TODO(v8.3): Implementar integração com SICONFI/FINBRA (dados contábeis municipais)
+  // Endpoint: https://apidatalake.tesouro.gov.br/ords/siconfi/
+  // Retorna dados de empenhos e liquidações por natureza de despesa
+  // Por enquanto: fallback para cache local
+  try {
+    const headers = {
+      'apikey': env.SUPABASE_SERVICE_KEY,
+      'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+    }
+    const cacheResponse = await fetch(
+      `${env.SUPABASE_URL}/rest/v1/pca_historico_compras?orgao_id=eq.${orgaoId}&fonte=eq.execucao_orcamentaria&ano=gte.${exercicio - 3}&select=*&limit=100`,
+      { headers },
+    )
+    if (!cacheResponse.ok) return []
+    const rows = await cacheResponse.json() as Array<Record<string, unknown>>
+    return rows.map(r => ({
+      descricao: String(r.descricao || ''),
+      catmat_catser: r.catmat_catser as string | null,
+      tipo: String(r.tipo || 'material'),
+      valor_unitario: Number(r.valor_unitario || 0),
+      valor_total: Number(r.valor_total || 0),
+      quantidade: Number(r.quantidade || 1),
+      modalidade: String(r.modalidade || 'pregao'),
+      ano: Number(r.ano || exercicio - 1),
+      mes_compra: Number(r.mes_compra || 1),
+      recorrente: Boolean(r.recorrente),
+      sazonalidade: (r.sazonalidade as number[]) || [],
+    }))
+  } catch {
+    return []
+  }
 }
 
 async function salvarHistorico(
@@ -643,9 +704,14 @@ function inferirSetor(descricao: string): string {
 }
 
 function sugerirModalidade(valorEstimado: number): string {
-  // Valores Dec. 12.807/2025
-  if (valorEstimado <= 59906.02) return 'dispensa'
-  return 'pregao'
+  // Limites atualizados pelo Dec. 12.807/2025 (vigência jan/2026)
+  // Art. 75, II da Lei 14.133/2021 — dispensa por valor
+  const LIMITE_DISPENSA = 65492.11 // Dec. 12.807/2025, Art. 75, II
+  const LIMITE_CONCORRENCIA = 3774997.53 // Dec. 12.807/2025 — obras/serviços engenharia
+
+  if (valorEstimado <= LIMITE_DISPENSA) return 'dispensa'
+  if (valorEstimado <= LIMITE_CONCORRENCIA) return 'pregao'
+  return 'concorrencia'
 }
 
 function marcarRecorrentes(historico: CompraHistorica[]): void {

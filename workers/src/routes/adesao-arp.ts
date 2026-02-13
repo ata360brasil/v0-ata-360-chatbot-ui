@@ -56,6 +56,83 @@ app.post('/', async (c) => {
 
   const id = crypto.randomUUID()
   const valorTotal = body.itens?.reduce((sum, i) => sum + (i.quantidade * i.valor_unitario), 0) || 0
+
+  // ─── Validação Art. 86, §4º e §5º — Limites de 50% ────────────────────────
+  // §4º: Soma de adesões não pode ultrapassar 50% do total registrado
+  // §5º: Cada órgão aderente limitado a 50% do total registrado
+  // Vigência: ARP só aceita adesão enquanto vigente
+  if (body.ata_pncp_id) {
+    try {
+      const headers = {
+        'apikey': c.env.SUPABASE_SERVICE_KEY,
+        'Authorization': `Bearer ${c.env.SUPABASE_SERVICE_KEY}`,
+      }
+
+      // Verificar vigência da ATA
+      if (body.ata_vigencia_fim) {
+        const vigenciaFim = new Date(body.ata_vigencia_fim)
+        if (vigenciaFim < new Date()) {
+          return c.json({
+            message: 'ATA expirada — vigência encerrada',
+            ata_vigencia_fim: body.ata_vigencia_fim,
+            fundamentacao: 'Art. 84, Lei 14.133/2021 — Prazo de vigência da ARP',
+          }, 422)
+        }
+      }
+
+      // Buscar adesões existentes para esta ATA (somar valores já comprometidos)
+      const adesoesResponse = await fetch(
+        `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?ata_pncp_id=eq.${body.ata_pncp_id}&status=not.in.(cancelada,recusada_gerenciador,recusada_fornecedor,expirada)&select=valor_total,orgao_aderente_id`,
+        { headers },
+      )
+
+      if (adesoesResponse.ok) {
+        const adesoesExistentes = await adesoesResponse.json() as Array<{ valor_total: number; orgao_aderente_id: string }>
+
+        // Buscar valor total registrado na ATA (se disponível via PNCP)
+        const ataResponse = await fetch(
+          `${c.env.SUPABASE_URL}/rest/v1/atas_registro_precos?pncp_id=eq.${body.ata_pncp_id}&select=valor_total_registrado`,
+          { headers },
+        )
+        const ataRows = ataResponse.ok ? await ataResponse.json() as Array<{ valor_total_registrado: number }> : []
+        const valorTotalRegistrado = ataRows[0]?.valor_total_registrado
+
+        if (valorTotalRegistrado && valorTotalRegistrado > 0) {
+          // §4º: Soma de TODAS as adesões ≤ 50% do total registrado
+          const somaAdesoesGeral = adesoesExistentes.reduce((sum, a) => sum + (a.valor_total || 0), 0)
+          const limiteGeral = valorTotalRegistrado * 0.5
+          if (somaAdesoesGeral + valorTotal > limiteGeral) {
+            return c.json({
+              message: `Limite de adesão excedido (Art. 86, §4º). Saldo disponível: R$ ${(limiteGeral - somaAdesoesGeral).toFixed(2)}`,
+              limite_total: limiteGeral,
+              ja_comprometido: somaAdesoesGeral,
+              valor_solicitado: valorTotal,
+              fundamentacao: 'Art. 86, §4º, Lei 14.133/2021 — Limite 50% total registrado para adesões',
+            }, 422)
+          }
+
+          // §5º: Adesões DESTE ÓRGÃO ≤ 50% do total registrado
+          const somaAdesoesOrgao = adesoesExistentes
+            .filter(a => a.orgao_aderente_id === orgaoId)
+            .reduce((sum, a) => sum + (a.valor_total || 0), 0)
+          const limiteOrgao = valorTotalRegistrado * 0.5
+          if (somaAdesoesOrgao + valorTotal > limiteOrgao) {
+            return c.json({
+              message: `Limite de adesão por órgão excedido (Art. 86, §5º). Saldo disponível para este órgão: R$ ${(limiteOrgao - somaAdesoesOrgao).toFixed(2)}`,
+              limite_orgao: limiteOrgao,
+              ja_comprometido_orgao: somaAdesoesOrgao,
+              valor_solicitado: valorTotal,
+              fundamentacao: 'Art. 86, §5º, Lei 14.133/2021 — Limite 50% por órgão aderente',
+            }, 422)
+          }
+        }
+      }
+    } catch {
+      // Falha na validação não bloqueia — prosseguir com alerta
+      console.warn(`Aviso: Não foi possível validar limites Art. 86 para ATA ${body.ata_pncp_id}`)
+    }
+  }
+
   const linkGerenciador = gerarLinkExterno()
   const linkFornecedor = gerarLinkExterno()
   const expiracao = new Date(Date.now() + 15 * 86400000).toISOString()

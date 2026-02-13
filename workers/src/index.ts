@@ -201,11 +201,10 @@ app.get('/cron/propagate-feedback', async (c) => {
 
 app.get('/cron/improve-prompts', async (c) => {
   try {
-    const result = await improvePrompts(
-      c.env.SUPABASE_URL,
-      c.env.SUPABASE_SERVICE_KEY,
-      c.env.AI,
-    )
+    const result = await improvePrompts({
+      SUPABASE_URL: c.env.SUPABASE_URL,
+      SUPABASE_SERVICE_KEY: c.env.SUPABASE_SERVICE_KEY,
+    })
     return c.json({ sucesso: true, resultado: result })
   } catch (error) {
     const msg = error instanceof Error ? error.message : 'Erro'
@@ -352,7 +351,7 @@ export default {
       // Semanalmente (dom 3h): melhorar prompts ACMA
       case '0 3 * * 0':
         ctx.waitUntil(
-          improvePrompts(env.SUPABASE_URL, env.SUPABASE_SERVICE_KEY, env.AI as Ai)
+          improvePrompts({ SUPABASE_URL: env.SUPABASE_URL, SUPABASE_SERVICE_KEY: env.SUPABASE_SERVICE_KEY })
             .then(r => console.log('Prompts melhorados:', r))
             .catch(e => console.error('Erro melhoria prompts:', e))
         )

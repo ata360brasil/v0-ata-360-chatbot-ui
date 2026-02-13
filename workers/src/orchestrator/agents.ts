@@ -370,7 +370,9 @@ export async function callAuditor(
     // LLM interpreta conformidade — Claude Sonnet (tier GERACAO)
     // NOTA: AUDITOR é crítico para conformidade legal.
     // Llama 3.1 8B substituído por Claude Sonnet 4.5 (maior acurácia jurídica).
-    const auditorModel = '@cf/anthropic/claude-sonnet-4-5-20250929'
+    const auditorModel = tierToModel('sonnet')
+    // Documento: até 8000 chars (seções relevantes cabem em ~6k tokens)
+    const docSlice = docContent.slice(0, 8000)
     const aiResult = await env.AI.run(auditorModel as Parameters<Ai['run']>[0], {
       messages: [
         {
@@ -381,7 +383,7 @@ Analise se o documento atende ao requisito. Responda APENAS com JSON:
         },
         {
           role: 'user',
-          content: `Requisito: ${checkItem.descricao}\n\nDocumento (${documentoTipo}):\n${docContent.slice(0, 3000)}`,
+          content: `Requisito: ${checkItem.descricao}\n\nDocumento (${documentoTipo}):\n${docSlice}`,
         },
       ],
       max_tokens: 200,
@@ -397,12 +399,14 @@ Analise se o documento atende ao requisito. Responda APENAS com JSON:
 
     try {
       const parsed = JSON.parse(aiResult.response || '{}')
-      conforme = parsed.conforme ?? true
+      conforme = parsed.conforme ?? false
       achado = parsed.achado ?? null
       fundamentacao = parsed.fundamentacao ?? null
     } catch {
-      // Se LLM retornar lixo, considerar conforme (fail-safe)
-      conforme = true
+      // Se LLM retornar lixo, considerar NÃO conforme (fail-safe conservador)
+      // Melhor exigir revisão humana do que aprovar documento irregular
+      conforme = false
+      achado = 'Falha na análise automatizada — revisão manual necessária'
     }
 
     totalPeso += peso
@@ -465,7 +469,7 @@ Analise se o documento atende ao requisito. Responda APENAS com JSON:
     iteracao: 1,
     checklist_publico: checklistPublico,
     thresholds_usados: thresholdsUsados,
-    modelo_usado: '@cf/anthropic/claude-sonnet-4-5-20250929',
+    modelo_usado: tierToModel('sonnet'),
     tokens_input: tokensInput,
     tokens_output: tokensOutput,
     latencia_ms: latenciaMs,
@@ -1021,15 +1025,121 @@ async function hashContent(content: string): Promise<string> {
 }
 
 function renderTemplate(documentoTipo: string, data: Record<string, unknown>): string {
-  // Placeholder — em produção usa template engine real
-  // O template base v8 (documento_base_v8.html) será carregado do R2
+  const titulo = DOCUMENT_TITLES[documentoTipo] || documentoTipo
+  const texto = String(data.texto || '')
+  const processoId = String(data.processo_id || '')
+  const versao = String(data.versao || '1')
+  const dataGeracao = String(data.data_geracao || new Date().toISOString())
+  const dataFormatada = new Date(dataGeracao).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })
+
+  // Preços de referência (se disponíveis)
+  const precos = data.precos_referencia as Record<string, unknown> | null
+  let precosHtml = ''
+  if (precos) {
+    precosHtml = `
+    <section class="precos">
+      <h2>Pesquisa de Preços de Referência</h2>
+      <table>
+        <tr><th>Mediana</th><td>R$ ${Number(precos.mediana || 0).toFixed(2)}</td></tr>
+        <tr><th>Média</th><td>R$ ${Number(precos.media || 0).toFixed(2)}</td></tr>
+        <tr><th>Menor</th><td>R$ ${Number(precos.menor || 0).toFixed(2)}</td></tr>
+        <tr><th>Maior</th><td>R$ ${Number(precos.maior || 0).toFixed(2)}</td></tr>
+        <tr><th>Fontes</th><td>${precos.fontes || 'N/D'}</td></tr>
+      </table>
+      ${precos.formula_media ? `<p class="formula">${escapeHtml(String(precos.formula_media))}</p>` : ''}
+      ${precos.formula_desvio ? `<p class="formula">${escapeHtml(String(precos.formula_desvio))}</p>` : ''}
+    </section>`
+  }
+
+  // Normativos aplicáveis
+  const normativos = data.normativos_aplicaveis as Array<Record<string, unknown>> | undefined
+  let normativosHtml = ''
+  if (normativos && normativos.length > 0) {
+    const listaItems = normativos.map(n => `<li>${escapeHtml(String(n.numero || ''))} — ${escapeHtml(String(n.nome || ''))}</li>`).join('\n        ')
+    normativosHtml = `
+    <section class="normativos">
+      <h2>Fundamentação Legal</h2>
+      <ul>${listaItems}</ul>
+    </section>`
+  }
+
+  // Município
+  const municipio = data.dados_municipio as Record<string, unknown> | null
+  let municipioHtml = ''
+  if (municipio) {
+    municipioHtml = `
+    <section class="municipio">
+      <h2>Dados do Município</h2>
+      <p><strong>${escapeHtml(String(municipio.nome || ''))}</strong> — ${escapeHtml(String(municipio.uf || ''))}</p>
+      ${municipio.populacao ? `<p>População: ${Number(municipio.populacao).toLocaleString('pt-BR')}</p>` : ''}
+    </section>`
+  }
+
   return `<!DOCTYPE html>
 <html lang="pt-BR">
-<head><meta charset="UTF-8"><title>${documentoTipo} — ATA360</title></head>
-<body data-documento-tipo="${documentoTipo}" data-versao="${data.versao}">
-<div data-zona="protegido">${JSON.stringify(data)}</div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escapeHtml(titulo)} — Processo ${escapeHtml(processoId)}</title>
+  <style>
+    @page { size: A4; margin: 2.5cm 2cm; }
+    body { font-family: 'Times New Roman', serif; font-size: 12pt; line-height: 1.6; color: #1a1a1a; max-width: 21cm; margin: 0 auto; padding: 2cm; }
+    .header { text-align: center; border-bottom: 2px solid #1a1a1a; padding-bottom: 1em; margin-bottom: 2em; }
+    .header h1 { font-size: 16pt; text-transform: uppercase; letter-spacing: 0.1em; margin: 0.5em 0 0.2em; }
+    .header .processo { font-size: 10pt; color: #666; }
+    h2 { font-size: 13pt; margin-top: 1.5em; border-bottom: 1px solid #ccc; padding-bottom: 0.3em; }
+    .conteudo { text-align: justify; }
+    .conteudo p { margin: 0.8em 0; text-indent: 2em; }
+    table { width: 100%; border-collapse: collapse; margin: 1em 0; }
+    th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; font-size: 11pt; }
+    th { background: #f5f5f5; font-weight: bold; }
+    .formula { font-family: monospace; font-size: 10pt; color: #444; background: #f9f9f9; padding: 4px 8px; border-left: 3px solid #ccc; }
+    .normativos ul { list-style: none; padding: 0; }
+    .normativos li { padding: 4px 0; border-bottom: 1px dotted #eee; font-size: 11pt; }
+    .footer { margin-top: 3em; padding-top: 1em; border-top: 1px solid #ccc; font-size: 9pt; color: #888; text-align: center; }
+    .selo { display: inline-block; padding: 4px 12px; border: 2px solid #ccc; border-radius: 4px; font-size: 9pt; color: #888; margin-top: 0.5em; }
+    @media print { body { padding: 0; } }
+  </style>
+</head>
+<body data-documento-tipo="${escapeHtml(documentoTipo)}" data-versao="${escapeHtml(versao)}">
+  <div class="header">
+    <h1>${escapeHtml(titulo)}</h1>
+    <p class="processo">Processo: ${escapeHtml(processoId)} | Versão: ${escapeHtml(versao)} | ${escapeHtml(dataFormatada)}</p>
+  </div>
+
+  <div class="conteudo">
+    ${texto.split('\n').map(p => p.trim() ? `<p>${escapeHtml(p)}</p>` : '').join('\n    ')}
+  </div>
+
+  ${precosHtml}
+  ${normativosHtml}
+  ${municipioHtml}
+
+  <div class="footer">
+    <p>Documento gerado eletronicamente pelo ATA360 — ${escapeHtml(dataFormatada)}</p>
+    <div class="selo">${data.selo_placeholder ? 'SELO PENDENTE — Aguardando auditoria' : 'SELO APROVADO'}</div>
+    <p>Lei 14.133/2021 | Template v8 | Hash: ${escapeHtml(String(data.hash_conteudo || '').slice(0, 16))}</p>
+  </div>
 </body>
 </html>`
+}
+
+const DOCUMENT_TITLES: Record<string, string> = {
+  ETP: 'Estudo Técnico Preliminar',
+  TR: 'Termo de Referência',
+  DFD: 'Documento de Formalização de Demanda',
+  PP: 'Pesquisa de Preços',
+  JCD: 'Justificativa de Contratação Direta',
+  MR: 'Mapa de Riscos',
+  ARP: 'Ata de Registro de Preços',
+  CDF: 'Cadastro de Fornecedores',
+  ALF: 'Análise de Licitação Fracassada',
+  PCA: 'Plano de Contratações Anual',
+  AIA: 'Análise de Impacto Ambiental',
+}
+
+function escapeHtml(str: string): string {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
 
 function estimatePages(html: string): number {
