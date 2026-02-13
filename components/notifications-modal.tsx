@@ -29,10 +29,10 @@ export interface Notification {
   description: string;
   date: string;
   read: boolean;
-  requiresAction?: boolean; // Alertas que requerem acao nao podem ser excluidos
+  requiresAction?: boolean; // Alertas que requerem ação não podem ser excluídos
   details?: string; // Detalhes adicionais quando expandido
-  actionLabel?: string; // Label do botao de acao (ex: "Confirmar", "Assinar", "Concluir")
-  actionType?: "confirm" | "sign" | "update" | "complete" | "chat"; // Tipo de acao
+  actionLabel?: string; // Label do botão de ação (ex: "Confirmar", "Assinar", "Concluir")
+  actionType?: "confirm" | "sign" | "update" | "complete" | "chat"; // Tipo de ação
 }
 
 interface NotificationsModalProps {
@@ -82,13 +82,13 @@ export function NotificationsModal({
   };
 
   const handleAction = (notification: Notification) => {
-    // Marca como lida ao executar acao
+    // Marca como lida ao executar ação
     handleMarkAsRead(notification.id);
     
     // Fecha a expansao
     setExpandedId(null);
     
-    // Fecha o modal e abre o chat com o contexto da notificacao
+    // Fecha o modal e abre o chat com o contexto da notificação
     onOpenChange(false);
     
     // TODO: Integrar com o chat LLM
@@ -110,7 +110,7 @@ export function NotificationsModal({
 
   const handleDeleteSingle = (id: string) => {
     const notification = notifications.find((n) => n.id === id);
-    // Nao permite excluir se requer acao
+    // Não permite excluir se requer ação
     if (notification?.requiresAction) {
       setDeleteItemDialog(null);
       return;
@@ -121,13 +121,13 @@ export function NotificationsModal({
   };
 
   const handleDeleteAll = () => {
-    // Mantem apenas as notificacoes que requerem acao
+    // Mantém apenas as notificações que requerem ação
     const remaining = notifications.filter((n) => n.requiresAction);
     onNotificationsChange(remaining);
     setDeleteAllDialogOpen(false);
   };
 
-  // Contagem de notificacoes que podem ser excluidas
+  // Contagem de notificações que podem ser excluídas
   const deletableCount = notifications.filter((n) => !n.requiresAction).length;
   const actionRequiredCount = notifications.filter((n) => n.requiresAction).length;
 
@@ -144,11 +144,11 @@ export function NotificationsModal({
               <div className="flex items-center gap-2">
                 <Bell className="size-4 text-foreground" />
                 <DialogTitle className="text-sm font-semibold text-foreground uppercase tracking-wide">
-                  Notificacoes
+                  Notificações
                 </DialogTitle>
                 {unreadCount > 0 && (
                   <span className="px-2 py-0.5 text-xs font-medium bg-foreground text-background rounded-full">
-                    {unreadCount} nao lidas
+                    {unreadCount} não lidas
                   </span>
                 )}
               </div>
@@ -171,10 +171,10 @@ export function NotificationsModal({
                     <Bell className="size-8 text-muted-foreground" />
                   </div>
                   <p className="text-sm font-medium text-foreground mb-1">
-                    Nenhuma notificacao
+                    Nenhuma notificação
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    Voce esta em dia com todas as notificacoes.
+                    Você está em dia com todas as notificações.
                   </p>
                 </div>
               ) : (
@@ -339,20 +339,20 @@ export function NotificationsModal({
         <AlertDialogContent className="!max-w-[320px] !w-[320px] p-5 rounded-xl border-border/50 shadow-lg">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-base font-medium text-center">
-              Excluir todas as notificacoes?
+              Excluir todas as notificações?
             </AlertDialogTitle>
             <AlertDialogDescription className="text-sm text-muted-foreground text-center">
               {actionRequiredCount > 0 ? (
                 <>
-                  {deletableCount} notificacoes serao removidas. {actionRequiredCount} alerta(s) que requerem acao serao mantidos.
+                  {deletableCount} notificações serão removidas. {actionRequiredCount} alerta(s) que requerem ação serão mantidos.
                 </>
               ) : (
-                <>Esta acao nao pode ser desfeita. Todas as {notifications.length} notificacoes serao removidas.</>
+                <>Esta ação não pode ser desfeita. Todas as {notifications.length} notificações serão removidas.</>
               )}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="gap-3 mt-4 sm:justify-center">
-            <AlertDialogCancel className="h-9 px-5 text-sm rounded-full">Nao</AlertDialogCancel>
+            <AlertDialogCancel className="h-9 px-5 text-sm rounded-full">Não</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteAll}
               className="h-9 px-5 text-sm rounded-full bg-foreground text-background hover:bg-foreground/90"
@@ -371,14 +371,14 @@ export function NotificationsModal({
         <AlertDialogContent className="!max-w-[320px] !w-[320px] p-5 rounded-xl border-border/50 shadow-lg">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-base font-medium text-center">
-              Excluir esta notificacao?
+              Excluir esta notificação?
             </AlertDialogTitle>
             <AlertDialogDescription className="text-sm text-muted-foreground text-center">
-              Tem certeza que deseja excluir? Esta acao nao pode ser desfeita.
+              Tem certeza que deseja excluir? Esta ação não pode ser desfeita.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="gap-3 mt-4 sm:justify-center">
-            <AlertDialogCancel className="h-9 px-5 text-sm rounded-full">Nao</AlertDialogCancel>
+            <AlertDialogCancel className="h-9 px-5 text-sm rounded-full">Não</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => deleteItemDialog && handleDeleteSingle(deleteItemDialog)}
               className="h-9 px-5 text-sm rounded-full bg-foreground text-background hover:bg-foreground/90"

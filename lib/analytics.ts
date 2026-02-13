@@ -1,12 +1,18 @@
 /**
- * Google Analytics 4 + AI-Native Analytics
+ * Google Analytics 4 — Eventos customizados da plataforma ATA360.
  *
  * Integracao GA4 com eventos customizados para:
  * - Funnel de contratacoes publicas
- * - Interacoes com IA (chat, sugestoes, auditoria)
+ * - Interacoes com chat (LLM via ACMA) e auditoria (hibrida LLM+regras via AUDITOR)
+ * - Pipeline de documentos (maquina de estados deterministica)
  * - Web Vitals (LCP, INP, CLS)
  * - Engagement com conteudo institucional
  * - Programmatic SEO performance
+ *
+ * NOTA SOBRE NOMENCLATURA:
+ * - Prefixo "llm_" → operacoes que realmente usam LLM (ACMA, chat, AUDITOR)
+ * - Prefixo "engine_" → regras deterministicas (pipeline, state machine, PCA, chat-guard)
+ * - Sem prefixo → eventos genericos de navegacao, conversao, engajamento
  *
  * @see GA4 Measurement Protocol 2026
  * @see Google Analytics Enhanced Measurement
@@ -31,9 +37,9 @@ export function getGA4Script(): string {
       custom_map: {
         dimension1: 'user_role',
         dimension2: 'orgao_tipo',
-        dimension3: 'ai_tier',
+        dimension3: 'pipeline_tier',       // tier do pipeline deterministico (nao e IA)
         dimension4: 'document_type',
-        metric1: 'ai_tokens_used',
+        metric1: 'llm_tokens_used',        // tokens consumidos pelo LLM (ACMA/AUDITOR)
         metric2: 'process_completion_rate'
       }
     });
@@ -56,29 +62,30 @@ function trackEvent(eventName: string, params?: GAEventParams) {
   w.gtag('event', eventName, params)
 }
 
-// ─── AI-Native Events ────────────────────────────────────────────────────────
+// ─── Eventos da Plataforma ──────────────────────────────────────────────────
 
 export const analytics = {
   // Navegacao e engajamento
   pageView: (path: string, title: string) =>
     trackEvent('page_view', { page_path: path, page_title: title }),
 
-  // Chat IA
+  // Chat — usa LLM (ACMA) para gerar respostas
   chatMessageSent: (processoId: string) =>
-    trackEvent('chat_message_sent', { processo_id: processoId }),
+    trackEvent('llm_chat_message_sent', { processo_id: processoId }),
 
   chatResponseReceived: (processoId: string, latencyMs: number) =>
-    trackEvent('chat_response_received', { processo_id: processoId, latency_ms: latencyMs }),
+    trackEvent('llm_chat_response_received', { processo_id: processoId, latency_ms: latencyMs }),
 
-  // Pipeline de documentos
+  // Pipeline de documentos — maquina de estados deterministica (nao e IA)
   pipelineStarted: (documentType: string, tier: string) =>
-    trackEvent('pipeline_started', { document_type: documentType, ai_tier: tier }),
+    trackEvent('engine_pipeline_started', { document_type: documentType, pipeline_tier: tier }),
 
   pipelineCompleted: (documentType: string, durationMs: number) =>
-    trackEvent('pipeline_completed', { document_type: documentType, duration_ms: durationMs }),
+    trackEvent('engine_pipeline_completed', { document_type: documentType, duration_ms: durationMs }),
 
+  // Geracao de documento — o ACMA (LLM) gera o texto, mas aprovacao/rejeicao e decisao humana
   documentGenerated: (documentType: string) =>
-    trackEvent('document_generated', { document_type: documentType }),
+    trackEvent('llm_document_generated', { document_type: documentType }),
 
   documentApproved: (documentType: string) =>
     trackEvent('document_approved', { document_type: documentType }),
@@ -86,19 +93,19 @@ export const analytics = {
   documentRejected: (documentType: string, reason: string) =>
     trackEvent('document_rejected', { document_type: documentType, rejection_reason: reason }),
 
-  // Auditoria
+  // Auditoria — AUDITOR e hibrido (LLM + regras deterministicas de checklist)
   auditCompleted: (score: number, itemCount: number) =>
     trackEvent('audit_completed', { compliance_score: score, audit_items: itemCount }),
 
   auditItemFailed: (checkType: string) =>
     trackEvent('audit_item_failed', { check_type: checkType }),
 
-  // Pesquisa de precos
+  // Pesquisa de precos — consulta a APIs publicas com regras de agregacao (nao e IA)
   priceResearchStarted: (source: string) =>
-    trackEvent('price_research_started', { data_source: source }),
+    trackEvent('engine_price_research_started', { data_source: source }),
 
   priceResearchCompleted: (itemCount: number) =>
-    trackEvent('price_research_completed', { items_found: itemCount }),
+    trackEvent('engine_price_research_completed', { items_found: itemCount }),
 
   // Conversao e funnel
   signupStarted: (method: string) =>

@@ -1,11 +1,11 @@
 /**
- * Blog Engine — Conteudo 100% Automatizado
+ * Blog Engine — Conteúdo 100% Automatizado
  *
  * Sistema de blog AI-first para programmatic SEO:
- * - Posts gerados a partir de dados oficiais (PNCP, TCU, legislacao)
- * - Taxonomia automatica (categorias, tags, glossario)
+ * - Posts gerados a partir de dados oficiais (PNCP, TCU, legislação)
+ * - Taxonomia automática (categorias, tags, glossário)
  * - Schema.org BlogPosting para rich results
- * - AI-citability: conteudo estruturado para LLMs
+ * - AI-citability: conteúdo estruturado para LLMs
  *
  * @see schema.org/BlogPosting
  * @see Google Search Central — Blog structured data
@@ -50,23 +50,23 @@ export type BlogCategory =
 
 export const BLOG_CATEGORIES: Record<BlogCategory, { label: string; description: string; icon: string }> = {
   legislacao: {
-    label: 'Legislacao',
-    description: 'Atualizacoes e analises sobre leis de licitacoes e contratacoes publicas',
+    label: 'Legislação',
+    description: 'Atualizações e análises sobre leis de licitações e contratações públicas',
     icon: 'Scale',
   },
   licitacao: {
-    label: 'Licitacao',
-    description: 'Guias praticos sobre modalidades, fases e documentos licitatorios',
+    label: 'Licitação',
+    description: 'Guias práticos sobre modalidades, fases e documentos licitatórios',
     icon: 'FileText',
   },
   'gestao-publica': {
-    label: 'Gestao Publica',
-    description: 'Melhores praticas em administracao e gestao de contratos',
+    label: 'Gestão Pública',
+    description: 'Melhores práticas em administração e gestão de contratos',
     icon: 'Building2',
   },
   tecnologia: {
     label: 'Tecnologia',
-    description: 'Inovacao, GovTech e transformacao digital no setor publico',
+    description: 'Inovação, GovTech e transformação digital no setor público',
     icon: 'Cpu',
   },
   compliance: {
@@ -75,18 +75,18 @@ export const BLOG_CATEGORIES: Record<BlogCategory, { label: string; description:
     icon: 'ShieldCheck',
   },
   'ia-compras-publicas': {
-    label: 'IA em Compras Publicas',
-    description: 'Inteligencia artificial aplicada a contratacoes governamentais',
+    label: 'IA em Compras Públicas',
+    description: 'Inteligência artificial aplicada a contratações governamentais',
     icon: 'Brain',
   },
   jurisprudencia: {
-    label: 'Jurisprudencia',
-    description: 'Decisoes do TCU, TCEs e tribunais sobre contratacoes',
+    label: 'Jurisprudência',
+    description: 'Decisões do TCU, TCEs e tribunais sobre contratações',
     icon: 'Gavel',
   },
   tutoriais: {
     label: 'Tutoriais',
-    description: 'Passo a passo para uso do ATA360 e melhores praticas',
+    description: 'Passo a passo para uso do ATA360 e melhores práticas',
     icon: 'BookOpen',
   },
 }
@@ -95,221 +95,221 @@ export const BLOG_CATEGORIES: Record<BlogCategory, { label: string; description:
 
 const ATA360_AUTHOR: BlogAuthor = {
   name: 'ATA360',
-  role: 'Plataforma de Inteligencia em Contratacoes Publicas',
+  role: 'Plataforma de Inteligência em Contratações Públicas',
 }
 
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'lei-14133-guia-completo-nova-lei-licitacoes',
-    title: 'Lei 14.133/2021: Guia Completo da Nova Lei de Licitacoes',
-    excerpt: 'Entenda as principais mudancas da Nova Lei de Licitacoes, seus impactos na gestao publica e como se adaptar as novas exigencias.',
+    title: 'Lei 14.133/2021: Guia Completo da Nova Lei de Licitações',
+    excerpt: 'Entenda as principais mudanças da Nova Lei de Licitações, seus impactos na gestão pública e como se adaptar às novas exigências.',
     content: `## O que mudou com a Lei 14.133/2021
 
-A Lei 14.133, de 1 de abril de 2021, conhecida como Nova Lei de Licitacoes e Contratos Administrativos, substituiu a Lei 8.666/1993, a Lei do Pregao (10.520/2002) e a Lei do RDC (12.462/2011), unificando o arcabouco legal das contratacoes publicas brasileiras.
+A Lei 14.133, de 1 de abril de 2021, conhecida como Nova Lei de Licitações e Contratos Administrativos, substituiu a Lei 8.666/1993, a Lei do Pregão (10.520/2002) e a Lei do RDC (12.462/2011), unificando o arcabouço legal das contratações públicas brasileiras.
 
-### Principais Mudancas
+### Principais Mudanças
 
-**1. Modalidades de Licitacao**
-A nova lei mantem 5 modalidades: Pregao, Concorrencia, Concurso, Leilao e Dialogo Competitivo (nova). O convite foi extinto e o Dialogo Competitivo foi introduzido para contratacoes complexas.
+**1. Modalidades de Licitação**
+A nova lei mantém 5 modalidades: Pregão, Concorrência, Concurso, Leilão e Diálogo Competitivo (nova). O convite foi extinto e o Diálogo Competitivo foi introduzido para contratações complexas.
 
-**2. Planejamento Obrigatorio**
-O planejamento ganhou protagonismo com a obrigatoriedade do Estudo Tecnico Preliminar (ETP), que antecede o Termo de Referencia. O ETP deve diagnosticar o problema e mapear alternativas — nao descrever o objeto.
+**2. Planejamento Obrigatório**
+O planejamento ganhou protagonismo com a obrigatoriedade do Estudo Técnico Preliminar (ETP), que antecede o Termo de Referência. O ETP deve diagnosticar o problema e mapear alternativas — não descrever o objeto.
 
-**3. Portal Nacional de Contratacoes Publicas (PNCP)**
-Todos os atos devem ser publicados no PNCP (Art. 174), conferindo transparencia e rastreabilidade nacional.
+**3. Portal Nacional de Contratações Públicas (PNCP)**
+Todos os atos devem ser publicados no PNCP (Art. 174), conferindo transparência e rastreabilidade nacional.
 
-**4. Gestao de Riscos**
-A nova lei exige mapeamento e gestao de riscos em contratacoes (Art. 18, X), incluindo a Matriz de Riscos.
+**4. Gestão de Riscos**
+A nova lei exige mapeamento e gestão de riscos em contratações (Art. 18, X), incluindo a Matriz de Riscos.
 
-**5. Agente de Contratacao**
-O pregoeiro e substituido pelo Agente de Contratacao (Art. 8), com competencias mais amplas e responsabilidades definidas.
+**5. Agente de Contratação**
+O pregoeiro é substituído pelo Agente de Contratação (Art. 8), com competências mais amplas e responsabilidades definidas.
 
-### Fundamentacao Legal
+### Fundamentação Legal
 
-- Art. 37, XXI da Constituicao Federal
-- Lei 14.133/2021 (Nova Lei de Licitacoes)
-- Decreto 11.462/2023 (regulamentacao federal)
-- IN SEGES/ME 65/2021 (pesquisa de precos)
-- IN SEGES/ME 58/2022 (plano de contratacoes)
+- Art. 37, XXI da Constituição Federal
+- Lei 14.133/2021 (Nova Lei de Licitações)
+- Decreto 11.462/2023 (regulamentação federal)
+- IN SEGES/ME 65/2021 (pesquisa de preços)
+- IN SEGES/ME 58/2022 (plano de contratações)
 
 ### Como o ATA360 Auxilia
 
-O ATA360 foi concebido AI-first para a Lei 14.133/2021. O sistema gera documentos licitatorios (ETP, TR, DFD), realiza pesquisa de precos com dados do PNCP e audita cada documento contra os requisitos legais — tudo com rastreabilidade e fundamentacao.`,
+O ATA360 foi concebido AI-first para a Lei 14.133/2021. O sistema gera documentos licitatórios (ETP, TR, DFD), realiza pesquisa de preços com dados do PNCP e audita cada documento contra os requisitos legais — tudo com rastreabilidade e fundamentação.`,
     category: 'legislacao',
-    tags: ['Lei 14.133', 'licitacao', 'contratacoes publicas', 'PNCP', 'planejamento'],
+    tags: ['Lei 14.133', 'licitação', 'contratações públicas', 'PNCP', 'planejamento'],
     author: ATA360_AUTHOR,
     publishedAt: '2026-02-11T00:00:00Z',
     updatedAt: '2026-02-11T00:00:00Z',
     readingTimeMin: 8,
     featured: true,
-    seoTitle: 'Lei 14.133/2021: Guia Completo da Nova Lei de Licitacoes | ATA360',
-    seoDescription: 'Guia definitivo sobre a Lei 14.133/2021. Entenda as mudancas, novas modalidades, planejamento obrigatorio e como o ATA360 auxilia na conformidade.',
+    seoTitle: 'Lei 14.133/2021: Guia Completo da Nova Lei de Licitações | ATA360',
+    seoDescription: 'Guia definitivo sobre a Lei 14.133/2021. Entenda as mudanças, novas modalidades, planejamento obrigatório e como o ATA360 auxilia na conformidade.',
     relatedSlugs: ['etp-estudo-tecnico-preliminar-passo-a-passo', 'pesquisa-de-precos-in-65-2021'],
     glossaryTerms: ['licitacao', 'pregao', 'etp', 'termo-de-referencia', 'pncp'],
     legalReferences: ['Lei 14.133/2021', 'CF Art. 37', 'IN SEGES/ME 65/2021'],
   },
   {
     slug: 'etp-estudo-tecnico-preliminar-passo-a-passo',
-    title: 'ETP — Estudo Tecnico Preliminar: Passo a Passo Completo',
-    excerpt: 'Como elaborar um ETP conforme a Lei 14.133/2021. O ETP diagnostica o problema e mapeia alternativas — ele nao descreve o objeto.',
-    content: `## O que e o ETP (Estudo Tecnico Preliminar)
+    title: 'ETP — Estudo Técnico Preliminar: Passo a Passo Completo',
+    excerpt: 'Como elaborar um ETP conforme a Lei 14.133/2021. O ETP diagnostica o problema e mapeia alternativas — ele não descreve o objeto.',
+    content: `## O que é o ETP (Estudo Técnico Preliminar)
 
-O ETP e o documento que materializa o planejamento da contratacao (Art. 18, Lei 14.133/2021). Sua funcao e diagnosticar a necessidade e mapear solucoes de mercado — **nao descrever o objeto**.
+O ETP é o documento que materializa o planejamento da contratação (Art. 18, Lei 14.133/2021). Sua função é diagnosticar a necessidade e mapear soluções de mercado — **não descrever o objeto**.
 
 ### Erro Comum: Antecipar o Objeto no ETP
 
-Um dos erros mais frequentes e tratar o ETP como uma versao preliminar do Termo de Referencia. O ETP deve responder: "Qual e o problema?" e "Quais alternativas existem?" — nao "O que vou comprar?"
+Um dos erros mais frequentes é tratar o ETP como uma versão preliminar do Termo de Referência. O ETP deve responder: "Qual é o problema?" e "Quais alternativas existem?" — não "O que vou comprar?"
 
-### Elementos Obrigatorios (Art. 18, §1)
+### Elementos Obrigatórios (Art. 18, §1)
 
-1. Descricao da necessidade
-2. Requisitos da contratacao
+1. Descrição da necessidade
+2. Requisitos da contratação
 3. Levantamento de mercado
-4. Descricao da solucao como um todo
+4. Descrição da solução como um todo
 5. Estimativa do valor
-6. Justificativa para o parcelamento ou nao
-7. Demonstracao do alinhamento ao PCA
+6. Justificativa para o parcelamento ou não
+7. Demonstração do alinhamento ao PCA
 8. Resultados pretendidos
-9. Providencias para adequacao ambiental
+9. Providências para adequação ambiental
 10. Matriz de riscos
 
 ### O ATA360 e o ETP
 
-O ATA360 garante que o ETP cumpra sua funcao original: diagnosticar o problema. O sistema utiliza dados do IBGE, PNCP e TCU para fundamentar o levantamento de mercado e estimar valores com base em precos praticados — eliminando a solidao tecnica do servidor.`,
+O ATA360 garante que o ETP cumpra sua função original: diagnosticar o problema. O sistema utiliza dados do IBGE, PNCP e TCU para fundamentar o levantamento de mercado e estimar valores com base em preços praticados — eliminando a solidão técnica do servidor.`,
     category: 'licitacao',
-    tags: ['ETP', 'planejamento', 'Lei 14.133', 'contratacao', 'estudo tecnico'],
+    tags: ['ETP', 'planejamento', 'Lei 14.133', 'contratação', 'estudo técnico'],
     author: ATA360_AUTHOR,
     publishedAt: '2026-02-11T00:00:00Z',
     updatedAt: '2026-02-11T00:00:00Z',
     readingTimeMin: 6,
     featured: true,
-    seoTitle: 'ETP (Estudo Tecnico Preliminar): Guia Passo a Passo | ATA360',
-    seoDescription: 'Aprenda a elaborar o ETP conforme a Lei 14.133/2021. Elementos obrigatorios, erros comuns e como o ATA360 automatiza o processo.',
+    seoTitle: 'ETP (Estudo Técnico Preliminar): Guia Passo a Passo | ATA360',
+    seoDescription: 'Aprenda a elaborar o ETP conforme a Lei 14.133/2021. Elementos obrigatórios, erros comuns e como o ATA360 automatiza o processo.',
     relatedSlugs: ['lei-14133-guia-completo-nova-lei-licitacoes', 'termo-de-referencia-como-elaborar'],
     glossaryTerms: ['etp', 'termo-de-referencia', 'licitacao', 'pca'],
     legalReferences: ['Art. 18, Lei 14.133/2021'],
   },
   {
     slug: 'pesquisa-de-precos-in-65-2021',
-    title: 'Pesquisa de Precos: Guia Conforme IN SEGES/ME 65/2021',
-    excerpt: 'Como realizar pesquisa de precos para contratacoes publicas conforme a IN 65/2021 e quais fontes oficiais consultar.',
-    content: `## Pesquisa de Precos na Nova Lei de Licitacoes
+    title: 'Pesquisa de Preços: Guia Conforme IN SEGES/ME 65/2021',
+    excerpt: 'Como realizar pesquisa de preços para contratações públicas conforme a IN 65/2021 e quais fontes oficiais consultar.',
+    content: `## Pesquisa de Preços na Nova Lei de Licitações
 
-A pesquisa de precos e etapa fundamental para estimar o valor da contratacao e garantir economia ao erario. A IN SEGES/ME 65/2021 regulamenta a metodologia.
+A pesquisa de preços é etapa fundamental para estimar o valor da contratação e garantir economia ao erário. A IN SEGES/ME 65/2021 regulamenta a metodologia.
 
-### Parametros de Pesquisa (Art. 5, IN 65/2021)
+### Parâmetros de Pesquisa (Art. 5, IN 65/2021)
 
-1. **Painel de Precos** do Compras.gov.br (obrigatorio)
-2. **PNCP** — contratacoes similares
-3. **Pesquisa com fornecedores** (minimo 3 cotacoes)
+1. **Painel de Preços** do Compras.gov.br (obrigatório)
+2. **PNCP** — contratações similares
+3. **Pesquisa com fornecedores** (mínimo 3 cotações)
 4. **Tabelas oficiais** (SINAPI, SICRO, BPS)
 5. **Sites de e-commerce** (pesquisa complementar)
 
-### Tratamento Estatistico
+### Tratamento Estatístico
 
-- Calcular media, mediana e desvio-padrao
-- Excluir valores inexequiveis (abaixo de 75% da mediana)
+- Calcular média, mediana e desvio-padrão
+- Excluir valores inexequíveis (abaixo de 75% da mediana)
 - Excluir valores excessivos (acima de 200% da mediana)
-- Justificar a escolha do preco de referencia
+- Justificar a escolha do preço de referência
 
-### O ATA360 e a Pesquisa de Precos
+### O ATA360 e a Pesquisa de Preços
 
-O ATA360 consulta automaticamente o PNCP, Compras.gov.br e mais 17 fontes oficiais para fundamentar pesquisas de precos com dados reais e rastreavies.`,
+O ATA360 consulta automaticamente o PNCP, Compras.gov.br e mais 17 fontes oficiais para fundamentar pesquisas de preços com dados reais e rastreáveis.`,
     category: 'licitacao',
-    tags: ['pesquisa de precos', 'IN 65/2021', 'PNCP', 'orçamento', 'estimativa'],
+    tags: ['pesquisa de preços', 'IN 65/2021', 'PNCP', 'orçamento', 'estimativa'],
     author: ATA360_AUTHOR,
     publishedAt: '2026-02-11T00:00:00Z',
     updatedAt: '2026-02-11T00:00:00Z',
     readingTimeMin: 5,
     featured: false,
-    seoTitle: 'Pesquisa de Precos IN 65/2021: Guia Completo | ATA360',
-    seoDescription: 'Guia completo sobre pesquisa de precos conforme IN SEGES/ME 65/2021. Parametros, tratamento estatistico e fontes oficiais.',
+    seoTitle: 'Pesquisa de Preços IN 65/2021: Guia Completo | ATA360',
+    seoDescription: 'Guia completo sobre pesquisa de preços conforme IN SEGES/ME 65/2021. Parâmetros, tratamento estatístico e fontes oficiais.',
     relatedSlugs: ['lei-14133-guia-completo-nova-lei-licitacoes'],
     glossaryTerms: ['pesquisa-de-precos', 'pncp', 'licitacao'],
     legalReferences: ['IN SEGES/ME 65/2021', 'Art. 23, Lei 14.133/2021'],
   },
   {
     slug: 'ia-contratacoes-publicas-anti-alucinacao',
-    title: 'IA em Contratacoes Publicas: Automacao Responsavel e Anti-Alucinacao',
-    excerpt: 'Como o ATA360 implementa IA sem alucinacoes para contratacoes publicas. Blindagem em 8 camadas, dados oficiais e decisao humana soberana.',
-    content: `## IA AI-First para Compras Publicas
+    title: 'IA em Contratações Públicas: Automação Responsável e Anti-Alucinação',
+    excerpt: 'Como o ATA360 implementa IA sem alucinações para contratações públicas. Blindagem em 8 camadas, dados oficiais e decisão humana soberana.',
+    content: `## IA AI-First para Compras Públicas
 
-O ATA360 nao e um chatbot com IA anexada. E um sistema concebido AI-first, onde a inteligencia artificial e a infraestrutura — nao o complemento.
+O ATA360 não é um chatbot com IA anexada. É um sistema concebido AI-first, onde a inteligência artificial é a infraestrutura — não o complemento.
 
-### O Problema da Alucinacao
+### O Problema da Alucinação
 
-IAs generativas podem inventar dados, leis inexistentes e jurisprudencias falsas. Em contratacoes publicas, isso pode gerar:
-- Impugnacoes por fundamentacao incorreta
-- Sobrepreco por dados de mercado ficticio
-- Nulidade de processos por vicio formal
+IAs generativas podem inventar dados, leis inexistentes e jurisprudências falsas. Em contratações públicas, isso pode gerar:
+- Impugnações por fundamentação incorreta
+- Sobrepreço por dados de mercado fictício
+- Nulidade de processos por vício formal
 
-### Blindagem Anti-Alucinacao (8 Camadas)
+### Blindagem Anti-Alucinação (8 Camadas)
 
-1. **Fontes oficiais exclusivas** — dados provem de PNCP, IBGE, TCU, CGU
-2. **Motor deterministico para documentos** — PDFs gerados por templates, nao por IA generativa
-3. **Auditoria automatica** — cada documento e verificado contra checklist legal
-4. **Cross-reference** — dados cruzados entre multiplas fontes
-5. **Revisao humana obrigatoria** — nenhum documento e finalizado sem aprovacao do servidor
-6. **Rastreabilidade total** — cada informacao tem fonte, data e hash de integridade
-7. **Alertas proativos** — sistema notifica inconsistencias antes da finalizacao
-8. **Codigo de conduta IA** — regras inviolaveis que limitam o escopo da IA
+1. **Fontes oficiais exclusivas** — dados provêm de PNCP, IBGE, TCU, CGU
+2. **Motor determinístico para documentos** — PDFs gerados por templates, não por IA generativa
+3. **Auditoria automática** — cada documento é verificado contra checklist legal
+4. **Cross-reference** — dados cruzados entre múltiplas fontes
+5. **Revisão humana obrigatória** — nenhum documento é finalizado sem aprovação do servidor
+6. **Rastreabilidade total** — cada informação tem fonte, data e hash de integridade
+7. **Alertas proativos** — sistema notifica inconsistências antes da finalização
+8. **Código de conduta IA** — regras invioláveis que limitam o escopo da IA
 
 ### Humano + IA
 
-A decisao humana e soberana (Art. 20, LINDB). O ATA360 amadurece a decisao, fundamenta e reduz risco — mas nunca substitui o servidor publico.`,
+A decisão humana é soberana (Art. 20, LINDB). O ATA360 amadurece a decisão, fundamenta e reduz risco — mas nunca substitui o servidor público.`,
     category: 'ia-compras-publicas',
-    tags: ['inteligencia artificial', 'anti-alucinacao', 'automacao', 'GovTech', 'compras publicas'],
+    tags: ['inteligência artificial', 'anti-alucinação', 'automação', 'GovTech', 'compras públicas'],
     author: ATA360_AUTHOR,
     publishedAt: '2026-02-11T00:00:00Z',
     updatedAt: '2026-02-11T00:00:00Z',
     readingTimeMin: 7,
     featured: true,
-    seoTitle: 'IA em Contratacoes Publicas: Anti-Alucinacao e Automacao Responsavel | ATA360',
-    seoDescription: 'Como o ATA360 aplica IA sem alucinacoes em compras publicas. 8 camadas de blindagem, dados oficiais e decisao humana soberana.',
+    seoTitle: 'IA em Contratações Públicas: Anti-Alucinação e Automação Responsável | ATA360',
+    seoDescription: 'Como o ATA360 aplica IA sem alucinações em compras públicas. 8 camadas de blindagem, dados oficiais e decisão humana soberana.',
     relatedSlugs: ['lei-14133-guia-completo-nova-lei-licitacoes'],
     glossaryTerms: ['ia-generativa', 'anti-alucinacao', 'govtech'],
     legalReferences: ['Art. 20, LINDB', 'PL 2.338/2023'],
   },
   {
     slug: 'termo-de-referencia-como-elaborar',
-    title: 'Termo de Referencia: Como Elaborar Conforme a Lei 14.133/2021',
-    excerpt: 'Guia pratico para elaboracao do Termo de Referencia (TR) conforme Art. 6, XXIII da Lei 14.133/2021.',
-    content: `## Termo de Referencia na Nova Lei
+    title: 'Termo de Referência: Como Elaborar Conforme a Lei 14.133/2021',
+    excerpt: 'Guia prático para elaboração do Termo de Referência (TR) conforme Art. 6, XXIII da Lei 14.133/2021.',
+    content: `## Termo de Referência na Nova Lei
 
-O Termo de Referencia (TR) e o documento central da fase de planejamento. Elaborado a partir do ETP, contem os elementos necessarios para caracterizar a contratacao.
+O Termo de Referência (TR) é o documento central da fase de planejamento. Elaborado a partir do ETP, contém os elementos necessários para caracterizar a contratação.
 
 ### Elementos do TR (Art. 6, XXIII)
 
-1. Definicao do objeto
-2. Fundamentacao da contratacao
-3. Descricao da solucao
-4. Requisitos da contratacao
-5. Modelo de execucao
-6. Modelo de gestao
-7. Criterios de medicao e pagamento
-8. Forma e criterios de selecao do fornecedor
+1. Definição do objeto
+2. Fundamentação da contratação
+3. Descrição da solução
+4. Requisitos da contratação
+5. Modelo de execução
+6. Modelo de gestão
+7. Critérios de medição e pagamento
+8. Forma e critérios de seleção do fornecedor
 9. Estimativas do valor
-10. Adequacao orcamentaria
+10. Adequação orçamentária
 
-### Dicas Praticas
+### Dicas Práticas
 
-- O TR nasce do ETP — nunca o contrario
-- Cada requisito deve ter fundamentacao legal
-- Especificacoes tecnicas devem ser objetivas (evitar marcas)
-- Incluir criterios de sustentabilidade (Art. 11, IV)
+- O TR nasce do ETP — nunca o contrário
+- Cada requisito deve ter fundamentação legal
+- Especificações técnicas devem ser objetivas (evitar marcas)
+- Incluir critérios de sustentabilidade (Art. 11, IV)
 
 ### O ATA360 e o TR
 
-O ATA360 gera Termos de Referencia com fundamentacao legal automatica, pesquisa de precos integrada e auditoria de conformidade em tempo real.`,
+O ATA360 gera Termos de Referência com fundamentação legal automática, pesquisa de preços integrada e auditoria de conformidade em tempo real.`,
     category: 'licitacao',
-    tags: ['termo de referencia', 'TR', 'Lei 14.133', 'planejamento', 'documentos'],
+    tags: ['termo de referência', 'TR', 'Lei 14.133', 'planejamento', 'documentos'],
     author: ATA360_AUTHOR,
     publishedAt: '2026-02-11T00:00:00Z',
     updatedAt: '2026-02-11T00:00:00Z',
     readingTimeMin: 5,
     featured: false,
-    seoTitle: 'Termo de Referencia (TR): Como Elaborar | Lei 14.133/2021 | ATA360',
-    seoDescription: 'Guia completo para elaborar Termo de Referencia conforme a Lei 14.133/2021. Elementos obrigatorios, dicas praticas e automatizacao com IA.',
+    seoTitle: 'Termo de Referência (TR): Como Elaborar | Lei 14.133/2021 | ATA360',
+    seoDescription: 'Guia completo para elaborar Termo de Referência conforme a Lei 14.133/2021. Elementos obrigatórios, dicas práticas e automatização com IA.',
     relatedSlugs: ['etp-estudo-tecnico-preliminar-passo-a-passo', 'lei-14133-guia-completo-nova-lei-licitacoes'],
     glossaryTerms: ['termo-de-referencia', 'etp', 'licitacao'],
     legalReferences: ['Art. 6, XXIII, Lei 14.133/2021'],

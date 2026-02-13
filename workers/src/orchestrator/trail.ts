@@ -45,9 +45,9 @@ export function initializeTrail(modalidade: string): DocumentTrailItem[] {
 export async function advanceTrail(
   processoId: string,
   env: Env,
-): Promise<{ proximo: string | null; posicao: number }> {
+): Promise<{ proximo: string | null; posicao: number; contexto_documento_anterior: string | null }> {
   const processo = await loadProcesso(processoId, env)
-  if (!processo) return { proximo: null, posicao: 0 }
+  if (!processo) return { proximo: null, posicao: 0, contexto_documento_anterior: null }
 
   const trilha = [...(processo.trilha || [])]
   const posicaoAtual = processo.trilha_posicao
@@ -67,6 +67,25 @@ export async function advanceTrail(
   // Avançar para próximo
   const novaPosicao = posicaoAtual + 1
 
+  // Recuperar conteúdo do documento anterior aprovado (para contexto entre documentos)
+  let contexto_documento_anterior: string | null = null
+  if (processo.documento_url) {
+    try {
+      const docObj = await env.DOCUMENTS.get(processo.documento_url)
+      if (docObj) {
+        const textoCompleto = await docObj.text()
+        // Truncar a 4000 chars para evitar estouro de tokens
+        const LIMITE_CONTEXTO = 4000
+        contexto_documento_anterior = textoCompleto.length > LIMITE_CONTEXTO
+          ? textoCompleto.slice(0, LIMITE_CONTEXTO) + '\n[...truncado]'
+          : textoCompleto
+      }
+    } catch {
+      // Falha ao ler documento anterior — não bloquear avanço da trilha
+      contexto_documento_anterior = null
+    }
+  }
+
   if (novaPosicao < trilha.length) {
     // Marcar próximo como em_andamento
     trilha[novaPosicao] = {
@@ -84,6 +103,7 @@ export async function advanceTrail(
     return {
       proximo: trilha[novaPosicao].tipo,
       posicao: novaPosicao,
+      contexto_documento_anterior,
     }
   }
 
@@ -93,7 +113,7 @@ export async function advanceTrail(
     proximo_sugerido: null,
   } as Partial<ProcessoRow>, env)
 
-  return { proximo: null, posicao: novaPosicao }
+  return { proximo: null, posicao: novaPosicao, contexto_documento_anterior: null }
 }
 
 // ─── Get Trail Status ────────────────────────────────────────────────────────

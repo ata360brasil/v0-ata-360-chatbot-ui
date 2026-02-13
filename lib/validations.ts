@@ -83,12 +83,12 @@ export const teamMemberSchema = z.object({
 })
 
 export const contractSchema = z.object({
-  processNumber: processNumberSchema.or(z.string().min(1, 'Numero do processo obrigatorio')),
-  bidNumber: z.string().min(1, 'Numero da licitacao obrigatorio'),
-  mainObject: z.string().min(10, 'Descricao do objeto deve ter pelo menos 10 caracteres').max(2000),
+  processNumber: processNumberSchema.or(z.string().min(1, 'Número do processo obrigatório')),
+  bidNumber: z.string().min(1, 'Número da licitação obrigatório'),
+  mainObject: z.string().min(10, 'Descrição do objeto deve ter pelo menos 10 caracteres').max(2000),
   totalValue: z.number().positive('Valor deve ser positivo'),
   supplier: z.object({
-    name: z.string().min(2, 'Nome do fornecedor obrigatorio'),
+    name: z.string().min(2, 'Nome do fornecedor obrigatório'),
     cnpj: cnpjSchema,
   }),
 })

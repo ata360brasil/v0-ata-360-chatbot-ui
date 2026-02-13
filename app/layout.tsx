@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import { DM_Sans, JetBrains_Mono } from 'next/font/google'
 import { OrganizationJsonLd, FAQJsonLd } from '@/components/structured-data'
 import { AnalyticsProvider } from '@/components/analytics-provider'
+import { LgpdConsentBanner } from '@/components/lgpd-consent-banner'
 import './globals.css'
 
 const dmSans = DM_Sans({
@@ -103,6 +104,7 @@ export default function RootLayout({
         <FAQJsonLd />
         <AnalyticsProvider />
         {children}
+        <LgpdConsentBanner />
       </body>
     </html>
   )

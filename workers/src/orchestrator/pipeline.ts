@@ -167,6 +167,7 @@ async function handleRascunho(
   userId: string,
   orgaoId: string,
   env: Env,
+  contextoDocumentoAnterior?: string | null,
 ): Promise<PipelineResult> {
   const documentoTipo = processo.documento_atual || processo.trilha[processo.trilha_posicao]?.tipo || 'DFD'
 
@@ -209,6 +210,7 @@ async function handleRascunho(
     insightContext,
     processo.iteracao,
     env,
+    contextoDocumentoAnterior,
   )
 
   // Salvar sugestão no processo
@@ -444,8 +446,8 @@ async function handleDecisao(
         selo_aprovado: seloFinal,
       })
 
-      // Avançar trilha
-      const { proximo, posicao } = await advanceTrail(processo.id, env)
+      // Avançar trilha (inclui contexto do documento anterior para passagem entre documentos)
+      const { proximo, posicao, contexto_documento_anterior } = await advanceTrail(processo.id, env)
 
       if (proximo) {
         // Ainda tem documentos na trilha — resetar para RASCUNHO do próximo
@@ -469,10 +471,10 @@ async function handleDecisao(
           PROCESS_STATES.RASCUNHO, env, { agente: 'orquestrador' },
         )
 
-        // Auto-loop: iniciar pipeline para o próximo documento
+        // Auto-loop: iniciar pipeline para o próximo documento (com contexto do anterior)
         const processoNovo = await loadProcesso(processo.id, env)
         if (processoNovo) {
-          return await handleRascunho(processoNovo, userId, orgaoId, env)
+          return await handleRascunho(processoNovo, userId, orgaoId, env, contexto_documento_anterior)
         }
       }
 
@@ -588,8 +590,8 @@ async function handleDecisao(
         selo_aprovado: false,
       })
 
-      // Avançar trilha
-      const { proximo, posicao } = await advanceTrail(processo.id, env)
+      // Avançar trilha (inclui contexto do documento anterior para passagem entre documentos)
+      const { proximo, posicao, contexto_documento_anterior } = await advanceTrail(processo.id, env)
 
       if (proximo) {
         await updateProcesso(processo.id, {
@@ -607,10 +609,10 @@ async function handleDecisao(
           proximo_sugerido: proximo,
         } as Partial<ProcessoRow>, env)
 
-        // Auto-loop
+        // Auto-loop (com contexto do documento anterior)
         const processoNovo = await loadProcesso(processo.id, env)
         if (processoNovo) {
-          return await handleRascunho(processoNovo, userId, orgaoId, env)
+          return await handleRascunho(processoNovo, userId, orgaoId, env, contexto_documento_anterior)
         }
       }
 

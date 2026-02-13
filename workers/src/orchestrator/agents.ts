@@ -47,7 +47,8 @@ export async function callInsightEngine(
     'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
   }
 
-  // Consultas paralelas a múltiplas fontes
+  // Consultas paralelas protegidas por circuit breaker
+  // Se uma API governamental está fora, fail fast sem bloquear as demais
   const [
     precosResult,
     municipioResult,
@@ -58,18 +59,18 @@ export async function callInsightEngine(
     normativosResult,
   ] = await Promise.allSettled([
     // PNCP — preços de referência
-    fetchPrecos(objeto, env),
+    withCircuitBreaker('pncp', () => fetchPrecos(objeto, env)),
     // IBGE — dados do município do órgão
-    fetchMunicipio(orgaoId, env),
+    withCircuitBreaker('ibge', () => fetchMunicipio(orgaoId, env)),
     // Portal Transparência — sanções (CEIS, CNEP, CEPIM)
-    fetchSancoes(orgaoId, env),
+    withCircuitBreaker('transparencia', () => fetchSancoes(orgaoId, env)),
     // TCU — jurisprudência relevante
-    fetchJurisprudencia(objeto, documentoTipo, env),
-    // Perfil do usuário (server-side)
+    withCircuitBreaker('tcu', () => fetchJurisprudencia(objeto, documentoTipo, env)),
+    // Perfil do usuário (Supabase — interno)
     fetchPerfilUsuario(orgaoId, env),
-    // Parâmetros do órgão (logo, brasão, dados)
+    // Parâmetros do órgão (Supabase — interno)
     fetchParametrosOrgao(orgaoId, env),
-    // Normativos aplicáveis (biblioteca legal global + órgão)
+    // Normativos aplicáveis (Supabase — interno)
     fetchNormativosAplicaveis(documentoTipo, orgaoId, env),
   ])
 
@@ -173,6 +174,7 @@ export async function callACMA(
   insightContext: EnrichedContext,
   iteracao: number,
   env: Env,
+  contextoDocumentoAnterior?: string | null,
 ): Promise<SugestaoACMA> {
   const startTime = Date.now()
 
@@ -197,14 +199,19 @@ export async function callACMA(
   // 2. Montar mensagem com contexto do Insight Engine
   const contextBlock = buildInsightContextBlock(insightContext)
 
+  // Bloco de contexto do documento anterior aprovado na trilha (continuidade entre documentos)
+  const blocoDocAnterior = contextoDocumentoAnterior
+    ? `\n\n[DOCUMENTO ANTERIOR APROVADO:]\n${contextoDocumentoAnterior}\n\nUse o documento anterior como referência para manter consistência de terminologia, dados e fundamentação legal.`
+    : ''
+
   const messages = [
     { role: 'system', content: `${ATA360_SYSTEM_RULES}\n\n${builtPrompt.prompt}` },
-    { role: 'user', content: `${contextBlock}\n\nGere o texto para a seção "${secao}" do ${documentoTipo}.\nObjeto: ${insightContext.objeto}` },
+    { role: 'user', content: `${contextBlock}${blocoDocAnterior}\n\nGere o texto para a seção "${secao}" do ${documentoTipo}.\nObjeto: ${insightContext.objeto}` },
   ]
 
   // 3. Chamar AI Gateway (Haiku 80%, Sonnet 15%, Opus 5%)
   const tier = selectTier(documentoTipo, secao)
-  const model = tierToModel(tier)
+  let model = tierToModel(tier)
 
   // Verificar cache KV
   const cacheKey = `acma:${processoId}:${documentoTipo}:${secao}:${iteracao}`
@@ -219,16 +226,38 @@ export async function callACMA(
     textoSugerido = cached
     cacheHit = true
   } else {
-    // Chamada real ao AI Gateway
-    const aiResponse = await env.AI.run(model as Parameters<Ai['run']>[0], {
-      messages,
-      max_tokens: 2000,
-      temperature: 0.3,
-    }) as { response?: string; usage?: { prompt_tokens: number; completion_tokens: number } }
+    // Cadeia de fallback: modelo primário → modelos alternativos
+    // Se o modelo selecionado falhar, tenta o próximo na cadeia
+    const fallbackChain = buildFallbackChain(model)
+    let modeloUsado = model
+    let lastError: unknown = null
 
-    textoSugerido = aiResponse.response || ''
-    tokensInput = aiResponse.usage?.prompt_tokens || 0
-    tokensOutput = aiResponse.usage?.completion_tokens || 0
+    for (const candidateModel of fallbackChain) {
+      try {
+        const aiResponse = await env.AI.run(candidateModel as Parameters<Ai['run']>[0], {
+          messages,
+          max_tokens: 2000,
+          temperature: 0.3,
+        }) as { response?: string; usage?: { prompt_tokens: number; completion_tokens: number } }
+
+        textoSugerido = aiResponse.response || ''
+        tokensInput = aiResponse.usage?.prompt_tokens || 0
+        tokensOutput = aiResponse.usage?.completion_tokens || 0
+        modeloUsado = candidateModel
+        lastError = null
+        break
+      } catch (err) {
+        lastError = err
+        console.warn(`Fallback LLM: ${candidateModel} falhou, tentando próximo`)
+        continue
+      }
+    }
+
+    if (lastError) {
+      throw new Error(`Todos os modelos falharam na cadeia de fallback: ${fallbackChain.join(' → ')}`)
+    }
+
+    model = modeloUsado
 
     // Cachear resultado (1h TTL)
     await env.CACHE.put(cacheKey, textoSugerido, { expirationTtl: 3600 })
@@ -1001,6 +1030,93 @@ const TOKEN_COSTS_PER_1M: Record<string, { input: number; output: number }> = {
   'gpt-4o': { input: 2.50, output: 10.00 },
   'gemini-2.0-flash': { input: 0.075, output: 0.30 },
   'gemini-2.0-pro': { input: 1.25, output: 5.00 },
+}
+
+/**
+ * Cadeia de fallback por modelo primário.
+ * Se o primário falhar (rate limit, timeout, erro), tenta o próximo.
+ * Sempre inclui o modelo primário como primeiro elemento.
+ *
+ * @see Spec v8 Part 11 — IA Agnostic Strategy (fallback chain)
+ */
+function buildFallbackChain(primaryModel: string): string[] {
+  const chain = [primaryModel]
+
+  // Opus → Sonnet → Haiku (degradação graceful de capacidade)
+  if (primaryModel.includes('opus')) {
+    chain.push('@cf/anthropic/claude-sonnet-4-5-20250929')
+    chain.push('@cf/anthropic/claude-haiku-4-5-20251001')
+  }
+  // Sonnet → Haiku (manter custo baixo)
+  else if (primaryModel.includes('sonnet')) {
+    chain.push('@cf/anthropic/claude-haiku-4-5-20251001')
+  }
+  // Haiku já é o mais barato — não há fallback abaixo
+
+  return chain
+}
+
+// ─── Circuit Breaker para APIs Externas ─────────────────────────────────────
+// Previne cascata de falhas quando APIs governamentais ficam indisponíveis.
+// Estado em memória (reset entre deployments — aceitável para Workers).
+
+interface CircuitState {
+  failures: number
+  lastFailure: number
+  state: 'closed' | 'open' | 'half-open'
+}
+
+const circuitBreakers = new Map<string, CircuitState>()
+
+const CIRCUIT_FAILURE_THRESHOLD = 5
+const CIRCUIT_RESET_TIMEOUT_MS = 60_000 // 1 minuto para tentar novamente
+
+/**
+ * Executa uma chamada protegida por circuit breaker.
+ * Se o circuito está aberto, rejeita imediatamente (fail fast).
+ * Se está half-open, permite uma tentativa de teste.
+ *
+ * @param name - Identificador da API (ex: 'pncp', 'ibge', 'tcu')
+ * @param fn - Função assíncrona que faz a chamada real
+ * @returns Resultado da chamada ou null se o circuito está aberto
+ */
+export async function withCircuitBreaker<T>(
+  name: string,
+  fn: () => Promise<T>,
+): Promise<T | null> {
+  let circuit = circuitBreakers.get(name)
+  if (!circuit) {
+    circuit = { failures: 0, lastFailure: 0, state: 'closed' }
+    circuitBreakers.set(name, circuit)
+  }
+
+  // Se o circuito está aberto, verificar se já passou o tempo de reset
+  if (circuit.state === 'open') {
+    if (Date.now() - circuit.lastFailure > CIRCUIT_RESET_TIMEOUT_MS) {
+      circuit.state = 'half-open'
+    } else {
+      // Fail fast — não chamar a API
+      return null
+    }
+  }
+
+  try {
+    const result = await fn()
+    // Sucesso — resetar o circuito
+    circuit.failures = 0
+    circuit.state = 'closed'
+    return result
+  } catch (err) {
+    circuit.failures++
+    circuit.lastFailure = Date.now()
+
+    if (circuit.failures >= CIRCUIT_FAILURE_THRESHOLD) {
+      circuit.state = 'open'
+      console.warn(`Circuit breaker ABERTO para "${name}" após ${circuit.failures} falhas consecutivas`)
+    }
+
+    throw err
+  }
 }
 
 /**

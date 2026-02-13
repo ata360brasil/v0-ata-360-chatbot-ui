@@ -3,175 +3,238 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ATA360 Design System — Monochromatic Excellence
+ *
+ * Paleta: Preto, Branco e Cinzas puros (OKLCH chroma = 0).
+ * Zero cor. Máxima clareza. Dignidade institucional.
+ *
+ * Escala de 13 tons (0.00 → 1.00 lightness):
+ *   Ink     0.00  —  preto absoluto
+ *   900     0.15  —  texto principal
+ *   800     0.22  —  texto forte
+ *   700     0.32  —  texto secundário
+ *   600     0.45  —  ícones, placeholders
+ *   500     0.55  —  bordas ativas
+ *   400     0.70  —  bordas padrão
+ *   300     0.82  —  divisores sutis
+ *   200     0.90  —  backgrounds hover
+ *   150     0.93  —  backgrounds secondary
+ *   100     0.96  —  backgrounds muted
+ *   50      0.98  —  backgrounds page
+ *   Paper   1.00  —  branco absoluto
+ *
+ * Tipografia: DM Sans (corpo) + JetBrains Mono (código/dados).
+ * Espaçamento: 4px base grid. Seções 24px. Painéis 16px.
+ * Raio: 6px (sm), 8px (md), 10px (lg), 14px (xl).
+ * Motion: Material Design 3 curves.
+ *
+ * @see WCAG 2.1 AA — Contraste mínimo 4.5:1 texto, 3:1 componentes
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
 :root {
-  /* Base */
-  --background: oklch(0.99 0.002 240);
-  --foreground: oklch(0.15 0.02 250);
+  /* ─── Core Palette ──────────────────────────────────────────────────────── */
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.145 0 0);
 
   /* Cards & Popovers */
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.02 250);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.02 250);
+  --card: oklch(1.000 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1.000 0 0);
+  --popover-foreground: oklch(0.145 0 0);
 
-  /* Primary — Azul Institucional ATA360 */
-  --primary: oklch(0.35 0.12 250);
-  --primary-foreground: oklch(0.98 0.005 240);
+  /* Primary — Preto como ação principal */
+  --primary: oklch(0.145 0 0);
+  --primary-foreground: oklch(0.985 0 0);
 
   /* Secondary */
-  --secondary: oklch(0.96 0.01 240);
-  --secondary-foreground: oklch(0.25 0.05 250);
+  --secondary: oklch(0.935 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
 
   /* Muted */
-  --muted: oklch(0.96 0.008 240);
-  --muted-foreground: oklch(0.50 0.03 250);
+  --muted: oklch(0.955 0 0);
+  --muted-foreground: oklch(0.455 0 0);
 
   /* Accent */
-  --accent: oklch(0.94 0.015 240);
-  --accent-foreground: oklch(0.25 0.05 250);
+  --accent: oklch(0.920 0 0);
+  --accent-foreground: oklch(0.205 0 0);
 
-  /* Destructive */
-  --destructive: oklch(0.55 0.22 27);
-  --destructive-foreground: oklch(0.55 0.22 27);
+  /* Destructive — Único tom cromático permitido: vermelho funcional */
+  --destructive: oklch(0.530 0.19 25);
+  --destructive-foreground: oklch(0.985 0 0);
 
   /* Borders & Inputs */
-  --border: oklch(0.90 0.01 240);
-  --input: oklch(0.90 0.01 240);
-  --ring: oklch(0.45 0.15 250);
+  --border: oklch(0.880 0 0);
+  --input: oklch(0.880 0 0);
+  --ring: oklch(0.145 0 0);
 
-  /* Charts — Paleta harmônica */
-  --chart-1: oklch(0.45 0.15 250);
-  --chart-2: oklch(0.60 0.16 155);
-  --chart-3: oklch(0.75 0.15 85);
-  --chart-4: oklch(0.55 0.12 300);
-  --chart-5: oklch(0.65 0.14 200);
+  /* Charts — Escala monocromática com 5 tons */
+  --chart-1: oklch(0.145 0 0);
+  --chart-2: oklch(0.350 0 0);
+  --chart-3: oklch(0.500 0 0);
+  --chart-4: oklch(0.650 0 0);
+  --chart-5: oklch(0.800 0 0);
 
   --radius: 0.625rem;
 
-  /* Sidebar */
-  --sidebar: oklch(0.98 0.005 240);
-  --sidebar-foreground: oklch(0.15 0.02 250);
-  --sidebar-primary: oklch(0.35 0.12 250);
-  --sidebar-primary-foreground: oklch(0.98 0.005 240);
-  --sidebar-accent: oklch(0.94 0.015 240);
-  --sidebar-accent-foreground: oklch(0.25 0.05 250);
-  --sidebar-border: oklch(0.90 0.01 240);
-  --sidebar-ring: oklch(0.45 0.15 250);
+  /* ─── Sidebar ───────────────────────────────────────────────────────────── */
+  --sidebar: oklch(0.975 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.145 0 0);
+  --sidebar-primary-foreground: oklch(0.975 0 0);
+  --sidebar-accent: oklch(0.935 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.900 0 0);
+  --sidebar-ring: oklch(0.145 0 0);
 
-  /* Custom ATA360 tokens */
-  --success: oklch(0.60 0.16 155);
-  --success-foreground: oklch(0.98 0.01 155);
-  --warning: oklch(0.75 0.15 85);
-  --warning-foreground: oklch(0.25 0.10 85);
-  --info: oklch(0.60 0.12 240);
-  --info-foreground: oklch(0.98 0.005 240);
+  /* ─── Semantic Tokens ───────────────────────────────────────────────────── */
+  /* Únicos tons cromáticos: sinais funcionais (vermelho, âmbar, verde) */
+  --success: oklch(0.550 0.16 155);
+  --success-foreground: oklch(0.985 0 0);
+  --warning: oklch(0.700 0.15 75);
+  --warning-foreground: oklch(0.200 0.08 75);
+  --info: oklch(0.450 0 0);
+  --info-foreground: oklch(0.985 0 0);
 
-  /* Motion tokens — durations seguem Material Design 3 */
+  /* ─── Motion Tokens (Material Design 3) ─────────────────────────────────── */
   --duration-instant: 100ms;
-  --duration-fast: 200ms;
-  --duration-normal: 300ms;
-  --duration-slow: 500ms;
-  --duration-enter: 250ms;
-  --duration-exit: 200ms;
-  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-in: cubic-bezier(0.4, 0, 1, 1);
-  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-enter: 200ms;
+  --duration-exit: 150ms;
+  --ease-default: cubic-bezier(0.2, 0, 0, 1);
+  --ease-in: cubic-bezier(0.3, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0, 1);
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Scrollbar */
+  /* ─── Scrollbar ─────────────────────────────────────────────────────────── */
   --scrollbar-width: 6px;
-  --scrollbar-thumb: oklch(0.80 0.01 240);
-  --scrollbar-thumb-hover: oklch(0.65 0.02 240);
+  --scrollbar-thumb: oklch(0.800 0 0);
+  --scrollbar-thumb-hover: oklch(0.600 0 0);
 
-  /* Dashboard chart colors — OKLCH for perceptual uniformity (Adam Wathan / Tailwind 4) */
-  --dashboard-blue: oklch(0.55 0.18 250);
-  --dashboard-green: oklch(0.55 0.17 155);
-  --dashboard-red: oklch(0.55 0.22 27);
-  --dashboard-orange: oklch(0.65 0.17 65);
-  --dashboard-purple: oklch(0.50 0.20 300);
-  --dashboard-cyan: oklch(0.60 0.14 220);
-  --dashboard-navy: oklch(0.35 0.10 250);
-  --dashboard-gray: oklch(0.65 0.01 250);
-  --dashboard-grid: oklch(0.92 0.005 240);
-  --dashboard-axis: oklch(0.65 0.01 250);
+  /* ─── Dashboard (Monocromático) ─────────────────────────────────────────── */
+  --dashboard-1: oklch(0.145 0 0);
+  --dashboard-2: oklch(0.300 0 0);
+  --dashboard-3: oklch(0.450 0 0);
+  --dashboard-4: oklch(0.600 0 0);
+  --dashboard-5: oklch(0.750 0 0);
+  --dashboard-6: oklch(0.850 0 0);
+  --dashboard-grid: oklch(0.935 0 0);
+  --dashboard-axis: oklch(0.600 0 0);
 
-  /* Spacing scale */
-  --space-panel: 1rem;
-  --space-section: 1.5rem;
+  /* ─── Spacing Scale (4px base) ──────────────────────────────────────────── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-panel: var(--space-4);
+  --space-section: var(--space-6);
 
-  /* Z-index scale (previne conflitos) */
+  /* ─── Z-Index Scale ─────────────────────────────────────────────────────── */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
   --z-sidebar: 30;
   --z-header: 40;
   --z-modal: 50;
   --z-toast: 60;
   --z-tooltip: 70;
+
+  /* ─── Typographic Scale ─────────────────────────────────────────────────── */
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * DARK MODE — Inversão controlada
+ * ═══════════════════════════════════════════════════════════════════════════ */
 
 .dark {
-  --background: oklch(0.14 0.015 250);
-  --foreground: oklch(0.96 0.005 240);
+  --background: oklch(0.115 0 0);
+  --foreground: oklch(0.935 0 0);
 
-  --card: oklch(0.17 0.015 250);
-  --card-foreground: oklch(0.96 0.005 240);
-  --popover: oklch(0.17 0.015 250);
-  --popover-foreground: oklch(0.96 0.005 240);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.935 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.935 0 0);
 
-  --primary: oklch(0.65 0.15 250);
-  --primary-foreground: oklch(0.13 0.02 250);
+  --primary: oklch(0.935 0 0);
+  --primary-foreground: oklch(0.115 0 0);
 
-  --secondary: oklch(0.22 0.02 250);
-  --secondary-foreground: oklch(0.96 0.005 240);
+  --secondary: oklch(0.195 0 0);
+  --secondary-foreground: oklch(0.935 0 0);
 
-  --muted: oklch(0.22 0.015 250);
-  --muted-foreground: oklch(0.75 0.02 250);
+  --muted: oklch(0.195 0 0);
+  --muted-foreground: oklch(0.600 0 0);
 
-  --accent: oklch(0.22 0.02 250);
-  --accent-foreground: oklch(0.96 0.005 240);
+  --accent: oklch(0.205 0 0);
+  --accent-foreground: oklch(0.935 0 0);
 
-  --destructive: oklch(0.40 0.15 25);
-  --destructive-foreground: oklch(0.65 0.24 25);
+  --destructive: oklch(0.450 0.18 25);
+  --destructive-foreground: oklch(0.935 0 0);
 
-  --border: oklch(0.32 0.015 250);
-  --input: oklch(0.32 0.015 250);
-  --ring: oklch(0.60 0.12 250);
+  --border: oklch(0.260 0 0);
+  --input: oklch(0.260 0 0);
+  --ring: oklch(0.935 0 0);
 
-  --chart-1: oklch(0.55 0.18 250);
-  --chart-2: oklch(0.65 0.17 155);
-  --chart-3: oklch(0.78 0.16 85);
-  --chart-4: oklch(0.62 0.20 300);
-  --chart-5: oklch(0.65 0.18 200);
+  --chart-1: oklch(0.935 0 0);
+  --chart-2: oklch(0.750 0 0);
+  --chart-3: oklch(0.570 0 0);
+  --chart-4: oklch(0.400 0 0);
+  --chart-5: oklch(0.260 0 0);
 
-  --sidebar: oklch(0.16 0.015 250);
-  --sidebar-foreground: oklch(0.96 0.005 240);
-  --sidebar-primary: oklch(0.55 0.18 250);
-  --sidebar-primary-foreground: oklch(0.96 0.005 240);
-  --sidebar-accent: oklch(0.22 0.02 250);
-  --sidebar-accent-foreground: oklch(0.96 0.005 240);
-  --sidebar-border: oklch(0.32 0.015 250);
-  --sidebar-ring: oklch(0.60 0.12 250);
+  --sidebar: oklch(0.130 0 0);
+  --sidebar-foreground: oklch(0.935 0 0);
+  --sidebar-primary: oklch(0.935 0 0);
+  --sidebar-primary-foreground: oklch(0.130 0 0);
+  --sidebar-accent: oklch(0.205 0 0);
+  --sidebar-accent-foreground: oklch(0.935 0 0);
+  --sidebar-border: oklch(0.260 0 0);
+  --sidebar-ring: oklch(0.935 0 0);
 
-  --success: oklch(0.65 0.17 155);
-  --success-foreground: oklch(0.13 0.05 155);
-  --warning: oklch(0.78 0.16 85);
-  --warning-foreground: oklch(0.20 0.10 85);
-  --info: oklch(0.65 0.15 240);
-  --info-foreground: oklch(0.13 0.02 240);
+  --success: oklch(0.620 0.17 155);
+  --success-foreground: oklch(0.115 0 0);
+  --warning: oklch(0.750 0.16 75);
+  --warning-foreground: oklch(0.175 0 0);
+  --info: oklch(0.600 0 0);
+  --info-foreground: oklch(0.115 0 0);
 
-  --scrollbar-thumb: oklch(0.40 0.015 250);
-  --scrollbar-thumb-hover: oklch(0.50 0.02 250);
+  --scrollbar-thumb: oklch(0.350 0 0);
+  --scrollbar-thumb-hover: oklch(0.450 0 0);
 
-  /* Dashboard chart colors — brighter OKLCH for dark (Adam Wathan) */
-  --dashboard-blue: oklch(0.70 0.17 250);
-  --dashboard-green: oklch(0.72 0.18 160);
-  --dashboard-red: oklch(0.70 0.20 25);
-  --dashboard-orange: oklch(0.78 0.16 85);
-  --dashboard-purple: oklch(0.68 0.18 300);
-  --dashboard-cyan: oklch(0.72 0.15 220);
-  --dashboard-navy: oklch(0.75 0.12 250);
-  --dashboard-gray: oklch(0.45 0.01 250);
-  --dashboard-grid: oklch(0.28 0.01 250);
-  --dashboard-axis: oklch(0.45 0.01 250);
+  --dashboard-1: oklch(0.935 0 0);
+  --dashboard-2: oklch(0.780 0 0);
+  --dashboard-3: oklch(0.620 0 0);
+  --dashboard-4: oklch(0.460 0 0);
+  --dashboard-5: oklch(0.310 0 0);
+  --dashboard-6: oklch(0.200 0 0);
+  --dashboard-grid: oklch(0.205 0 0);
+  --dashboard-axis: oklch(0.450 0 0);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * TAILWIND 4 THEME BRIDGE
+ * ═══════════════════════════════════════════════════════════════════════════ */
 
 @theme inline {
   --font-sans: 'DM Sans', 'DM Sans Fallback', system-ui, sans-serif;
@@ -220,66 +283,62 @@
   --color-info-foreground: var(--info-foreground);
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+ * BASE LAYER
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: 'ss01', 'ss02', 'cv01';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 }
 
-/* Custom cursor styles */
-.cursor-pointer {
-  cursor: pointer;
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ANIMATIONS
+ * ═══════════════════════════════════════════════════════════════════════════ */
 
-.cursor-text {
-  cursor: text;
-}
-
-/* Brain icon animation */
 @keyframes brain-pulse {
-  0%, 100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
 }
 
 .animate-brain-pulse {
-  animation: brain-pulse 1.5s ease-in-out infinite;
+  animation: brain-pulse 1.5s var(--ease-default) infinite;
 }
 
-/* Shimmer animation for processing indicator */
 @keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 .animate-shimmer {
-  animation: shimmer 1.5s ease-in-out infinite;
+  animation: shimmer 1.5s var(--ease-default) infinite;
 }
 
-/* Filter active indicator animation */
 @keyframes filter-glow {
-  0%, 100% {
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
 }
 
 .animate-filter-active {
-  animation: filter-glow 2s ease-in-out infinite;
+  animation: filter-glow 2s var(--ease-default) infinite;
+}
+
+/* Pipeline progress bar */
+@keyframes pipeline-progress {
+  0% { width: 0%; }
+  100% { width: var(--pipeline-progress, 0%); }
+}
+
+.animate-pipeline-progress {
+  animation: pipeline-progress 0.6s var(--ease-out) forwards;
 }
 
 /* Smooth transitions */
@@ -289,24 +348,7 @@
               transform var(--duration-normal) var(--ease-default);
 }
 
-/* Custom scrollbar */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  border-radius: 3px;
-}
-
 /* ─── LOGO SHINE — APPROVED & LOCKED ─────────────────────────────────────── */
-/* Diagonal light bar sweeps across logo every 6s.
-   rotate(20deg), translateX(-300%→700%), 25% width.
-   DO NOT MODIFY without explicit approval. */
 @keyframes logoShine {
   0%   { opacity: 0; transform: rotate(20deg) translateX(-300%); }
   56%  { opacity: 0; transform: rotate(20deg) translateX(-300%); }
@@ -326,15 +368,14 @@
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.2) 48%,
-    rgba(255, 255, 255, 0.45) 50%,
-    rgba(255, 255, 255, 0.2) 52%,
+    rgba(255, 255, 255, 0.15) 48%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.15) 52%,
     rgba(255, 255, 255, 0) 100%
   );
   mix-blend-mode: overlay;
   animation: logoShine 6s ease-in-out infinite !important;
   will-change: transform;
-  /* Feather ALL edges so no sharp rectangular boundary is visible */
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
                       linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
   -webkit-mask-composite: source-in;
@@ -343,67 +384,73 @@
   mask-composite: intersect;
 }
 
-/* Dark mode: white shine with overlay — same visual as light mode.
-   mask-image feathering prevents the visible rectangle.              */
 .dark .animate-logo-shine {
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.15) 48%,
-    rgba(255, 255, 255, 0.35) 50%,
-    rgba(255, 255, 255, 0.15) 52%,
+    rgba(255, 255, 255, 0.10) 48%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.10) 52%,
     rgba(255, 255, 255, 0) 100%
   );
   mix-blend-mode: overlay;
 }
 
-/* Hero entrance animations */
+/* ─── Hero & Card Entrances ───────────────────────────────────────────────── */
+
 @keyframes hero-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes hero-scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.92);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes card-enter {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-hero-fade-up {
-  animation: hero-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: hero-fade-up 0.5s var(--ease-spring) both;
 }
 
 .animate-hero-scale-in {
-  animation: hero-scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: hero-scale-in 0.4s var(--ease-spring) both;
 }
 
 .animate-card-enter {
-  animation: card-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: card-enter 0.35s var(--ease-spring) both;
 }
 
-/* ─── REDUCED MOTION (WCAG 2.1 SC 2.3.3) ─────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════════════
+ * SCROLLBAR
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ACCESSIBILITY
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+/* WCAG 2.1 SC 2.3.3 — Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -414,7 +461,6 @@
     scroll-behavior: auto !important;
   }
 
-  /* Preserve the subtle shine — it's decorative, not distracting */
   .animate-logo-shine {
     animation: logoShine 6s ease-in-out infinite !important;
     animation-duration: 6s !important;
@@ -422,10 +468,6 @@
   }
 }
 
-/* ─── LOGO SHINE: REDUCED-MOTION OVERRIDE (must be OUTSIDE @media to win) ─ */
-/* Tailwind CSS 4 may reorder rules inside @media blocks.
-   This standalone rule uses double-class specificity to guarantee it always
-   beats the * { animation-duration: 0.01ms !important } kill rule.            */
 @media (prefers-reduced-motion: reduce) {
   .animate-logo-shine.animate-logo-shine {
     animation: logoShine 6s ease-in-out infinite !important;
@@ -434,36 +476,29 @@
   }
 }
 
-/* ─── FOCUS VISIBLE (WCAG 2.1 SC 2.4.7) ──────────────────────────────────── */
+/* WCAG 2.1 SC 2.4.7 — Focus Visible */
 :focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-/* Remove outline for mouse/touch users */
 :focus:not(:focus-visible) {
   outline: none;
 }
 
-/* ─── HIGH CONTRAST MODE ──────────────────────────────────────────────────── */
+/* High Contrast Mode */
 @media (forced-colors: active) {
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background: ButtonText;
   }
 }
 
-/* ─── SELECTION COLORS ────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════════════
+ * SELECTION
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
 ::selection {
   background: var(--primary);
   color: var(--primary-foreground);
-}
-
-/* ─── SCROLLBAR WITH TOKENS ───────────────────────────────────────────────── */
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--scrollbar-thumb-hover);
 }

@@ -13,8 +13,8 @@
  * POST /:id/resposta-externa — Receber resposta via link externo
  *
  * @see Art. 86, Lei 14.133/2021 — Adesão a ARP
- * @see Art. 86, §4º — Limite 50% total
- * @see Art. 86, §5º — Limite 50% por órgão aderente
+ * @see Art. 86, §4º — Limite 50% dos quantitativos por órgão aderente
+ * @see Art. 86, §5º — Limite 2× (dobro) dos quantitativos totais
  */
 
 import { Hono } from 'hono'
@@ -57,9 +57,9 @@ app.post('/', async (c) => {
   const id = crypto.randomUUID()
   const valorTotal = body.itens?.reduce((sum, i) => sum + (i.quantidade * i.valor_unitario), 0) || 0
 
-  // ─── Validação Art. 86, §4º e §5º — Limites de 50% ────────────────────────
-  // §4º: Soma de adesões não pode ultrapassar 50% do total registrado
-  // §5º: Cada órgão aderente limitado a 50% do total registrado
+  // ─── Validação Art. 86, §4º e §5º — Limites por QUANTIDADE (não valor) ────
+  // §4º: Cada órgão aderente ≤ 50% dos QUANTITATIVOS registrados (por item)
+  // §5º: Total de adesões ≤ 2× (dobro) dos QUANTITATIVOS registrados (por item)
   // Vigência: ARP só aceita adesão enquanto vigente
   if (body.ata_pncp_id) {
     try {
@@ -80,50 +80,92 @@ app.post('/', async (c) => {
         }
       }
 
-      // Buscar adesões existentes para esta ATA (somar valores já comprometidos)
+      // Buscar adesões existentes COM itens (para calcular quantidades por item)
       const adesoesResponse = await fetch(
-        `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?ata_pncp_id=eq.${body.ata_pncp_id}&status=not.in.(cancelada,recusada_gerenciador,recusada_fornecedor,expirada)&select=valor_total,orgao_aderente_id`,
+        `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?ata_pncp_id=eq.${encodeURIComponent(body.ata_pncp_id)}&status=not.in.(cancelada,recusada_gerenciador,recusada_fornecedor,expirada)&select=itens,orgao_aderente_id`,
         { headers },
       )
 
       if (adesoesResponse.ok) {
-        const adesoesExistentes = await adesoesResponse.json() as Array<{ valor_total: number; orgao_aderente_id: string }>
+        const adesoesExistentes = await adesoesResponse.json() as Array<{
+          itens: Array<{ catmat?: string; catser?: string; quantidade: number }>
+          orgao_aderente_id: string
+        }>
 
-        // Buscar valor total registrado na ATA (se disponível via PNCP)
+        // Buscar itens registrados na ATA com quantidades originais
         const ataResponse = await fetch(
-          `${c.env.SUPABASE_URL}/rest/v1/atas_registro_precos?pncp_id=eq.${body.ata_pncp_id}&select=valor_total_registrado`,
+          `${c.env.SUPABASE_URL}/rest/v1/atas_registro_precos?pncp_id=eq.${encodeURIComponent(body.ata_pncp_id)}&select=itens_registrados`,
           { headers },
         )
-        const ataRows = ataResponse.ok ? await ataResponse.json() as Array<{ valor_total_registrado: number }> : []
-        const valorTotalRegistrado = ataRows[0]?.valor_total_registrado
+        const ataRows = ataResponse.ok
+          ? await ataResponse.json() as Array<{ itens_registrados: Array<{ catmat?: string; catser?: string; quantidade_registrada: number }> }>
+          : []
+        const itensRegistrados = ataRows[0]?.itens_registrados
 
-        if (valorTotalRegistrado && valorTotalRegistrado > 0) {
-          // §4º: Soma de TODAS as adesões ≤ 50% do total registrado
-          const somaAdesoesGeral = adesoesExistentes.reduce((sum, a) => sum + (a.valor_total || 0), 0)
-          const limiteGeral = valorTotalRegistrado * 0.5
-          if (somaAdesoesGeral + valorTotal > limiteGeral) {
-            return c.json({
-              message: `Limite de adesão excedido (Art. 86, §4º). Saldo disponível: R$ ${(limiteGeral - somaAdesoesGeral).toFixed(2)}`,
-              limite_total: limiteGeral,
-              ja_comprometido: somaAdesoesGeral,
-              valor_solicitado: valorTotal,
-              fundamentacao: 'Art. 86, §4º, Lei 14.133/2021 — Limite 50% total registrado para adesões',
-            }, 422)
+        if (itensRegistrados && itensRegistrados.length > 0) {
+          // Montar mapa: código do item → quantidade registrada
+          const chaveItem = (item: { catmat?: string; catser?: string }) =>
+            item.catmat || item.catser || ''
+
+          const qtdRegistradaPorItem = new Map<string, number>()
+          for (const item of itensRegistrados) {
+            const chave = chaveItem(item)
+            if (chave) qtdRegistradaPorItem.set(chave, item.quantidade_registrada)
           }
 
-          // §5º: Adesões DESTE ÓRGÃO ≤ 50% do total registrado
-          const somaAdesoesOrgao = adesoesExistentes
-            .filter(a => a.orgao_aderente_id === orgaoId)
-            .reduce((sum, a) => sum + (a.valor_total || 0), 0)
-          const limiteOrgao = valorTotalRegistrado * 0.5
-          if (somaAdesoesOrgao + valorTotal > limiteOrgao) {
-            return c.json({
-              message: `Limite de adesão por órgão excedido (Art. 86, §5º). Saldo disponível para este órgão: R$ ${(limiteOrgao - somaAdesoesOrgao).toFixed(2)}`,
-              limite_orgao: limiteOrgao,
-              ja_comprometido_orgao: somaAdesoesOrgao,
-              valor_solicitado: valorTotal,
-              fundamentacao: 'Art. 86, §5º, Lei 14.133/2021 — Limite 50% por órgão aderente',
-            }, 422)
+          // Acumular quantidades já comprometidas por adesões existentes
+          // Total (todas as adesões) e por órgão
+          const qtdTotalPorItem = new Map<string, number>()
+          const qtdOrgaoPorItem = new Map<string, number>()
+
+          for (const adesao of adesoesExistentes) {
+            if (!Array.isArray(adesao.itens)) continue
+            for (const item of adesao.itens) {
+              const chave = chaveItem(item)
+              if (!chave) continue
+              qtdTotalPorItem.set(chave, (qtdTotalPorItem.get(chave) || 0) + item.quantidade)
+              if (adesao.orgao_aderente_id === orgaoId) {
+                qtdOrgaoPorItem.set(chave, (qtdOrgaoPorItem.get(chave) || 0) + item.quantidade)
+              }
+            }
+          }
+
+          // Validar cada item da nova solicitação
+          for (const item of (body.itens || [])) {
+            const chave = chaveItem(item)
+            if (!chave) continue
+            const qtdRegistrada = qtdRegistradaPorItem.get(chave)
+            if (!qtdRegistrada || qtdRegistrada <= 0) continue
+
+            // §5º: Total de TODAS as adesões ≤ 2× quantidade registrada (dobro)
+            const totalExistente = qtdTotalPorItem.get(chave) || 0
+            const limiteTotalItem = qtdRegistrada * 2
+            if (totalExistente + item.quantidade > limiteTotalItem) {
+              return c.json({
+                message: `Limite de adesão excedido para item ${chave} (Art. 86, §5º). Saldo: ${limiteTotalItem - totalExistente} unidades`,
+                item: chave,
+                quantidade_registrada: qtdRegistrada,
+                limite_total: limiteTotalItem,
+                ja_comprometido: totalExistente,
+                quantidade_solicitada: item.quantidade,
+                fundamentacao: 'Art. 86, §5º, Lei 14.133/2021 — Adesões não podem exceder o dobro do quantitativo registrado por item',
+              }, 422)
+            }
+
+            // §4º: Adesões DESTE ÓRGÃO ≤ 50% da quantidade registrada (por item)
+            const orgaoExistente = qtdOrgaoPorItem.get(chave) || 0
+            const limiteOrgaoItem = qtdRegistrada * 0.5
+            if (orgaoExistente + item.quantidade > limiteOrgaoItem) {
+              return c.json({
+                message: `Limite por órgão excedido para item ${chave} (Art. 86, §4º). Saldo para este órgão: ${Math.floor(limiteOrgaoItem - orgaoExistente)} unidades`,
+                item: chave,
+                quantidade_registrada: qtdRegistrada,
+                limite_orgao: limiteOrgaoItem,
+                ja_comprometido_orgao: orgaoExistente,
+                quantidade_solicitada: item.quantidade,
+                fundamentacao: 'Art. 86, §4º, Lei 14.133/2021 — Limite 50% dos quantitativos registrados por órgão aderente',
+              }, 422)
+            }
           }
         }
       }
@@ -206,7 +248,7 @@ app.get('/:id', async (c) => {
 
   try {
     const response = await fetch(
-      `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?id=eq.${id}&orgao_aderente_id=eq.${orgaoId}`,
+      `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?id=eq.${encodeURIComponent(id)}&orgao_aderente_id=eq.${encodeURIComponent(orgaoId || '')}`,
       { headers: { 'apikey': c.env.SUPABASE_SERVICE_KEY, 'Authorization': `Bearer ${c.env.SUPABASE_SERVICE_KEY}` } }
     )
     const rows = await response.json() as unknown[]
@@ -227,7 +269,7 @@ app.get('/orgao/:orgaoId', async (c) => {
 
   try {
     const response = await fetch(
-      `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?orgao_aderente_id=eq.${orgaoId}&order=created_at.desc`,
+      `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?orgao_aderente_id=eq.${encodeURIComponent(orgaoId)}&order=created_at.desc`,
       { headers: { 'apikey': c.env.SUPABASE_SERVICE_KEY, 'Authorization': `Bearer ${c.env.SUPABASE_SERVICE_KEY}` } }
     )
     const adesoes = await response.json()
@@ -269,7 +311,7 @@ app.patch('/:id/status', async (c) => {
 
   try {
     await fetch(
-      `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?id=eq.${id}&orgao_aderente_id=eq.${orgaoId}`,
+      `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?id=eq.${encodeURIComponent(id)}&orgao_aderente_id=eq.${encodeURIComponent(orgaoId || '')}`,
       {
         method: 'PATCH',
         headers: {
@@ -309,7 +351,7 @@ app.post('/:id/resposta-externa', async (c) => {
   const campo = body.tipo === 'gerenciador' ? 'link_gerenciador' : 'link_fornecedor'
   try {
     const response = await fetch(
-      `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?${campo}=eq.${body.token}`,
+      `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?${campo}=eq.${encodeURIComponent(body.token)}`,
       { headers: { 'apikey': c.env.SUPABASE_SERVICE_KEY, 'Authorization': `Bearer ${c.env.SUPABASE_SERVICE_KEY}` } }
     )
     const rows = await response.json() as Array<Record<string, unknown>>
@@ -334,7 +376,7 @@ app.post('/:id/resposta-externa', async (c) => {
     }
 
     await fetch(
-      `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?id=eq.${adesao.id}`,
+      `${c.env.SUPABASE_URL}/rest/v1/adesao_arp?id=eq.${encodeURIComponent(String(adesao.id))}`,
       {
         method: 'PATCH',
         headers: {

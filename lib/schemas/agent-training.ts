@@ -1,20 +1,20 @@
 /**
  * Agent Training & Anti-Hallucination Infrastructure
  *
- * Sistema de treinamento de agentes IA para contratacoes publicas:
- * - Calibracao de prompts por dominio legal
- * - Anti-alucinacao: 8 camadas de blindagem
- * - Feedback loop: aprendizado continuo com supervisao humana
- * - Compliance: auditoria de respostas contra legislacao
+ * Sistema de treinamento de agentes IA para contratações públicas:
+ * - Calibração de prompts por domínio legal
+ * - Anti-alucinação: 8 camadas de blindagem
+ * - Feedback loop: aprendizado contínuo com supervisão humana
+ * - Compliance: auditoria de respostas contra legislação
  *
  * Arquitetura AI-First:
- * - O ATA360 e concebido como sistema autonomo de IA
- * - A IA e a infraestrutura, nao o complemento
- * - Decisao humana e soberana (Art. 20, LINDB)
- * - Automacao responsavel, confiavel e segura
+ * - O ATA360 é concebido como sistema autônomo de IA
+ * - A IA é a infraestrutura, não o complemento
+ * - Decisão humana é soberana (Art. 20, LINDB)
+ * - Automação responsável, confiável e segura
  *
- * @see PL 2.338/2023 — Marco Regulatorio da IA
- * @see Art. 20, LINDB — Decisao administrativa motivada
+ * @see PL 2.338/2023 — Marco Regulatório da IA
+ * @see Art. 20, LINDB — Decisão administrativa motivada
  * @see Spec v8, Part 9 — Anti-Hallucination Shield
  */
 
@@ -26,56 +26,56 @@ export const ANTI_HALLUCINATION_LAYERS = [
   {
     layer: 1,
     name: 'Fontes Oficiais Exclusivas',
-    description: 'Dados provem exclusivamente de APIs governamentais (PNCP, IBGE, TCU, CGU, BCB, TransfereGov)',
+    description: 'Dados provêm exclusivamente de APIs governamentais (PNCP, IBGE, TCU, CGU, BCB, TransfereGov)',
     enforcement: 'runtime',
     automated: true,
   },
   {
     layer: 2,
-    name: 'Motor Deterministico para Documentos',
-    description: 'PDFs e documentos formais gerados por templates HTML, nao por IA generativa',
+    name: 'Motor Determinístico para Documentos',
+    description: 'PDFs e documentos formais gerados por templates HTML, não por IA generativa',
     enforcement: 'architecture',
     automated: true,
   },
   {
     layer: 3,
-    name: 'Auditoria Automatica',
-    description: 'Cada documento e verificado contra checklist legal (AUDITOR agent)',
+    name: 'Auditoria Automática',
+    description: 'Cada documento é verificado contra checklist legal (AUDITOR agent)',
     enforcement: 'pipeline',
     automated: true,
   },
   {
     layer: 4,
     name: 'Cross-Reference Multi-Fonte',
-    description: 'Dados cruzados entre multiplas fontes oficiais para validacao',
+    description: 'Dados cruzados entre múltiplas fontes oficiais para validação',
     enforcement: 'runtime',
     automated: true,
   },
   {
     layer: 5,
-    name: 'Revisao Humana Obrigatoria',
-    description: 'Nenhum documento e finalizado sem aprovacao explicita do servidor publico',
+    name: 'Revisão Humana Obrigatória',
+    description: 'Nenhum documento é finalizado sem aprovação explícita do servidor público',
     enforcement: 'workflow',
     automated: false,
   },
   {
     layer: 6,
     name: 'Rastreabilidade Total',
-    description: 'Cada informacao tem fonte, data, hash de integridade e audit trail',
+    description: 'Cada informação tem fonte, data, hash de integridade e audit trail',
     enforcement: 'storage',
     automated: true,
   },
   {
     layer: 7,
     name: 'Alertas Proativos',
-    description: 'Sistema notifica inconsistencias, dados desatualizados e riscos antes da finalizacao',
+    description: 'Sistema notifica inconsistências, dados desatualizados e riscos antes da finalização',
     enforcement: 'runtime',
     automated: true,
   },
   {
     layer: 8,
-    name: 'Codigo de Conduta IA',
-    description: 'Regras inviolaveis que limitam escopo da IA (ATA360_SYSTEM_RULES)',
+    name: 'Código de Conduta IA',
+    description: 'Regras invioláveis que limitam escopo da IA (ATA360_SYSTEM_RULES)',
     enforcement: 'prompt',
     automated: true,
   },
@@ -121,17 +121,17 @@ export const AGENT_REGISTRY = {
   acma: {
     id: 'acma',
     name: 'ACMA — Advanced Compliance & Metrics Analysis',
-    description: 'Agente principal de geracao de texto para documentos licitatorios',
-    role: 'Gera sugestoes de texto fundamentadas na legislacao e dados oficiais',
+    description: 'Agente principal de geração de texto para documentos licitatórios',
+    role: 'Gera sugestões de texto fundamentadas na legislação e dados oficiais',
     tier: 'geracao',
     antiHallucination: {
       temperature: 0.3,
       requiredSources: ['PNCP', 'IBGE', 'legislacao'],
       forbiddenActions: [
-        'Inventar precos',
-        'Criar jurisprudencia ficticia',
-        'Omitir fundamentacao legal',
-        'Sugerir marcas especificas',
+        'Inventar preços',
+        'Criar jurisprudência fictícia',
+        'Omitir fundamentação legal',
+        'Sugerir marcas específicas',
         'Decidir pelo servidor',
       ],
     },
@@ -145,14 +145,14 @@ export const AGENT_REGISTRY = {
   auditor: {
     id: 'auditor',
     name: 'AUDITOR — Compliance Checker',
-    description: 'Agente de auditoria automatica de documentos',
+    description: 'Agente de auditoria automática de documentos',
     role: 'Verifica conformidade de documentos contra checklist legal',
     tier: 'geracao',
     antiHallucination: {
       temperature: 0.1,
       requiredSources: ['legislacao', 'jurisprudencia_tcu'],
       forbiddenActions: [
-        'Aprovar documento sem verificacao',
+        'Aprovar documento sem verificação',
         'Ignorar requisitos legais',
         'Inventar normas',
         'Dar parecer definitivo',
@@ -190,16 +190,16 @@ export const AGENT_REGISTRY = {
   normalizer: {
     id: 'normalizer',
     name: 'NORMALIZER — Text Standardization',
-    description: 'Motor de normalizacao e padronizacao de texto',
+    description: 'Motor de normalização e padronização de texto',
     role: 'Padroniza termos, abreviaturas, regionalismos e unidades de medida',
     tier: 'triagem',
     antiHallucination: {
       temperature: 0,
       requiredSources: ['catmat', 'catser', 'abreviaturas'],
       forbiddenActions: [
-        'Inventar sinonimos',
+        'Inventar sinônimos',
         'Alterar significado',
-        'Remover termos tecnicos',
+        'Remover termos técnicos',
       ],
     },
     trainingDomains: ['documentos_licitatorios'],
@@ -214,18 +214,18 @@ export const AGENT_REGISTRY = {
 // ─── AI-First Principles ─────────────────────────────────────────────────────
 
 export const AI_FIRST_PRINCIPLES = {
-  core: 'O ATA360 e concebido AI-first. A IA e a infraestrutura, nao o complemento.',
-  humanSovereignty: 'A decisao humana e soberana (Art. 20, LINDB). O servidor decide, o ATA360 fundamenta.',
-  responsibleAutomation: 'Automacao responsavel, confiavel e segura. Cada acao e rastreavel e auditavel.',
-  antiHallucination: '8 camadas de blindagem garantem que nenhuma informacao seja inventada.',
-  dataIntegrity: 'Todos os dados provem de fontes oficiais com hash de integridade.',
-  continuousLearning: 'Agentes aprendem com feedback supervisionado, nunca de forma autonoma sem validacao.',
+  core: 'O ATA360 é concebido AI-first. A IA é a infraestrutura, não o complemento.',
+  humanSovereignty: 'A decisão humana é soberana (Art. 20, LINDB). O servidor decide, o ATA360 fundamenta.',
+  responsibleAutomation: 'Automação responsável, confiável e segura. Cada ação é rastreável e auditável.',
+  antiHallucination: '8 camadas de blindagem garantem que nenhuma informação seja inventada.',
+  dataIntegrity: 'Todos os dados provêm de fontes oficiais com hash de integridade.',
+  continuousLearning: 'Agentes aprendem com feedback supervisionado, nunca de forma autônoma sem validação.',
   legalCompliance: [
-    'Lei 14.133/2021 — Nova Lei de Licitacoes',
-    'LGPD (Lei 13.709/2018) — Protecao de Dados',
-    'LINDB (Lei 13.655/2018, Art. 20) — Decisao motivada',
-    'PL 2.338/2023 — Marco Regulatorio da IA',
-    'Lei 12.846/2013 — Anticorrupcao',
+    'Lei 14.133/2021 — Nova Lei de Licitações',
+    'LGPD (Lei 13.709/2018) — Proteção de Dados',
+    'LINDB (Lei 13.655/2018, Art. 20) — Decisão motivada',
+    'PL 2.338/2023 — Marco Regulatório da IA',
+    'Lei 12.846/2013 — Anticorrupção',
   ],
 } as const
 
@@ -233,38 +233,38 @@ export const AI_FIRST_PRINCIPLES = {
 
 export const EVALUATION_METRICS = {
   accuracy: {
-    name: 'Precisao',
-    description: 'Percentual de informacoes corretas vs. fontes oficiais',
+    name: 'Precisão',
+    description: 'Percentual de informações corretas vs. fontes oficiais',
     target: 0.99,
     critical: true,
   },
   hallucination_rate: {
-    name: 'Taxa de Alucinacao',
-    description: 'Percentual de informacoes sem fonte verificavel',
+    name: 'Taxa de Alucinação',
+    description: 'Percentual de informações sem fonte verificável',
     target: 0.001,
     critical: true,
   },
   legal_compliance: {
     name: 'Conformidade Legal',
-    description: 'Aderencia a Lei 14.133/2021 e legislacao aplicavel',
+    description: 'Aderência à Lei 14.133/2021 e legislação aplicável',
     target: 1.0,
     critical: true,
   },
   response_latency: {
-    name: 'Latencia',
-    description: 'Tempo medio de resposta (ms)',
+    name: 'Latência',
+    description: 'Tempo médio de resposta (ms)',
     target: 5000,
     critical: false,
   },
   user_satisfaction: {
-    name: 'Satisfacao do Usuario',
-    description: 'Nota media de avaliacao (1-5)',
+    name: 'Satisfação do Usuário',
+    description: 'Nota média de avaliação (1-5)',
     target: 4.5,
     critical: false,
   },
   citation_rate: {
-    name: 'Taxa de Citacao',
-    description: 'Percentual de respostas com fundamentacao legal',
+    name: 'Taxa de Citação',
+    description: 'Percentual de respostas com fundamentação legal',
     target: 0.95,
     critical: true,
   },

@@ -78,7 +78,7 @@ export async function transition(
 
   // 2. Atualizar status do processo
   const updateResponse = await fetch(
-    `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${processoId}`,
+    `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${encodeURIComponent(processoId)}`,
     {
       method: 'PATCH',
       headers,
@@ -115,7 +115,7 @@ export async function transition(
 
   // Precisamos do orgao_id — buscar do processo
   const processoResponse = await fetch(
-    `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${processoId}&select=orgao_id`,
+    `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${encodeURIComponent(processoId)}&select=orgao_id`,
     { headers },
   )
 
@@ -164,6 +164,7 @@ export function enforceIterationLimits(processo: ProcessoRow): IterationLimits {
 
 /**
  * Decrementa contadores de iteração no Supabase.
+ * Uses compare-and-swap (CAS) via updated_at to prevent race conditions.
  */
 export async function decrementarSugestoes(
   processoId: string,
@@ -174,56 +175,47 @@ export async function decrementarSugestoes(
     'Content-Type': 'application/json',
     'apikey': env.SUPABASE_SERVICE_KEY,
     'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
-    'Prefer': 'return=minimal',
+    'Prefer': 'return=representation',
   }
 
-  // Buscar valor atual
-  const response = await fetch(
-    `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${processoId}&select=${campo}`,
-    { headers },
-  )
+  // Atomic CAS: read + conditional write with retry
+  for (let attempt = 0; attempt < 3; attempt++) {
+    // 1. Read current state
+    const response = await fetch(
+      `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${encodeURIComponent(processoId)}&select=${campo},iteracao,updated_at`,
+      { headers: { 'apikey': env.SUPABASE_SERVICE_KEY, 'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}` } },
+    )
 
-  if (response.ok) {
-    const [row] = await response.json() as Array<Record<string, number>>
-    if (row) {
-      const novoValor = Math.max(0, (row[campo] || 0) - 1)
-      await fetch(
-        `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${processoId}`,
-        {
-          method: 'PATCH',
-          headers,
-          body: JSON.stringify({
-            [campo]: novoValor,
-            iteracao: (row[campo] || 0) > novoValor
-              ? (await getIteracao(processoId, env)) + 1
-              : undefined,
-            updated_at: new Date().toISOString(),
-          }),
-        },
-      )
-    }
+    if (!response.ok) return
+
+    const [row] = await response.json() as Array<Record<string, unknown>>
+    if (!row) return
+
+    const currentValue = (row[campo] as number) || 0
+    const currentUpdatedAt = row.updated_at as string
+    const novoValor = Math.max(0, currentValue - 1)
+
+    // 2. Conditional write — only if updated_at hasn't changed (CAS)
+    const writeResponse = await fetch(
+      `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${encodeURIComponent(processoId)}&updated_at=eq.${encodeURIComponent(currentUpdatedAt)}`,
+      {
+        method: 'PATCH',
+        headers,
+        body: JSON.stringify({
+          [campo]: novoValor,
+          iteracao: currentValue > novoValor ? ((row.iteracao as number) || 1) + 1 : undefined,
+          updated_at: new Date().toISOString(),
+        }),
+      },
+    )
+
+    if (!writeResponse.ok) continue
+
+    const result = await writeResponse.json() as unknown[]
+    if (result.length > 0) return // Success — row was updated
+
+    // CAS failed (another request modified the row), retry
   }
-}
-
-/**
- * Busca iteração atual do processo.
- */
-async function getIteracao(processoId: string, env: Env): Promise<number> {
-  const headers = {
-    'apikey': env.SUPABASE_SERVICE_KEY,
-    'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
-  }
-
-  const response = await fetch(
-    `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${processoId}&select=iteracao`,
-    { headers },
-  )
-
-  if (response.ok) {
-    const [row] = await response.json() as Array<{ iteracao: number }>
-    return row?.iteracao || 1
-  }
-  return 1
 }
 
 // ─── Selo Calculation (mirror de lib/schemas/selo.ts) ─────────────────────────
@@ -301,7 +293,7 @@ export async function loadProcesso(
   }
 
   const response = await fetch(
-    `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${processoId}&select=*`,
+    `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${encodeURIComponent(processoId)}&select=*`,
     { headers },
   )
 
@@ -327,7 +319,7 @@ export async function updateProcesso(
   }
 
   const response = await fetch(
-    `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${processoId}`,
+    `${env.SUPABASE_URL}/rest/v1/processos?id=eq.${encodeURIComponent(processoId)}`,
     {
       method: 'PATCH',
       headers,

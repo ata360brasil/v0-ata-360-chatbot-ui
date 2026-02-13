@@ -616,11 +616,15 @@ function analisarEGerarSugestoes(
     if (recorrente && anosPresente >= 3) prioridade = 'alta'
     if (valorMedio > 500000) prioridade = 'critica'
 
-    // Determinar modalidade sugerida
-    const modalidadeSugerida = sugerirModalidade(valorMedio)
-
     // Usar a descrição mais recente
     const compraRecente = compras.sort((a, b) => b.ano - a.ano)[0]
+
+    // Determinar modalidade sugerida (multi-critério: valor + tipo + natureza)
+    const modalidadeSugerida = sugerirModalidade(
+      valorMedio,
+      compraRecente.tipo as string,
+      compraRecente.natureza as string | undefined,
+    )
 
     itens.push({
       numero_item: numero++,
@@ -703,14 +707,73 @@ function inferirSetor(descricao: string): string {
   return 'Administração'
 }
 
-function sugerirModalidade(valorEstimado: number): string {
+/**
+ * Sugere modalidade de licitação considerando MÚLTIPLOS critérios legais.
+ *
+ * A modalidade NÃO é função apenas de valor. Depende de:
+ * 1. Natureza do objeto (bens comuns vs especiais)
+ * 2. Tipo (material vs serviço vs obra vs TIC)
+ * 3. Valor estimado (limites Dec. 12.807/2025)
+ * 4. Se há ARP vigente disponível (carona = dispensa do certame)
+ *
+ * Hierarquia legal:
+ *   - Pregão obrigatório para bens/serviços comuns (Art. 29, Lei 14.133)
+ *   - Concorrência para obras/serviços engenharia acima do limite
+ *   - Dispensa por valor (Art. 75, II) independe do tipo
+ *   - TIC: pregão obrigatório (Dec. 10.024/2019, Art. 1º, §1º)
+ *
+ * @see Art. 29, Lei 14.133/2021 — Pregão
+ * @see Art. 75, II, Lei 14.133/2021 — Dispensa por valor
+ * @see Dec. 12.807/2025 — Limites atualizados (vigência jan/2026)
+ */
+function sugerirModalidade(
+  valorEstimado: number,
+  tipo?: string,
+  natureza?: string,
+): string {
   // Limites atualizados pelo Dec. 12.807/2025 (vigência jan/2026)
-  // Art. 75, II da Lei 14.133/2021 — dispensa por valor
-  const LIMITE_DISPENSA = 65492.11 // Dec. 12.807/2025, Art. 75, II
-  const LIMITE_CONCORRENCIA = 3774997.53 // Dec. 12.807/2025 — obras/serviços engenharia
+  const LIMITE_DISPENSA_BENS_SERVICOS = 65492.11     // Art. 75, II, "a"
+  const LIMITE_DISPENSA_OBRAS = 130984.22             // Art. 75, II, "b" (obras/serviços engenharia)
+  const LIMITE_CONCORRENCIA_OBRAS = 3774997.53        // Acima disso: concorrência obrigatória
 
-  if (valorEstimado <= LIMITE_DISPENSA) return 'dispensa'
-  if (valorEstimado <= LIMITE_CONCORRENCIA) return 'pregao'
+  const tipoNorm = (tipo || 'material').toLowerCase()
+  const naturezaNorm = (natureza || 'comum').toLowerCase()
+  const isObra = tipoNorm === 'obra'
+  const isTIC = tipoNorm === 'tic'
+  const isEspecial = naturezaNorm === 'especial'
+
+  // 1. Dispensa por valor (independe do tipo — Art. 75, II)
+  const limiteDispensa = isObra ? LIMITE_DISPENSA_OBRAS : LIMITE_DISPENSA_BENS_SERVICOS
+  if (valorEstimado <= limiteDispensa) {
+    return 'dispensa'
+  }
+
+  // 2. Obras e serviços de engenharia
+  if (isObra) {
+    // Acima do limite de concorrência → concorrência obrigatória
+    if (valorEstimado > LIMITE_CONCORRENCIA_OBRAS) {
+      return 'concorrencia'
+    }
+    // Engenharia comum → pode ser pregão (Art. 29, §1º)
+    if (!isEspecial) {
+      return 'pregao'
+    }
+    // Engenharia especial → concorrência (Art. 29, caput — "bens e serviços comuns")
+    return 'concorrencia'
+  }
+
+  // 3. TIC — pregão obrigatório para bens/serviços de TI comuns
+  //    Dec. 10.024/2019, Art. 1º, §1º (ratificado pela Lei 14.133)
+  if (isTIC && !isEspecial) {
+    return 'pregao'
+  }
+
+  // 4. Bens e serviços comuns → pregão obrigatório (Art. 29)
+  if (!isEspecial) {
+    return 'pregao'
+  }
+
+  // 5. Bens e serviços especiais → concorrência (não cabem em pregão)
   return 'concorrencia'
 }
 
