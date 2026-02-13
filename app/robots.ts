@@ -11,33 +11,33 @@ export default function robots(): MetadataRoute.Robots {
       // AI crawlers — explicitly allowed for AI-citability (GEO strategy)
       {
         userAgent: 'GPTBot',
-        allow: ['/', '/blog/', '/glossario/'],
+        allow: ['/', '/blog/', '/glossario/', '/jurisprudencia-tce/'],
         disallow: ['/api/', '/settings/', '/login'],
       },
       {
         userAgent: 'ChatGPT-User',
-        allow: ['/', '/blog/', '/glossario/'],
+        allow: ['/', '/blog/', '/glossario/', '/jurisprudencia-tce/'],
         disallow: ['/api/', '/settings/', '/login'],
       },
       {
         userAgent: 'Google-Extended',
-        allow: ['/', '/blog/', '/glossario/'],
+        allow: ['/', '/blog/', '/glossario/', '/jurisprudencia-tce/'],
         disallow: ['/api/', '/settings/', '/login'],
       },
       {
         userAgent: 'PerplexityBot',
-        allow: ['/', '/blog/', '/glossario/'],
+        allow: ['/', '/blog/', '/glossario/', '/jurisprudencia-tce/'],
         disallow: ['/api/', '/settings/', '/login'],
       },
       {
         userAgent: 'ClaudeBot',
-        allow: ['/', '/blog/', '/glossario/'],
+        allow: ['/', '/blog/', '/glossario/', '/jurisprudencia-tce/'],
         disallow: ['/api/', '/settings/', '/login'],
       },
       // Bing AI (Copilot)
       {
         userAgent: 'bingbot',
-        allow: ['/', '/blog/', '/glossario/'],
+        allow: ['/', '/blog/', '/glossario/', '/jurisprudencia-tce/'],
         disallow: ['/api/', '/settings/', '/login'],
       },
     ],

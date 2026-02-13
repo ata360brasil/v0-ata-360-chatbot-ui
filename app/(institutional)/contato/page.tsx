@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ContatoCnpjInput } from '@/components/contato-cnpj-input'
 
 export const metadata: Metadata = {
   title: 'Contato — Fale Conosco',
@@ -105,15 +106,7 @@ export default function ContatoPage() {
               <label htmlFor="cnpj" className="block text-sm font-medium mb-2">
                 CNPJ do Orgao <span className="text-destructive">*</span>
               </label>
-              <input
-                type="text"
-                id="cnpj"
-                name="cnpj"
-                required
-                pattern="\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2}"
-                placeholder="00.000.000/0001-00"
-                className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-              />
+              <ContatoCnpjInput />
             </div>
           </div>
 

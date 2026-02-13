@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { MaskedInput } from "@/components/ui/masked-input";
 import { Textarea } from "@/components/ui/textarea";
 import {
   DropdownMenu,
@@ -40,6 +41,7 @@ import {
   Edit3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { analytics } from "@/lib/analytics";
 
 interface Contract {
   id: string;
@@ -754,12 +756,13 @@ export function ContractsPage() {
             <Button
               onClick={() => {
                 if (selectedContract) {
-                  // In a real app, this would update the contract in the database
                   selectedContract.ratings = tempRatings;
                   selectedContract.ratingEvaluated = true;
                   selectedContract.ratingObservation = ratingObservation;
                   selectedContract.ratingDate = new Date().toLocaleDateString('pt-BR');
                   selectedContract.ratingUser = "Bernardo Aguiar";
+                  const avg = (tempRatings.supplier + tempRatings.delivery + tempRatings.quality + tempRatings.relationship) / 4;
+                  analytics.auditCompleted(avg, 4);
                 }
                 setRatingsModalOpen(false);
               }}
@@ -882,11 +885,11 @@ export function ContractsPage() {
             </div>
             <div className="space-y-2">
               <label className="text-xs text-muted-foreground">Valor Total</label>
-              <Input
-                placeholder="Ex: 150000.00"
-                type="number"
+              <MaskedInput
+                mask="brl"
+                placeholder="R$ 0,00"
                 value={newContract.totalValue}
-                onChange={(e) => setNewContract({ ...newContract, totalValue: e.target.value })}
+                onValueChange={(raw) => setNewContract({ ...newContract, totalValue: raw })}
                 className="rounded-full"
               />
             </div>
@@ -901,10 +904,12 @@ export function ContractsPage() {
             </div>
             <div className="space-y-2">
               <label className="text-xs text-muted-foreground">CNPJ do Fornecedor</label>
-              <Input
+              <MaskedInput
+                mask="cnpj"
                 placeholder="00.000.000/0001-00"
                 value={newContract.supplierCnpj}
-                onChange={(e) => setNewContract({ ...newContract, supplierCnpj: e.target.value })}
+                onValueChange={(raw) => setNewContract({ ...newContract, supplierCnpj: raw })}
+                showValidation
                 className="rounded-full"
               />
             </div>

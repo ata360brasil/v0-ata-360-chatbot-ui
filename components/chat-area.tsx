@@ -27,6 +27,7 @@ import { dfdSacoLixoData } from "@/lib/examples/dfd-saco-lixo";
 import { chat as chatApi, type ChatMessage } from "@/lib/api";
 import { useApp } from "@/contexts/app-context";
 import { logger } from "@/lib/observability";
+import { analytics } from "@/lib/analytics";
 
 
 interface Message {
@@ -186,6 +187,8 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
     }
 
     setIsTyping(true);
+    const sendTimestamp = Date.now();
+    analytics.chatMessageSent(processoId || 'new');
 
     // Check if user is asking for DFD (show processing steps animation)
     const isDFDRequest = mensagem.toLowerCase().includes("dfd") ||
@@ -196,6 +199,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
     if (isDFDRequest) {
       setIsDFDProcessing(true);
       setProcessingStep(0);
+      analytics.pipelineStarted('DFD', 'geracao');
       processingIntervalRef.current = setInterval(() => {
         setProcessingStep((prev) => prev < dfdProcessingSteps.length - 1 ? prev + 1 : prev);
       }, 800);
@@ -213,6 +217,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
     apiCall
       .then((response) => {
         if (processingIntervalRef.current) clearInterval(processingIntervalRef.current);
+        analytics.chatResponseReceived(processoId || 'new', Date.now() - sendTimestamp);
 
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
@@ -226,6 +231,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
 
         // Open artifact if response includes one
         if (response.artifact) {
+          analytics.documentGenerated(response.artifact.tipo || 'DFD');
           if (isDFDRequest || response.artifact.tipo === 'DFD') {
             onOpenArtifact({
               id: `dfd-${Date.now()}`,
@@ -327,6 +333,7 @@ export function ChatArea({ hasStartedChat, onStartChat, onOpenArtifact }: ChatAr
   const submitRating = () => {
     if (ratingModal.messageId && ratingStars > 0) {
       setRatedMessages((prev) => new Map(prev).set(ratingModal.messageId!, ratingStars));
+      analytics.auditCompleted(ratingStars, 1);
     }
     setRatingModal({ open: false, messageId: null });
     setRatingStars(0);

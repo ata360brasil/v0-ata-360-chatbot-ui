@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { BLOG_POSTS } from '@/lib/blog'
 import { GLOSSARY_TERMS } from '@/lib/glossary'
+import { DECISOES_TCE } from '@/data/jurisprudencia-tce'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://app.ata360.com.br'
@@ -25,9 +26,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/carta-servidor`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/contato`, lastModified, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/cookies`, lastModified, changeFrequency: 'monthly', priority: 0.3 },
-    // Blog e Glossario (SEO programatico — alta prioridade)
+    // Blog, Glossario e Jurisprudencia (SEO programatico — alta prioridade)
     { url: `${baseUrl}/blog`, lastModified, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/glossario`, lastModified, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/jurisprudencia-tce`, lastModified, changeFrequency: 'weekly', priority: 0.9 },
     // Paginas legais
     { url: `${baseUrl}/privacidade`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
     { url: `${baseUrl}/termos`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
@@ -50,5 +52,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.65,
   }))
 
-  return [...staticPages, ...blogPages, ...glossaryPages]
+  // Programmatic SEO: TCE jurisprudence pages
+  const tcePages: MetadataRoute.Sitemap = DECISOES_TCE.map(decisao => ({
+    url: `${baseUrl}/jurisprudencia-tce/${decisao.slug}`,
+    lastModified: new Date(decisao.dataPublicacao),
+    changeFrequency: 'monthly' as const,
+    priority: 0.75,
+  }))
+
+  return [...staticPages, ...blogPages, ...glossaryPages, ...tcePages]
 }

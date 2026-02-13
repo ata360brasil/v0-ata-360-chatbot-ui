@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { BLOG_POSTS, BLOG_CATEGORIES, getPostBySlug, getRelatedPosts } from '@/lib/blog'
 import { BreadcrumbJsonLd } from '@/components/structured-data'
+import { BlogPostTracker } from '@/components/analytics-tracker'
+import { renderMarkdown } from '@/lib/markdown'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -43,6 +45,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   const related = getRelatedPosts(post)
   const cat = BLOG_CATEGORIES[post.category]
+  const contentHtml = await renderMarkdown(post.content)
 
   return (
     <>
@@ -81,83 +84,77 @@ export default async function BlogPostPage({ params }: PageProps) {
         { name: post.title, href: `/blog/${post.slug}` },
       ]} />
 
-      <article className="mx-auto max-w-3xl px-6 py-16">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-1.5 text-xs text-muted-foreground mb-8" aria-label="Breadcrumb">
-          <Link href={'/' as Route} className="hover:text-foreground transition-colors">Inicio</Link>
-          <span>/</span>
-          <Link href={'/blog' as Route} className="hover:text-foreground transition-colors">Blog</Link>
-          <span>/</span>
-          <span className="text-foreground">{cat.label}</span>
+      <BlogPostTracker slug={post.slug} category={post.category} />
+      <article className="mx-auto max-w-3xl px-6 py-16 lg:py-24">
+        {/* Breadcrumb — minimal, monochrome */}
+        <nav className="flex items-center gap-1.5 text-xs text-neutral-400 mb-12 font-mono" aria-label="Breadcrumb">
+          <Link href={'/' as Route} className="hover:text-foreground transition-colors">inicio</Link>
+          <span className="text-neutral-300">/</span>
+          <Link href={'/blog' as Route} className="hover:text-foreground transition-colors">blog</Link>
+          <span className="text-neutral-300">/</span>
+          <span className="text-neutral-500">{cat.label.toLowerCase()}</span>
         </nav>
 
-        {/* Header */}
-        <header className="mb-10">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-xs font-medium text-primary uppercase tracking-wide">{cat.label}</span>
+        {/* Header — bold, clean, black/white */}
+        <header className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-[11px] font-medium text-neutral-500 uppercase tracking-widest">{cat.label}</span>
             {post.featured && (
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary">Destaque</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-foreground text-background tracking-wide">Destaque</span>
             )}
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-[1.1] tracking-tight">
             {post.title}
           </h1>
-          <p className="text-base text-muted-foreground leading-relaxed mb-6">
+          <p className="text-lg text-neutral-500 leading-relaxed mb-8 max-w-2xl">
             {post.excerpt}
           </p>
-          <div className="flex items-center gap-4 text-xs text-muted-foreground/60 border-b border-border/40 pb-6">
+          <div className="flex items-center gap-6 text-xs text-neutral-400 border-t border-neutral-200 dark:border-neutral-800 pt-6 font-mono">
             <span>{post.author.name}</span>
             <time dateTime={post.publishedAt}>
-              {new Date(post.publishedAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}
+              {new Date(post.publishedAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })}
             </time>
-            <span>{post.readingTimeMin} min de leitura</span>
+            <span>{post.readingTimeMin} min</span>
           </div>
         </header>
 
-        {/* Content */}
-        <div className="prose prose-neutral dark:prose-invert max-w-none text-sm leading-relaxed [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:mt-8 [&_h2]:mb-3 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-6 [&_h3]:mb-2 [&_p]:mb-4 [&_ul]:mb-4 [&_ol]:mb-4 [&_li]:mb-1 [&_strong]:text-foreground">
-          {post.content.split('\n').map((line, i) => {
-            if (line.startsWith('## ')) return <h2 key={i}>{line.replace('## ', '')}</h2>
-            if (line.startsWith('### ')) return <h3 key={i}>{line.replace('### ', '')}</h3>
-            if (line.startsWith('**') && line.endsWith('**')) return <p key={i}><strong>{line.replace(/\*\*/g, '')}</strong></p>
-            if (line.startsWith('- ')) return <li key={i}>{line.replace('- ', '')}</li>
-            if (line.match(/^\d+\. /)) return <li key={i}>{line.replace(/^\d+\. /, '')}</li>
-            if (line.trim() === '') return null
-            return <p key={i}>{line}</p>
-          })}
-        </div>
+        {/* Content — remark/rehype rendered, clean typography */}
+        <div
+          className="max-w-none text-[15px] leading-[1.8] text-neutral-700 dark:text-neutral-300 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:tracking-tight [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-foreground [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:mb-5 [&_ul]:mb-5 [&_ul]:pl-5 [&_ul]:list-disc [&_ol]:mb-5 [&_ol]:pl-5 [&_ol]:list-decimal [&_li]:mb-1.5 [&_strong]:text-foreground [&_strong]:font-semibold [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-neutral-300 [&_a:hover]:decoration-foreground [&_blockquote]:border-l-2 [&_blockquote]:border-neutral-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-neutral-500 [&_code]:bg-neutral-100 [&_code]:dark:bg-neutral-800 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono"
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
+        />
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mt-10 pt-6 border-t border-border/40">
+        {/* Tags — monochrome pills */}
+        <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
           {post.tags.map(tag => (
-            <span key={tag} className="text-[11px] px-2.5 py-1 rounded-full bg-muted text-muted-foreground">
+            <span key={tag} className="text-[11px] px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 text-neutral-500 font-mono">
               {tag}
             </span>
           ))}
         </div>
 
-        {/* Legal references */}
+        {/* Legal references — subtle card */}
         {post.legalReferences.length > 0 && (
-          <div className="mt-6 p-4 rounded-lg bg-muted/50 border border-border/40">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Fundamentacao Legal</h3>
-            <ul className="text-xs text-muted-foreground space-y-1">
+          <div className="mt-8 p-5 rounded-xl bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800">
+            <h3 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-3">Fundamentacao Legal</h3>
+            <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1.5">
               {post.legalReferences.map(ref => (
-                <li key={ref}>{ref}</li>
+                <li key={ref} className="font-mono text-xs">{ref}</li>
               ))}
             </ul>
           </div>
         )}
 
-        {/* Glossary links */}
+        {/* Glossary links — monochrome */}
         {post.glossaryTerms.length > 0 && (
-          <div className="mt-4">
-            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Termos Relacionados</h3>
+          <div className="mt-6">
+            <h3 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-3">Termos Relacionados</h3>
             <div className="flex flex-wrap gap-1.5">
               {post.glossaryTerms.map(term => (
                 <Link
                   key={term}
                   href={`/glossario/${term}` as Route}
-                  className="text-[11px] px-2.5 py-1 rounded-full border border-primary/20 text-primary hover:bg-primary/5 transition-colors"
+                  className="text-[11px] px-3 py-1 rounded-full border border-foreground/20 text-foreground hover:bg-foreground hover:text-background transition-colors font-mono"
                 >
                   {term.replace(/-/g, ' ')}
                 </Link>
@@ -166,19 +163,19 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
         )}
 
-        {/* Related posts */}
+        {/* Related posts — minimal cards */}
         {related.length > 0 && (
-          <section className="mt-12 pt-8 border-t border-border/40" aria-label="Artigos relacionados">
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Artigos Relacionados</h2>
+          <section className="mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800" aria-label="Artigos relacionados">
+            <h2 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-6">Artigos Relacionados</h2>
             <div className="grid gap-4">
               {related.map(r => (
                 <Link
                   key={r.slug}
                   href={`/blog/${r.slug}` as Route}
-                  className="block p-4 rounded-lg border border-border/40 hover:border-border hover:shadow-sm transition-all"
+                  className="group block p-5 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-foreground transition-all"
                 >
-                  <h3 className="text-sm font-semibold text-foreground mb-1">{r.title}</h3>
-                  <p className="text-xs text-muted-foreground line-clamp-2">{r.excerpt}</p>
+                  <h3 className="text-sm font-semibold text-foreground mb-1 group-hover:underline underline-offset-4">{r.title}</h3>
+                  <p className="text-xs text-neutral-500 line-clamp-2">{r.excerpt}</p>
                 </Link>
               ))}
             </div>
