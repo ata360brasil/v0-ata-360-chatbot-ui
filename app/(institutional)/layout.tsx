@@ -9,24 +9,23 @@ export const metadata: Metadata = {
 
 const NAV_LINKS = [
   { href: '/quem-somos', label: 'Quem Somos' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/glossario', label: 'Glossario' },
+  { href: '/solucoes', label: 'Solucoes' },
+  { href: '/blog', label: 'Noticias' },
   { href: '/contato', label: 'Contato' },
 ] as const
 
 const FOOTER_INSTITUTIONAL = [
-  { href: '/manifesto', label: 'Manifesto' },
   { href: '/quem-somos', label: 'Quem Somos' },
-  { href: '/missao-visao-valores', label: 'Missao e Valores' },
-  { href: '/compromissos', label: 'Compromissos' },
-  { href: '/compliance', label: 'Compliance' },
-  { href: '/seguranca', label: 'Seguranca e IA' },
-  { href: '/carta-servidor', label: 'Carta ao Servidor' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/glossario', label: 'Glossario' },
+  { href: '/solucoes', label: 'Solucoes' },
+  { href: '/humano-ia', label: 'Humano + I.A.' },
+  { href: '/parceiros', label: 'Parceiros' },
+  { href: '/carreiras', label: 'Carreiras' },
+  { href: '/manifesto', label: 'Manifesto' },
 ] as const
 
-const FOOTER_LEGAL = [
+const FOOTER_LEGAL_CONTEUDO = [
+  { href: '/blog', label: 'Noticias' },
+  { href: '/glossario', label: 'Glossario' },
   { href: '/privacidade', label: 'Privacidade' },
   { href: '/termos', label: 'Termos de Uso' },
   { href: '/lgpd', label: 'LGPD' },
@@ -106,11 +105,11 @@ export default function InstitutionalLayout({
               </ul>
             </div>
 
-            {/* Legal */}
+            {/* Legal & Conteudo */}
             <div>
-              <h3 className="font-semibold text-sm mb-3">Legal</h3>
+              <h3 className="font-semibold text-sm mb-3">Legal &amp; Conteudo</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                {FOOTER_LEGAL.map(({ href, label }) => (
+                {FOOTER_LEGAL_CONTEUDO.map(({ href, label }) => (
                   <li key={href}>
                     <Link href={href as Route} className="hover:text-foreground transition-colors">
                       {label}
@@ -134,17 +133,33 @@ export default function InstitutionalLayout({
                 </li>
                 <li>
                   <a
-                    href="https://www.ata360.com.br"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="mailto:ouvidoria@ata360.com.br"
                     className="hover:text-foreground transition-colors"
                   >
-                    www.ata360.com.br
+                    ouvidoria@ata360.com.br
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:financeiro@ata360.com.br"
+                    className="hover:text-foreground transition-colors"
+                  >
+                    financeiro@ata360.com.br
                   </a>
                 </li>
                 <li>
                   <Link href={'/contato' as Route} className="hover:text-foreground transition-colors">
                     Fale Conosco
+                  </Link>
+                </li>
+                <li>
+                  <Link href={'/suporte' as Route} className="hover:text-foreground transition-colors">
+                    Suporte
+                  </Link>
+                </li>
+                <li>
+                  <Link href={'/acessibilidade' as Route} className="hover:text-foreground transition-colors">
+                    Acessibilidade
                   </Link>
                 </li>
               </ul>

@@ -72,11 +72,12 @@ export async function middleware(request: NextRequest) {
   // script-src: nonce + 'strict-dynamic' para Next.js SSR inline scripts.
   const csp = [
     `default-src 'self'`,
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://challenges.cloudflare.com`,
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com`,
     `img-src 'self' data: blob: https:`,
-    `connect-src 'self' ${connectSrc} https://gateway.ai.cloudflare.com`,
+    `connect-src 'self' ${connectSrc} https://gateway.ai.cloudflare.com https://challenges.cloudflare.com`,
+    `frame-src https://challenges.cloudflare.com`,
     `frame-ancestors 'none'`,
     `base-uri 'self'`,
     `form-action 'self' https://sso.acesso.gov.br`,
