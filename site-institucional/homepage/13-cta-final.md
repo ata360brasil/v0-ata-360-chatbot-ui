@@ -4,7 +4,7 @@
 Complicado? Simples.
 
 **Texto:**
-Se voce e um servidor que exerce funcao direta ou indireta relacionada a area de compras municipal, estadual ou federal saiba que o ATA360 foi feito para voce tomar decisoes melhores, com tranquilidade.
+Voce cuida das compras do seu orgao. O ATA360 foi feito para voce tomar decisoes melhores, com tranquilidade.
 
 **CTA (botao amarelo):**
 Teste primeiro e contrate depois

@@ -40,7 +40,7 @@ A IN exige que o preco de referencia seja calculado com:
 
 ## Como o ATA360 resolve
 
-O ATA360 consulta automaticamente PNCP, Compras.gov.br, SINAPI, CMED, FIPE e outras fontes oficiais. Calcula minimo, maximo, mediana e media ponderada. Trata outliers automaticamente. Gera memoria de calculo pronta para o processo.
+O ATA360 consulta automaticamente diversas fontes de dados oficiais do governo -- incluindo bases de precos, contratacoes publicas e indices setoriais. Calcula minimo, maximo, mediana e media ponderada. Trata outliers automaticamente. Gera memoria de calculo pronta para o processo.
 
 De 6 horas de pesquisa manual para 15 minutos.
 

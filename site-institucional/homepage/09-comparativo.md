@@ -37,7 +37,7 @@ O que ninguem te conta sobre licitacoes com I.A.
 
 ## Frase de fechamento (centralizada abaixo das colunas)
 
-Sistema que faz tudo nao faz nada bem. Pesquisa em 1.000 sites entrega 40 paginas de ruido. I.A. generica inventa o que nao sabe. O ATA360 faz uma coisa: orienta suas compras publicas de ponta a ponta. E faz direito. O resultado e economia, agilidade, seguranca juridica e impacto direto para a sociedade.
+I.A. generica inventa o que nao sabe. O ATA360 faz uma coisa: orienta suas compras publicas de ponta a ponta. E faz direito.
 
 **Botao outline:**
 Veja o comparativo

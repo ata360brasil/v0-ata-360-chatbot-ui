@@ -7,7 +7,7 @@ Quando as contratacoes funcionam, todos ganham.
 
 ## Card 1
 **Numero:** 91%
-**Texto:** Menos tempo para gerar documentos completos
+**Texto:** De reducao no tempo de geracao de documentos
 **Fonte interna:** TR de 5 dias para 45 min = 91% reducao. Calculo: (40h - 0.75h) / 40h
 
 ## Card 2
