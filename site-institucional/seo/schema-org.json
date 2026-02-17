@@ -1,0 +1,41 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ATA360",
+  "applicationCategory": "GovernmentApplication",
+  "operatingSystem": "Web",
+  "description": "Plataforma de inteligencia artificial especializada em compras publicas e licitacoes para orgaos da administracao publica brasileira, com base na Lei 14.133/2021.",
+  "url": "https://www.ata360.com.br",
+  "author": {
+    "@type": "Organization",
+    "name": "ATA360 TECNOLOGIA LTDA",
+    "url": "https://www.ata360.com.br",
+    "taxID": "61.291.296/0001-31",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "BR"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "BRL",
+    "description": "Avaliacao gratuita por 14 dias para orgaos publicos"
+  },
+  "featureList": [
+    "Pesquisa de precos com dados oficiais do governo",
+    "Geracao de Termo de Referencia (TR)",
+    "Geracao de Estudo Tecnico Preliminar (ETP)",
+    "Geracao de Documento de Formalizacao de Demanda (DFD)",
+    "Pesquisa de jurisprudencia TCU e TCEs",
+    "Verificacao de fornecedores",
+    "Monitoramento legislativo em tempo real",
+    "Assinatura digital integrada",
+    "Agentes de I.A. especializados",
+    "Integracao com fontes de dados governamentais"
+  ],
+  "audience": {
+    "@type": "GovernmentOrganization",
+    "description": "Orgaos da administracao publica brasileira sujeitos a Lei 14.133/2021"
+  }
+}
