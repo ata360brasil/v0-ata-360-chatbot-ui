@@ -3,7 +3,7 @@
 ## Configuracao
 - Plataforma sugerida: Brevo (ex-Sendinblue), Mailchimp ou Resend
 - Trigger: cadastro aprovado no formulario /solicitar-acesso
-- Remetente: ATA360 <contato@ata360.com.br>
+- Remetente: ATA360 <suporte@ata360.com.br>
 
 ---
 

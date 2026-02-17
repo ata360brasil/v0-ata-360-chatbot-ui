@@ -54,7 +54,21 @@ Duvidas, suporte tecnico, parcerias ou sugestoes. Estamos aqui para ajudar.
 ## Texto abaixo
 Respondemos em ate 2 dias uteis. Para assuntos urgentes, entre em contato pelo WhatsApp.
 
-## Informacoes de contato
-- E-mail: contato@ata360.com.br
+## Canais de atendimento
+
+### Suporte
+- E-mail: suporte@ata360.com.br
+- Assuntos: duvidas, suporte tecnico, demonstracoes, parcerias, imprensa
+
+### Ouvidoria
+- E-mail: ouvidoria@ata360.com.br
+- Assuntos: denuncias, reclamacoes, sugestoes, elogios
+- Anonimato garantido (Lei 13.608/2018)
+
+### Financeiro
+- E-mail: financeiro@ata360.com.br
+- Assuntos: NF-e, confirmacao de recebimento, envio de contrato, contratacao
+
+### Geral
 - WhatsApp: (a definir)
 - Site: www.ata360.com.br

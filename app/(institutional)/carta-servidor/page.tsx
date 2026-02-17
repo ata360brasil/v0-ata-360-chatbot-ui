@@ -92,8 +92,8 @@ export default function CartaServidorPage() {
           Belo Horizonte, MG &mdash; 2026
         </p>
         <p className="text-xs text-muted-foreground mt-1">
-          <a href="mailto:contato@ata360.com.br" className="hover:text-foreground transition-colors">
-            contato@ata360.com.br
+          <a href="mailto:suporte@ata360.com.br" className="hover:text-foreground transition-colors">
+            suporte@ata360.com.br
           </a>
           {' '}&bull;{' '}
           <a href="https://www.ata360.com.br" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">

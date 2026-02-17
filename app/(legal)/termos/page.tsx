@@ -66,7 +66,7 @@ export default function TermosPage() {
         O Usuario e responsavel por manter a seguranca de suas credenciais Gov.br e por
         todas as atividades realizadas sob sua conta. Qualquer uso nao autorizado deve
         ser comunicado imediatamente a{' '}
-        <a href="mailto:contato@ata360.com.br">contato@ata360.com.br</a>.
+        <a href="mailto:suporte@ata360.com.br">suporte@ata360.com.br</a>.
       </p>
 
       {/* 3.4 */}
@@ -315,7 +315,7 @@ export default function TermosPage() {
       <p>
         Estes Termos sao versionados. A versao vigente esta identificada no topo desta
         pagina (ex: &quot;ATA360 versao 1.0 jan/2026&quot;). Versoes anteriores podem ser
-        solicitadas via <a href="mailto:contato@ata360.com.br">contato@ata360.com.br</a>.
+        solicitadas via <a href="mailto:suporte@ata360.com.br">suporte@ata360.com.br</a>.
       </p>
       <h3>13.4 Alteracoes</h3>
       <p>
@@ -330,7 +330,7 @@ export default function TermosPage() {
         <p className="font-semibold">ATA360 TECNOLOGIA LTDA</p>
         <p>CNPJ: 61.291.296/0001-31</p>
         <p>
-          E-mail: <a href="mailto:contato@ata360.com.br">contato@ata360.com.br</a>
+          E-mail: <a href="mailto:suporte@ata360.com.br">suporte@ata360.com.br</a>
         </p>
         <p>
           Site: <a href="https://www.ata360.com.br" target="_blank" rel="noopener noreferrer">www.ata360.com.br</a>

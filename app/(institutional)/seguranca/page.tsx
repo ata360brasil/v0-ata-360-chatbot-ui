@@ -278,7 +278,7 @@ export default function SegurancaPage() {
             <div className="rounded-lg border border-border bg-muted/20 p-6">
               <p className="text-sm font-semibold mb-2">Reportar vulnerabilidade</p>
               <p className="text-sm text-muted-foreground mb-3">
-                Envie para <a href="mailto:contato@ata360.com.br" className="text-primary hover:underline">contato@ata360.com.br</a> com
+                Envie para <a href="mailto:suporte@ata360.com.br" className="text-primary hover:underline">suporte@ata360.com.br</a> com
                 assunto &ldquo;Security Disclosure&rdquo;.
               </p>
               <p className="text-sm text-muted-foreground mb-2">

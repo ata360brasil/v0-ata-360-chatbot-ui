@@ -175,8 +175,8 @@ export default function CompliancePage() {
             <div className="rounded-lg border border-border p-6 space-y-4">
               <div>
                 <p className="text-sm font-semibold mb-1">E-mail</p>
-                <a href="mailto:contato@ata360.com.br" className="text-sm text-primary hover:underline">
-                  contato@ata360.com.br
+                <a href="mailto:ouvidoria@ata360.com.br" className="text-sm text-primary hover:underline">
+                  ouvidoria@ata360.com.br
                 </a>
                 <p className="text-xs text-muted-foreground mt-1">Assunto: &ldquo;Canal de Denuncia&rdquo;</p>
               </div>

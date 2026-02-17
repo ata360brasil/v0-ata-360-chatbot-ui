@@ -165,7 +165,7 @@ export default function CookiesPage() {
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Duvidas sobre cookies e privacidade:{' '}
-          <a href="mailto:contato@ata360.com.br" className="text-primary hover:underline">contato@ata360.com.br</a>.
+          <a href="mailto:suporte@ata360.com.br" className="text-primary hover:underline">suporte@ata360.com.br</a>.
           Consulte tambem nossa{' '}
           <Link href={'/privacidade' as Route} className="text-primary hover:underline">Politica de Privacidade</Link>{' '}
           e pagina de{' '}

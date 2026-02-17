@@ -31,7 +31,7 @@ export function OrganizationJsonLd() {
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'customer service',
-          email: 'contato@ata360.com.br',
+          email: 'suporte@ata360.com.br',
           url: `${BASE_URL}/contato`,
           availableLanguage: 'Portuguese',
           areaServed: 'BR',

@@ -57,7 +57,7 @@ export default function LGPDPage() {
       <div className="rounded-lg border border-border p-6 bg-muted/20">
         <p>
           <strong>E-mail:</strong>{' '}
-          <a href="mailto:contato@ata360.com.br">contato@ata360.com.br</a>
+          <a href="mailto:suporte@ata360.com.br">suporte@ata360.com.br</a>
         </p>
         <p>
           <strong>Site:</strong>{' '}
@@ -238,7 +238,7 @@ export default function LGPDPage() {
         <p className="font-semibold">ATA360 TECNOLOGIA LTDA</p>
         <p>CNPJ: 61.291.296/0001-31</p>
         <p>
-          E-mail do Encarregado: <a href="mailto:contato@ata360.com.br">contato@ata360.com.br</a>
+          E-mail do Encarregado: <a href="mailto:suporte@ata360.com.br">suporte@ata360.com.br</a>
         </p>
         <p>
           Site: <a href="https://www.ata360.com.br" target="_blank" rel="noopener noreferrer">www.ata360.com.br</a>

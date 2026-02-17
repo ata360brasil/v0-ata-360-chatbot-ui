@@ -32,7 +32,7 @@ export default function PrivacidadePage() {
       </p>
       <p>
         <strong>Encarregado de Dados (DPO):</strong>{' '}
-        <a href="mailto:contato@ata360.com.br">contato@ata360.com.br</a>
+        <a href="mailto:suporte@ata360.com.br">suporte@ata360.com.br</a>
       </p>
 
       {/* 2 */}
@@ -265,7 +265,7 @@ export default function PrivacidadePage() {
         Para exercer qualquer desses direitos, consulte nossa{' '}
         <Link href={'/lgpd' as Route} className="font-medium">pagina dedicada a LGPD</Link> ou entre em
         contato pelo e-mail{' '}
-        <a href="mailto:contato@ata360.com.br">contato@ata360.com.br</a>.
+        <a href="mailto:suporte@ata360.com.br">suporte@ata360.com.br</a>.
       </p>
 
       {/* 11 */}
@@ -315,7 +315,7 @@ export default function PrivacidadePage() {
         <p className="font-semibold">ATA360 TECNOLOGIA LTDA</p>
         <p>CNPJ: 61.291.296/0001-31</p>
         <p>
-          E-mail: <a href="mailto:contato@ata360.com.br">contato@ata360.com.br</a>
+          E-mail: <a href="mailto:suporte@ata360.com.br">suporte@ata360.com.br</a>
         </p>
         <p>
           Site: <a href="https://www.ata360.com.br" target="_blank" rel="noopener noreferrer">www.ata360.com.br</a>

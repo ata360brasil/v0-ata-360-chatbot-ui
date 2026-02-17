@@ -1156,7 +1156,7 @@ CF Art. 37, Lei 14.133, LGPD, Lei 12.846, Decreto 11.129, LINDB, LAI, Marco Civi
 - `structured-data.tsx` SANITIZADO (sem dados internos)
 - `.gitignore`: +*.pem, +*.key, +specs/
 - ZERO nomes de agentes, YAMLs, prompts, modelos IA nos PDFs/frontend
-- Contato ÚNICO: contato@ata360.com.br | www.ata360.com.br
+- Contato: suporte@ata360.com.br | ouvidoria@ata360.com.br | financeiro@ata360.com.br | www.ata360.com.br
 - Gênero: "o ATA360" (sistema/IA), "a ATA360" (empresa)
 
 ### 23.11 Arquivos Criados/Modificados

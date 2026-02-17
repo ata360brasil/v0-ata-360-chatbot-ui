@@ -39,8 +39,8 @@ export default function ContatoPage() {
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
           Preencha o formulario abaixo ou envie um e-mail para{' '}
-          <a href="mailto:contato@ata360.com.br" className="text-primary hover:underline">
-            contato@ata360.com.br
+          <a href="mailto:suporte@ata360.com.br" className="text-primary hover:underline">
+            suporte@ata360.com.br
           </a>. Respondemos em ate 2 dias uteis.
         </p>
       </header>
@@ -200,10 +200,23 @@ export default function ContatoPage() {
             <h3 className="font-semibold text-sm mb-4">Canais de atendimento</h3>
             <div className="space-y-4 text-sm text-muted-foreground">
               <div>
-                <p className="font-medium text-foreground mb-1">E-mail</p>
-                <a href="mailto:contato@ata360.com.br" className="text-primary hover:underline">
-                  contato@ata360.com.br
+                <p className="font-medium text-foreground mb-1">Suporte</p>
+                <a href="mailto:suporte@ata360.com.br" className="text-primary hover:underline">
+                  suporte@ata360.com.br
                 </a>
+              </div>
+              <div>
+                <p className="font-medium text-foreground mb-1">Ouvidoria</p>
+                <a href="mailto:ouvidoria@ata360.com.br" className="text-primary hover:underline">
+                  ouvidoria@ata360.com.br
+                </a>
+              </div>
+              <div>
+                <p className="font-medium text-foreground mb-1">Financeiro / Contratos</p>
+                <a href="mailto:financeiro@ata360.com.br" className="text-primary hover:underline">
+                  financeiro@ata360.com.br
+                </a>
+                <p className="text-xs text-muted-foreground/60 mt-1">NF-e, contratos, confirmacao de recebimento</p>
               </div>
               <div>
                 <p className="font-medium text-foreground mb-1">Site</p>

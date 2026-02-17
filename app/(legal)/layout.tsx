@@ -70,10 +70,10 @@ export default function LegalLayout({
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
               <a
-                href="mailto:contato@ata360.com.br"
+                href="mailto:suporte@ata360.com.br"
                 className="hover:text-foreground transition-colors"
               >
-                contato@ata360.com.br
+                suporte@ata360.com.br
               </a>
               <a
                 href="https://www.ata360.com.br"

@@ -126,10 +126,10 @@ export default function InstitutionalLayout({
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>
                   <a
-                    href="mailto:contato@ata360.com.br"
+                    href="mailto:suporte@ata360.com.br"
                     className="hover:text-foreground transition-colors"
                   >
-                    contato@ata360.com.br
+                    suporte@ata360.com.br
                   </a>
                 </li>
                 <li>

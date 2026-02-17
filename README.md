@@ -171,7 +171,7 @@ Variaveis de ambiente necessarias:
 
 - **Site:** https://ata360.com.br
 - **Plataforma:** https://app.ata360.com.br
-- **Email:** contato@ata360.com.br
+- **Email:** suporte@ata360.com.br
 - **CNPJ:** 61.291.296/0001-31
 - **Natureza Juridica:** Empresa Simples de Inovacao (LC 182/2021)
 

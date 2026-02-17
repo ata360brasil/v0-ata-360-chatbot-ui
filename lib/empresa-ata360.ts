@@ -48,9 +48,11 @@ export const EMPRESA_ATA360 = {
     descricao_servico: 'Licenciamento de software SaaS para inteligencia em contratacoes publicas',
   },
 
-  // Contato oficial (UNICO canal)
+  // Canais oficiais
   contato: {
-    email: 'contato@ata360.com.br',
+    suporte: 'suporte@ata360.com.br',
+    ouvidoria: 'ouvidoria@ata360.com.br',
+    financeiro: 'financeiro@ata360.com.br',
     site: 'https://www.ata360.com.br',
   },
 } as const

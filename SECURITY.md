@@ -6,7 +6,7 @@ A ATA360 leva a seguranca da plataforma e dos dados dos nossos usuarios a serio.
 
 ### Como Reportar
 
-Envie um e-mail para **contato@ata360.com.br** com:
+Envie um e-mail para **suporte@ata360.com.br** com:
 
 - Descricao detalhada da vulnerabilidade
 - Passos para reproducao
@@ -60,5 +60,5 @@ A plataforma ATA360 foi projetada com principios de **security-by-design** e **p
 
 ## Contato
 
-- **E-mail:** contato@ata360.com.br
+- **E-mail:** suporte@ata360.com.br
 - **Site:** [www.ata360.com.br](https://www.ata360.com.br)
