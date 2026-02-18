@@ -1,21 +1,34 @@
 Name,Slug
-Legislacao,legislacao
-Licitacao,licitacao
-Gestao Publica,gestao-publica
+Legislação,legislacao
+Licitação,licitacao
+Gestão Pública,gestao-publica
 Tecnologia,tecnologia
 Compliance,compliance
-IA em Compras Publicas,ia-compras-publicas
-Jurisprudencia,jurisprudencia
-Tutoriais,tutoriais
+IA em Compras Públicas,ia-compras-publicas
+Jurisprudência,jurisprudencia
+Guias Práticos,tutoriais
 TCU,tcu
+TCE,tce
+CGU,cgu
 PNCP,pncp
-Pesquisa de Precos,pesquisa-de-precos
-Governanca,governanca
-Fiscalizacao,fiscalizacao
-Transparencia,transparencia
+Pesquisa de Preços,pesquisa-de-precos
+Governança,governanca
+Fiscalização,fiscalizacao
+Transparência,transparencia
 Lei 14.133,lei-14133
 Planejamento,planejamento
 ETP,etp
 DFD,dfd
 LGPD,lgpd
-Inteligencia Artificial,inteligencia-artificial
+Inteligência Artificial,inteligencia-artificial
+Ações do Governo,acoes-do-governo
+Fornecedores,fornecedores
+ME/EPP,me-epp
+Emendas Parlamentares,emendas-parlamentares
+Reforma Tributária,reforma-tributaria
+Credenciamento,credenciamento
+SICAF,sicaf
+Transferegov,transferegov
+Convênios,convenios
+Multas e Sanções,multas-e-sancoes
+Servidor Público,servidor-publico
