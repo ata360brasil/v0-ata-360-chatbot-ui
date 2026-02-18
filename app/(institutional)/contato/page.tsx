@@ -3,15 +3,15 @@ import { ContatoCnpjInput } from '@/components/contato-cnpj-input'
 
 export const metadata: Metadata = {
   title: 'Contato — Fale Conosco',
-  description: 'Entre em contato com a ATA360. Solicite demonstracao, tire duvidas sobre contratacoes publicas ou reporte irregularidades pelo canal de ouvidoria.',
+  description: 'Entre em contato com a ATA360. Solicite demonstração, tire dúvidas sobre contratações públicas ou reporte irregularidades pelo canal de ouvidoria.',
 }
 
 const TIPOS_CONTATO = [
-  { value: 'demonstracao', label: 'Solicitar Demonstracao' },
-  { value: 'duvida', label: 'Duvida sobre a Plataforma' },
-  { value: 'contratacao', label: 'Informacoes de Contratacao' },
-  { value: 'suporte', label: 'Suporte Tecnico' },
-  { value: 'denuncia', label: 'Denuncia / Ouvidoria' },
+  { value: 'demonstração', label: 'Solicitar Demonstração' },
+  { value: 'dúvida', label: 'Dúvida sobre a Plataforma' },
+  { value: 'contratação', label: 'Informações de Contratação' },
+  { value: 'suporte', label: 'Suporte Técnico' },
+  { value: 'denúncia', label: 'Denúncia / Ouvidoria' },
   { value: 'imprensa', label: 'Imprensa' },
   { value: 'parceria', label: 'Parcerias Institucionais' },
   { value: 'outro', label: 'Outro Assunto' },
@@ -20,11 +20,11 @@ const TIPOS_CONTATO = [
 /**
  * Pagina de Contato — Formulario Fale Conosco
  *
- * Formulario com validacao client-side (HTML5).
+ * Formulario com validação client-side (HTML5).
  * Submissao via API route (app/api/contato/route.ts).
- * ZERO bibliotecas de formulario — HTML nativo + Tailwind.
+ * ZERO bibliotecas de formulário — HTML nativo + Tailwind.
  *
- * CNPJ do orgao e obrigatorio (apenas entes publicos).
+ * CNPJ do órgão e obrigatório (apenas entes públicos).
  */
 export default function ContatoPage() {
   return (
@@ -38,14 +38,14 @@ export default function ContatoPage() {
           Fale conosco
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          Preencha o formulario abaixo ou envie um e-mail para{' '}
+          Preencha o formulário abaixo ou envie um e-mail para{' '}
           <a href="mailto:suporte@ata360.com.br" className="text-primary hover:underline">
             suporte@ata360.com.br
-          </a>. Respondemos em ate 2 dias uteis.
+          </a>. Respondemos em até 2 dias úteis.
         </p>
       </header>
 
-      {/* 2 colunas: formulario + informacoes */}
+      {/* 2 colunas: formulário + informações */}
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-16">
         {/* Formulario */}
         <form
@@ -80,21 +80,21 @@ export default function ContatoPage() {
               id="email"
               name="email"
               required
-              placeholder="servidor@orgao.gov.br"
+              placeholder="servidor@órgão.gov.br"
               className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
 
-          {/* Orgao + CNPJ — 2 cols */}
+          {/* Órgão + CNPJ — 2 cols */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="orgao" className="block text-sm font-medium mb-2">
-                Orgao / Entidade <span className="text-destructive">*</span>
+              <label htmlFor="órgão" className="block text-sm font-medium mb-2">
+                Órgão / Entidade <span className="text-destructive">*</span>
               </label>
               <input
                 type="text"
-                id="orgao"
-                name="orgao"
+                id="órgão"
+                name="órgão"
                 required
                 minLength={3}
                 maxLength={200}
@@ -104,7 +104,7 @@ export default function ContatoPage() {
             </div>
             <div>
               <label htmlFor="cnpj" className="block text-sm font-medium mb-2">
-                CNPJ do Orgao <span className="text-destructive">*</span>
+                CNPJ do Órgão <span className="text-destructive">*</span>
               </label>
               <ContatoCnpjInput />
             </div>
@@ -120,7 +120,7 @@ export default function ContatoPage() {
               id="cargo"
               name="cargo"
               maxLength={120}
-              placeholder="Pregoeiro, Agente de Contratacao, Secretario..."
+              placeholder="Pregoeiro, Agente de Contratação, Secretário..."
               className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
@@ -163,7 +163,7 @@ export default function ContatoPage() {
               placeholder="Descreva como podemos ajudar..."
               className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-y"
             />
-            <p className="text-xs text-muted-foreground mt-1">Maximo 2.000 caracteres.</p>
+            <p className="text-xs text-muted-foreground mt-1">Máximo 2.000 caracteres.</p>
           </div>
 
           {/* Aceite */}
@@ -177,11 +177,11 @@ export default function ContatoPage() {
             />
             <label htmlFor="aceite" className="text-xs text-muted-foreground leading-relaxed">
               Declaro que li e concordo com a{' '}
-              <a href="/privacidade" className="text-primary hover:underline">Politica de Privacidade</a>{' '}
+              <a href="/privacidade" className="text-primary hover:underline">Política de Privacidade</a>{' '}
               e os{' '}
               <a href="/termos" className="text-primary hover:underline">Termos de Uso</a>{' '}
-              da ATA360. Os dados fornecidos serao utilizados exclusivamente para atender
-              esta solicitacao, conforme a LGPD (Lei 13.709/2018).
+              da ATA360. Os dados fornecidos serão utilizados exclusivamente para atender
+              esta solicitação, conforme a LGPD (Lei 13.709/2018).
             </label>
           </div>
 
@@ -216,7 +216,7 @@ export default function ContatoPage() {
                 <a href="mailto:financeiro@ata360.com.br" className="text-primary hover:underline">
                   financeiro@ata360.com.br
                 </a>
-                <p className="text-xs text-muted-foreground/60 mt-1">NF-e, contratos, confirmacao de recebimento</p>
+                <p className="text-xs text-muted-foreground/60 mt-1">NF-e, contratos, confirmação de recebimento</p>
               </div>
               <div>
                 <p className="font-medium text-foreground mb-1">Site</p>
@@ -226,31 +226,31 @@ export default function ContatoPage() {
               </div>
               <div>
                 <p className="font-medium text-foreground mb-1">Prazo de resposta</p>
-                <p>Ate 2 dias uteis</p>
+                <p>Até 2 dias úteis</p>
               </div>
             </div>
           </div>
 
           <div className="rounded-lg border border-border p-6">
-            <h3 className="font-semibold text-sm mb-4">Para quem e o ATA360</h3>
+            <h3 className="font-semibold text-sm mb-4">Para quem é o ATA360</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Pregoeiros e agentes de contratacao</li>
+              <li>Pregoeiros e agentes de contratação</li>
               <li>Equipes de planejamento</li>
               <li>Controle interno</li>
-              <li>Secretarios e gestores</li>
-              <li>Assessoria juridica de orgaos publicos</li>
+              <li>Secretários e gestores</li>
+              <li>Assessoria jurídica de órgãos públicos</li>
             </ul>
             <p className="text-xs text-muted-foreground/60 mt-4">
-              Atendemos exclusivamente entes publicos (CNPJ).
+              Atendemos exclusivamente entes públicos (CNPJ).
             </p>
           </div>
 
           <div className="rounded-lg border border-border bg-muted/20 p-6">
             <h3 className="font-semibold text-sm mb-3">Ouvidoria</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Para denuncias ou reportes de irregularidade, selecione
-              &ldquo;Denuncia / Ouvidoria&rdquo; no formulario. O anonimato
-              e garantido conforme Lei 13.608/2018.
+              Para denúncias ou reportes de irregularidade, selecione
+              &ldquo;Denúncia / Ouvidoria&rdquo; no formulário. O anonimato
+              é garantido conforme Lei 13.608/2018.
             </p>
           </div>
         </aside>

@@ -79,8 +79,8 @@ export default async function BlogPostPage({ params }: PageProps) {
         }}
       />
       <BreadcrumbJsonLd items={[
-        { name: 'Inicio', href: '/' },
-        { name: 'Noticias', href: '/blog' },
+        { name: 'Início', href: '/' },
+        { name: 'Notícias', href: '/blog' },
         { name: post.title, href: `/blog/${post.slug}` },
       ]} />
 
@@ -88,9 +88,9 @@ export default async function BlogPostPage({ params }: PageProps) {
       <article className="mx-auto max-w-3xl px-6 py-16 lg:py-24">
         {/* Breadcrumb — minimal, monochrome */}
         <nav className="flex items-center gap-1.5 text-xs text-neutral-400 mb-12 font-mono" aria-label="Breadcrumb">
-          <Link href={'/' as Route} className="hover:text-foreground transition-colors">inicio</Link>
+          <Link href={'/' as Route} className="hover:text-foreground transition-colors">início</Link>
           <span className="text-neutral-300">/</span>
-          <Link href={'/blog' as Route} className="hover:text-foreground transition-colors">noticias</Link>
+          <Link href={'/blog' as Route} className="hover:text-foreground transition-colors">notícias</Link>
           <span className="text-neutral-300">/</span>
           <span className="text-neutral-500">{cat.label.toLowerCase()}</span>
         </nav>
@@ -152,7 +152,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               </svg>
             </a>
             <p className="text-xs text-neutral-400 mt-1">
-              Conteudo curado pela equipe ATA360 com base em fonte oficial.
+              Conteúdo curado pela equipe ATA360 com base em fonte oficial.
             </p>
           </div>
         )}
@@ -169,7 +169,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         {/* Legal references — subtle card */}
         {post.legalReferences.length > 0 && (
           <div className="mt-8 p-5 rounded-xl bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800">
-            <h3 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-3">Fundamentacao Legal</h3>
+            <h3 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-3">Fundamentação Legal</h3>
             <ul className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1.5">
               {post.legalReferences.map(ref => (
                 <li key={ref} className="font-mono text-xs">{ref}</li>
@@ -198,8 +198,8 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         {/* Related posts — minimal cards */}
         {related.length > 0 && (
-          <section className="mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800" aria-label="Noticias relacionadas">
-            <h2 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-6">Noticias Relacionadas</h2>
+          <section className="mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800" aria-label="Notícias relacionadas">
+            <h2 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-6">Notícias Relacionadas</h2>
             <div className="grid gap-4">
               {related.map(r => (
                 <Link

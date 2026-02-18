@@ -9,14 +9,14 @@ export const metadata: Metadata = {
 
 const NAV_LINKS = [
   { href: '/quem-somos', label: 'Quem Somos' },
-  { href: '/solucoes', label: 'Solucoes' },
-  { href: '/blog', label: 'Noticias' },
+  { href: '/solucoes', label: 'Soluções' },
+  { href: '/blog', label: 'Notícias' },
   { href: '/contato', label: 'Contato' },
 ] as const
 
 const FOOTER_INSTITUTIONAL = [
   { href: '/quem-somos', label: 'Quem Somos' },
-  { href: '/solucoes', label: 'Solucoes' },
+  { href: '/solucoes', label: 'Soluções' },
   { href: '/humano-ia', label: 'Humano + I.A.' },
   { href: '/parceiros', label: 'Parceiros' },
   { href: '/carreiras', label: 'Carreiras' },
@@ -24,8 +24,8 @@ const FOOTER_INSTITUTIONAL = [
 ] as const
 
 const FOOTER_LEGAL_CONTEUDO = [
-  { href: '/blog', label: 'Noticias' },
-  { href: '/glossario', label: 'Glossario' },
+  { href: '/blog', label: 'Notícias' },
+  { href: '/glossario', label: 'Glossário' },
   { href: '/privacidade', label: 'Privacidade' },
   { href: '/termos', label: 'Termos de Uso' },
   { href: '/lgpd', label: 'LGPD' },
@@ -33,9 +33,9 @@ const FOOTER_LEGAL_CONTEUDO = [
 ] as const
 
 /**
- * Layout institucional — paginas publicas de apresentacao.
- * Header com navegacao principal + footer completo.
- * Sem autenticacao. Otimizado para AI crawlers e SEO.
+ * Layout institucional — paginas públicas de apresentação.
+ * Header com navegação principal + footer completo.
+ * Sem autenticação. Otimizado para AI crawlers e SEO.
  */
 export default function InstitutionalLayout({
   children,
@@ -87,7 +87,7 @@ export default function InstitutionalLayout({
                 <span>ATA360</span>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Infraestrutura de inteligencia em contratacoes publicas brasileiras.
+                Infraestrutura de inteligência em contratações públicas brasileiras.
               </p>
             </div>
 
@@ -105,9 +105,9 @@ export default function InstitutionalLayout({
               </ul>
             </div>
 
-            {/* Legal & Conteudo */}
+            {/* Legal & Conteúdo */}
             <div>
-              <h3 className="font-semibold text-sm mb-3">Legal &amp; Conteudo</h3>
+              <h3 className="font-semibold text-sm mb-3">Legal &amp; Conteúdo</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 {FOOTER_LEGAL_CONTEUDO.map(({ href, label }) => (
                   <li key={href}>
@@ -168,7 +168,7 @@ export default function InstitutionalLayout({
 
           <div className="mt-10 pt-6 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
             <p>&copy; {new Date().getFullYear()} ATA360 TECNOLOGIA LTDA. Todos os direitos reservados.</p>
-            <p>CNPJ 61.291.296/0001-31 &bull; Empresa Simples de Inovacao (LC 182/2021)</p>
+            <p>CNPJ 61.291.296/0001-31 &bull; Empresa Simples de Inovação (LC 182/2021)</p>
           </div>
         </div>
       </footer>

@@ -53,24 +53,24 @@ export default async function GlossaryTermPage({ params }: PageProps) {
             url: `https://app.ata360.com.br/glossario/${term.slug}`,
             inDefinedTermSet: {
               '@type': 'DefinedTermSet',
-              name: 'Glossario de Contratacoes Publicas',
+              name: 'Glossário de Contratações Públicas',
               url: 'https://app.ata360.com.br/glossario',
             },
           }),
         }}
       />
       <BreadcrumbJsonLd items={[
-        { name: 'Inicio', href: '/' },
-        { name: 'Glossario', href: '/glossario' },
+        { name: 'Início', href: '/' },
+        { name: 'Glossário', href: '/glossario' },
         { name: term.term, href: `/glossario/${term.slug}` },
       ]} />
 
       <div className="mx-auto max-w-3xl px-6 py-16">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1.5 text-xs text-muted-foreground mb-8" aria-label="Breadcrumb">
-          <Link href={'/' as Route} className="hover:text-foreground transition-colors">Inicio</Link>
+          <Link href={'/' as Route} className="hover:text-foreground transition-colors">Início</Link>
           <span>/</span>
-          <Link href={'/glossario' as Route} className="hover:text-foreground transition-colors">Glossario</Link>
+          <Link href={'/glossario' as Route} className="hover:text-foreground transition-colors">Glossário</Link>
           <span>/</span>
           <span className="text-foreground">{term.term}</span>
         </nav>

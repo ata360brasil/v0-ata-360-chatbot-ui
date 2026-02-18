@@ -4,25 +4,25 @@ import type { Route } from 'next'
 
 export const metadata: Metadata = {
   title: 'Programa de Parceiros — ATA360',
-  description: 'Programa de parceiros da ATA360 para consultorias, contabilidades, escritorios juridicos e associacoes de municipios.',
+  description: 'Programa de parceiros da ATA360 para consultorias, contabilidades, escritorios jurídicos e associacoes de municípios.',
 }
 
 const PERFIS = [
   {
     titulo: 'Consultorias em Licitacoes',
-    descricao: 'Voce ja orienta orgaos em processos licitatorios. Com o ATA360, seus clientes ganham fundamentacao legal automatica, pesquisa de precos inteligente e documentos que se conversam.',
+    descrição: 'Voce ja orienta órgãos em processos licitatórios. Com o ATA360, seus clientes ganham fundamentação legal automática, pesquisa de preços inteligente e documentos que se conversam.',
   },
   {
-    titulo: 'Contabilidades Publicas',
-    descricao: 'Voce ja cuida do orcamento. Com o ATA360, o planejamento de compras se conecta a execucao orcamentaria com dados reais e rastreabilidade.',
+    titulo: 'Contabilidades Públicas',
+    descrição: 'Voce ja cuida do orçamento. Com o ATA360, o planejamento de compras se conecta a execucao orcamentaria com dados reais e rastreabilidade.',
   },
   {
     titulo: 'Escritorios Juridicos',
-    descricao: 'Voce ja faz parecer juridico. Com o ATA360, cada documento nasce com fundamentacao legal (Lei 14.133, LINDB, TCU) — reduzindo retrabalho e impugnacoes.',
+    descrição: 'Voce ja faz parecer jurídico. Com o ATA360, cada documento nasce com fundamentação legal (Lei 14.133, LINDB, TCU) — reduzindo retrabalho e impugnacoes.',
   },
   {
-    titulo: 'Associacoes de Municipios',
-    descricao: 'Voce ja representa dezenas ou centenas de municipios. Com o ATA360, oferece a todos o mesmo nivel de ferramenta — independentemente do porte.',
+    titulo: 'Associacoes de Municípios',
+    descrição: 'Voce ja representa dezenas ou centenas de municípios. Com o ATA360, oferece a todos o mesmo nivel de ferramenta — independentemente do porte.',
   },
 ] as const
 
@@ -46,7 +46,7 @@ export default function ParceirosPage() {
           Programa de Parceiros ATA360
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          Leve inteligencia em contratacoes publicas para os orgaos que voce ja atende.
+          Leve inteligência em contratações públicas para os órgãos que voce ja atende.
         </p>
       </header>
 
@@ -54,7 +54,7 @@ export default function ParceirosPage() {
       <section className="mb-16 max-w-3xl">
         <h2 className="text-2xl font-bold mb-4">O que e o programa</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          O Programa de Parceiros ATA360 conecta organizacoes que ja atendem o setor publico
+          O Programa de Parceiros ATA360 conecta organizacoes que ja atendem o setor público
           com a plataforma que transforma o processo de compras. Voce indica, acompanha e
           agrega valor ao seu cliente — e o ATA360 faz o trabalho pesado.
         </p>
@@ -67,15 +67,15 @@ export default function ParceirosPage() {
           {PERFIS.map((perfil) => (
             <div key={perfil.titulo} className="rounded-lg border border-border p-6">
               <h3 className="font-semibold text-sm mb-3">{perfil.titulo}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{perfil.descricao}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{perfil.descrição}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Beneficios */}
+      {/* Benefícios */}
       <section className="mb-16">
-        <h2 className="text-2xl font-bold mb-6">Beneficios do programa</h2>
+        <h2 className="text-2xl font-bold mb-6">Benefícios do programa</h2>
         <ul className="space-y-3">
           {BENEFICIOS.map((b, i) => (
             <li key={b} className="flex gap-3 text-sm text-muted-foreground">
@@ -90,7 +90,7 @@ export default function ParceirosPage() {
       <div className="rounded-lg border border-border bg-muted/20 p-8 text-center">
         <h2 className="text-xl font-bold mb-3">Quer ser parceiro?</h2>
         <p className="text-sm text-muted-foreground mb-6">
-          Entre em contato e conte sobre sua organizacao. Responderemos em ate 2 dias uteis.
+          Entre em contato e conte sobre sua organização. Responderemos em até 2 dias úteis.
         </p>
         <Link
           href={'/contato' as Route}

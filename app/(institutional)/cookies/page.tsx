@@ -4,45 +4,45 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Politica de Cookies',
-  description: 'Politica de cookies da ATA360: categorias, finalidades, duracao e como gerenciar seus cookies na plataforma de contratacoes publicas.',
+  description: 'Politica de cookies da ATA360: categorias, finalidades, duracao e como gerenciar seus cookies na plataforma de contratações públicas.',
 }
 
 const COOKIES = [
   {
     categoria: 'Essenciais',
-    obrigatorio: true,
-    descricao: 'Necessarios para o funcionamento basico da plataforma. Nao podem ser desabilitados.',
+    obrigatório: true,
+    descrição: 'Necessarios para o funcionamento basico da plataforma. Não podem ser desabilitados.',
     cookies: [
-      { nome: 'sb-session', finalidade: 'Sessao de autenticacao Gov.br via provedor de identidade.', duracao: 'Sessao (expira ao fechar navegador)', tipo: 'Funcional' },
-      { nome: 'sb-refresh', finalidade: 'Token de renovacao de sessao para manter autenticacao ativa.', duracao: '7 dias', tipo: 'Funcional' },
+      { nome: 'sb-session', finalidade: 'Sessao de autenticação Gov.br via provedor de identidade.', duracao: 'Sessao (expira ao fechar navegador)', tipo: 'Funcional' },
+      { nome: 'sb-refresh', finalidade: 'Token de renovacao de sessao para manter autenticação ativa.', duracao: '7 dias', tipo: 'Funcional' },
       { nome: 'csrf-token', finalidade: 'Protecao contra ataques CSRF (Cross-Site Request Forgery).', duracao: 'Sessao', tipo: 'Seguranca' },
-      { nome: 'cookie-consent', finalidade: 'Registra a preferencia de cookies do usuario.', duracao: '1 ano', tipo: 'Funcional' },
+      { nome: 'cookie-consent', finalidade: 'Registra a preferência de cookies do usuario.', duracao: '1 ano', tipo: 'Funcional' },
     ],
   },
   {
     categoria: 'Analiticos',
-    obrigatorio: false,
-    descricao: 'Utilizados para entender como a plataforma e utilizada e identificar melhorias. Dados anonimizados.',
+    obrigatório: false,
+    descrição: 'Utilizados para entender como a plataforma e utilizada e identificar melhorias. Dados anonimizados.',
     cookies: [
-      { nome: 'analytics-session', finalidade: 'Identificador anonimo de sessao para metricas de uso.', duracao: '30 minutos', tipo: 'Analitico' },
+      { nome: 'analytics-session', finalidade: 'Identificador anonimo de sessao para métricas de uso.', duracao: '30 minutos', tipo: 'Analitico' },
       { nome: 'web-vitals', finalidade: 'Metricas de performance (LCP, FID, CLS) conforme Core Web Vitals.', duracao: 'Sessao', tipo: 'Performance' },
     ],
   },
   {
     categoria: 'IA e Processamento',
-    obrigatorio: false,
-    descricao: 'Utilizados para otimizar interacoes com a inteligencia artificial da plataforma.',
+    obrigatório: false,
+    descrição: 'Utilizados para otimizar interacoes com a inteligência artificial da plataforma.',
     cookies: [
       { nome: 'ai-context', finalidade: 'Contexto da conversa atual para continuidade de interacao.', duracao: 'Sessao', tipo: 'Funcional' },
-      { nome: 'ai-preferences', finalidade: 'Preferencias de uso da IA (formato de saida, nivel de detalhe).', duracao: '30 dias', tipo: 'Preferencia' },
+      { nome: 'ai-preferences', finalidade: 'Preferências de uso da IA (formato de saida, nivel de detalhe).', duracao: '30 dias', tipo: 'Preferência' },
     ],
   },
   {
-    categoria: 'Comunicacao',
-    obrigatorio: false,
-    descricao: 'Utilizados para notificacoes e comunicacao com o usuario.',
+    categoria: 'Comúnicacao',
+    obrigatório: false,
+    descrição: 'Utilizados para notificacoes e comúnicação com o usuario.',
     cookies: [
-      { nome: 'notification-pref', finalidade: 'Preferencias de notificacao (alertas de prazo, atualizacoes).', duracao: '1 ano', tipo: 'Preferencia' },
+      { nome: 'notification-pref', finalidade: 'Preferências de notificacao (alertas de prazo, atualizações).', duracao: '1 ano', tipo: 'Preferência' },
     ],
   },
 ] as const
@@ -59,11 +59,11 @@ export default function CookiesPage() {
           Cookies e rastreamento
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          Esta politica explica quais cookies a plataforma ATA360 utiliza, para que
+          Esta política explica quais cookies a plataforma ATA360 utiliza, para que
           servem e como voce pode gerencia-los.
         </p>
         <p className="text-sm text-muted-foreground mt-4">
-          Ultima atualizacao: 10 de fevereiro de 2026
+          Ultima atualização: 10 de fevereiro de 2026
         </p>
       </header>
 
@@ -74,24 +74,24 @@ export default function CookiesPage() {
           <p className="text-sm text-muted-foreground leading-relaxed">
             Cookies sao pequenos arquivos de texto armazenados no seu navegador quando
             voce acessa um site. Eles permitem que a plataforma funcione corretamente,
-            mantenha sua sessao ativa e melhore a experiencia de uso.
+            mantenha sua sessao ativa e melhore a experiência de uso.
           </p>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            O ATA360 utiliza o minimo de cookies necessario para operar. Nao utilizamos
-            cookies de publicidade, nao vendemos dados e nao rastreamos usuarios em
-            sites de terceiros. Conforme a LGPD (Lei 13.709/2018), cookies nao essenciais
-            requerem consentimento previo.
+            O ATA360 utiliza o minimo de cookies necessário para operar. Não utilizamos
+            cookies de publicidade, não vendemos dados e não rastreamos usuarios em
+            sites de terceiros. Conforme a LGPD (Lei 13.709/2018), cookies não éssenciais
+            requerem consentimento prévio.
           </p>
         </div>
       </section>
 
       {/* Tabelas por categoria */}
       <section className="mb-12 space-y-10">
-        {COOKIES.map(({ categoria, obrigatorio, descricao, cookies: items }) => (
+        {COOKIES.map(({ categoria, obrigatório, descrição, cookies: items }) => (
           <div key={categoria}>
             <div className="flex items-center gap-3 mb-3">
               <h2 className="text-lg font-bold">{categoria}</h2>
-              {obrigatorio ? (
+              {obrigatório ? (
                 <span className="text-xs font-medium bg-primary/10 text-primary px-2 py-0.5 rounded">
                   Obrigatorio
                 </span>
@@ -101,7 +101,7 @@ export default function CookiesPage() {
                 </span>
               )}
             </div>
-            <p className="text-sm text-muted-foreground mb-4">{descricao}</p>
+            <p className="text-sm text-muted-foreground mb-4">{descrição}</p>
 
             <div className="rounded-lg border border-border overflow-hidden">
               <div className="overflow-x-auto">
@@ -140,14 +140,14 @@ export default function CookiesPage() {
             <p className="text-sm text-muted-foreground leading-relaxed">
               Voce pode configurar seu navegador para bloquear ou alertar sobre cookies.
               Note que desabilitar cookies essenciais pode impedir o funcionamento correto
-              da plataforma, incluindo a autenticacao via Gov.br.
+              da plataforma, incluindo a autenticação via Gov.br.
             </p>
           </div>
           <div>
             <h3 className="font-semibold text-sm mb-2">Na plataforma</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Ao acessar o ATA360 pela primeira vez, voce vera um banner de consentimento
-              que permite aceitar ou recusar cookies opcionais. Sua preferencia e armazenada
+              que permite aceitar ou recusar cookies opcionais. Sua preferência e armazenada
               no cookie <code className="text-xs bg-muted px-1 py-0.5 rounded">cookie-consent</code> por
               1 ano.
             </p>
@@ -164,10 +164,10 @@ export default function CookiesPage() {
           cookies opcionais requerem consentimento (Art. 7, I).
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Duvidas sobre cookies e privacidade:{' '}
+          Dúvidas sobre cookies e privacidade:{' '}
           <a href="mailto:suporte@ata360.com.br" className="text-primary hover:underline">suporte@ata360.com.br</a>.
-          Consulte tambem nossa{' '}
-          <Link href={'/privacidade' as Route} className="text-primary hover:underline">Politica de Privacidade</Link>{' '}
+          Consulte também nossa{' '}
+          <Link href={'/privacidade' as Route} className="text-primary hover:underline">Política de Privacidade</Link>{' '}
           e pagina de{' '}
           <Link href={'/lgpd' as Route} className="text-primary hover:underline">Direitos LGPD</Link>.
         </p>

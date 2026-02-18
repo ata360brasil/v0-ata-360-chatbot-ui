@@ -6,11 +6,11 @@ import { GLOSSARY_TERMS, GLOSSARY_CATEGORIES, getAllCategories, type GlossaryCat
 import { BreadcrumbJsonLd } from '@/components/structured-data'
 
 export const metadata: Metadata = {
-  title: 'Glossario de Contratacoes Publicas',
-  description: 'Glossario completo de termos de licitacoes e contratacoes publicas. Definicoes conforme a Lei 14.133/2021 e legislacao vigente.',
+  title: 'Glossário de Contratações Públicas',
+  description: 'Glossário completo de termos de licitações e contratações públicas. Definições conforme a Lei 14.133/2021 e legislação vigente.',
   openGraph: {
-    title: 'Glossario de Contratacoes Publicas | ATA360',
-    description: 'Todos os termos de licitacao e contratacao publica definidos conforme a Lei 14.133/2021.',
+    title: 'Glossário de Contratações Públicas | ATA360',
+    description: 'Todos os termos de licitação e contratação pública definidos conforme a Lei 14.133/2021.',
   },
 }
 
@@ -35,8 +35,8 @@ export default function GlossaryPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'DefinedTermSet',
-            name: 'Glossario de Contratacoes Publicas',
-            description: 'Termos e definicoes de licitacoes e contratacoes publicas conforme Lei 14.133/2021',
+            name: 'Glossário de Contratações Públicas',
+            description: 'Termos e definições de licitações e contratações públicas conforme Lei 14.133/2021',
             url: 'https://app.ata360.com.br/glossario',
             inLanguage: 'pt-BR',
             hasDefinedTerm: GLOSSARY_TERMS.map(t => ({
@@ -49,21 +49,21 @@ export default function GlossaryPage() {
         }}
       />
       <BreadcrumbJsonLd items={[
-        { name: 'Inicio', href: '/' },
-        { name: 'Glossario', href: '/glossario' },
+        { name: 'Início', href: '/' },
+        { name: 'Glossário', href: '/glossario' },
       ]} />
 
       <div className="mx-auto max-w-6xl px-6 py-16">
         {/* Header */}
         <div className="mb-12">
-          <h1 className="text-3xl font-bold text-foreground mb-3">Glossario</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-3">Glossário</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Termos e definicoes de contratacoes publicas conforme a Lei 14.133/2021 e legislacao vigente.
+            Termos e definições de contratações públicas conforme a Lei 14.133/2021 e legislação vigente.
           </p>
         </div>
 
         {/* Category filter */}
-        <nav className="flex flex-wrap gap-2 mb-10" aria-label="Categorias do glossario">
+        <nav className="flex flex-wrap gap-2 mb-10" aria-label="Categorias do glossário">
           {categories.map(cat => {
             const meta = GLOSSARY_CATEGORIES[cat]
             const count = GLOSSARY_TERMS.filter(t => t.category === cat).length

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 /**
  * Termos de Uso — ATA360
  *
- * Conforme legislacao brasileira aplicavel.
+ * Conforme legislação brasileira aplicavel.
  * NUNCA citar fornecedores, parceiros ou tecnologias internas.
  */
 export default function TermosPage() {
@@ -58,7 +58,7 @@ export default function TermosPage() {
       <h3>3.2 Autenticacao</h3>
       <p>
         O acesso e autenticado via Gov.br (Decreto 10.543/2020), garantindo identidade digital
-        federada com niveis de confianca bronze, prata e ouro. O ente publico e responsavel por
+        federada com niveis de confianca bronze, prata e ouro. O ente público e responsavel por
         autorizar e gerenciar os membros vinculados a sua conta.
       </p>
       <h3>3.3 Responsabilidade pelo acesso</h3>
@@ -75,14 +75,14 @@ export default function TermosPage() {
         O uso da plataforma esta condicionado ao aceite integral destes Termos de Uso e
         da <Link href={'/privacidade' as Route} className="font-medium">Politica de Privacidade</Link>.
         <strong> O Usuario que nao concordar com os termos nao podera utilizar a plataforma.</strong> O
-        aceite e registrado eletronicamente com data, hora, IP e identificacao do usuario
+        aceite e registrado eletrônicamente com data, hora, IP e identificacao do usuario
         via Gov.br.
       </p>
       <h3>3.5 Proibicao de compartilhamento</h3>
       <p>
         E <strong>expressamente proibido</strong> compartilhar credenciais de acesso, conceder
         acesso a terceiros nao autorizados ou permitir que pessoas nao vinculadas ao ente
-        publico utilizem a plataforma. A violacao desta clausula enseja bloqueio imediato
+        público utilizem a plataforma. A violação desta clausula enseja bloqueio imediato
         da conta e apuracao de responsabilidade nos termos da Lei 14.133/2021 (Art. 155) e
         do Codigo Penal (Art. 313-A — insercao de dados falsos em sistema de informacoes).
       </p>
@@ -123,7 +123,7 @@ export default function TermosPage() {
       <h3>5.1 Software e Arquitetura</h3>
       <p>
         O software ATA360, incluindo sua arquitetura, algoritmos, modelos de inteligencia
-        artificial, regras de negocio, interfaces, design e documentacao tecnica, e propriedade
+        artificial, regras de negocio, interfaces, design e documentação tecnica, e propriedade
         exclusiva da ATA360 TECNOLOGIA LTDA, protegido por:
       </p>
       <ul>
@@ -142,7 +142,7 @@ export default function TermosPage() {
         A arquitetura interna da plataforma, incluindo mas nao se limitando a: modelos de IA,
         regras de auditoria, mecanismos de blindagem, formulas de calculo, pesos, thresholds
         e parametros internos, constitui <strong>segredo industrial</strong> da ATA360 nos
-        termos do Art. 195, XI a XIV da Lei 9.279/1996. A violacao configura ilicito civil
+        termos do Art. 195, XI a XIV da Lei 9.279/1996. A violação configura ilicito civil
         e criminal.
       </p>
 
@@ -152,7 +152,7 @@ export default function TermosPage() {
       <p>
         O ATA360 e uma <strong>ferramenta de apoio a decisao</strong>. As sugestoes, analises
         e documentos gerados pela plataforma nao substituem o julgamento e a responsabilidade
-        do servidor publico. <strong>A decisao humana e soberana</strong>.
+        do servidor público. <strong>A decisao humana e soberana</strong>.
       </p>
       <h3>6.2 Dados Oficiais</h3>
       <p>
@@ -177,12 +177,12 @@ export default function TermosPage() {
       <h2>7. Selo de Qualidade ATA360</h2>
       <p>
         O Selo de Qualidade ATA360 &mdash; Governanca Ouro e uma certificacao que atesta
-        a conformidade do documento com a legislacao vigente, a boa-fe processual e a
+        a conformidade do documento com a legislação vigente, a boa-fe processual e a
         utilizacao de dados oficiais. O selo e concedido automaticamente quando o documento
-        atende aos criterios de conformidade da plataforma.
+        atende aos critérios de conformidade da plataforma.
       </p>
       <p>
-        Os criterios internos de concessao do selo constituem segredo industrial da ATA360
+        Os critérios internos de concessao do selo constituem segredo industrial da ATA360
         e nao sao divulgados publicamente.
       </p>
 
@@ -190,7 +190,7 @@ export default function TermosPage() {
       <h2>8. Assinatura Eletronica</h2>
       <h3>8.1 Niveis de assinatura</h3>
       <p>
-        O ATA360 suporta tres niveis de assinatura eletronica conforme a Lei 14.063/2020:
+        O ATA360 suporta tres niveis de assinatura eletrônica conforme a Lei 14.063/2020:
       </p>
       <ul>
         <li>
@@ -202,21 +202,21 @@ export default function TermosPage() {
           licitatorios e atos que exijam identificacao inequivoca do signatario.
         </li>
         <li>
-          <strong>Qualificada (ICP-Brasil)</strong> — Certificado digital A3 com fe publica.
+          <strong>Qualificada (ICP-Brasil)</strong> — Certificado digital A3 com fe pública.
           Utiliza infraestrutura de assinatura com certificacao ICP-Brasil para atos que
           exijam validade juridica plena.
         </li>
       </ul>
       <h3>8.2 Registro de assinatura</h3>
       <p>
-        Cada assinatura eletronica registra: endereco IP, user-agent, geolocalizacao
-        aproximada, metodo de autenticacao, timestamp UTC e hash SHA-256 do documento.
+        Cada assinatura eletrônica registra: endereco IP, user-agent, geolocalizacao
+        aproximada, metodo de autenticação, timestamp UTC e hash SHA-256 do documento.
         Carimbo de tempo conforme regulamentacao da ICP-Brasil garante prova temporal
         irretratavel.
       </p>
       <h3>8.3 Clausula de aceite</h3>
       <p>
-        Ao assinar eletronicamente qualquer documento via plataforma, o Usuario declara
+        Ao assinar eletrônicamente qualquer documento via plataforma, o Usuario declara
         ciencia e concordancia com o conteudo assinado, assumindo responsabilidade pessoal
         pelo ato, nos termos do Art. 11 da Lei 14.133/2021.
       </p>
@@ -231,18 +231,18 @@ export default function TermosPage() {
       </p>
       <p>
         Manutencoes programadas serao comunicadas com antecedencia minima de 48 horas.
-        Janelas de manutencao preferenciais: sabados, das 02h00 as 06h00 (horario de Brasilia).
+        Janelas de manutenção preferenciais: sabados, das 02h00 as 06h00 (horário de Brasilia).
       </p>
 
       {/* 10 */}
       <h2>10. Limitacao de Responsabilidade</h2>
       <p>
-        Na extensao maxima permitida pela legislacao brasileira (Codigo de Defesa do Consumidor,
-        Codigo Civil e legislacao aplicavel):
+        Na extensao maxima permitida pela legislação brasileira (Codigo de Defesa do Consumidor,
+        Codigo Civil e legislação aplicavel):
       </p>
       <ul>
         <li>
-          A ATA360 nao se responsabiliza por decisoes tomadas pelo Usuario com base nos
+          A ATA360 nao se responsabiliza por decisões tomadas pelo Usuario com base nos
           documentos ou analises gerados pela plataforma.
         </li>
         <li>
@@ -259,7 +259,7 @@ export default function TermosPage() {
       <h2>11. Bloqueio e Suspensao</h2>
       <p>
         A ATA360 reserva-se o direito de <strong>bloquear ou suspender</strong> o acesso do
-        Usuario, sem aviso previo, nas seguintes hipoteses:
+        Usuario, sem aviso prévio, nas seguintes hipoteses:
       </p>
       <ul>
         <li>Violacao de qualquer clausula destes Termos de Uso.</li>
@@ -271,7 +271,7 @@ export default function TermosPage() {
         <li>Determinacao judicial ou administrativa.</li>
       </ul>
       <p>
-        O bloqueio nao exime o Usuario das obrigacoes contratuais ja assumidas. Trilhas de
+        O bloqueio nao exime o Usuario das obrigações contratuais ja assumidas. Trilhas de
         auditoria sao preservadas pelo prazo legal de 5 anos, mesmo apos bloqueio.
       </p>
 
@@ -298,9 +298,9 @@ export default function TermosPage() {
 
       {/* 13 */}
       <h2>13. Disposicoes Gerais</h2>
-      <h3>13.1 Legislacao Aplicavel</h3>
+      <h3>13.1 Legislação Aplicavel</h3>
       <p>
-        Estes Termos de Uso sao regidos pelas leis da Republica Federativa do Brasil,
+        Estes Termos de Uso sao regidos pelas leis da República Federativa do Brasil,
         em especial: LGPD (Lei 13.709/2018), Lei 14.133/2021, Marco Civil da Internet
         (Lei 12.965/2014), Codigo de Defesa do Consumidor (Lei 8.078/1990) e Codigo Civil
         (Lei 10.406/2002).

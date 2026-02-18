@@ -3,50 +3,50 @@ import type { Route } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'ATA360 — Infraestrutura de Inteligencia em Contratacoes Publicas',
-  description: 'Plataforma brasileira com IA especialista na Lei 14.133/2021. Pesquisa de precos em fontes oficiais, geracao de documentos licitatorios e auditoria automatica de conformidade para municipios e orgaos publicos.',
+  title: 'ATA360 — Infraestrutura de Inteligência em Contratações Públicas',
+  description: 'Plataforma brasileira com IA especialista na Lei 14.133/2021. Pesquisa de preços em fontes oficiais, geração de documentos licitatórios e auditoria automática de conformidade para municípios e órgãos públicos.',
   keywords: [
-    'contratacoes publicas', 'licitacao', 'lei 14.133', 'ata de registro de precos',
-    'PNCP', 'GovTech Brasil', 'pesquisa de precos', 'pregao eletronico',
-    'termo de referencia', 'estudo tecnico preliminar', 'compliance licitatorio',
+    'contratações públicas', 'licitação', 'lei 14.133', 'ata de registro de preços',
+    'PNCP', 'GovTech Brasil', 'pesquisa de preços', 'pregão eletrônico',
+    'termo de referência', 'estudo técnico preliminar', 'compliance licitatório',
   ],
 }
 
 const NUMEROS = [
-  { valor: 'R$ 1+ tri', descricao: 'Movimentados anualmente em compras publicas no Brasil', fonte: 'Portal da Transparencia / TCU' },
-  { valor: '5.570', descricao: 'Municipios brasileiros com obrigacao de licitar conforme Lei 14.133/2021', fonte: 'IBGE' },
-  { valor: '17+', descricao: 'Fontes oficiais integradas: PNCP, IBGE, TCU, CGU, BCB e outras', fonte: 'Infraestrutura propria' },
-  { valor: '110+', descricao: 'Endpoints de APIs governamentais para dados em tempo real', fonte: 'Infraestrutura propria' },
-  { valor: '560+', descricao: 'Jurisprudencias do TCU e tribunais estaduais indexadas', fonte: 'TCU / TCEs' },
-  { valor: '1.4M+', descricao: 'Itens de atas e contratos unificados para pesquisa de precos', fonte: 'PNCP / Compras.gov.br' },
+  { valor: 'R$ 1+ tri', descrição: 'Movimentados anualmente em compras públicas no Brasil', fonte: 'Portal da Transparência / TCU' },
+  { valor: '5.570', descrição: 'Municípios brasileiros com obrigação de licitar conforme Lei 14.133/2021', fonte: 'IBGE' },
+  { valor: '17+', descrição: 'Fontes oficiais integradas: PNCP, IBGE, TCU, CGU, BCB e outras', fonte: 'Infraestrutura propria' },
+  { valor: '110+', descrição: 'Endpoints de APIs governamentais para dados em tempo real', fonte: 'Infraestrutura propria' },
+  { valor: '560+', descrição: 'Jurisprudências do TCU e tribunais estaduais indexadas', fonte: 'TCU / TCEs' },
+  { valor: '1.4M+', descrição: 'Itens de atas e contratos unificados para pesquisa de preços', fonte: 'PNCP / Compras.gov.br' },
 ] as const
 
 const CAPACIDADES = [
   {
     titulo: 'Pesquisa de Precos',
-    descricao: 'Consulta automatica ao PNCP, Compras.gov.br e demais fontes oficiais. Calculo estatistico conforme IN SEGES 65/2021: media, mediana, desvio padrao e coeficiente de variacao.',
+    descrição: 'Consulta automática ao PNCP, Compras.gov.br e demais fontes oficiais. Calculo estatístico conforme IN SEGES 65/2021: media, mediana, desvio padrão e coeficiente de variação.',
   },
   {
     titulo: 'Documentos Licitatorios',
-    descricao: 'Geracao assistida de DFD, ETP, TR, PP, JCD, ARP e mais de 40 tipos de artefatos. Fundamentacao legal automatica com Art. e inciso correspondente.',
+    descrição: 'Geracao assistida de DFD, ETP, TR, PP, JCD, ARP e mais de 40 tipos de artefatos. Fundamentacao legal automática com Art. e inciso correspondente.',
   },
   {
     titulo: 'Auditoria de Conformidade',
-    descricao: 'Verificacao automatica contra a Lei 14.133/2021, LINDB, jurisprudencia TCU e normativos aplicaveis. Parecer tripartite: conforme, ressalva ou nao conforme.',
+    descrição: 'Verificacao automática contra a Lei 14.133/2021, LINDB, jurisprudência TCU e normativos aplicaveis. Parecer tripartite: conforme, ressalva ou não conforme.',
   },
   {
-    titulo: 'Inteligencia de Dados',
-    descricao: 'Cruzamento de dados de 17+ fontes oficiais para identificar oportunidades, riscos e padroes. Radar de recursos, emendas parlamentares e transferencias voluntarias.',
+    titulo: 'Inteligência de Dados',
+    descrição: 'Cruzamento de dados de 17+ fontes oficiais para identificar oportunidades, riscos e padroes. Radar de recursos, emendas parlamentares e transferências voluntárias.',
   },
 ] as const
 
 const DIFERENCIAIS = [
-  { titulo: 'Dados Oficiais', descricao: 'Toda informacao vem de fontes do governo brasileiro. O sistema nao inventa dados.' },
-  { titulo: 'Multiplas Blindagens', descricao: 'Camadas de verificacao cruzada, auditoria automatica e revisao humana obrigatoria.' },
-  { titulo: 'Exclusivo Setor Publico', descricao: 'Atende apenas entes publicos. Nao vende para fornecedores ou licitantes.' },
-  { titulo: 'Selo de Qualidade', descricao: 'Certificacao de conformidade com a Lei 14.133/2021 em cada documento aprovado.' },
-  { titulo: 'Edge Computing', descricao: 'Infraestrutura distribuida globalmente com latencia inferior a 50ms em todo o Brasil.' },
-  { titulo: 'Seguranca Nivel Bancario', descricao: 'Criptografia AES-256, isolamento multi-tenant, certificacoes SOC 2 e ISO 27001.' },
+  { titulo: 'Dados Oficiais', descrição: 'Toda informação vem de fontes do governo brasileiro. O sistema não inventa dados.' },
+  { titulo: 'Multiplas Blindagens', descrição: 'Camadas de verificação cruzada, auditoria automática e revisao humana obrigatória.' },
+  { titulo: 'Exclusivo Setor Público', descrição: 'Atende apenas entes públicos. Não vende para fornecedores ou licitantes.' },
+  { titulo: 'Selo de Qualidade', descrição: 'Certificacao de conformidade com a Lei 14.133/2021 em cada documento aprovado.' },
+  { titulo: 'Edge Computing', descrição: 'Infraestrutura distribuida globalmente com latência inferior a 50ms em todo o Brasil.' },
+  { titulo: 'Seguranca Nivel Bancario', descrição: 'Criptografia AES-256, isolamento multi-tenant, certificacoes SOC 2 e ISO 27001.' },
 ] as const
 
 export default function LandingPage() {
@@ -60,19 +60,19 @@ export default function LandingPage() {
               GovTech &bull; Lei 14.133/2021 &bull; Dados Oficiais
             </p>
             <h1 className="text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
-              Infraestrutura de Inteligencia em Contratacoes Publicas
+              Infraestrutura de Inteligência em Contratações Públicas
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
               Plataforma brasileira com IA especializada na Nova Lei de Licitacoes.
-              Pesquisa de precos em fontes oficiais, geracao de documentos e auditoria
-              de conformidade — tudo em um unico ambiente seguro.
+              Pesquisa de preços em fontes oficiais, geração de documentos e auditoria
+              de conformidade — tudo em um único ambiente seguro.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 href={'/contato' as Route}
                 className="rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
               >
-                Solicitar Demonstracao
+                Solicitar Demonstração
               </Link>
               <Link
                 href={'/login' as Route}
@@ -88,15 +88,15 @@ export default function LandingPage() {
       {/* Numeros */}
       <section className="border-b border-border/40 bg-muted/20">
         <div className="mx-auto max-w-6xl px-6 py-16">
-          <h2 className="text-2xl font-bold mb-2">Brasil em numeros</h2>
+          <h2 className="text-2xl font-bold mb-2">Brasil em números</h2>
           <p className="text-sm text-muted-foreground mb-10">
-            Dados reais da infraestrutura de compras publicas brasileira.
+            Dados reais da infraestrutura de compras públicas brasileira.
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
-            {NUMEROS.map(({ valor, descricao, fonte }) => (
+            {NUMEROS.map(({ valor, descrição, fonte }) => (
               <div key={valor} className="rounded-lg border border-border bg-card p-6">
                 <p className="text-3xl font-bold text-primary mb-2">{valor}</p>
-                <p className="text-sm text-foreground leading-relaxed">{descricao}</p>
+                <p className="text-sm text-foreground leading-relaxed">{descrição}</p>
                 <p className="text-xs text-muted-foreground mt-2">Fonte: {fonte}</p>
               </div>
             ))}
@@ -109,13 +109,13 @@ export default function LandingPage() {
         <div className="mx-auto max-w-6xl px-6 py-16">
           <h2 className="text-2xl font-bold mb-2">O que o ATA360 faz</h2>
           <p className="text-sm text-muted-foreground mb-10">
-            Quatro nucleos de inteligencia que operam de forma integrada.
+            Quatro nucleos de inteligência que operam de forma integrada.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {CAPACIDADES.map(({ titulo, descricao }) => (
+            {CAPACIDADES.map(({ titulo, descrição }) => (
               <div key={titulo} className="rounded-lg border border-border bg-card p-6">
                 <h3 className="font-semibold mb-2">{titulo}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{descricao}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{descrição}</p>
               </div>
             ))}
           </div>
@@ -127,13 +127,13 @@ export default function LandingPage() {
         <div className="mx-auto max-w-6xl px-6 py-16">
           <h2 className="text-2xl font-bold mb-2">Por que o ATA360</h2>
           <p className="text-sm text-muted-foreground mb-10">
-            Construido para o setor publico brasileiro, com a infraestrutura que ele merece.
+            Construido para o setor público brasileiro, com a infraestrutura que ele merece.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {DIFERENCIAIS.map(({ titulo, descricao }) => (
+            {DIFERENCIAIS.map(({ titulo, descrição }) => (
               <div key={titulo} className="rounded-lg border border-border bg-card p-6">
                 <h3 className="font-semibold mb-2">{titulo}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{descricao}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{descrição}</p>
               </div>
             ))}
           </div>
@@ -144,19 +144,19 @@ export default function LandingPage() {
       <section className="bg-primary/5">
         <div className="mx-auto max-w-6xl px-6 py-16 text-center">
           <h2 className="text-2xl font-bold mb-4">
-            Compras publicas com inteligencia, transparencia e conformidade
+            Compras públicas com inteligência, transparência e conformidade
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            O ATA360 esta pronto para transformar a gestao de contratacoes do seu orgao.
-            Solicite uma demonstracao e veja como dados oficiais, IA especializada e
-            auditoria automatica trabalham juntos.
+            O ATA360 esta pronto para transformar a gestão de contratações do seu órgão.
+            Solicite uma demonstração e veja como dados oficiais, IA especializada e
+            auditoria automática trabalham juntos.
           </p>
           <div className="flex justify-center gap-4">
             <Link
               href={'/contato' as Route}
               className="rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
             >
-              Solicitar Demonstracao
+              Solicitar Demonstração
             </Link>
             <Link
               href={'/manifesto' as Route}

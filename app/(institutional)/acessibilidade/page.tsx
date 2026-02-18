@@ -8,27 +8,27 @@ export const metadata: Metadata = {
 const RECURSOS = [
   {
     titulo: 'Navegacao por teclado',
-    descricao: 'Todos os elementos interativos (botoes, links, formularios, modais) sao acessiveis via teclado (Tab, Enter, Escape).',
+    descrição: 'Todos os elementos interativos (botoes, links, formulários, modais) sao acessíveis via teclado (Tab, Enter, Escape).',
   },
   {
     titulo: 'Contraste de cores',
-    descricao: 'As cores da interface atendem a relacao de contraste minima de 4.5:1 para texto normal e 3:1 para texto grande, conforme WCAG 2.1 AA.',
+    descrição: 'As cores da interface atendem a relacao de contraste minima de 4.5:1 para texto normal e 3:1 para texto grande, conforme WCAG 2.1 AA.',
   },
   {
     titulo: 'Compatibilidade com leitores de tela',
-    descricao: 'Utilizamos atributos ARIA e HTML semantico para garantir compatibilidade com NVDA, JAWS e VoiceOver.',
+    descrição: 'Utilizamos atributos ARIA e HTML semantico para garantir compatibilidade com NVDA, JAWS e VoiceOver.',
   },
   {
     titulo: 'Escala de fonte',
-    descricao: 'A interface suporta aumento de ate 200% sem perda de funcionalidade ou conteudo.',
+    descrição: 'A interface suporta aumento de até 200% sem perda de funcionalidade ou conteúdo.',
   },
   {
     titulo: 'Temas de alto contraste',
-    descricao: 'O ATA360 oferece modo claro e escuro, ambos projetados com acessibilidade em mente.',
+    descrição: 'O ATA360 oferece modo claro e escuro, ambos projetados com acessibilidade em mente.',
   },
   {
-    titulo: 'Formularios acessiveis',
-    descricao: 'Todos os campos possuem labels explicitos, mensagens de erro descritivas e indicacao visual de foco.',
+    titulo: 'Formularios acessíveis',
+    descrição: 'Todos os campos possuem labels explicitos, mensagens de erro descritivas e indicacao visual de foco.',
   },
 ] as const
 
@@ -45,7 +45,7 @@ export default function AcessibilidadePage() {
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
           O ATA360 e comprometido com a acessibilidade digital para todos os servidores
-          publicos brasileiros.
+          públicos brasileiros.
         </p>
       </header>
 
@@ -55,22 +55,22 @@ export default function AcessibilidadePage() {
           <h2 className="text-xl font-bold mb-4">Compromisso</h2>
           <p className="text-sm text-muted-foreground leading-relaxed mb-4">
             A ATA360 TECNOLOGIA LTDA se compromete a tornar sua plataforma e site institucional
-            acessiveis ao maior numero possivel de pessoas, independentemente de suas habilidades
+            acessíveis ao maior número possível de pessoas, independentemente de suas habilidades
             ou tecnologias assistivas utilizadas.
           </p>
           <p className="text-sm text-muted-foreground leading-relaxed">
             Nosso objetivo e atingir o nivel de conformidade AA das Diretrizes de Acessibilidade
-            para Conteudo Web (WCAG) 2.1, conforme recomendado pelo eMAG (Modelo de Acessibilidade
-            em Governo Eletronico) e pela Lei 13.146/2015 (Estatuto da Pessoa com Deficiencia).
+            para Conteúdo Web (WCAG) 2.1, conforme recomendado pelo eMAG (Modelo de Acessibilidade
+            em Governo Eletronico) e pela Lei 13.146/2015 (Estatuto da Pessoa com Deficiência).
           </p>
         </section>
 
-        {/* Legislacao */}
+        {/* Legislação */}
         <section>
-          <h2 className="text-xl font-bold mb-4">Legislacao aplicavel</h2>
+          <h2 className="text-xl font-bold mb-4">Legislação aplicavel</h2>
           <div className="space-y-3">
             {[
-              'Lei 13.146/2015 — Estatuto da Pessoa com Deficiencia (Art. 63)',
+              'Lei 13.146/2015 — Estatuto da Pessoa com Deficiência (Art. 63)',
               'Decreto 5.296/2004 — Acessibilidade em sites do governo',
               'eMAG — Modelo de Acessibilidade em Governo Eletronico (versao 3.1)',
               'WCAG 2.1 — Web Content Accessibility Guidelines (W3C)',
@@ -90,7 +90,7 @@ export default function AcessibilidadePage() {
           {RECURSOS.map((r) => (
             <div key={r.titulo} className="rounded-lg border border-border p-6">
               <h3 className="font-semibold text-sm mb-2">{r.titulo}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{r.descricao}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{r.descrição}</p>
             </div>
           ))}
         </div>
@@ -107,13 +107,13 @@ export default function AcessibilidadePage() {
           com o assunto &ldquo;Acessibilidade&rdquo;.
         </p>
         <p className="text-sm text-muted-foreground">
-          Nos comprometemos a investigar e responder em ate 5 dias uteis.
+          Nos comprometemos a investigar e responder em até 5 dias úteis.
         </p>
       </section>
 
       {/* Data */}
       <p className="mt-8 text-xs text-muted-foreground">
-        Ultima atualizacao: Fevereiro de 2026
+        Ultima atualização: Fevereiro de 2026
       </p>
     </article>
   )

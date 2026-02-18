@@ -8,94 +8,94 @@ Buscamos um(a) Desenvolvedor(a) Full-Stack para integrar o time de produto do AT
 - Desenvolver e manter features da plataforma (Next.js 14 + TypeScript)
 - Integrar APIs de IA (OpenAI, Anthropic) com dados de fontes oficiais (PNCP, ComprasNet, DOU)
 - Implementar pipelines de dados com Supabase (PostgreSQL + Edge Functions)
-- Colaborar com UX/UI para entregar interfaces acessiveis (WCAG 2.1 AA)
+- Colaborar com UX/UI para entregar interfaces acessíveis (WCAG 2.1 AA)
 - Participar de code reviews e decisões de arquitetura
 
 ### Requisitos
 
-- Experiência solida com React/Next.js e TypeScript
+- Experiência sólida com React/Next.js e TypeScript
 - Conhecimento de bancos relacionais (PostgreSQL/Supabase)
 - Familiaridade com APIs REST e integração de serviços
-- Boa comúnicacao e trabalho em equipe
+- Boa comunicação e trabalho em equipe
 
 ### Diferenciais
 
 - Experiência com IA generativa (OpenAI, LangChain)
 - Conhecimento do setor público ou Lei 14.133/2021
 - Experiência com Tailwind CSS e design systems
-- Contribuicoes open source","CLT ou PJ + Estagio","Hibrido/Remoto","Vespasiano/MG","Tecnologia;Desenvolvimento;GovTech","Aberta"
+- Contribuições open source","CLT ou PJ + Estágio","Híbrido/Remoto","Vespasiano/MG","Tecnologia;Desenvolvimento;GovTech","Aberta"
 "UX/UI Designer","ux-ui-designer","Projete experiências que simplificam a vida de servidores públicos. Figma, design systems, acessibilidade WCAG.","## Sobre a vaga
 
-Buscamos um(a) UX/UI Designer para criar experiências intuitivas e acessiveis na plataforma ATA360.
+Buscamos um(a) UX/UI Designer para criar experiências intuitivas e acessíveis na plataforma ATA360.
 
 ### Responsabilidades
 
-- Projetar interfaces para a plataforma de contratações (dashboards, formularios, chat IA)
+- Projetar interfaces para a plataforma de contratações (dashboards, formulários, chat IA)
 - Manter e evoluir o design system em Figma
-- Conduzir pesquisas de usuario com servidores públicos
+- Conduzir pesquisas de usuário com servidores públicos
 - Garantir conformidade com WCAG 2.1 AA e eMAG
-- Criar prototipos interativos para validação com stakeholders
+- Criar protótipos interativos para validação com stakeholders
 
 ### Requisitos
 
-- Portfolio demonstrando projetos de UX/UI (web apps, SaaS)
-- Dominio de Figma (componentes, Auto Layout, variables)
+- Portfólio demonstrando projetos de UX/UI (web apps, SaaS)
+- Domínio de Figma (componentes, Auto Layout, variables)
 - Conhecimento de acessibilidade digital (contraste, navegação por teclado, ARIA)
 - Capacidade de traduzir requisitos complexos em interfaces simples
 
 ### Diferenciais
 
 - Experiência com design para setor público ou GovTech
-- Conhecimento de HTML/CSS/Tailwind (implementacao básica)
+- Conhecimento de HTML/CSS/Tailwind (implementação básica)
 - Experiência com testes de usabilidade
-- Familiaridade com design tokens e sistemas de cores","CLT ou PJ + Estagio","Hibrido/Remoto","Vespasiano/MG","Design;GovTech","Aberta"
-"Comercial GovTech (SDR / AE)","comercial-govtech","Conecte municípios a solução que moderniza suas compras públicas. Vendas consultivas B2G, ciclo completo.","## Sobre a vaga
+- Familiaridade com design tokens e sistemas de cores","CLT ou PJ + Estágio","Híbrido/Remoto","Vespasiano/MG","Design;GovTech","Aberta"
+"Comercial GovTech (SDR / AE)","comercial-govtech","Conecte municípios à solução que moderniza suas compras públicas. Vendas consultivas B2G, ciclo completo.","## Sobre a vaga
 
-Buscamos profissional de vendas para atuar no segmento GovTech, conectando prefeituras e órgãos públicos a plataforma ATA360.
+Buscamos profissional de vendas para atuar no segmento GovTech, conectando prefeituras e órgãos públicos à plataforma ATA360.
 
 ### Responsabilidades
 
-- Prospectar e qualificar leads no setor público (prefeituras, camaras, autarquias)
+- Prospectar e qualificar leads no setor público (prefeituras, câmaras, autarquias)
 - Conduzir demonstrações da plataforma para gestores e pregoeiros
 - Gerenciar pipeline de vendas no CRM (HubSpot)
-- Acompanhar processos de contratação pública (dispensa, pregao, adesão a ARP)
+- Acompanhar processos de contratação pública (dispensa, pregão, adesão a ARP)
 - Construir relacionamento com associações de municípios e consultorias
 
 ### Requisitos
 
 - Experiência em vendas B2B ou B2G (mínimo 2 anos)
 - Conhecimento básico de licitações e contratações públicas
-- Habilidade de comúnicacao e apresentacao
-- Organizacao e disciplina com CRM e follow-ups
+- Habilidade de comunicação e apresentação
+- Organização e disciplina com CRM e follow-ups
 
 ### Diferenciais
 
 - Experiência no setor público ou GovTech
 - Rede de contatos em prefeituras de MG
 - Conhecimento da Lei 14.133/2021
-- Experiência com vendas SaaS","CLT","Presencial/Hibrido","Vespasiano/MG","Comercial;GovTech","Aberta"
+- Experiência com vendas SaaS","CLT","Presencial/Híbrido","Vespasiano/MG","Comercial;GovTech","Aberta"
 "Marketing Digital","marketing-digital","Posicione o ATA360 como referência em GovTech. SEO, conteúdo técnico, campanhas e growth para o setor público.","## Sobre a vaga
 
 Buscamos profissional de Marketing Digital para posicionar o ATA360 como referência em tecnologia para compras públicas.
 
 ### Responsabilidades
 
-- Planejar e executar estrategia de conteúdo (blog, redes sociais, newsletters)
+- Planejar e executar estratégia de conteúdo (blog, redes sociais, newsletters)
 - Otimizar SEO do site institucional e blog (notícias curadas)
-- Gerenciar campanhas de midia paga (Google Ads, LinkedIn Ads)
+- Gerenciar campanhas de mídia paga (Google Ads, LinkedIn Ads)
 - Criar materiais de apoio a vendas (cases, one-pagers, whitepapers)
-- Analisar metricas e reportar resultados (GA4, Search Console, HubSpot)
+- Analisar métricas e reportar resultados (GA4, Search Console, HubSpot)
 
 ### Requisitos
 
 - Experiência em marketing digital B2B (mínimo 2 anos)
 - Conhecimento de SEO técnico e marketing de conteúdo
-- Habilidade com ferramentas de analytics e automacao
-- Boa escrita em portugues (conteúdo técnico/institucional)
+- Habilidade com ferramentas de analytics e automação
+- Boa escrita em português (conteúdo técnico/institucional)
 
 ### Diferenciais
 
 - Experiência com marketing para setor público ou GovTech
 - Conhecimento de Webflow e CMS
-- Experiência com video marketing (YouTube, Reels)
-- Familiaridade com compras públicas e Lei 14.133/2021","CLT ou PJ + Estagio","Remoto","Vespasiano/MG","Marketing;GovTech","Aberta"
+- Experiência com vídeo marketing (YouTube, Reels)
+- Familiaridade com compras públicas e Lei 14.133/2021","CLT ou PJ + Estágio","Remoto","Vespasiano/MG","Marketing;GovTech","Aberta"

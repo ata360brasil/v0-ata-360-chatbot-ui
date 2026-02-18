@@ -10,44 +10,44 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     pergunta: 'Como acessar o ATA360?',
-    resposta: 'Acesse app.ata360.com.br e entre com suas credenciais Gov.br ou modo demonstracao.',
+    resposta: 'Acesse app.ata360.com.br e entre com suas credenciais Gov.br ou modo demonstração.',
   },
   {
     pergunta: 'Esqueci minha senha. O que faco?',
-    resposta: 'O ATA360 utiliza autenticacao via Gov.br. Recupere sua senha diretamente no portal acesso.gov.br.',
+    resposta: 'O ATA360 utiliza autenticação via Gov.br. Recupere sua senha diretamente no portal acesso.gov.br.',
   },
   {
     pergunta: 'O documento gerado pode ser editado?',
-    resposta: 'Sim. Todos os documentos sao editaveis antes da finalizacao. A revisao humana e obrigatoria.',
+    resposta: 'Sim. Todos os documentos sao editaveis antes da finalização. A revisao humana e obrigatória.',
   },
   {
     pergunta: 'Quantos usuarios podem acessar?',
-    resposta: 'Usuarios ilimitados por orgao. Toda a equipe acessa sem custo extra.',
+    resposta: 'Usuarios ilimitados por órgão. Toda a equipe acessa sem custo extra.',
   },
   {
-    pergunta: 'Os dados do meu orgao estao seguros?',
+    pergunta: 'Os dados do meu órgão estao seguros?',
     resposta: 'Sim. Isolamento multi-tenant, criptografia AES-256 em repouso, TLS 1.3 em transito, e trilha de auditoria imutavel.',
   },
 ] as const
 
 const CANAIS = [
   {
-    titulo: 'Suporte Tecnico',
+    titulo: 'Suporte Técnico',
     email: 'suporte@ata360.com.br',
-    assuntos: 'Duvidas, erros, funcionalidades, integracao',
-    sla: 'Resposta em ate 2 dias uteis',
+    assuntos: 'Dúvidas, erros, funcionalidades, integração',
+    sla: 'Resposta em até 2 dias úteis',
   },
   {
     titulo: 'Ouvidoria',
     email: 'ouvidoria@ata360.com.br',
-    assuntos: 'Denuncias, reclamacoes, sugestoes, elogios',
+    assuntos: 'Denúncias, reclamacoes, sugestoes, elogios',
     sla: 'Acusacao de recebimento em 48h',
   },
   {
     titulo: 'Financeiro / Contratos',
     email: 'financeiro@ata360.com.br',
-    assuntos: 'NF-e, confirmacao de recebimento, envio de contrato',
-    sla: 'Resposta em ate 2 dias uteis',
+    assuntos: 'NF-e, confirmação de recebimento, envio de contrato',
+    sla: 'Resposta em até 2 dias úteis',
   },
 ] as const
 
@@ -108,12 +108,12 @@ export default function SuportePage() {
               </li>
               <li>
                 <Link href={'/compliance' as Route} className="text-primary hover:underline">
-                  Ouvidoria / Canal de Denuncia
+                  Ouvidoria / Canal de Denúncia
                 </Link>
               </li>
               <li>
                 <Link href={'/glossario' as Route} className="text-primary hover:underline">
-                  Glossario de Licitacoes
+                  Glossário de Licitacoes
                 </Link>
               </li>
               <li>

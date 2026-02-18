@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Carta ao Servidor Publico',
-  description: 'Uma carta da equipe ATA360 aos servidores publicos brasileiros que trabalham com contratacoes. Reconhecimento, respeito e compromisso.',
+  title: 'Carta ao Servidor Público',
+  description: 'Uma carta da equipe ATA360 aos servidores públicos brasileiros que trabalham com contratações. Reconhecimento, respeito e compromisso.',
 }
 
 /**
- * Carta ao Servidor Publico
+ * Carta ao Servidor Público
  *
  * Tom: respeitoso, empatico, direto. Sem marketing.
  * Centralizado, texto puro — como uma carta de verdade.
@@ -17,7 +17,7 @@ export default function CartaServidorPage() {
       {/* Header */}
       <header className="mb-12">
         <p className="text-sm font-medium text-primary mb-4 tracking-wide uppercase">
-          Carta ao Servidor Publico
+          Carta ao Servidor Público
         </p>
         <h1 className="text-3xl lg:text-4xl font-bold tracking-tight leading-tight">
           A voce que compra em nome do povo
@@ -29,54 +29,54 @@ export default function CartaServidorPage() {
         <p>Prezado servidor,</p>
 
         <p>
-          Sabemos que voce trabalha sob pressao de prazos legais que nao esperam.
-          Que o orcamento do seu orgao nao acompanha a complexidade dos normativos
+          Sabemos que voce trabalha sob pressao de prazos legais que não ésperam.
+          Que o orçamento do seu órgão não acompanha a complexidade dos normativos
           que voce e obrigado a cumprir. Que a Lei 14.133/2021 elevou o nivel de
-          exigencia tecnica e juridica, mas nem sempre vieram junto os recursos
+          exigência técnica e jurídica, mas nem sempre vieram junto os recursos
           e as ferramentas.
         </p>
 
         <p>
           Sabemos que voce assina documentos que carregam responsabilidade pessoal.
           Que o Art. 11 da Lei 14.133/2021 e o Art. 28 da LINDB estao sempre presentes
-          — e que errar, mesmo de boa-fe, pode ter consequencias graves.
+          — e que errar, mesmo de boa-fe, pode ter consequências graves.
         </p>
 
         <p>
-          Sabemos que voce precisa pesquisar precos em multiplas fontes, fundamentar
-          cada decisao com artigo e inciso, elaborar estudos tecnicos, termos de
-          referencia e justificativas — muitas vezes sem equipe, sem sistema e sem
-          referencia confiavel.
+          Sabemos que voce precisa pesquisar preços em múltiplas fontes, fundamentar
+          cada decisão com artigo e inciso, elaborar estudos técnicos, termos de
+          referência e justificativas — muitas vezes sem equipe, sem sistema e sem
+          referência confiável.
         </p>
 
         <p>
-          O ATA360 foi construido para voce.
+          O ATA360 foi construído para voce.
         </p>
 
         <p>
-          Nao para substituir seu julgamento — porque a decisao humana e soberana e
+          Não para substituir seu julgamento — porque a decisão humana é soberana e
           nenhuma tecnologia deve tirar isso de voce. Mas para garantir que voce tenha
-          acesso a mesma qualidade de dados, a mesma fundamentacao juridica e ao mesmo
-          nivel de ferramentas que os maiores orgaos do pais utilizam.
+          acesso a mesma qualidade de dados, a mesma fundamentação jurídica e ao mesmo
+          nivel de ferramentas que os maiores órgãos do pais utilizam.
         </p>
 
         <p>
-          Cada dado que o ATA360 apresenta vem de fonte oficial. Cada sugestao e
+          Cada dado que o ATA360 apresenta vem de fonte oficial. Cada sugestão e
           auditada antes de chegar a voce. Cada documento pode ser rastreado ate
-          a norma que o fundamenta. E se algo nao estiver em conformidade, o sistema
-          vai avisar — porque a nossa funcao e proteger voce, nao acelerar processos
-          a custa de seguranca.
+          a norma que o fundamenta. E se algo não éstiver em conformidade, o sistema
+          vai avisar — porque a nossa função e proteger voce, não acelerar processos
+          a custa de segurança.
         </p>
 
         <p>
-          Voce atende o publico. Nos atendemos voce.
+          Voce atende o público. Nos atendemos voce.
         </p>
 
         <p>
-          Construimos o ATA360 com um unico proposito: que o tempo que voce gasta
-          em burocracia seja investido em decisao. Que voce tenha confianca no
+          Construimos o ATA360 com um único proposito: que o tempo que voce gasta
+          em burocracia seja investido em decisão. Que voce tenha confiança no
           instrumento que usa. E que comprar em nome do povo seja reconhecido pelo
-          que e — um ato de responsabilidade, nao de risco.
+          que e — um ato de responsabilidade, não de risco.
         </p>
 
         <p>

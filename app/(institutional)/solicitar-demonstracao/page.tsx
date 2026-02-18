@@ -2,23 +2,23 @@ import type { Metadata } from 'next'
 import { ContatoCnpjInput } from '@/components/contato-cnpj-input'
 
 export const metadata: Metadata = {
-  title: 'Solicitar Demonstracao — ATA360',
-  description: 'Agende uma demonstracao gratuita do ATA360 para seu orgao publico. Veja como automatizar pesquisa de precos, TR, ETP e DFD conforme a Lei 14.133.',
+  title: 'Solicitar Demonstração — ATA360',
+  description: 'Agende uma demonstração gratuita do ATA360 para seu órgão público. Veja como automatizar pesquisa de preços, TR, ETP e DFD conforme a Lei 14.133.',
 }
 
-export default function SolicitarDemonstracaoPage() {
+export default function SolicitarDemonstraçãoPage() {
   return (
     <article className="mx-auto max-w-6xl px-6 py-16 lg:py-24">
       {/* Header */}
       <header className="max-w-3xl mb-16">
         <p className="text-sm font-medium text-primary mb-4 tracking-wide uppercase">
-          Demonstracao
+          Demonstração
         </p>
         <h1 className="text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
-          Veja o ATA360 funcionando com dados do seu orgao
+          Veja o ATA360 funcionando com dados do seu órgão
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          Agende uma demonstracao personalizada. Mostramos como o ATA360 resolve
+          Agende uma demonstração personalizada. Mostramos como o ATA360 resolve
           os problemas reais da sua equipe de compras.
         </p>
       </header>
@@ -26,7 +26,7 @@ export default function SolicitarDemonstracaoPage() {
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-16">
         {/* Formulario */}
         <form
-          action="/api/demonstracao"
+          action="/api/demonstração"
           method="POST"
           className="space-y-6"
         >
@@ -55,20 +55,20 @@ export default function SolicitarDemonstracaoPage() {
               id="email"
               name="email"
               required
-              placeholder="servidor@orgao.gov.br"
+              placeholder="servidor@órgão.gov.br"
               className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="orgao" className="block text-sm font-medium mb-2">
-                Orgao / Entidade <span className="text-destructive">*</span>
+              <label htmlFor="órgão" className="block text-sm font-medium mb-2">
+                Órgão / Entidade <span className="text-destructive">*</span>
               </label>
               <input
                 type="text"
-                id="orgao"
-                name="orgao"
+                id="órgão"
+                name="órgão"
                 required
                 minLength={3}
                 maxLength={200}
@@ -78,7 +78,7 @@ export default function SolicitarDemonstracaoPage() {
             </div>
             <div>
               <label htmlFor="cnpj" className="block text-sm font-medium mb-2">
-                CNPJ do Orgao <span className="text-destructive">*</span>
+                CNPJ do Órgão <span className="text-destructive">*</span>
               </label>
               <ContatoCnpjInput />
             </div>
@@ -93,7 +93,7 @@ export default function SolicitarDemonstracaoPage() {
               id="cargo"
               name="cargo"
               maxLength={120}
-              placeholder="Pregoeiro, Agente de Contratacao, Secretario..."
+              placeholder="Pregoeiro, Agente de Contratação, Secretário..."
               className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
@@ -118,12 +118,12 @@ export default function SolicitarDemonstracaoPage() {
               </select>
             </div>
             <div>
-              <label htmlFor="horario" className="block text-sm font-medium mb-2">
-                Melhor horario <span className="text-destructive">*</span>
+              <label htmlFor="horário" className="block text-sm font-medium mb-2">
+                Melhor horário <span className="text-destructive">*</span>
               </label>
               <select
-                id="horario"
-                name="horario"
+                id="horário"
+                name="horário"
                 required
                 defaultValue=""
                 className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
@@ -131,7 +131,7 @@ export default function SolicitarDemonstracaoPage() {
                 <option value="" disabled>Selecione</option>
                 <option value="manha">Manha (8h-12h)</option>
                 <option value="tarde">Tarde (13h-17h)</option>
-                <option value="qualquer">Qualquer horario</option>
+                <option value="qualquer">Qualquer horário</option>
               </select>
             </div>
           </div>
@@ -145,7 +145,7 @@ export default function SolicitarDemonstracaoPage() {
               name="mensagem"
               rows={4}
               maxLength={2000}
-              placeholder="Tem algum processo especifico que gostaria de ver na demonstracao?"
+              placeholder="Tem algum processo específico que gostaria de ver na demonstração?"
               className="w-full rounded-md border border-input bg-background px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-y"
             />
           </div>
@@ -160,7 +160,7 @@ export default function SolicitarDemonstracaoPage() {
             />
             <label htmlFor="aceite" className="text-xs text-muted-foreground leading-relaxed">
               Declaro que li e concordo com a{' '}
-              <a href="/privacidade" className="text-primary hover:underline">Politica de Privacidade</a>{' '}
+              <a href="/privacidade" className="text-primary hover:underline">Política de Privacidade</a>{' '}
               e os{' '}
               <a href="/termos" className="text-primary hover:underline">Termos de Uso</a>{' '}
               da ATA360.
@@ -171,12 +171,12 @@ export default function SolicitarDemonstracaoPage() {
             type="submit"
             className="rounded-md bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
           >
-            Solicitar Demonstracao
+            Solicitar Demonstração
           </button>
 
           <p className="text-xs text-muted-foreground">
-            Demonstracao gratuita e sem compromisso. Exclusivo para orgaos publicos.
-            Retornamos em ate 1 dia util.
+            Demonstração gratuita e sem compromisso. Exclusivo para órgãos públicos.
+            Retornamos em até 1 dia util.
           </p>
         </form>
 
@@ -187,11 +187,11 @@ export default function SolicitarDemonstracaoPage() {
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex gap-2">
                 <span className="text-primary shrink-0">&bull;</span>
-                Pesquisa de precos com dados reais do PNCP
+                Pesquisa de preços com dados reais do PNCP
               </li>
               <li className="flex gap-2">
                 <span className="text-primary shrink-0">&bull;</span>
-                Geracao de TR com fundamentacao legal automatica
+                Geracao de TR com fundamentação legal automática
               </li>
               <li className="flex gap-2">
                 <span className="text-primary shrink-0">&bull;</span>
@@ -199,7 +199,7 @@ export default function SolicitarDemonstracaoPage() {
               </li>
               <li className="flex gap-2">
                 <span className="text-primary shrink-0">&bull;</span>
-                Dados do seu municipio ja carregados (IBGE, FPM, PNCP)
+                Dados do seu município ja carregados (IBGE, FPM, PNCP)
               </li>
               <li className="flex gap-2">
                 <span className="text-primary shrink-0">&bull;</span>

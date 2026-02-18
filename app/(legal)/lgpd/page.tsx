@@ -86,7 +86,7 @@ export default function LGPDPage() {
         <tbody>
           <tr>
             <td>Nome, CPF, cargo</td>
-            <td>Identificacao e autenticacao</td>
+            <td>Identificacao e autenticação</td>
             <td>Execucao de contrato (Art. 7, V)</td>
           </tr>
           <tr>
@@ -101,7 +101,7 @@ export default function LGPDPage() {
           </tr>
           <tr>
             <td>Mensagens no chat</td>
-            <td>Prestacao do servico</td>
+            <td>Prestação do servico</td>
             <td>Execucao de contrato (Art. 7, V)</td>
           </tr>
           <tr>
@@ -160,7 +160,7 @@ export default function LGPDPage() {
           <tr>
             <td><strong>Terceiros</strong></td>
             <td>Compartilhamento com orgaos de controle</td>
-            <td>Nao (exceto obrigacao legal)</td>
+            <td>Nao (exceto obrigação legal)</td>
           </tr>
         </tbody>
       </table>
@@ -168,14 +168,14 @@ export default function LGPDPage() {
       {/* 5 */}
       <h2>5. Anonimizacao de Dados</h2>
       <p>
-        Aplicamos tecnicas de anonimizacao e pseudonimizacao em conformidade com as
+        Aplicamos tecnicas de anonimização e pseudonimizacao em conformidade com as
         melhores praticas internacionais:
       </p>
       <ul>
         <li>CPF: mascaramento parcial (ex.: 123.***.***-00)</li>
         <li>CNPJ: mascaramento de digitos centrais</li>
         <li>E-mail: mascaramento do endereco local (ex.: us***@dominio.com)</li>
-        <li>Telefone: mascaramento de digitos intermediarios</li>
+        <li>Telefone: mascaramento de digitos intermediários</li>
         <li>Nome: preservacao do primeiro nome, iniciais dos demais</li>
       </ul>
       <p>
@@ -195,7 +195,7 @@ export default function LGPDPage() {
         preferencias e configuracoes.
       </p>
       <p>
-        <strong>Dados nao portaveis:</strong> trilhas de auditoria (obrigacao legal, Art. 16, I)
+        <strong>Dados nao portaveis:</strong> trilhas de auditoria (obrigação legal, Art. 16, I)
         e dados anonimizados (Art. 12).
       </p>
 
@@ -267,7 +267,7 @@ const DIREITOS_TITULAR = [
     inciso: 'IV',
     nome: 'Anonimizacao, bloqueio ou eliminacao',
     descricao:
-      'Voce pode solicitar a anonimizacao, bloqueio ou eliminacao de dados desnecessarios, excessivos ou tratados em desconformidade com a LGPD.',
+      'Voce pode solicitar a anonimização, bloqueio ou eliminacao de dados desnecessarios, excessivos ou tratados em desconformidade com a LGPD.',
   },
   {
     inciso: 'V',

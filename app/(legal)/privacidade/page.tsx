@@ -50,7 +50,7 @@ export default function PrivacidadePage() {
           <tr>
             <td><strong>Cadastrais</strong></td>
             <td>Nome completo, CPF, cargo, orgao de vinculacao</td>
-            <td>Identificacao e autenticacao via Gov.br</td>
+            <td>Identificacao e autenticação via Gov.br</td>
           </tr>
           <tr>
             <td><strong>De uso</strong></td>
@@ -60,7 +60,7 @@ export default function PrivacidadePage() {
           <tr>
             <td><strong>De contratacao</strong></td>
             <td>Documentos licitatorios, processos, termos de referencia</td>
-            <td>Prestacao do servico (geracao e auditoria de documentos)</td>
+            <td>Prestação do servico (geracao e auditoria de documentos)</td>
           </tr>
           <tr>
             <td><strong>De comunicacao</strong></td>
@@ -79,7 +79,7 @@ export default function PrivacidadePage() {
           analytics e comunicacoes opcionais.
         </li>
         <li>
-          <strong>Execucao de contrato (Art. 7, V)</strong> — para prestacao do servico contratado
+          <strong>Execucao de contrato (Art. 7, V)</strong> — para prestação do servico contratado
           (geracao de documentos, pesquisa de precos, acompanhamento de processos).
         </li>
         <li>
@@ -88,7 +88,7 @@ export default function PrivacidadePage() {
         </li>
         <li>
           <strong>Interesse legitimo (Art. 7, IX)</strong> — para seguranca da plataforma,
-          prevencao a fraudes e melhoria continua dos algoritmos, sempre respeitando os
+          prevenção a fraudes e melhoria continua dos algoritmos, sempre respeitando os
           direitos e liberdades fundamentais do titular.
         </li>
       </ul>
@@ -96,12 +96,12 @@ export default function PrivacidadePage() {
       {/* 4 */}
       <h2>4. Finalidades do Tratamento</h2>
       <ul>
-        <li>Prestacao do servico de inteligencia em contratacoes publicas</li>
+        <li>Prestação do servico de inteligencia em contratacoes publicas</li>
         <li>Geracao assistida de documentos licitatorios conforme a Lei 14.133/2021</li>
         <li>Auditoria automatica de conformidade legal</li>
         <li>Pesquisa de precos em fontes oficiais do governo brasileiro</li>
         <li>Melhoria continua da plataforma e dos modelos de inteligencia artificial</li>
-        <li>Cumprimento de obrigacoes legais e regulatorias</li>
+        <li>Cumprimento de obrigações legais e regulatorias</li>
         <li>Prevencao a fraudes e irregularidades em contratacoes publicas</li>
       </ul>
 
@@ -109,7 +109,7 @@ export default function PrivacidadePage() {
       <h2>5. Inteligencia Artificial e Protecao de Dados</h2>
       <p>
         O ATA360 utiliza modelos de inteligencia artificial de ultima geracao com
-        <strong> multiplas camadas de protecao</strong>:
+        <strong> multiplas camadas de proteção</strong>:
       </p>
       <ul>
         <li>
@@ -119,15 +119,15 @@ export default function PrivacidadePage() {
         </li>
         <li>
           <strong>Revisao humana obrigatoria:</strong> nenhum documento e finalizado sem
-          aprovacao expressa do servidor publico responsavel. A decisao humana e soberana.
+          aprovacao expressa do servidor público responsavel. A decisao humana e soberana.
         </li>
         <li>
           <strong>Auditoria automatica de conformidade:</strong> cada documento gerado passa
-          por auditoria sistematica que verifica aderencia a legislacao vigente, com fundamentacao
+          por auditoria sistematica que verifica aderencia a legislação vigente, com fundamentacao
           legal transparente.
         </li>
         <li>
-          <strong>Isolamento de dados:</strong> os dados de cada ente publico sao completamente
+          <strong>Isolamento de dados:</strong> os dados de cada ente público sao completamente
           isolados. Nenhum dado de um orgao e utilizado para treinar modelos ou enriquecer
           resultados de outro orgao.
         </li>
@@ -165,7 +165,7 @@ export default function PrivacidadePage() {
           acao relevante, garantindo rastreabilidade integral.
         </li>
         <li>
-          <strong>Monitoramento continuo</strong> com deteccao de anomalias, prevencao a intrusoes
+          <strong>Monitoramento continuo</strong> com detecção de anomalias, prevenção a intrusoes
           e resposta automatizada a incidentes.
         </li>
       </ul>
@@ -208,7 +208,7 @@ export default function PrivacidadePage() {
         </tbody>
       </table>
       <p>
-        Apos o termino do periodo de retencao, os dados sao eliminados ou anonimizados
+        Apos o termino do periodo de retenção, os dados sao eliminados ou anonimizados
         de forma irreversivel, conforme Arts. 15 e 16 da LGPD.
       </p>
 
@@ -217,7 +217,7 @@ export default function PrivacidadePage() {
       <p>Seus dados pessoais podem ser compartilhados exclusivamente nas seguintes hipoteses:</p>
       <ul>
         <li>
-          <strong>Cumprimento de obrigacao legal:</strong> publicacao no PNCP, prestacao de contas
+          <strong>Cumprimento de obrigação legal:</strong> publicacao no PNCP, prestação de contas
           ao TCU, CGU e orgaos de controle, conforme exigido pela Lei 14.133/2021.
         </li>
         <li>
@@ -226,7 +226,7 @@ export default function PrivacidadePage() {
         </li>
         <li>
           <strong>Operadores de dados:</strong> provedores de infraestrutura que processam dados
-          em nosso nome, vinculados por clausulas contratuais de protecao de dados (Art. 39, LGPD).
+          em nosso nome, vinculados por clausulas contratuais de proteção de dados (Art. 39, LGPD).
         </li>
       </ul>
       <p>
@@ -235,7 +235,7 @@ export default function PrivacidadePage() {
       </p>
 
       {/* 9 */}
-      <h2>9. Transferencia Internacional de Dados</h2>
+      <h2>9. Transferência Internacional de Dados</h2>
       <p>
         Para garantir alta disponibilidade e desempenho, parte do processamento pode ocorrer
         em infraestrutura distribuida globalmente. Nessas situacoes:
@@ -243,7 +243,7 @@ export default function PrivacidadePage() {
       <ul>
         <li>
           Os provedores de infraestrutura sao vinculados por clausulas contratuais padrao (SCCs)
-          que garantem nivel de protecao equivalente a LGPD.
+          que garantem nivel de proteção equivalente a LGPD.
         </li>
         <li>
           Todos os provedores possuem certificacoes internacionais de seguranca (SOC 2, ISO 27001).
@@ -258,7 +258,7 @@ export default function PrivacidadePage() {
       <h2>10. Seus Direitos como Titular</h2>
       <p>
         Conforme o Art. 18 da LGPD, voce possui os seguintes direitos sobre seus dados pessoais:
-        acesso, correcao, anonimizacao, eliminacao, portabilidade, informacao sobre compartilhamento
+        acesso, correcao, anonimização, eliminacao, portabilidade, informacao sobre compartilhamento
         e revogacao do consentimento.
       </p>
       <p>
@@ -281,7 +281,7 @@ export default function PrivacidadePage() {
         <tbody>
           <tr>
             <td><strong>Essenciais</strong></td>
-            <td>Sessao, autenticacao, seguranca (CSRF)</td>
+            <td>Sessao, autenticação, seguranca (CSRF)</td>
             <td>Dispensado (Art. 7, V)</td>
           </tr>
           <tr>

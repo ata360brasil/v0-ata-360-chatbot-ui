@@ -5,11 +5,11 @@ import Link from 'next/link'
 import { BLOG_POSTS, BLOG_CATEGORIES, getFeaturedPosts, getAllCategories, type BlogPost, type BlogCategory } from '@/lib/blog'
 
 export const metadata: Metadata = {
-  title: 'Noticias — Compras Publicas e Contratacoes | ATA360',
-  description: 'Noticias curadas sobre compras publicas, licitacoes, Lei 14.133/2021, jurisprudencia do TCU e inovacao em gestao publica.',
+  title: 'Notícias — Compras Públicas e Contratações | ATA360',
+  description: 'Notícias curadas sobre compras públicas, licitações, Lei 14.133/2021, jurisprudência do TCU e inovação em gestão pública.',
   openGraph: {
-    title: 'Noticias ATA360 — Compras Publicas e Contratacoes',
-    description: 'Noticias curadas de fontes oficiais: TCU, CGU, PNCP, Gov.br. Relevancia para pregoeiros, gestores e servidores publicos.',
+    title: 'Notícias ATA360 — Compras Públicas e Contratações',
+    description: 'Notícias curadas de fontes oficiais: TCU, CGU, PNCP, Gov.br. Relevância para pregoeiros, gestores e servidores públicos.',
   },
 }
 
@@ -67,8 +67,8 @@ export default function BlogPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Blog',
-            name: 'Noticias ATA360',
-            description: 'Noticias curadas sobre compras publicas, licitacoes e contratacoes governamentais',
+            name: 'Notícias ATA360',
+            description: 'Notícias curadas sobre compras públicas, licitações e contratações governamentais',
             url: 'https://app.ata360.com.br/blog',
             publisher: { '@id': 'https://app.ata360.com.br/#organization' },
             inLanguage: 'pt-BR',
@@ -89,9 +89,9 @@ export default function BlogPage() {
       <div className="mx-auto max-w-6xl px-6 py-16 lg:py-24">
         {/* Header — bold, monochrome */}
         <div className="mb-16">
-          <h1 className="text-4xl lg:text-5xl font-bold text-foreground tracking-tight mb-4">Noticias</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold text-foreground tracking-tight mb-4">Notícias</h1>
           <p className="text-lg text-neutral-500 max-w-2xl leading-relaxed">
-            Noticias curadas sobre compras publicas, licitacoes e contratacoes governamentais — direto de fontes oficiais como TCU, CGU, PNCP e Gov.br.
+            Notícias curadas sobre compras públicas, licitações e contratações governamentais — direto de fontes oficiais como TCU, CGU, PNCP e Gov.br.
           </p>
         </div>
 
@@ -112,7 +112,7 @@ export default function BlogPage() {
 
         {/* Featured posts */}
         {featured.length > 0 && (
-          <section className="mb-16" aria-label="Noticias em destaque">
+          <section className="mb-16" aria-label="Notícias em destaque">
             <h2 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-6">Destaques</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {featured.map(post => (
@@ -125,8 +125,8 @@ export default function BlogPage() {
         )}
 
         {/* All posts */}
-        <section aria-label="Todas as noticias">
-          <h2 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-6">Todas as Noticias</h2>
+        <section aria-label="Todas as notícias">
+          <h2 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-6">Todas as Notícias</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {allPosts.map(post => (
               <React.Fragment key={post.slug}>
@@ -140,13 +140,13 @@ export default function BlogPage() {
         <div className="mt-20 text-center border-t border-neutral-200 dark:border-neutral-800 pt-12">
           <h2 className="text-xl font-bold text-foreground mb-3 tracking-tight">Quer saber mais?</h2>
           <p className="text-sm text-neutral-500 mb-6 max-w-md mx-auto">
-            Solicite uma demonstracao e descubra como o ATA360 pode transformar a gestao de contratacoes do seu municipio.
+            Solicite uma demonstração e descubra como o ATA360 pode transformar a gestão de contratações do seu município.
           </p>
           <Link
             href={'/solicitar-demonstracao' as Route}
             className="inline-block rounded-full bg-foreground px-8 py-3 text-sm font-semibold text-background hover:bg-foreground/80 transition-colors"
           >
-            Solicitar Demonstracao
+            Solicitar Demonstração
           </Link>
         </div>
       </div>

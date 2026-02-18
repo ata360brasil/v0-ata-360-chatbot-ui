@@ -3,58 +3,58 @@ import { ContatoCnpjInput } from '@/components/contato-cnpj-input'
 
 export const metadata: Metadata = {
   title: 'Carreiras — Trabalhe Conosco',
-  description: 'Vagas abertas na ATA360 em Vespasiano/MG. Desenvolvedor, Designer, Comercial GovTech e Marketing Digital. Faca parte da GovTech que transforma compras publicas.',
+  description: 'Vagas abertas na ATA360 em Vespasiano/MG. Desenvolvedor, Designer, Comercial GovTech e Marketing Digital. Faca parte da GovTech que transforma compras públicas.',
 }
 
 const VAGAS = [
   {
     titulo: 'Desenvolvedor(a) Full-Stack',
-    modalidade: 'CLT ou PJ + Estagio',
+    modalidade: 'CLT ou PJ + Estágio',
     regime: 'Hibrido ou Remoto',
-    descricao: 'Desenvolvimento de features da plataforma, APIs e integracao com fontes governamentais.',
+    descrição: 'Desenvolvimento de features da plataforma, APIs e integração com fontes governamentais.',
     requisitos: [
       'Next.js / React (TypeScript)',
       'Supabase (PostgreSQL, Auth, RLS)',
       'Tailwind CSS',
       'Git + CI/CD',
     ],
-    diferenciais: 'Cloudflare Workers, LLM APIs, conhecimento em setor publico',
+    diferenciais: 'Cloudflare Workers, LLM APIs, conhecimento em setor público',
   },
   {
     titulo: 'UX/UI Designer',
-    modalidade: 'CLT ou PJ + Estagio',
+    modalidade: 'CLT ou PJ + Estágio',
     regime: 'Hibrido ou Remoto',
-    descricao: 'Interface da plataforma, site institucional e materiais visuais.',
+    descrição: 'Interface da plataforma, site institucional e materiais visuais.',
     requisitos: [
       'Figma (design system, componentes, prototipacao)',
-      'Design responsivo e acessivel (WCAG 2.1 AA)',
+      'Design responsivo e acessível (WCAG 2.1 AA)',
       'Experiencia com produtos SaaS ou B2G',
     ],
-    diferenciais: 'Webflow, motion design, pesquisa com usuarios do setor publico',
+    diferenciais: 'Webflow, motion design, pesquisa com usuarios do setor público',
   },
   {
     titulo: 'Comercial GovTech (SDR / AE)',
     modalidade: 'CLT',
     regime: 'Presencial ou Hibrido',
-    descricao: 'Prospeccao de orgaos publicos, demonstracoes e relacionamento com gestores.',
+    descrição: 'Prospeccao de órgãos públicos, demonstracoes e relacionamento com gestores.',
     requisitos: [
       'Experiencia com vendas B2B ou B2G',
-      'Conhecimento do setor publico (licitacao, pregao, contratos)',
+      'Conhecimento do setor público (licitação, pregão, contratos)',
       'Habilidade com CRM e outbound',
     ],
-    diferenciais: 'Rede de contatos em prefeituras, associacoes de municipios, TCEs',
+    diferenciais: 'Rede de contatos em prefeituras, associacoes de municípios, TCEs',
   },
   {
     titulo: 'Marketing Digital',
-    modalidade: 'CLT ou PJ + Estagio',
+    modalidade: 'CLT ou PJ + Estágio',
     regime: 'Remoto',
-    descricao: 'Blog, redes sociais, campanhas, SEO e materiais para conversao.',
+    descrição: 'Blog, redes sociais, campanhas, SEO e materiais para conversao.',
     requisitos: [
-      'SEO, conteudo, redes sociais',
-      'Copywriting para setor publico (tom institucional)',
-      'Google Analytics, ferramentas de automacao',
+      'SEO, conteúdo, redes sociais',
+      'Copywriting para setor público (tom institucional)',
+      'Google Analytics, ferramentas de automação',
     ],
-    diferenciais: 'Experiencia com GovTech, licitacoes, inbound marketing B2G',
+    diferenciais: 'Experiencia com GovTech, licitações, inbound marketing B2G',
   },
 ] as const
 
@@ -67,11 +67,11 @@ export default function CarreirasPage() {
           Carreiras
         </p>
         <h1 className="text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
-          Faca parte do time que transforma compras publicas no Brasil
+          Faca parte do time que transforma compras públicas no Brasil
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
           A ATA360 esta contratando em Vespasiano/MG. Se voce quer trabalhar com
-          tecnologia que impacta a administracao publica, esse e o lugar.
+          tecnologia que impacta a administração pública, esse e o lugar.
         </p>
       </header>
 
@@ -80,8 +80,8 @@ export default function CarreirasPage() {
         <h2 className="text-2xl font-bold mb-6">Por que trabalhar na ATA360</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            'Startup GovTech com missao clara: melhorar a gestao publica brasileira',
-            'Produto real com impacto direto em milhares de municipios',
+            'Startup GovTech com missao clara: melhorar a gestão pública brasileira',
+            'Produto real com impacto direto em milhares de municípios',
             'Time enxuto, autonomia alta, burocracia zero',
             'Stack moderna: Next.js, Supabase, Cloudflare, IA',
             'Ambiente de aprendizado constante',
@@ -109,7 +109,7 @@ export default function CarreirasPage() {
                   {vaga.regime}
                 </span>
               </div>
-              <p className="text-sm text-muted-foreground mb-4">{vaga.descricao}</p>
+              <p className="text-sm text-muted-foreground mb-4">{vaga.descrição}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase text-muted-foreground mb-2">Requisitos</p>
@@ -253,7 +253,7 @@ export default function CarreirasPage() {
           </button>
 
           <p className="text-xs text-muted-foreground">
-            Analisamos todas as candidaturas. Retornaremos em ate 5 dias uteis.
+            Analisamos todas as candidaturas. Retornaremos em até 5 dias úteis.
           </p>
         </form>
       </section>

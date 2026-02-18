@@ -4,29 +4,29 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Seguranca e IA Responsavel',
-  description: 'Seguranca da informacao, IA responsavel, certificacoes, criptografia, isolamento multi-tenant e politica de uso responsavel de inteligencia artificial na ATA360.',
+  description: 'Seguranca da informação, IA responsável, certificacoes, criptografia, isolamento multi-tenant e política de uso responsável de inteligência artificial na ATA360.',
 }
 
 const IA_FAZ = [
   'Consulta exclusivamente fontes oficiais do governo brasileiro (PNCP, IBGE, TCU, CGU, BCB).',
-  'Opera com multiplas camadas de verificacao cruzada contra alucinacao.',
-  'Gera documentos por motor deterministico — nao por IA generativa.',
-  'Audita automaticamente cada sugestao contra Lei 14.133/2021, LINDB e jurisprudencia.',
-  'Exige revisao humana obrigatoria antes da finalizacao de qualquer artefato.',
-  'Fundamenta cada sugestao com artigo, inciso e fonte rastreavel.',
+  'Opera com múltiplas camadas de verificação cruzada contra alucinação.',
+  'Gera documentos por motor determinístico — não por IA generativa.',
+  'Audita automáticamente cada sugestão contra Lei 14.133/2021, LINDB e jurisprudência.',
+  'Exige revisao humana obrigatória antes da finalização de qualquer artefato.',
+  'Fundamenta cada sugestão com artigo, inciso e fonte rastreável.',
   'Classifica todas as operacoes em 3 niveis de risco: baixo, medio, alto.',
   'Registra trilha de auditoria imutavel para cada interacao.',
 ] as const
 
 const IA_NAO_FAZ = [
-  'Nao inventa dados ou extrapola alem do que fontes oficiais demonstram.',
-  'Nao sugere marcas, fornecedores ou direciona resultados de licitacao.',
-  'Nao toma decisoes autonomas — a decisao e sempre do servidor.',
-  'Nao armazena ou transmite dados de um ente publico para outro.',
-  'Nao utiliza dados de usuarios para treinamento de modelos.',
-  'Nao expoe parametros internos, formulas, pesos ou thresholds ao usuario.',
-  'Nao processa dados de menores de idade ou dados sensiveis desnecessarios.',
-  'Nao opera sem supervisao humana em etapas criticas do processo.',
+  'Não inventa dados ou extrapola alem do que fontes oficiais demonstram.',
+  'Não sugere marcas, fornecedores ou direciona resultados de licitação.',
+  'Não toma decisões autonomas — a decisão e sempre do servidor.',
+  'Não armazena ou transmite dados de um ente público para outro.',
+  'Não utiliza dados de usuarios para treinamento de modelos.',
+  'Não éxpoe parâmetros internos, formulas, pesos ou thresholds ao usuario.',
+  'Não processa dados de menores de idade ou dados sensiveis desnecessários.',
+  'Não opera sem supervisao humana em etapas criticas do processo.',
 ] as const
 
 const SEGURANCA_INFRA = [
@@ -35,17 +35,17 @@ const SEGURANCA_INFRA = [
     itens: [
       'AES-256 para dados em repouso.',
       'TLS 1.3 para dados em transito.',
-      'Chaves de criptografia rotacionadas automaticamente.',
+      'Chaves de criptografia rotacionadas automáticamente.',
       'Hashing de senhas com bcrypt (fator 12+).',
     ],
   },
   {
     titulo: 'Isolamento Multi-Tenant',
     itens: [
-      'Row-Level Security (RLS) por orgao_id em todas as tabelas.',
-      'Zero cross-tenant: dados de um ente nunca sao acessiveis por outro.',
-      'Excecao unica: dados publicos do PNCP (publicados por forca de lei).',
-      'Cada operacao validada no nivel de banco de dados, nao apenas na aplicacao.',
+      'Row-Level Security (RLS) por órgão_id em todas as tabelas.',
+      'Zero cross-tenant: dados de um ente nunca sao acessíveis por outro.',
+      'Excecao única: dados públicos do PNCP (publicados por forca de lei).',
+      'Cada operação validada no nivel de banco de dados, não apenas na aplicacao.',
     ],
   },
   {
@@ -54,27 +54,27 @@ const SEGURANCA_INFRA = [
       'Autenticacao via Gov.br (Decreto 10.543/2020) com niveis bronze, prata e ouro.',
       'Tokens JWT com expiracao curta e refresh seguro.',
       'Controle de acesso baseado em perfis (SuperADM, LocalADM, membro).',
-      'Auditoria de login: IP, user-agent, geolocalizacao, metodo de autenticacao.',
+      'Auditoria de login: IP, user-agent, geolocalizacao, método de autenticação.',
     ],
   },
   {
     titulo: 'Infraestrutura',
     itens: [
-      'Edge computing distribuido globalmente com latencia < 50ms no Brasil.',
-      'Replicacao geografica automatica para alta disponibilidade.',
+      'Edge computing distribuido globalmente com latência < 50ms no Brasil.',
+      'Replicacao geográfica automática para alta disponibilidade.',
       'SLA 99.9% com monitoramento 24/7.',
-      'Backups automaticos com retencao conforme politica (5 anos para auditoria).',
+      'Backups automáticos com retenção conforme política (5 anos para auditoria).',
     ],
   },
 ] as const
 
 const CERTIFICACOES = [
-  { nome: 'SOC 2 Type II', descricao: 'Controles de seguranca, disponibilidade, integridade e confidencialidade auditados por terceiro independente.', status: 'Infraestrutura parceira certificada' },
-  { nome: 'ISO 27001', descricao: 'Sistema de gestao de seguranca da informacao conforme norma internacional.', status: 'Infraestrutura parceira certificada' },
-  { nome: 'PCI DSS Level 1', descricao: 'Conformidade com padrao de seguranca de dados da industria de cartoes de pagamento.', status: 'Infraestrutura parceira certificada' },
-  { nome: 'ISO 50001', descricao: 'Gestao de energia com eficiencia verificada. PUE < 1.1 nos datacenters.', status: 'Infraestrutura parceira certificada' },
-  { nome: 'Pro-Etica CGU', descricao: 'Programa de integridade reconhecido pela Controladoria-Geral da Uniao.', status: 'Em processo de obtencao' },
-  { nome: 'ABES', descricao: 'Certificacao da Associacao Brasileira das Empresas de Software.', status: 'Em processo de obtencao' },
+  { nome: 'SOC 2 Type II', descrição: 'Controles de segurança, disponibilidade, integridade e confidencialidade auditados por terceiro independente.', status: 'Infraestrutura parceira certificada' },
+  { nome: 'ISO 27001', descrição: 'Sistema de gestão de segurança da informação conforme norma internacional.', status: 'Infraestrutura parceira certificada' },
+  { nome: 'PCI DSS Level 1', descrição: 'Conformidade com padrão de segurança de dados da industria de cartoes de pagamento.', status: 'Infraestrutura parceira certificada' },
+  { nome: 'ISO 50001', descrição: 'Gestao de energia com eficiência verificada. PUE < 1.1 nos datacenters.', status: 'Infraestrutura parceira certificada' },
+  { nome: 'Pro-Etica CGU', descrição: 'Programa de integridade reconhecido pela Controladoria-Geral da Uniao.', status: 'Em processo de obtencao' },
+  { nome: 'ABES', descrição: 'Certificacao da Associacao Brasileira das Empresas de Software.', status: 'Em processo de obtencao' },
 ] as const
 
 export default function SegurancaPage() {
@@ -86,12 +86,12 @@ export default function SegurancaPage() {
           Seguranca e IA Responsavel
         </p>
         <h1 className="text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
-          Seguranca como arquitetura, nao como politica
+          Seguranca como arquitetura, não como política
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          A seguranca do ATA360 nao e uma camada adicional — e uma propriedade
-          fundamental da engenharia. Cada dado e isolado, cada operacao e auditada,
-          cada sugestao e verificada.
+          A segurança do ATA360 não é uma camada adicional — e uma propriedade
+          fundamental da engenharia. Cada dado e isolado, cada operação e auditada,
+          cada sugestão e verificada.
         </p>
       </header>
 
@@ -99,11 +99,11 @@ export default function SegurancaPage() {
       <section className="mb-20">
         <h2 className="text-2xl font-bold mb-2">IA Responsavel</h2>
         <p className="text-sm text-muted-foreground mb-4">
-          Classificacao de risco: <strong>ALTO</strong> (conforme PL 2.338/2023, Art. 14 — IA em administracao publica).
-          Avaliacao de Impacto Algoritmico (AIA) documentada conforme PBIA 2024-2028.
+          Classificação de risco: <strong>ALTO</strong> (conforme PL 2.338/2023, Art. 14 — IA em administração publica).
+          Avaliação de Impacto Algoritmico (AIA) documentada conforme PBIA 2024-2028.
         </p>
         <p className="text-sm text-muted-foreground mb-10">
-          Codigo de Conduta em IA publicavel com 10 principios alinhados aos 9 principios da PBIA.
+          Codigo de Conduta em IA publicavel com 10 princípios alinhados aos 9 princípios da PBIA.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -122,7 +122,7 @@ export default function SegurancaPage() {
 
           {/* NAO FAZ */}
           <div className="rounded-lg border border-border p-6">
-            <h3 className="font-bold mb-4 text-destructive">O que a IA nao faz</h3>
+            <h3 className="font-bold mb-4 text-destructive">O que a IA não faz</h3>
             <ul className="space-y-3">
               {IA_NAO_FAZ.map((item) => (
                 <li key={item} className="text-sm text-muted-foreground leading-relaxed flex gap-2">
@@ -139,7 +139,7 @@ export default function SegurancaPage() {
       <section className="mb-20">
         <h2 className="text-2xl font-bold mb-2">Seguranca de infraestrutura</h2>
         <p className="text-sm text-muted-foreground mb-10">
-          Quatro pilares de seguranca aplicados em todas as camadas do sistema.
+          Quatro pilares de segurança aplicados em todas as camadas do sistema.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -163,7 +163,7 @@ export default function SegurancaPage() {
       <section className="mb-20">
         <h2 className="text-2xl font-bold mb-2">Certificacoes</h2>
         <p className="text-sm text-muted-foreground mb-10">
-          Certificacoes de seguranca verificadas na infraestrutura e em processo de obtencao pela ATA360.
+          Certificacoes de segurança verificadas na infraestrutura e em processo de obtencao pela ATA360.
         </p>
 
         <div className="rounded-lg border border-border overflow-hidden">
@@ -177,10 +177,10 @@ export default function SegurancaPage() {
                 </tr>
               </thead>
               <tbody>
-                {CERTIFICACOES.map(({ nome, descricao, status }) => (
+                {CERTIFICACOES.map(({ nome, descrição, status }) => (
                   <tr key={nome} className="border-b border-border/50 last:border-0">
                     <td className="p-4 font-medium whitespace-nowrap">{nome}</td>
-                    <td className="p-4 text-muted-foreground">{descricao}</td>
+                    <td className="p-4 text-muted-foreground">{descrição}</td>
                     <td className="p-4 text-muted-foreground whitespace-nowrap">{status}</td>
                   </tr>
                 ))}
@@ -190,50 +190,50 @@ export default function SegurancaPage() {
         </div>
       </section>
 
-      {/* Filosofia de Decisao */}
+      {/* Filosofia de Decisão */}
       <section className="mb-20">
-        <h2 className="text-2xl font-bold mb-2">Ambiente tecnico, nao substituto</h2>
+        <h2 className="text-2xl font-bold mb-2">Ambiente técnico, não substituto</h2>
         <p className="text-sm text-muted-foreground mb-10">
-          O ATA360 nao substitui o gestor. Ele amadurece a decisao antes da assinatura.
+          O ATA360 não substitui o gestor. Ele amadurece a decisão antes da assinatura.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-8">
           <div>
-            <h3 className="font-semibold mb-3">O problema da solidao tecnica</h3>
+            <h3 className="font-semibold mb-3">O problema da solidão técnica</h3>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              O erro na administracao publica, na maioria das vezes, nao nasce da
-              falta de conhecimento. Nasce da solidao tecnica — decisoes publicas
-              exigem metodo, entendimento e validacao qualificada. Um servidor que
+              O erro na administração pública, na maioria das vezes, não nasce da
+              falta de conhecimento. Nasce da solidão técnica — decisões públicas
+              exigem método, entendimento e validação qualificada. Um servidor que
               decide sozinho, sem ferramentas e sem segunda opiniao fundamentada,
               esta exposto a riscos que poderiam ser evitados.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              O Art. 28 da LINDB (Lei 13.655/2018) estabelece que a responsabilizacao
-              pessoal do agente exige dolo ou erro grosseiro. Mas a melhor protecao
-              nao e juridica — e preventiva. O ATA360 atua como ambiente de validacao
+              O Art. 28 da LINDB (Lei 13.655/2018) estabelece que a responsabilização
+              pessoal do agente exige dolo ou erro grosseiro. Mas a melhor proteção
+              não é jurídica — e preventiva. O ATA360 atua como ambiente de validação
               que reduz riscos antes que eles se materializem.
             </p>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-3">Decisao preventiva, nao reativa</h3>
+            <h3 className="font-semibold mb-3">Decisão preventiva, não reativa</h3>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              Ambientes tecnicos como o ATA360 nao substituem o gestor — amadurecem
-              a decisao antes da assinatura de forma preventiva. A boa governanca
-              nasce quando o dever tecnico-legal supera o desconforto e tranquiliza
-              o agente publico com decisoes melhores e mais ageis.
+              Ambientes técnicos como o ATA360 não substituem o gestor — amadurecem
+              a decisão antes da assinatura de forma preventiva. A boa governança
+              nasce quando o dever técnico-legal supera o desconforto e tranquiliza
+              o agente público com decisões melhores e mais ágeis.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              O TCE-MG alerta para o excesso de documentacao na habilitacao (Art. 67,
-              Lei 14.133/2021) — exigencias desproporcionais restringem competicao.
-              O ATA360 calibra checklists conforme o tipo e porte da contratacao,
+              O TCE-MG alerta para o excesso de documentação na habilitação (Art. 67,
+              Lei 14.133/2021) — exigências desproporcionais restringem competição.
+              O ATA360 calibra checklists conforme o tipo e porte da contratação,
               respeitando razoabilidade e proporcionalidade.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Um erro recorrente e antecipar a definicao do objeto na fase de ETP.
-              O ETP nao nasce para descrever — nasce para entender o problema e
+              Um erro recorrente e antecipar a definição do objeto na fase de ETP.
+              O ETP não nasce para descrever — nasce para entender o problema e
               mapear alternativas. O ATA360 garante essa sequencia logica: primeiro
-              o diagnostico (ETP), depois a solucao (TR).
+              o diagnóstico (ETP), depois a solução (TR).
             </p>
           </div>
         </div>
@@ -243,9 +243,9 @@ export default function SegurancaPage() {
       <section className="mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-8">
           <div>
-            <h2 className="text-xl font-bold mb-4">Assinatura eletronica</h2>
+            <h2 className="text-xl font-bold mb-4">Assinatura eletrônica</h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              Conforme Lei 14.063/2020, o ATA360 suporta tres niveis de assinatura eletronica:
+              Conforme Lei 14.063/2020, o ATA360 suporta tres niveis de assinatura eletrônica:
             </p>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex gap-2">
@@ -254,25 +254,25 @@ export default function SegurancaPage() {
               </li>
               <li className="flex gap-2">
                 <span className="text-primary font-bold shrink-0">2.</span>
-                <span><strong>Avancada</strong> — Gov.br nivel prata ou ouro. Para documentos licitatorios.</span>
+                <span><strong>Avancada</strong> — Gov.br nivel prata ou ouro. Para documentos licitatórios.</span>
               </li>
               <li className="flex gap-2">
                 <span className="text-primary font-bold shrink-0">3.</span>
-                <span><strong>Qualificada (ICP-Brasil)</strong> — Certificado digital A3. Para atos com fe publica.</span>
+                <span><strong>Qualificada (ICP-Brasil)</strong> — Certificado digital A3. Para atos com fe pública.</span>
               </li>
             </ul>
             <p className="text-sm text-muted-foreground leading-relaxed mt-4">
-              Cada assinatura registra: IP, user-agent, geolocalizacao, metodo de
-              autenticacao, timestamp e hash SHA-256 do documento. Carimbo de tempo
-              conforme regulamentacao da ICP-Brasil para prova temporal irretratavel.
+              Cada assinatura registra: IP, user-agent, geolocalizacao, método de
+              autenticação, timestamp e hash SHA-256 do documento. Carimbo de tempo
+              conforme regulamentação da ICP-Brasil para prova temporal irretratavel.
             </p>
           </div>
 
           <div>
-            <h2 className="text-xl font-bold mb-4">Divulgacao responsavel</h2>
+            <h2 className="text-xl font-bold mb-4">Divulgacao responsável</h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              A ATA360 mantem programa de divulgacao responsavel de vulnerabilidades.
-              Pesquisadores de seguranca podem reportar falhas de forma segura e
+              A ATA360 mantem programa de divulgacao responsável de vulnerabilidades.
+              Pesquisadores de segurança podem reportar falhas de forma segura e
               confidencial.
             </p>
             <div className="rounded-lg border border-border bg-muted/20 p-6">
@@ -282,7 +282,7 @@ export default function SegurancaPage() {
                 assunto &ldquo;Security Disclosure&rdquo;.
               </p>
               <p className="text-sm text-muted-foreground mb-2">
-                <strong>SLA:</strong> Acusacao de recebimento em 48h. Primeira avaliacao em 5 dias uteis.
+                <strong>SLA:</strong> Acusacao de recebimento em 48h. Primeira avaliação em 5 dias úteis.
               </p>
               <p className="text-sm text-muted-foreground">
                 Consulte nosso <Link href={'/termos' as Route} className="text-primary hover:underline">SECURITY.md</Link> para
