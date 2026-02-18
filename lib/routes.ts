@@ -8,6 +8,38 @@
  * centralizar definicoes de rotas como `const` assertions.
  */
 
+// ─── Webflow (site institucional separado) ────────────────────────────────────
+// Quando NEXT_PUBLIC_WEBFLOW_URL está definido, rotas institucionais e legais
+// são redirecionadas para o domínio do Webflow (www.ata360.com.br).
+// Em dev local, deixe vazio para manter tudo no Next.js.
+export const WEBFLOW_URL = process.env.NEXT_PUBLIC_WEBFLOW_URL ?? ''
+export const isWebflowEnabled = WEBFLOW_URL.length > 0 && WEBFLOW_URL.startsWith('https://')
+
+/**
+ * Constrói URL absoluta no Webflow para uma rota institucional/legal.
+ * Retorna path local se Webflow não estiver configurado (dev).
+ */
+export function webflowUrl(path: string): string {
+  return isWebflowEnabled ? `${WEBFLOW_URL}${path}` : path
+}
+
+// ─── Rotas que pertencem ao Webflow quando habilitado ─────────────────────────
+export const INSTITUTIONAL_ROUTES = new Set([
+  '/', '/manifesto', '/quem-somos', '/missao-visao-valores',
+  '/compromissos', '/compliance', '/seguranca',
+  '/carta-servidor', '/contato', '/cookies',
+  '/blog', '/glossario', '/jurisprudencia-tce',
+  '/soluções', '/humano-ia', '/parceiros', '/carreiras',
+  '/solicitar-demonstracao', '/suporte', '/acessibilidade',
+])
+
+export const LEGAL_ROUTES = new Set([
+  '/privacidade', '/termos', '/lgpd',
+])
+
+/** Todas as rotas que migram para o Webflow */
+export const WEBFLOW_ROUTES = new Set([...INSTITUTIONAL_ROUTES, ...LEGAL_ROUTES])
+
 export const ROUTES = {
   // App (autenticado)
   chat: '/',
@@ -19,7 +51,7 @@ export const ROUTES = {
   history: '/history',
   assistants: '/assistants',
   login: '/login',
-  // Institucional (publico)
+  // Institucional (público — Webflow quando habilitado)
   blog: '/blog',
   glossario: '/glossario',
   manifesto: '/manifesto',

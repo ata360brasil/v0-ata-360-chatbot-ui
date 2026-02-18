@@ -4,6 +4,7 @@ import { DM_Sans, JetBrains_Mono } from 'next/font/google'
 import { OrganizationJsonLd, FAQJsonLd } from '@/components/structured-data'
 import { AnalyticsProvider } from '@/components/analytics-provider'
 import { LgpdConsentBanner } from '@/components/lgpd-consent-banner'
+import { isWebflowEnabled, WEBFLOW_URL } from '@/lib/routes'
 import './globals.css'
 
 const dmSans = DM_Sans({
@@ -30,6 +31,9 @@ export const viewport: Viewport = {
   ],
 }
 
+// Quando Webflow está habilitado, o app autenticado (app.ata360.com.br)
+// não deve ser indexado por buscadores — o SEO fica no Webflow (www).
+// Quando desabilitado (dev/staging), mantém indexação normal.
 export const metadata: Metadata = {
   metadataBase: new URL('https://app.ata360.com.br'),
   title: {
@@ -43,14 +47,12 @@ export const metadata: Metadata = {
     'termo de referência', 'estudo técnico preliminar', 'DFD', 'ETP',
     'compliance licitação', 'GovTech Brasil'
   ],
-  authors: [{ name: 'ATA360', url: 'https://ata360.com.br' }],
+  authors: [{ name: 'ATA360', url: isWebflowEnabled ? WEBFLOW_URL : 'https://ata360.com.br' }],
   creator: 'ATA360',
   publisher: 'ATA360',
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
-  },
+  robots: isWebflowEnabled
+    ? { index: false, follow: false }
+    : { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large' } },
   openGraph: {
     type: 'website',
     locale: 'pt_BR',

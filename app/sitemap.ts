@@ -3,10 +3,26 @@ import { BLOG_POSTS } from '@/lib/blog'
 import { GLOSSARY_TERMS } from '@/lib/glossary'
 import { DECISOES_TCE } from '@/data/jurisprudencia-tce'
 
+const WEBFLOW_URL = process.env.NEXT_PUBLIC_WEBFLOW_URL ?? ''
+const webflowEnabled = WEBFLOW_URL.length > 0 && WEBFLOW_URL.startsWith('https://')
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://app.ata360.com.br'
   const lastModified = new Date()
 
+  // ─── Páginas do app autenticado (sempre presentes) ──────────────────────
+  const appPages: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/login`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
+  ]
+
+  // ─── Quando Webflow habilitado, o sitemap só tem páginas do app ─────────
+  // O Webflow (www.ata360.com.br) terá seu próprio sitemap com
+  // páginas institucionais, legais, blog, glossário, etc.
+  if (webflowEnabled) {
+    return appPages
+  }
+
+  // ─── Fallback: tudo local (dev/staging sem Webflow) ─────────────────────
   const staticPages: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified, changeFrequency: 'daily', priority: 1 },
     { url: `${baseUrl}/dashboard`, lastModified, changeFrequency: 'hourly', priority: 0.9 },

@@ -14,6 +14,8 @@
  */
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://app.ata360.com.br'
+const WEBFLOW_URL = process.env.NEXT_PUBLIC_WEBFLOW_URL || ''
+const SITE_URL = (WEBFLOW_URL.length > 0 && WEBFLOW_URL.startsWith('https://')) ? WEBFLOW_URL : BASE_URL
 
 // ─── Organization + SoftwareApplication (root layout) ────────────────────────
 
@@ -25,19 +27,19 @@ export function OrganizationJsonLd() {
         '@type': 'Organization',
         '@id': `${BASE_URL}/#organization`,
         name: 'ATA360',
-        url: 'https://ata360.com.br',
+        url: SITE_URL,
         logo: `${BASE_URL}/icon.png`,
         description: 'Plataforma GovTech brasileira para contratacoes publicas.',
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'customer service',
           email: 'suporte@ata360.com.br',
-          url: `${BASE_URL}/contato`,
+          url: `${SITE_URL}/contato`,
           availableLanguage: 'Portuguese',
           areaServed: 'BR',
         },
         sameAs: [
-          'https://ata360.com.br',
+          SITE_URL,
         ],
       },
       {

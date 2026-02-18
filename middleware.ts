@@ -3,12 +3,38 @@ import type { NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 import { rateLimit, getRateLimitPreset } from '@/lib/rate-limit'
 
+// ─── Webflow (site institucional separado) ──────────────────────────────────
+// Quando NEXT_PUBLIC_WEBFLOW_URL está definido, rotas institucionais/legais
+// são redirecionadas (307 temporário) para o domínio do Webflow.
+// Usar 307 (não 301) durante migração para facilitar rollback.
+const WEBFLOW_URL = process.env.NEXT_PUBLIC_WEBFLOW_URL ?? ''
+const webflowEnabled = WEBFLOW_URL.length > 0 && WEBFLOW_URL.startsWith('https://')
+
+// Rotas que migram para o Webflow
+const WEBFLOW_EXACT_ROUTES = new Set([
+  '/', '/manifesto', '/quem-somos', '/missao-visao-valores',
+  '/compromissos', '/compliance', '/seguranca',
+  '/carta-servidor', '/contato', '/cookies',
+  '/soluções', '/humano-ia', '/parceiros', '/carreiras',
+  '/solicitar-demonstracao', '/suporte', '/acessibilidade',
+  // Legal
+  '/privacidade', '/termos', '/lgpd',
+])
+
+// Prefixos de rotas dinâmicas que migram para o Webflow (blog/[slug], etc.)
+const WEBFLOW_PREFIX_ROUTES = ['/blog', '/glossario', '/jurisprudencia-tce']
+
+function isWebflowRoute(pathname: string): boolean {
+  if (WEBFLOW_EXACT_ROUTES.has(pathname)) return true
+  return WEBFLOW_PREFIX_ROUTES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))
+}
+
 // ─── Public Routes (no auth required) ───────────────────────────────────────
 const PUBLIC_ROUTES = new Set([
   '/login', '/api/auth/callback/govbr',
-  // Legal
+  // Legal (local fallback quando Webflow desabilitado)
   '/privacidade', '/termos', '/lgpd',
-  // Institutional
+  // Institutional (local fallback quando Webflow desabilitado)
   '/', '/manifesto', '/quem-somos', '/missao-visao-valores',
   '/compromissos', '/compliance', '/seguranca',
   '/carta-servidor', '/contato', '/cookies',
@@ -22,6 +48,13 @@ function isStaticOrPublic(pathname: string): boolean {
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
+
+  // ─── Webflow Redirect ─────────────────────────────────────────────────
+  // Redireciona rotas institucionais/legais para o Webflow (se habilitado)
+  if (webflowEnabled && isWebflowRoute(pathname)) {
+    const destination = `${WEBFLOW_URL}${pathname}`
+    return NextResponse.redirect(destination, { status: 307 })
+  }
 
   // ─── Supabase Session Refresh ───────────────────────────────────────────
   // Resiliente: se Supabase não configurado, prossegue sem auth

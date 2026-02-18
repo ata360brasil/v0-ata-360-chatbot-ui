@@ -59,9 +59,41 @@ const nextConfig = {
 
   // ─── Redirects (SEO) ─────────────────────────────────────────────────────
   async redirects() {
-    return [
+    const webflowUrl = process.env.NEXT_PUBLIC_WEBFLOW_URL || ''
+    const webflowEnabled = webflowUrl.length > 0 && webflowUrl.startsWith('https://')
+
+    const base = [
       { source: '/home', destination: '/', permanent: true },
     ]
+
+    // Quando Webflow habilitado, redirecionar rotas institucionais/legais.
+    // Middleware já faz redirect 307 — estes servem como fallback permanente
+    // quando a migração estiver completa (trocar permanent: false → true).
+    if (!webflowEnabled) return base
+
+    const webflowRoutes = [
+      '/manifesto', '/quem-somos', '/missao-visao-valores',
+      '/compromissos', '/compliance', '/seguranca',
+      '/carta-servidor', '/contato', '/cookies',
+      '/humano-ia', '/parceiros', '/carreiras',
+      '/solicitar-demonstracao', '/suporte', '/acessibilidade',
+      '/privacidade', '/termos', '/lgpd',
+    ]
+
+    const webflowRedirects = webflowRoutes.map(route => ({
+      source: route,
+      destination: `${webflowUrl}${route}`,
+      permanent: false, // 307 temporário — trocar para true após migração completa
+    }))
+
+    // Rotas dinâmicas com wildcard (blog/[slug], glossario/[slug], etc.)
+    const webflowDynamicRedirects = [
+      { source: '/blog/:path*', destination: `${webflowUrl}/blog/:path*`, permanent: false },
+      { source: '/glossario/:path*', destination: `${webflowUrl}/glossario/:path*`, permanent: false },
+      { source: '/jurisprudencia-tce/:path*', destination: `${webflowUrl}/jurisprudencia-tce/:path*`, permanent: false },
+    ]
+
+    return [...base, ...webflowRedirects, ...webflowDynamicRedirects]
   },
 
   // ─── Logging (dev only) ───────────────────────────────────────────────────
