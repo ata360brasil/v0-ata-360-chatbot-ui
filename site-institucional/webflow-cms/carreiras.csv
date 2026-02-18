@@ -1,0 +1,101 @@
+Name,Slug,Descricao Curta,Descricao Completa,Modalidade,Regime,Local,Tags,Status
+"Desenvolvedor(a) Full-Stack","desenvolvedor-full-stack","Crie a plataforma que transforma compras publicas no Brasil. Stack: Next.js, TypeScript, Supabase, Tailwind CSS, OpenAI.","## Sobre a vaga
+
+Buscamos um(a) Desenvolvedor(a) Full-Stack para integrar o time de produto do ATA360 — a plataforma de inteligencia artificial para contratacoes publicas.
+
+### Responsabilidades
+
+- Desenvolver e manter features da plataforma (Next.js 14 + TypeScript)
+- Integrar APIs de IA (OpenAI, Anthropic) com dados de fontes oficiais (PNCP, ComprasNet, DOU)
+- Implementar pipelines de dados com Supabase (PostgreSQL + Edge Functions)
+- Colaborar com UX/UI para entregar interfaces acessiveis (WCAG 2.1 AA)
+- Participar de code reviews e decisoes de arquitetura
+
+### Requisitos
+
+- Experiencia solida com React/Next.js e TypeScript
+- Conhecimento de bancos relacionais (PostgreSQL/Supabase)
+- Familiaridade com APIs REST e integracao de servicos
+- Boa comunicacao e trabalho em equipe
+
+### Diferenciais
+
+- Experiencia com IA generativa (OpenAI, LangChain)
+- Conhecimento do setor publico ou Lei 14.133/2021
+- Experiencia com Tailwind CSS e design systems
+- Contribuicoes open source","CLT ou PJ + Estagio","Hibrido/Remoto","Vespasiano/MG","Tecnologia;Desenvolvimento;GovTech","Aberta"
+"UX/UI Designer","ux-ui-designer","Projete experiencias que simplificam a vida de servidores publicos. Figma, design systems, acessibilidade WCAG.","## Sobre a vaga
+
+Buscamos um(a) UX/UI Designer para criar experiencias intuitivas e acessiveis na plataforma ATA360.
+
+### Responsabilidades
+
+- Projetar interfaces para a plataforma de contratacoes (dashboards, formularios, chat IA)
+- Manter e evoluir o design system em Figma
+- Conduzir pesquisas de usuario com servidores publicos
+- Garantir conformidade com WCAG 2.1 AA e eMAG
+- Criar prototipos interativos para validacao com stakeholders
+
+### Requisitos
+
+- Portfolio demonstrando projetos de UX/UI (web apps, SaaS)
+- Dominio de Figma (componentes, Auto Layout, variables)
+- Conhecimento de acessibilidade digital (contraste, navegacao por teclado, ARIA)
+- Capacidade de traduzir requisitos complexos em interfaces simples
+
+### Diferenciais
+
+- Experiencia com design para setor publico ou GovTech
+- Conhecimento de HTML/CSS/Tailwind (implementacao basica)
+- Experiencia com testes de usabilidade
+- Familiaridade com design tokens e sistemas de cores","CLT ou PJ + Estagio","Hibrido/Remoto","Vespasiano/MG","Design;GovTech","Aberta"
+"Comercial GovTech (SDR / AE)","comercial-govtech","Conecte municipios a solucao que moderniza suas compras publicas. Vendas consultivas B2G, ciclo completo.","## Sobre a vaga
+
+Buscamos profissional de vendas para atuar no segmento GovTech, conectando prefeituras e orgaos publicos a plataforma ATA360.
+
+### Responsabilidades
+
+- Prospectar e qualificar leads no setor publico (prefeituras, camaras, autarquias)
+- Conduzir demonstracoes da plataforma para gestores e pregoeiros
+- Gerenciar pipeline de vendas no CRM (HubSpot)
+- Acompanhar processos de contratacao publica (dispensa, pregao, adesao a ARP)
+- Construir relacionamento com associacoes de municipios e consultorias
+
+### Requisitos
+
+- Experiencia em vendas B2B ou B2G (minimo 2 anos)
+- Conhecimento basico de licitacoes e contratacoes publicas
+- Habilidade de comunicacao e apresentacao
+- Organizacao e disciplina com CRM e follow-ups
+
+### Diferenciais
+
+- Experiencia no setor publico ou GovTech
+- Rede de contatos em prefeituras de MG
+- Conhecimento da Lei 14.133/2021
+- Experiencia com vendas SaaS","CLT","Presencial/Hibrido","Vespasiano/MG","Comercial;GovTech","Aberta"
+"Marketing Digital","marketing-digital","Posicione o ATA360 como referencia em GovTech. SEO, conteudo tecnico, campanhas e growth para o setor publico.","## Sobre a vaga
+
+Buscamos profissional de Marketing Digital para posicionar o ATA360 como referencia em tecnologia para compras publicas.
+
+### Responsabilidades
+
+- Planejar e executar estrategia de conteudo (blog, redes sociais, newsletters)
+- Otimizar SEO do site institucional e blog (noticias curadas)
+- Gerenciar campanhas de midia paga (Google Ads, LinkedIn Ads)
+- Criar materiais de apoio a vendas (cases, one-pagers, whitepapers)
+- Analisar metricas e reportar resultados (GA4, Search Console, HubSpot)
+
+### Requisitos
+
+- Experiencia em marketing digital B2B (minimo 2 anos)
+- Conhecimento de SEO tecnico e marketing de conteudo
+- Habilidade com ferramentas de analytics e automacao
+- Boa escrita em portugues (conteudo tecnico/institucional)
+
+### Diferenciais
+
+- Experiencia com marketing para setor publico ou GovTech
+- Conhecimento de Webflow e CMS
+- Experiencia com video marketing (YouTube, Reels)
+- Familiaridade com compras publicas e Lei 14.133/2021","CLT ou PJ + Estagio","Remoto","Vespasiano/MG","Marketing;GovTech","Aberta"

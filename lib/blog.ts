@@ -255,6 +255,141 @@ Orgaos que se anteciparem na adocao das novas diretrizes demonstram maturidade e
     sourceUrl: 'https://www.gov.br/gestao/',
     sourceName: 'MGI / Gov.br',
   },
+  {
+    slug: 'cgu-painel-transparencia-contratacoes-emergenciais',
+    title: 'CGU lanca painel de transparencia para contratacoes emergenciais',
+    excerpt: 'A Controladoria-Geral da Uniao disponibilizou painel interativo para acompanhar contratacoes emergenciais em tempo real. Veja como usar para benchmarking.',
+    content: `## CGU amplia transparencia em contratacoes emergenciais
+
+A Controladoria-Geral da Uniao (CGU) lancou um painel interativo que permite acompanhar contratacoes emergenciais realizadas por orgaos federais, estaduais e municipais em tempo real.
+
+### O que o painel oferece
+
+- **Dados em tempo real**: contratacoes emergenciais por dispensa de licitacao (Art. 75, Lei 14.133)
+- **Filtros avancados**: por UF, orgao, objeto, valor e periodo
+- **Comparativos**: benchmarking de precos entre orgaos similares
+- **Download**: dados abertos em CSV para analise propria
+
+### Por que isso importa
+
+Contratacoes emergenciais sao frequentemente alvo de questionamento por orgaos de controle. Com dados transparentes e comparaveis, gestores podem:
+
+1. Fundamentar melhor o preco de referencia em situacoes de urgencia
+2. Demonstrar razoabilidade do valor contratado
+3. Identificar fornecedores com historico de entregas em emergencias
+
+### Como o ATA360 se conecta
+
+O ATA360 ja integra dados da CGU em suas pesquisas de precos, incluindo contratacoes emergenciais. Ao gerar um mapa de precos, o sistema cruza automaticamente dados do PNCP, Painel CGU e outras fontes para entregar a fundamentacao mais completa possivel.
+
+**Fonte:** [Controladoria-Geral da Uniao — CGU](https://www.gov.br/cgu/)`,
+    category: 'compliance',
+    tags: ['CGU', 'transparencia', 'fiscalizacao', 'pesquisa de precos', 'contratacoes emergenciais'],
+    author: ATA360_AUTHOR,
+    publishedAt: '2026-02-15T08:00:00Z',
+    updatedAt: '2026-02-15T08:00:00Z',
+    readingTimeMin: 3,
+    featured: false,
+    seoTitle: 'CGU lanca painel de transparencia para contratacoes emergenciais | ATA360 Noticias',
+    seoDescription: 'CGU disponibiliza painel interativo para acompanhar contratacoes emergenciais em tempo real. Saiba como usar para benchmarking.',
+    relatedSlugs: ['pncp-supera-2-milhoes-contratacoes-publicadas', 'tcu-regulamenta-uso-ia-contratacoes-publicas-2026'],
+    glossaryTerms: ['cgu', 'dispensa-licitacao', 'pesquisa-de-precos'],
+    legalReferences: ['Lei 14.133/2021 Art. 75', 'Lei 12.527/2011 (LAI)'],
+    sourceUrl: 'https://www.gov.br/cgu/',
+    sourceName: 'CGU',
+  },
+  {
+    slug: 'governo-amplia-prazo-municipios-pncp',
+    title: 'Governo federal amplia prazo para municipios aderirem ao PNCP',
+    excerpt: 'Municipios de pequeno porte ganham prazo adicional para publicacao obrigatoria no PNCP. Entenda o que muda e como se preparar.',
+    content: `## Prazo estendido para adesao ao PNCP
+
+O Governo Federal publicou decreto estendendo o prazo para que municipios de pequeno porte (ate 50 mil habitantes) realizem a publicacao obrigatoria de suas contratacoes no Portal Nacional de Contratacoes Publicas (PNCP).
+
+### O que mudou
+
+- **Novo prazo**: municipios de ate 50 mil habitantes tem ate dezembro de 2026
+- **Obrigatoriedade mantida**: todos os municipios deverao publicar no PNCP
+- **Capacitacao**: ENAP e MGI oferecerao treinamentos gratuitos
+- **Suporte tecnico**: equipe do PNCP disponivel para integracao via API
+
+### Impacto pratico
+
+Dos 5.570 municipios brasileiros, cerca de 4.000 tem menos de 50 mil habitantes. Muitos ainda enfrentam dificuldades operacionais para publicar no PNCP — falta de equipe, sistemas legados e desconhecimento da plataforma.
+
+A extensao do prazo e uma oportunidade para que esses municipios se preparem adequadamente, mas nao deve ser vista como motivo para postergar.
+
+### Como se preparar
+
+1. Cadastrar o orgao no PNCP (se ainda nao o fez)
+2. Treinar a equipe de compras na publicacao de documentos
+3. Avaliar integracao do sistema de compras com a API do PNCP
+4. Planejar a migracao de processos para conformidade com a Lei 14.133/2021
+
+O ATA360 ja realiza publicacao automatica no PNCP, eliminando o trabalho manual e garantindo conformidade desde o primeiro processo.
+
+**Fonte:** [Portal Nacional de Contratacoes Publicas — PNCP](https://www.gov.br/pncp)`,
+    category: 'legislacao',
+    tags: ['PNCP', 'Lei 14.133', 'municipios', 'transparencia', 'gestao publica'],
+    author: ATA360_AUTHOR,
+    publishedAt: '2026-02-14T08:00:00Z',
+    updatedAt: '2026-02-14T08:00:00Z',
+    readingTimeMin: 4,
+    featured: false,
+    seoTitle: 'Governo amplia prazo para municipios aderirem ao PNCP | ATA360 Noticias',
+    seoDescription: 'Municipios de pequeno porte ganham prazo adicional para publicacao obrigatoria no PNCP. Veja como se preparar.',
+    relatedSlugs: ['pncp-supera-2-milhoes-contratacoes-publicadas', 'mgi-publica-guia-planejamento-contratacoes-2026'],
+    glossaryTerms: ['pncp', 'licitacao', 'lei-14133'],
+    legalReferences: ['Lei 14.133/2021 Art. 174', 'Lei 14.133/2021 Art. 176'],
+    sourceUrl: 'https://www.gov.br/pncp',
+    sourceName: 'Gov.br / PNCP',
+  },
+  {
+    slug: 'enap-curso-gratuito-lei-14133-2026',
+    title: 'ENAP abre inscricoes para curso gratuito sobre Lei 14.133/2021',
+    excerpt: 'A Escola Nacional de Administracao Publica abre inscricoes para turma 2026 do curso sobre a nova lei de licitacoes. Vagas limitadas.',
+    content: `## Curso gratuito da ENAP sobre a nova lei de licitacoes
+
+A Escola Nacional de Administracao Publica (ENAP) abriu inscricoes para a turma 2026 do curso online e gratuito sobre a Lei 14.133/2021 — a nova lei de licitacoes e contratos.
+
+### Detalhes do curso
+
+- **Formato**: 100% online, autoinstrucional
+- **Carga horaria**: 40 horas
+- **Custo**: gratuito
+- **Certificado**: emitido pela ENAP (valido para progressao funcional)
+- **Publico-alvo**: servidores publicos de todas as esferas
+
+### Conteudo programatico
+
+1. Visao geral da Lei 14.133/2021
+2. Fase preparatoria: DFD, ETP, TR e Mapa de Riscos
+3. Modalidades licitatorias e criterios de julgamento
+4. Gestao e fiscalizacao de contratos
+5. Portal Nacional de Contratacoes Publicas (PNCP)
+
+### Por que fazer
+
+Com a obrigatoriedade plena da Lei 14.133/2021 desde abril de 2024, capacitar a equipe de compras nao e opcional — e requisito para evitar responsabilizacao pessoal e garantir a legalidade dos processos.
+
+O ATA360 complementa a formacao teorica com ferramentas praticas: IA que gera documentos conforme a Lei 14.133, pesquisa de precos automatizada e modelos atualizados de ETP, TR e DFD.
+
+**Fonte:** [Escola Nacional de Administracao Publica — ENAP](https://www.enap.gov.br/)`,
+    category: 'gestao-publica',
+    tags: ['ENAP', 'Lei 14.133', 'capacitacao', 'ETP', 'DFD'],
+    author: ATA360_AUTHOR,
+    publishedAt: '2026-02-13T08:00:00Z',
+    updatedAt: '2026-02-13T08:00:00Z',
+    readingTimeMin: 3,
+    featured: false,
+    seoTitle: 'ENAP abre inscricoes para curso gratuito sobre Lei 14.133/2021 | ATA360 Noticias',
+    seoDescription: 'ENAP abre turma 2026 do curso online e gratuito sobre a nova lei de licitacoes (Lei 14.133/2021). Vagas limitadas.',
+    relatedSlugs: ['mgi-publica-guia-planejamento-contratacoes-2026', 'governo-amplia-prazo-municipios-pncp'],
+    glossaryTerms: ['lei-14133', 'etp', 'dfd', 'termo-de-referencia'],
+    legalReferences: ['Lei 14.133/2021', 'Decreto 11.246/2022'],
+    sourceUrl: 'https://www.enap.gov.br/',
+    sourceName: 'ENAP',
+  },
 ]
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
