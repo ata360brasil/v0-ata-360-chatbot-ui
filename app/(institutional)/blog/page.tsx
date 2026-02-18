@@ -5,11 +5,11 @@ import Link from 'next/link'
 import { BLOG_POSTS, BLOG_CATEGORIES, getFeaturedPosts, getAllCategories, type BlogPost, type BlogCategory } from '@/lib/blog'
 
 export const metadata: Metadata = {
-  title: 'Blog — Contratacoes Publicas e IA',
-  description: 'Artigos, guias e analises sobre contratacoes publicas, Lei 14.133/2021, licitacoes e inteligencia artificial aplicada ao setor publico.',
+  title: 'Noticias — Compras Publicas e Contratacoes | ATA360',
+  description: 'Noticias curadas sobre compras publicas, licitacoes, Lei 14.133/2021, jurisprudencia do TCU e inovacao em gestao publica.',
   openGraph: {
-    title: 'Blog ATA360 — Contratacoes Publicas e IA',
-    description: 'Conhecimento tecnico sobre licitacoes, Lei 14.133/2021 e tecnologia para gestao publica.',
+    title: 'Noticias ATA360 — Compras Publicas e Contratacoes',
+    description: 'Noticias curadas de fontes oficiais: TCU, CGU, PNCP, Gov.br. Relevancia para pregoeiros, gestores e servidores publicos.',
   },
 }
 
@@ -36,6 +36,9 @@ function PostCard({ post, featured = false }: { post: BlogPost; featured?: boole
               {new Date(post.publishedAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })}
             </time>
             <span>{post.readingTimeMin} min</span>
+            {post.sourceName && (
+              <span className="text-neutral-400">Fonte: {post.sourceName}</span>
+            )}
           </div>
           <div className="flex gap-1.5 flex-wrap">
             {post.tags.slice(0, 2).map(tag => (
@@ -64,8 +67,8 @@ export default function BlogPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Blog',
-            name: 'Blog ATA360',
-            description: 'Artigos sobre contratacoes publicas, licitacoes e IA',
+            name: 'Noticias ATA360',
+            description: 'Noticias curadas sobre compras publicas, licitacoes e contratacoes governamentais',
             url: 'https://app.ata360.com.br/blog',
             publisher: { '@id': 'https://app.ata360.com.br/#organization' },
             inLanguage: 'pt-BR',
@@ -86,9 +89,9 @@ export default function BlogPage() {
       <div className="mx-auto max-w-6xl px-6 py-16 lg:py-24">
         {/* Header — bold, monochrome */}
         <div className="mb-16">
-          <h1 className="text-4xl lg:text-5xl font-bold text-foreground tracking-tight mb-4">Blog</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold text-foreground tracking-tight mb-4">Noticias</h1>
           <p className="text-lg text-neutral-500 max-w-2xl leading-relaxed">
-            Artigos, guias e analises sobre contratacoes publicas, Lei 14.133/2021 e inteligencia artificial aplicada ao setor publico.
+            Noticias curadas sobre compras publicas, licitacoes e contratacoes governamentais — direto de fontes oficiais como TCU, CGU, PNCP e Gov.br.
           </p>
         </div>
 
@@ -109,7 +112,7 @@ export default function BlogPage() {
 
         {/* Featured posts */}
         {featured.length > 0 && (
-          <section className="mb-16" aria-label="Artigos em destaque">
+          <section className="mb-16" aria-label="Noticias em destaque">
             <h2 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-6">Destaques</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {featured.map(post => (
@@ -122,8 +125,8 @@ export default function BlogPage() {
         )}
 
         {/* All posts */}
-        <section aria-label="Todos os artigos">
-          <h2 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-6">Todos os Artigos</h2>
+        <section aria-label="Todas as noticias">
+          <h2 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-6">Todas as Noticias</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {allPosts.map(post => (
               <React.Fragment key={post.slug}>
@@ -140,7 +143,7 @@ export default function BlogPage() {
             Solicite uma demonstracao e descubra como o ATA360 pode transformar a gestao de contratacoes do seu municipio.
           </p>
           <Link
-            href={'/contato' as Route}
+            href={'/solicitar-demonstracao' as Route}
             className="inline-block rounded-full bg-foreground px-8 py-3 text-sm font-semibold text-background hover:bg-foreground/80 transition-colors"
           >
             Solicitar Demonstracao

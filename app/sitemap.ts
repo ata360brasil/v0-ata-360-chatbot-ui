@@ -25,6 +25,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/seguranca`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/carta-servidor`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/contato`, lastModified, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/solicitar-demonstracao`, lastModified, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/carreiras`, lastModified, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/parceiros`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/humano-ia`, lastModified, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/suporte`, lastModified, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/acessibilidade`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
     { url: `${baseUrl}/cookies`, lastModified, changeFrequency: 'monthly', priority: 0.3 },
     // Blog, Glossario e Jurisprudencia (SEO programatico — alta prioridade)
     { url: `${baseUrl}/blog`, lastModified, changeFrequency: 'weekly', priority: 0.9 },

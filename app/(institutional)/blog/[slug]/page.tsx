@@ -55,7 +55,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
+            '@type': 'NewsArticle',
             headline: post.title,
             description: post.excerpt,
             datePublished: post.publishedAt,
@@ -80,7 +80,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       />
       <BreadcrumbJsonLd items={[
         { name: 'Inicio', href: '/' },
-        { name: 'Blog', href: '/blog' },
+        { name: 'Noticias', href: '/blog' },
         { name: post.title, href: `/blog/${post.slug}` },
       ]} />
 
@@ -90,7 +90,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         <nav className="flex items-center gap-1.5 text-xs text-neutral-400 mb-12 font-mono" aria-label="Breadcrumb">
           <Link href={'/' as Route} className="hover:text-foreground transition-colors">inicio</Link>
           <span className="text-neutral-300">/</span>
-          <Link href={'/blog' as Route} className="hover:text-foreground transition-colors">blog</Link>
+          <Link href={'/blog' as Route} className="hover:text-foreground transition-colors">noticias</Link>
           <span className="text-neutral-300">/</span>
           <span className="text-neutral-500">{cat.label.toLowerCase()}</span>
         </nav>
@@ -115,6 +115,18 @@ export default async function BlogPostPage({ params }: PageProps) {
               {new Date(post.publishedAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })}
             </time>
             <span>{post.readingTimeMin} min</span>
+            {post.sourceName && (
+              <span className="text-neutral-500">
+                Fonte:{' '}
+                {post.sourceUrl ? (
+                  <a href={post.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground transition-colors">
+                    {post.sourceName}
+                  </a>
+                ) : (
+                  post.sourceName
+                )}
+              </span>
+            )}
           </div>
         </header>
 
@@ -123,6 +135,27 @@ export default async function BlogPostPage({ params }: PageProps) {
           className="max-w-none text-[15px] leading-[1.8] text-neutral-700 dark:text-neutral-300 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:tracking-tight [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-foreground [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:mb-5 [&_ul]:mb-5 [&_ul]:pl-5 [&_ul]:list-disc [&_ol]:mb-5 [&_ol]:pl-5 [&_ol]:list-decimal [&_li]:mb-1.5 [&_strong]:text-foreground [&_strong]:font-semibold [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-neutral-300 [&_a:hover]:decoration-foreground [&_blockquote]:border-l-2 [&_blockquote]:border-neutral-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-neutral-500 [&_code]:bg-neutral-100 [&_code]:dark:bg-neutral-800 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono"
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
+
+        {/* Source attribution */}
+        {post.sourceUrl && post.sourceName && (
+          <div className="mt-10 p-5 rounded-xl border-2 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/50">
+            <p className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-2">Fonte Original</p>
+            <a
+              href={post.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:underline underline-offset-4"
+            >
+              {post.sourceName}
+              <svg className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+              </svg>
+            </a>
+            <p className="text-xs text-neutral-400 mt-1">
+              Conteudo curado pela equipe ATA360 com base em fonte oficial.
+            </p>
+          </div>
+        )}
 
         {/* Tags — monochrome pills */}
         <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
@@ -165,8 +198,8 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         {/* Related posts — minimal cards */}
         {related.length > 0 && (
-          <section className="mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800" aria-label="Artigos relacionados">
-            <h2 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-6">Artigos Relacionados</h2>
+          <section className="mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800" aria-label="Noticias relacionadas">
+            <h2 className="text-[11px] font-semibold text-neutral-400 uppercase tracking-widest mb-6">Noticias Relacionadas</h2>
             <div className="grid gap-4">
               {related.map(r => (
                 <Link
