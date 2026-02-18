@@ -1,3 +1,5 @@
+import { withSentryConfig } from '@sentry/nextjs'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // ─── Images (Vercel / Cloudflare best practices) ──────────────────────────
@@ -70,4 +72,24 @@ const nextConfig = {
   },
 }
 
-export default nextConfig
+export default withSentryConfig(nextConfig, {
+  // Sentry build options
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+
+  // Silenciar avisos se SENTRY_DSN não estiver configurado
+  silent: !process.env.NEXT_PUBLIC_SENTRY_DSN,
+
+  // Upload sourcemaps para Sentry (melhor stack traces)
+  widenClientFileUpload: true,
+
+  // Ocultar sourcemaps do browser em produção
+  hideSourceMaps: true,
+
+  // Tree-shaking do SDK em dev se não configurado
+  disableLogger: true,
+
+  // Tunneling para evitar bloqueio por ad blockers
+  tunnelRoute: '/monitoring',
+})

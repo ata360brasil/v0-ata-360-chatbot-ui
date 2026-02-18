@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
+import { rateLimit, getRateLimitPreset } from '@/lib/rate-limit'
 
 // ─── Public Routes (no auth required) ───────────────────────────────────────
 const PUBLIC_ROUTES = new Set([
@@ -53,6 +54,30 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
+  // ─── Rate Limiting (API routes) ────────────────────────────────────────
+  if (pathname.startsWith('/api/')) {
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+      ?? request.headers.get('cf-connecting-ip')
+      ?? '127.0.0.1'
+    const preset = getRateLimitPreset(pathname)
+    const { limited, headers: rlHeaders } = rateLimit(`${ip}:${pathname}`, preset)
+
+    // Sempre incluir headers de rate limit
+    for (const [key, value] of Object.entries(rlHeaders)) {
+      response.headers.set(key, value)
+    }
+
+    if (limited) {
+      return NextResponse.json(
+        { error: 'Limite de requisições excedido. Tente novamente em alguns instantes.' },
+        {
+          status: 429,
+          headers: rlHeaders,
+        },
+      )
+    }
+  }
+
   // ─── Request ID (rastreabilidade Cloudflare) ────────────────────────────
   const requestId = crypto.randomUUID()
   response.headers.set('X-Request-Id', requestId)
@@ -76,7 +101,7 @@ export async function middleware(request: NextRequest) {
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com`,
     `img-src 'self' data: blob: https:`,
-    `connect-src 'self' ${connectSrc} https://gateway.ai.cloudflare.com https://challenges.cloudflare.com`,
+    `connect-src 'self' ${connectSrc} https://gateway.ai.cloudflare.com https://challenges.cloudflare.com https://*.ingest.sentry.io`,
     `frame-src https://challenges.cloudflare.com`,
     `frame-ancestors 'none'`,
     `base-uri 'self'`,
