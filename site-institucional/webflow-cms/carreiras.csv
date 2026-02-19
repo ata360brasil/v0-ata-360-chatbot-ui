@@ -1,13 +1,14 @@
 Name,Slug,Descrição Curta,Descrição Completa,Modalidade,Regime,Local,Tags,Status
-"Desenvolvedor(a) Full-Stack","desenvolvedor-full-stack","Crie a plataforma que transforma compras públicas no Brasil. Stack: Next.js, TypeScript, Supabase, Tailwind CSS, OpenAI.","## Sobre a vaga
+"Desenvolvedor(a) Full-Stack","desenvolvedor-full-stack","Crie a plataforma que transforma compras públicas no Brasil. Stack: Next.js, TypeScript, Supabase, Cloudflare Workers, Tailwind CSS, OpenAI, Anthropic.","## Sobre a vaga
 
 Buscamos um(a) Desenvolvedor(a) Full-Stack para integrar o time de produto do ATA360 — a plataforma de inteligência artificial para contratações públicas.
 
 ### Responsabilidades
 
-- Desenvolver e manter features da plataforma (Next.js 14 + TypeScript)
-- Integrar APIs de IA (OpenAI, Anthropic) com dados de fontes oficiais (PNCP, ComprasNet, DOU)
+- Desenvolver e manter features da plataforma (Next.js 15 + TypeScript)
+- Integrar APIs de IA (OpenAI, Claude/Anthropic) com dados de fontes oficiais (PNCP, ComprasNet, DOU)
 - Implementar pipelines de dados com Supabase (PostgreSQL + Edge Functions)
+- Desenvolver e manter Cloudflare Workers para processamento edge
 - Colaborar com UX/UI para entregar interfaces acessíveis (WCAG 2.1 AA)
 - Participar de code reviews e decisões de arquitetura
 
@@ -20,8 +21,9 @@ Buscamos um(a) Desenvolvedor(a) Full-Stack para integrar o time de produto do AT
 
 ### Diferenciais
 
-- Experiência com IA generativa (OpenAI, LangChain)
+- Experiência com IA generativa (OpenAI, Claude/Anthropic, LangChain)
 - Conhecimento do setor público ou Lei 14.133/2021
+- Experiência com Cloudflare Workers e edge computing
 - Experiência com Tailwind CSS e design systems
 - Contribuições open source","CLT ou PJ + Estágio","Híbrido/Remoto","Vespasiano/MG","Tecnologia;Desenvolvimento;GovTech","Aberta"
 "UX/UI Designer","ux-ui-designer","Projete experiências que simplificam a vida de servidores públicos. Figma, design systems, acessibilidade WCAG.","## Sobre a vaga
@@ -99,3 +101,53 @@ Buscamos profissional de Marketing Digital para posicionar o ATA360 como referê
 - Conhecimento de Webflow e CMS
 - Experiência com vídeo marketing (YouTube, Reels)
 - Familiaridade com compras públicas e Lei 14.133/2021","CLT ou PJ + Estágio","Remoto","Vespasiano/MG","Marketing;GovTech","Aberta"
+"Especialista em Contratações Públicas (Conteúdo)","especialista-contratacoes-publicas","Transforme conhecimento da Lei 14.133 em conteúdo que educa e protege servidores públicos. Blog, glossário, jurisprudência.","## Sobre a vaga
+
+Buscamos um(a) Especialista em Contratações Públicas para produzir conteúdo técnico de alta qualidade sobre compras públicas, fortalecendo a autoridade do ATA360 como referência no setor.
+
+### Responsabilidades
+
+- Criar conteúdo técnico sobre compras públicas (artigos, guias, análises de jurisprudência)
+- Curar jurisprudência do TCU e dos TCEs relevante para contratações públicas
+- Manter o glossário de termos de licitações e contratos atualizado
+- Produzir guias práticos para servidores públicos sobre a Lei 14.133/2021
+- Colaborar com o time de marketing na estratégia de conteúdo educacional
+
+### Requisitos
+
+- Formação em Direito, Administração Pública ou áreas correlatas
+- Conhecimento aprofundado da Lei 14.133/2021 (Nova Lei de Licitações)
+- Experiência com escrita técnica e produção de conteúdo jurídico/administrativo
+- Capacidade de traduzir linguagem jurídica em conteúdo acessível
+
+### Diferenciais
+
+- Experiência em órgão público (pregoeiro, fiscal de contratos, assessoria jurídica)
+- Pós-graduação em licitações, contratos administrativos ou direito público
+- Conhecimento de decisões e súmulas do TCU e dos TCEs
+- Experiência com ensino ou treinamento na área de compras públicas","CLT ou PJ","Remoto","Vespasiano/MG","GovTech;Remoto","Aberta"
+"Estagiário(a) de Desenvolvimento","estagiario-desenvolvimento","Aprenda na prática com uma stack moderna. Next.js, TypeScript, Supabase, Cloudflare. Mentoria diária.","## Sobre a vaga
+
+Buscamos um(a) Estagiário(a) de Desenvolvimento para aprender na prática e crescer junto com o time de tecnologia do ATA360.
+
+### Responsabilidades
+
+- Auxiliar no desenvolvimento de features da plataforma (Next.js 15 + TypeScript)
+- Participar de code reviews e aprender boas práticas de desenvolvimento
+- Aprender sobre IA aplicada ao setor público (OpenAI, Claude/Anthropic)
+- Contribuir com melhorias na base de código e documentação técnica
+- Participar de dailies e cerimônias ágeis do time
+
+### Requisitos
+
+- Cursando Ciência da Computação, Engenharia de Software, Sistemas de Informação ou áreas afins
+- Conhecimento básico de JavaScript/TypeScript
+- Vontade de aprender e crescer profissionalmente
+- Boa comunicação e trabalho em equipe
+
+### Diferenciais
+
+- Projetos pessoais no GitHub
+- Conhecimento de React ou Next.js
+- Interesse no setor público e em GovTech
+- Familiaridade com Git e versionamento de código","Estágio","Híbrido","Vespasiano/MG","Tecnologia;Desenvolvimento;Estágio","Aberta"
