@@ -21,8 +21,8 @@ site-institucional/
     08-cards-dark.md
     09-comparativo.md
     10-separador.md
-    11-depoimentos.md  (escondida)
-    12-blog.md          (escondida)
+    11-depoimentos.md  (escondida — aguardando autorizacao)
+    12-blog.md          (ATIVA — 21 posts prontos)
     13-cta-final.md
     14-inteligencia.md
     15-soberania.md
@@ -37,10 +37,15 @@ site-institucional/
   seo/                # SEO e dados estruturados
     schema-org.json
     meta-descriptions.md
-  blog/               # 3 primeiros artigos para CMS
-    01-lei-14133-guia-completo.md
-    02-pesquisa-precos-in65.md
-    03-ia-licitacoes-alucinacao.md
+  webflow-cms/        # CSVs prontos para importacao no Webflow CMS
+    blog-tags.csv       # 33 tags tematicas
+    blog-posts.csv      # 21 noticias curadas (TCU, PNCP, MGI, CGU, ENAP)
+    carreiras-tags.csv  # 6 tags de vagas
+    carreiras.csv       # 4 vagas (Vespasiano/MG)
+    glossario.csv       # 14 termos da Lei 14.133
+    jurisprudencia-tce.csv # 15 decisoes de 12 TCEs
+    README-IMPORTACAO.md
+    GUIA-WEBFLOW-PASSO-A-PASSO.md
   emails/             # Sequencia de onboarding
     sequencia-onboarding.md
 ```
