@@ -129,7 +129,7 @@ Referência: `webflow-cms/`
 | Arquivo                | Conteúdo                  | Status                |
 |------------------------|---------------------------|-----------------------|
 | blog-tags.csv          | 33 tags                   | ✅ Acentos OK         |
-| blog-posts.csv         | 20 posts                  | 🔄 Acentos em correção |
+| blog-posts.csv         | 20 posts                  | ✅ Acentos OK          |
 | carreiras-tags.csv     | 11 tags                   | ✅                    |
 | carreiras.csv          | 6 vagas                   | ✅                    |
 | glossario.csv          | 14 termos                 | ✅                    |
@@ -172,7 +172,7 @@ Guias de importação: `README-IMPORTACAO.md` e `GUIA-WEBFLOW-PASSO-A-PASSO.md`
 
 1. **Página About** (/about) em inglês → substituir por `paginas/quem-somos.md`
 2. **Página Pricing** genérica → substituir por `paginas/precos.md`
-3. **Blog vazio** → importar `blog-posts.csv` (aguardar correção de acentos)
+3. **Blog vazio** → importar `blog-posts.csv` (acentos OK ✅ — pronto para importar)
 4. **Redes sociais** no footer são placeholders → inserir URLs reais
 5. **Rodapé** com links para páginas inexistentes (Compliance, Política de Privacidade)
 
@@ -224,7 +224,7 @@ Guias de importação: `README-IMPORTACAO.md` e `GUIA-WEBFLOW-PASSO-A-PASSO.md`
 
 1. Seguir `webflow-cms/README-IMPORTACAO.md`
 2. Verificar encoding UTF-8 e acentos antes de importar
-3. `blog-posts.csv` em correção de acentos — NÃO importar até estar ✅
+3. `blog-posts.csv` — acentos verificados e corretos ✅ — pronto para importar
 4. Ordem: tags primeiro, depois posts/itens que referenciam tags
 
 ### Proteção estratégica
