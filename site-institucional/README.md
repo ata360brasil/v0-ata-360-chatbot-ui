@@ -39,9 +39,9 @@ site-institucional/
     meta-descriptions.md
   webflow-cms/        # CSVs prontos para importacao no Webflow CMS
     blog-tags.csv       # 33 tags tematicas
-    blog-posts.csv      # 21 noticias curadas (TCU, PNCP, MGI, CGU, ENAP)
-    carreiras-tags.csv  # 6 tags de vagas
-    carreiras.csv       # 4 vagas (Vespasiano/MG)
+    blog-posts.csv      # 20 noticias curadas (TCU, PNCP, MGI, CGU, ENAP)
+    carreiras-tags.csv  # 11 tags de vagas
+    carreiras.csv       # 6 vagas (Vespasiano/MG)
     glossario.csv       # 14 termos da Lei 14.133
     jurisprudencia-tce.csv # 15 decisoes de 12 TCEs
     README-IMPORTACAO.md
