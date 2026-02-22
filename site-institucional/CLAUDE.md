@@ -110,6 +110,7 @@ Referência: `paginas/*.md`
 | Solicitar acesso    | solicitar-acesso.md        | ✅                                                   |
 | Solicitar demo      | solicitar-demonstracao.md  | ✅                                                   |
 | Suporte             | suporte.md                 | ⚠ Link /compliance quebrado                         |
+| Investidores        | investidores.md            | ✅ TAM/SAM/SOM, tese, benchmarks, financiamento     |
 
 ### SEO
 
@@ -155,6 +156,7 @@ Guias de importação: `README-IMPORTACAO.md` e `GUIA-WEBFLOW-PASSO-A-PASSO.md`
 | Notícias          | /blog              | CMS blog-posts                  |
 | Login             | /login             | → Redirecionar para app.ata360.com.br |
 | Solicite o acesso | /solicitar-acesso  | paginas/solicitar-acesso.md     |
+| Investidores      | /investidores      | paginas/investidores.md (footer/link direto) |
 
 ---
 

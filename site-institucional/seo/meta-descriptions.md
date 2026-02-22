@@ -51,6 +51,10 @@
 **Title:** LGPD | ATA360
 **Description:** Direitos do titular de dados e compromisso do ATA360 com a Lei Geral de Protecao de Dados (Lei 13.709/2018).
 
+## Investidores (/investidores)
+**Title:** Investidores | ATA360 -- GovTech de Compras Publicas
+**Description:** Oportunidade de investimento na ATA360, plataforma de I.A. para compras publicas que atende +30.000 orgaos sujeitos a Lei 14.133/2021. Mercado de R$ 1 trilhao/ano.
+
 ---
 
 ## Keywords globais (para todas as paginas)
