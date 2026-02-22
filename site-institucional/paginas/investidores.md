@@ -296,7 +296,175 @@ Se Tyler Technologies vale USD 20 bilhoes servindo governos nos EUA, quanto vale
 
 ---
 
-## SECAO 11: CTA FINAL
+## SECAO 11: GOVERNANCA CORPORATIVA
+
+### Titulo
+Governanca para quem lida com dinheiro publico.
+
+### Texto
+O ATA360 atende orgaos que respondem a Tribunais de Contas, Controladorias e a sociedade. Nao ha espaco para improviso na governanca de quem serve o setor publico. Construimos a empresa com o mesmo rigor que exigimos dos documentos que geramos.
+
+### Pilares de governanca (4 cards)
+
+**Conselho consultivo**
+Estrutura de governanca com conselho consultivo independente. Decisoes estrategicas passam por avaliacao colegiada — nao sao concentradas em uma unica pessoa.
+
+**Politica de conflito de interesses**
+Regras claras para relacionamento com orgaos publicos, fornecedores e parceiros. Nenhum integrante da equipe pode ter vinculo com entidades que usam ou avaliam a plataforma sem declaracao formal.
+
+**Auditoria e transparencia financeira**
+Contabilidade auditada. Relatorios financeiros disponiveis para investidores e parceiros sob acordo de confidencialidade. Compromisso com transparencia como principio, nao como obrigacao.
+
+**Protecao de dados e privacidade**
+Conformidade com LGPD (Lei 13.709/2018) desde a concepcao da plataforma. Dados de orgaos publicos sao processados e armazenados no Brasil. Politica de privacidade publica e acessivel.
+
+### Frase destaque
+Quem protege decisoes de compras publicas precisa comecar protegendo as proprias.
+
+---
+
+## SECAO 12: ETICA, COMPLIANCE E RELACAO COM O SETOR PUBLICO
+
+### Titulo
+A I.A. que o setor publico pode confiar.
+
+### Texto
+O ATA360 opera em um ambiente onde a confianca e pre-requisito. Servidores publicos colocam o nome deles nos documentos que geramos. Orgaos de controle fiscalizam cada centavo. Nao temos o luxo de errar — e nao queremos.
+
+### Compromissos eticos (6 blocos)
+
+**Humano + I.A. — sempre**
+A inteligencia artificial fundamenta. O servidor decide. Nenhuma decisao de contratacao e automatizada sem supervisao humana. O ATA360 e ferramenta, nao substituto.
+
+**Zero alucinacao como politica**
+Quando a I.A. nao tem certeza, ela avisa. Nao inventa artigo, nao fabrica jurisprudencia, nao simula dado. Preferimos dizer "nao sei" a entregar uma resposta errada que comprometa um servidor.
+
+**Rastreabilidade de ponta a ponta**
+Cada dado, cada referencia, cada calculo tem origem documentada. Log de auditoria completo. Quando o Tribunal de Contas pergunta, a resposta ja esta pronta.
+
+**Independencia de fornecedores**
+O ATA360 nao favorece, indica ou privilegia nenhum fornecedor em pesquisas de preco ou analises. Os dados vem de fontes oficiais. A inteligencia e neutra.
+
+**Compromisso com o servidor publico**
+Reconhecemos que o servidor e o elo mais vulneravel da cadeia: responde pessoalmente pelas decisoes (LINDB Art. 20 e 28, Lei 14.133 Art. 8) mas nem sempre tem as ferramentas para se proteger. O ATA360 existe para mudar isso.
+
+**Conformidade regulatoria continua**
+Acompanhamos ativamente a evolucao da legislacao — Lei 14.133, decretos regulamentadores, jurisprudencia do TCU e TCEs, LGPD, e o marco regulatorio de I.A. em construcao. O produto evolui com a lei.
+
+### Frase destaque
+Nao vendemos tecnologia para o governo. Servimos quem serve o povo.
+
+---
+
+## SECAO 13: IMPACTO SOCIAL E COMPROMISSOS ESG/ODS
+
+### Titulo
+Cada licitacao bem feita e um servico publico que funciona.
+
+### Texto
+O ATA360 nao e uma empresa que adiciona impacto social como marketing. O impacto e o produto. Quando ajudamos um municipio a fazer uma compra melhor, o resultado e remedio que chega ao posto de saude, merenda que chega a escola, estrada que nao desmorona em seis meses.
+
+### Alinhamento com Objetivos de Desenvolvimento Sustentavel (ODS/ONU)
+
+**ODS 9 — Industria, Inovacao e Infraestrutura**
+Plataforma de I.A. que moderniza a infraestrutura de compras publicas do Brasil. Inovacao aplicada a gestao publica, nao a tecnologia pela tecnologia.
+
+**ODS 10 — Reducao das Desigualdades**
+O ATA360 atende igualmente o municipio de 5 mil habitantes e a capital de 5 milhoes. Mesmo produto, mesma inteligencia. Democratizamos o acesso a tecnologia de ponta para orgaos que nunca teriam orcamento para consultoria especializada.
+
+**ODS 11 — Cidades e Comunidades Sustentaveis**
+Compras publicas bem planejadas significam infraestrutura mais duravel, menos desperdicio, menos retrabalho. Cidades melhores comecam com contratacoes melhores.
+
+**ODS 16 — Paz, Justica e Instituicoes Eficazes**
+Transparencia, rastreabilidade e fundamentacao legal em cada ato de contratacao. O ATA360 fortalece as instituicoes publicas ao tornar suas decisoes mais defensaveis e auditaveis.
+
+**ODS 17 — Parcerias e Meios de Implementacao**
+Cooperacao com ecossistema GovTech, integracao com dados publicos, dialogo com orgaos de controle. A transformacao do setor publico nao acontece sozinha.
+
+### Impacto mensuravel (cards com numeros)
+
+**R$ 60 bilhoes/ano**
+Sobrepreco evitavel em contratacoes publicas. Cada ponto percentual reduzido e um hospital construido.
+_Fonte: TCU / OCDE_
+
+**88% dos municipios**
+tem equipes de compras com menos de 3 pessoas. O ATA360 nivela a capacidade tecnica entre o menor municipio e o maior ministerio.
+
+**5.570 municipios**
+dependem de compras publicas para entregar saude, educacao, seguranca e infraestrutura. A qualidade da contratacao define a qualidade do servico.
+
+### Compromissos ESG
+
+**E — Ambiental**
+- Operacao 100% digital — zero papel no ciclo de documentacao
+- Infraestrutura cloud com eficiencia energetica
+- Reducao de deslocamentos: pesquisa de precos que antes exigia visitas presenciais agora e feita pela plataforma
+
+**S — Social**
+- Democratizacao do acesso: orgaos pequenos acessam a mesma tecnologia que orgaos grandes
+- Protecao do servidor publico: fundamentacao que defende quem esta na linha de frente
+- Acessibilidade digital: compromisso com WCAG 2.1 AA e eMAG (pagina /acessibilidade)
+- Ouvidoria independente com canal anonimo (pagina /ouvidoria)
+
+**G — Governanca**
+- Conselho consultivo independente
+- Politica de conflito de interesses
+- Contabilidade auditada
+- Conformidade LGPD desde a concepcao
+- Zero tolerancia a favorecimento de fornecedores
+
+### Frase destaque
+Quando o dinheiro publico e bem gasto, quem ganha e o cidadao que nunca vai saber o nome da ferramenta que ajudou.
+
+---
+
+## SECAO 14: RELATORIOS E DOCUMENTOS
+
+### Titulo
+Transparencia nao e discurso. E documento.
+
+### Texto
+Acreditamos que investidores, parceiros e a sociedade tem direito a informacao clara sobre quem somos, como operamos e para onde estamos indo. Abaixo estao os documentos publicos do ATA360. Materiais financeiros detalhados estao disponiveis sob NDA.
+
+### Documentos publicos (lista com icones de download)
+
+**Apresentacao institucional**
+Visao geral da empresa, produto, mercado e equipe. Versao publica.
+_Formato: PDF | Atualizado: Fevereiro 2026_
+
+**Declaracao de acessibilidade**
+Compromissos com WCAG 2.1 AA, eMAG e Lei 13.146/2015.
+→ /acessibilidade
+
+**Politica de privacidade**
+Tratamento de dados conforme LGPD (Lei 13.709/2018).
+→ /privacidade
+
+**Termos de uso**
+Condicoes de uso da plataforma para orgaos publicos.
+→ /termos
+
+**Canal de ouvidoria**
+Canal independente para manifestacoes — inclusive anonimas.
+→ /ouvidoria
+
+### Documentos sob NDA (disponíveis mediante acordo)
+
+| Documento | Conteudo | Disponibilidade |
+|-----------|----------|-----------------|
+| Pitch deck | Tese, produto, mercado, time, financeiro | Sob NDA |
+| Modelo financeiro | Projecoes, unit economics, cenarios | Sob NDA |
+| Metricas de produto | Retencao, engajamento, crescimento | Sob NDA |
+| Roadmap | Evolucao do produto e expansao de mercado | Sob NDA |
+| Cap table | Estrutura societaria e participacoes | Sob NDA |
+| Relatorio de impacto | Metricas ESG e indicadores ODS | Sob NDA |
+
+### Frase destaque
+Pedimos transparencia dos orgaos publicos. Comecamos por nos mesmos.
+
+---
+
+## SECAO 15: CTA FINAL
 
 ### Titulo
 A proxima conversa pode ser a mais importante do ano.
@@ -345,8 +513,8 @@ _Este bloco NAO vai para o Webflow. E referencia para o time._
 **Principio:** A pagina publica existe para criar CURIOSIDADE e gerar REUNIOES. O pitch deck, metricas e projecoes vao sob NDA. Se um concorrente extrair valor estrategico desta pagina, ela falhou.
 
 ### SEO
-- Keywords: "investir govtech brasil", "govtech investimento", "startup compras publicas", "oportunidade govtech"
-- Schema.org: Organization + InvestmentOrOpportunity
+- Keywords: "investir govtech brasil", "govtech investimento", "startup compras publicas", "oportunidade govtech", "govtech ESG", "impacto social compras publicas", "ODS govtech"
+- Schema.org: Organization + InvestmentOrOpportunity + GovernmentService
 
 ### Design
 - Fundo escuro predominante (credibilidade, seriedade)
@@ -354,6 +522,9 @@ _Este bloco NAO vai para o Webflow. E referencia para o time._
 - Secoes alternando claro/escuro
 - Graficos TAM/SAM/SOM como circulos concentricos
 - Cards de benchmarks com logos das empresas (se permitido)
+- Secao ESG/ODS: icones oficiais dos ODS da ONU (com permissao)
+- Secao Governanca: icones de escudo/check para cada pilar
+- Secao Relatorios: icones de documento/download
 - Tom institucional, zero vendedor, zero startup bro
 
 ### Responsividade
