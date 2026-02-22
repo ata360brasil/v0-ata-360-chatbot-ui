@@ -52,8 +52,8 @@
 **Description:** Direitos do titular de dados e compromisso do ATA360 com a Lei Geral de Protecao de Dados (Lei 13.709/2018).
 
 ## Investidores (/investidores)
-**Title:** Investidores | ATA360 -- GovTech de Compras Publicas
-**Description:** Oportunidade de investimento na ATA360, plataforma de I.A. para compras publicas que atende +30.000 orgaos sujeitos a Lei 14.133/2021. Mercado de R$ 1 trilhao/ano.
+**Title:** Investidores e Parceiros | ATA360 — GovTech de Compras Publicas
+**Description:** ATA360 e a plataforma de I.A. que esta transformando compras publicas no Brasil. Mercado de R$ 1 trilhao/ano com 66 concorrentes. Fale com os fundadores.
 
 ---
 
