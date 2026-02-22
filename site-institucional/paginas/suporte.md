@@ -1,8 +1,12 @@
 # PAGINA: /suporte
 
 ## Meta
-- Title: Suporte | ATA360
-- Description: Central de suporte do ATA360. FAQ, canais de atendimento, SLA e como resolver problemas rapidamente.
+- Title: Suporte | ATA360 — Central de Ajuda
+- Description: Central de suporte do ATA360. Perguntas frequentes, canais de atendimento, SLA e como resolver problemas rapidamente.
+- Canonical: https://www.ata360.com.br/suporte
+- hreflang: pt-BR
+- geo.region: BR
+- geo.placename: Brasil
 
 ---
 
@@ -29,7 +33,7 @@ Sim. Todos os documentos sao editaveis antes da finalizacao. A revisao humana e 
 Usuarios ilimitados por orgao. Toda a equipe acessa sem custo extra.
 
 ### Os dados do meu orgao estao seguros?
-Sim. Isolamento multi-tenant, criptografia AES-256 em repouso, TLS 1.3 em transito, e trilha de auditoria imutavel.
+Sim. Isolamento completo entre orgaos, criptografia em transito e em repouso, e trilha de auditoria completa. Seus dados sao armazenados no Brasil, em conformidade com a LGPD.
 
 ---
 
@@ -43,7 +47,7 @@ Sim. Isolamento multi-tenant, criptografia AES-256 em repouso, TLS 1.3 em transi
 ### Ouvidoria
 - E-mail: ouvidoria@ata360.com.br
 - Assuntos: denuncias, reclamacoes, sugestoes, elogios
-- Anonimato garantido (Lei 13.608/2018)
+- Anonimato garantido (Lei 13.460/2017 — Defesa dos Direitos do Usuario de Servicos Publicos)
 - SLA: acusacao de recebimento em 48h
 
 ### Financeiro / Contratos
@@ -56,7 +60,7 @@ Sim. Isolamento multi-tenant, criptografia AES-256 em repouso, TLS 1.3 em transi
 ## Secao 3: Outras formas de ajuda
 
 - [Fale Conosco](/contato) — formulario completo para qualquer assunto
-- [Ouvidoria](/compliance) — canal de denuncia com anonimato
+- [Ouvidoria](/ouvidoria) — canal de denuncia com anonimato
 - [Glossario](/glossario) — termos tecnicos de licitacao explicados
 - [Blog](/blog) — guias praticos sobre Lei 14.133, pesquisa de precos e IA
 

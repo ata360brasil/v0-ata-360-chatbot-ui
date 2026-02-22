@@ -1,8 +1,12 @@
 # PAGINA: /contato
 
 ## Meta
-- Title: Contato | ATA360
-- Description: Entre em contato com o ATA360. Duvidas, suporte tecnico, parcerias institucionais para orgaos da administracao publica.
+- Title: Contato | ATA360 — Fale Conosco
+- Description: Entre em contato com o ATA360. Duvidas, suporte tecnico, parcerias institucionais para orgaos da administracao publica brasileira.
+- Canonical: https://www.ata360.com.br/contato
+- hreflang: pt-BR
+- geo.region: BR-MG
+- geo.placename: Vespasiano, Minas Gerais, Brasil
 
 ---
 
@@ -63,12 +67,12 @@ Respondemos em ate 2 dias uteis. Para assuntos urgentes, entre em contato pelo W
 ### Ouvidoria
 - E-mail: ouvidoria@ata360.com.br
 - Assuntos: denuncias, reclamacoes, sugestoes, elogios
-- Anonimato garantido (Lei 13.608/2018)
+- Anonimato garantido (Lei 13.460/2017 — Defesa dos Direitos do Usuario de Servicos Publicos)
 
 ### Financeiro
 - E-mail: financeiro@ata360.com.br
 - Assuntos: NF-e, confirmacao de recebimento, envio de contrato, contratacao
 
 ### Geral
-- WhatsApp: (a definir)
 - Site: www.ata360.com.br
+- WhatsApp: disponivel em breve

@@ -1,28 +1,35 @@
 # PAGINA: /quem-somos
 
 ## Meta
-- Title: Quem Somos | ATA360
-- Description: Plataforma de I.A. que integra PNCP, Serpro, IBGE e fontes governamentais para automatizar compras publicas conforme a Lei 14.133/2021.
+- Title: Quem Somos | ATA360 — Plataforma de I.A. para Compras Publicas
+- Description: ATA360 e a plataforma de inteligencia artificial especializada em compras publicas sob a Lei 14.133/2021. Atende mais de 30.000 orgaos publicos brasileiros.
+- Canonical: https://www.ata360.com.br/quem-somos
+- hreflang: pt-BR
+- geo.region: BR
+- geo.placename: Brasil
 
 ---
 
-## O que e o ATA360
+## H1
+O que e o ATA360
+
+## Texto
 
 O ATA360 e uma plataforma de inteligencia artificial especializada em compras publicas e licitacoes, desenvolvida exclusivamente para orgaos da administracao publica brasileira.
 
-A plataforma utiliza modelo de linguagem avancado integrado a fontes de dados governamentais -- incluindo PNCP, Serpro, IBGE, Portal da Transparencia e Compras.gov.br -- para automatizar pesquisas de preco, gerar documentos de contratacao e fundamentar decisoes com base na Lei 14.133/2021 e jurisprudencia atualizada do TCU e TCEs.
+A plataforma utiliza inteligencia artificial integrada a fontes de dados governamentais oficiais para automatizar pesquisas de preco, gerar documentos de contratacao e fundamentar decisoes com base na Lei 14.133/2021 e jurisprudencia atualizada do TCU e TCEs.
 
 ---
 
-## O que o ATA360 faz
+## Secao 2: O que o ATA360 faz
 
-O ATA360 pesquisa, documenta e fundamenta cada etapa do processo de compras publicas. A plataforma gera Termos de Referencia, Estudos Tecnicos Preliminares, Documentos de Formalizacao de Demanda, Planos de Contratacoes Anuais, Mapas de Risco, Pesquisas de Preco e Justificativas Tecnicas -- todos com fundamentacao legal automatica e referencias explicitas a legislacao vigente.
+O ATA360 pesquisa, documenta e fundamenta cada etapa do processo de compras publicas. A plataforma gera Termos de Referencia, Estudos Tecnicos Preliminares, Documentos de Formalizacao de Demanda, Planos de Contratacoes Anuais, Mapas de Risco, Pesquisas de Preco e Justificativas Tecnicas — todos com fundamentacao legal automatica e referencias explicitas a legislacao vigente.
 
-Agentes de inteligencia artificial especializados trabalham continuamente para orientar equipes de contratacao, revisar documentos e alertar sobre mudancas na legislacao e jurisprudencia.
+Inteligencia artificial especializada trabalha continuamente para orientar equipes de contratacao, revisar documentos e alertar sobre mudancas na legislacao e jurisprudencia.
 
 ---
 
-## Para quem o ATA360 foi projetado
+## Secao 3: Para quem o ATA360 foi projetado
 
 O ATA360 atende os mais de 30.000 orgaos publicos brasileiros sujeitos a Lei 14.133/2021: prefeituras municipais, camaras de vereadores, autarquias, fundacoes, institutos federais, universidades, hospitais publicos, consorcios intermunicipais, secretarias estaduais, tribunais, ministerios publicos e forcas de seguranca.
 
@@ -30,34 +37,49 @@ A plataforma e utilizada por pregoeiros, agentes de contratacao, ordenadores de 
 
 ---
 
-## O que diferencia o ATA360
+## Secao 4: O que diferencia o ATA360
 
-O ATA360 nao e um chat generico, um gerador de PDF ou um banco de dados estatico. E uma plataforma viva que combina inteligencia artificial com dados governamentais em tempo real para garantir que cada decisao de compra esteja fundamentada na legislacao, na jurisprudencia e em dados verificaveis.
+O ATA360 nao e um chat generico, um gerador de PDF ou um banco de dados estatico. E uma plataforma que combina inteligencia artificial com dados governamentais em tempo real para garantir que cada decisao de compra esteja fundamentada na legislacao, na jurisprudencia e em dados verificaveis.
 
-Todo documento gerado pelo ATA360 inclui referencias legais explicitas. Todo processo e rastreavel. Toda decisao final e do servidor publico -- a inteligencia artificial fundamenta, o humano decide.
+Todo documento gerado pelo ATA360 inclui referencias legais explicitas. Todo processo e rastreavel. Toda decisao final e do servidor publico — a inteligencia artificial fundamenta, o humano decide.
 
 ---
 
-## Dados tecnicos
-- Fontes de dados governamentais integradas
-- Agentes de I.A. especializados
-- Base vetorizada de legislacao completa (Lei 14.133/2021, decretos regulamentadores, jurisprudencia TCU/TCEs)
-- Assinatura digital integrada
+## Secao 5: Dados tecnicos
+
+- Integracoes com fontes de dados governamentais oficiais
+- Inteligencia artificial especializada em contratacoes publicas
+- Base de legislacao atualizada (Lei 14.133/2021, decretos regulamentadores, IN SEGES/MGI n. 2/2023, Decreto 12.807/2025, jurisprudencia TCU/TCEs)
+- Assinatura digital integrada com validade juridica
 - Conformidade com LGPD (Lei 13.709/2018)
-- Hospedagem em infraestrutura segura com dados no Brasil
+- Dados armazenados e processados no Brasil
 
 ---
 
-## Principio central
+## Secao 6: Principio central
 
-Conforme a LINDB (Art. 20 e 28) e a Lei 14.133 (Art. 8), o servidor responde pessoalmente por suas decisoes. O ATA360 foi construido para entregar fundamentacao robusta em cada ato -- protegendo quem decide.
+Conforme a LINDB (Art. 20 e 28, Lei 13.655/2018), o Art. 11 e o Art. 169 da Lei 14.133/2021, o agente publico responde pessoalmente por suas decisoes de contratacao. O ATA360 foi construido para entregar fundamentacao robusta em cada ato — protegendo quem decide.
 
-Humano + I.A. Voce decide. A I.A. fundamenta.
+**Humano + I.A.** Voce decide. A I.A. fundamenta.
 
 ---
 
-## NOTA: NAO revelar nesta pagina
-- Nomes dos agentes (ACMA, Design Law, Auditor, Legal Sync)
-- Quantidade exata de APIs
-- Fontes especificas (TransfereGov, DataValid, NeoSigner)
-- Arquitetura interna
+## CTA
+**Botao:** Solicitar acesso gratuito
+**Link:** /solicitar-acesso
+**Texto:** 14 dias gratis. Usuarios ilimitados. Todos os documentos inclusos.
+
+---
+
+## NOTAS DE IMPLEMENTACAO (nao publicar)
+
+### SEO
+- Keywords: "ATA360", "plataforma compras publicas", "IA licitacao", "govtech brasil", "sistema lei 14133"
+- Schema.org: Organization + GovernmentService
+
+### Auditoria de seguranca competitiva — CHECKLIST
+- [x] Zero nomes de agentes de I.A.
+- [x] Zero nomes de fontes especificas (removidos PNCP, Serpro, IBGE, Portal da Transparencia, Compras.gov.br da descricao)
+- [x] Zero quantidade de APIs ou endpoints
+- [x] Zero detalhes de arquitetura interna
+- [x] Bloco NOTA com segredos removido completamente

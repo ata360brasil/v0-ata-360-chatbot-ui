@@ -1,8 +1,12 @@
 # PAGINA: /ouvidoria
 
 ## Meta
-- Title: Ouvidoria | ATA360
-- Description: Canal de ouvidoria do ATA360. Registre reclamacoes, denuncias, elogios e sugestoes de forma anonima e segura.
+- Title: Ouvidoria | ATA360 — Canal Independente de Manifestacoes
+- Description: Canal de ouvidoria do ATA360. Registre reclamacoes, denuncias, elogios e sugestoes de forma anonima e segura. Conforme Lei 13.460/2017.
+- Canonical: https://www.ata360.com.br/ouvidoria
+- hreflang: pt-BR
+- geo.region: BR
+- geo.placename: Brasil
 
 ---
 
@@ -58,4 +62,5 @@ Sua manifestacao sera analisada em ate 5 dias uteis. Manifestacoes anonimas tamb
 - Confidencialidade garantida
 - Tratamento imparcial
 - Resposta em ate 5 dias uteis
+- Conformidade com a Lei 13.460/2017 (Defesa dos Direitos do Usuario de Servicos Publicos)
 - Conformidade com a Lei de Acesso a Informacao (Lei 12.527/2011)

@@ -1,8 +1,12 @@
 # PÁGINA: /carreiras
 
 ## Meta
-- Title: Carreiras | ATA360 — Trabalhe Conosco
-- Description: Vagas abertas na ATA360 em Vespasiano/MG. Desenvolvedor, Designer, Comercial GovTech, Marketing Digital, Especialista em Contratações e Estágio. Faça parte da GovTech que transforma compras públicas no Brasil.
+- Title: Carreiras | ATA360 — Trabalhe Conosco em GovTech
+- Description: Vagas abertas na ATA360 em Vespasiano/MG. Desenvolvedor, Designer, Comercial GovTech, Marketing Digital, Especialista em Contratacoes e Estagio. Faca parte da GovTech que transforma compras publicas no Brasil.
+- Canonical: https://www.ata360.com.br/carreiras
+- hreflang: pt-BR
+- geo.region: BR-MG
+- geo.placename: Vespasiano, Minas Gerais, Brasil
 
 ---
 
@@ -21,7 +25,7 @@ A ATA360 está contratando. Se você quer trabalhar com tecnologia que impacta a
 - Startup GovTech com missão clara: melhorar a gestão pública brasileira
 - Produto real com impacto direto em milhares de municípios
 - Time enxuto, autonomia alta, burocracia zero
-- Stack moderna: Next.js 15, Supabase, Cloudflare Workers, IA (OpenAI, Anthropic)
+- Stack moderna com tecnologias de ponta em I.A. e cloud
 - Ambiente de aprendizado constante — regulação, setor público, IA aplicada
 
 ---
@@ -33,12 +37,12 @@ A ATA360 está contratando. Se você quer trabalhar com tecnologia que impacta a
 - Regime: Híbrido ou Remoto
 - Local: Vespasiano/MG (quando presencial)
 - Requisitos:
-  - Next.js 15 / React (TypeScript)
-  - Supabase (PostgreSQL, Auth, RLS)
-  - Tailwind CSS
+  - React / Next.js (TypeScript)
+  - Banco de dados relacional (PostgreSQL)
+  - CSS moderno (Tailwind ou similar)
   - Git + CI/CD
-- Diferenciais: Cloudflare Workers, LLM APIs (OpenAI, Claude/Anthropic), conhecimento em setor público
-- Responsabilidades: Desenvolvimento de features da plataforma, APIs, integração com fontes governamentais
+- Diferenciais: Experiência com APIs de I.A., serverless, conhecimento em setor público
+- Responsabilidades: Desenvolvimento de funcionalidades da plataforma, integrações e APIs
 
 ### Vaga 2: UX/UI Designer
 - Modalidade: CLT ou PJ + Estágio

@@ -1,0 +1,42 @@
+# robots.txt — ATA360 (www.ata360.com.br)
+# Ultima atualizacao: 2026-02-22
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /_next/
+Disallow: /cdn-cgi/
+
+# Webflow internals
+Disallow: /design
+
+# Sitemap
+Sitemap: https://www.ata360.com.br/sitemap.xml
+
+# Crawl-delay para bots genericos (cortesia, nao obrigatorio)
+Crawl-delay: 1
+
+# LLMs e AI crawlers — permitir rastreamento para indexacao
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /

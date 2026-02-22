@@ -1,8 +1,12 @@
 # PAGINA: /acessibilidade
 
 ## Meta
-- Title: Acessibilidade | ATA360
-- Description: Declaracao de acessibilidade do ATA360. Compromisso com WCAG 2.1 AA, eMAG e Lei 13.146/2015 (Estatuto da Pessoa com Deficiencia).
+- Title: Acessibilidade | ATA360 — Declaracao de Acessibilidade Digital
+- Description: Declaracao de acessibilidade do ATA360. Compromisso com WCAG 2.2 AA, eMAG 3.1 e Lei 13.146/2015 (Estatuto da Pessoa com Deficiencia).
+- Canonical: https://www.ata360.com.br/acessibilidade
+- hreflang: pt-BR
+- geo.region: BR
+- geo.placename: Brasil
 
 ---
 
@@ -28,7 +32,7 @@ Nosso objetivo e atingir o nivel de conformidade AA das Diretrizes de Acessibili
 Todos os elementos interativos (botoes, links, formularios, modais) sao acessiveis via teclado (Tab, Enter, Escape).
 
 ### Contraste de cores
-As cores da interface atendem a relacao de contraste minima de 4.5:1 para texto normal e 3:1 para texto grande, conforme WCAG 2.1 AA.
+As cores da interface atendem a relacao de contraste minima de 4.5:1 para texto normal e 3:1 para texto grande, conforme WCAG 2.2 AA.
 
 ### Compatibilidade com leitores de tela
 Utilizamos atributos ARIA (aria-label, aria-describedby, role) e HTML semantico para garantir compatibilidade com leitores de tela como NVDA, JAWS e VoiceOver.
@@ -49,7 +53,7 @@ Todos os campos de formulario possuem labels explicitos, mensagens de erro descr
 - Lei 13.146/2015 — Estatuto da Pessoa com Deficiencia (Art. 63)
 - Decreto 5.296/2004 — Acessibilidade em sites do governo
 - eMAG — Modelo de Acessibilidade em Governo Eletronico (versao 3.1)
-- WCAG 2.1 — Web Content Accessibility Guidelines (W3C)
+- WCAG 2.2 — Web Content Accessibility Guidelines (W3C)
 
 ---
 

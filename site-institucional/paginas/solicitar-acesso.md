@@ -1,8 +1,12 @@
 # PAGINA: /solicitar-acesso
 
 ## Meta
-- Title: Solicitar Acesso Gratuito | ATA360
-- Description: Solicite acesso gratuito ao ATA360 por 14 dias. Exclusivo para orgaos publicos. Informe o CNPJ e receba o ambiente configurado com dados do PNCP.
+- Title: Solicitar Acesso Gratuito | ATA360 — 14 Dias para Orgaos Publicos
+- Description: Solicite acesso gratuito ao ATA360 por 14 dias. Exclusivo para orgaos publicos. Informe o CNPJ e receba o ambiente configurado com dados reais.
+- Canonical: https://www.ata360.com.br/solicitar-acesso
+- hreflang: pt-BR
+- geo.region: BR
+- geo.placename: Brasil
 
 ---
 
@@ -54,6 +58,11 @@ Informe os dados do seu orgao. Com o CNPJ, ja preparamos seu ambiente com dados 
 ### Campo 5: Telefone / WhatsApp
 - Type: tel com mascara
 - Micro-copy: Para suporte prioritario durante o periodo de teste
+
+### Campo 6: Aceite LGPD
+- Type: checkbox
+- Obrigatorio
+- Texto: Declaro que li e concordo com a [Politica de Privacidade](/privacidade) e os [Termos de Uso](/termos). Meus dados serao tratados conforme a LGPD (Lei 13.709/2018).
 
 ---
 
@@ -118,6 +127,6 @@ Quando CNPJ e validado, mostrar card:
 
 ## Trial
 - Duracao: 14 dias
-- Limite: 5 documentos completos + chat ilimitado (50 msg/dia)
+- Limite: 5 documentos completos + chat com I.A. (50 mensagens/dia)
 - Extensao: +7 dias automatico se iniciou contratacao do ATA360 pela plataforma
 - Ao atingir limite: dados preservados, geracao travada, CTA para contratar

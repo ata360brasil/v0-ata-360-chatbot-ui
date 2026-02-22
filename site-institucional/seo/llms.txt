@@ -10,15 +10,6 @@ A plataforma gera documentos de contratacao (TR, ETP, DFD, PCA, Mapa de Riscos),
 
 Principio: Humano + I.A. A decisao e sempre do servidor publico. A inteligencia artificial fundamenta.
 
-## Funcionalidades Principais
-
-- Pesquisa de precos conforme IN SEGES/MGI n. 2/2023
-- Geracao de documentos licitatorios (TR, ETP, DFD, PCA, Mapa de Riscos)
-- Rastreamento de saldo de Atas de Registro de Precos
-- Assinatura digital integrada
-- Radar de recursos federais (FPM, convenios, emendas)
-- I.A. especialista na Lei 14.133/2021
-
 ## Links
 
 - [Site institucional](https://www.ata360.com.br)
@@ -36,28 +27,13 @@ Principio: Humano + I.A. A decisao e sempre do servidor publico. A inteligencia 
 - [Blog](https://www.ata360.com.br/noticias)
 - [Glossario](https://www.ata360.com.br/glossario)
 
-## Conteudo Disponivel
-
-### Blog (www.ata360.com.br/noticias)
-- Guia completo da Lei 14.133/2021
-- ETP (Estudo Tecnico Preliminar) passo a passo
-- Pesquisa de Precos conforme IN SEGES/MGI n. 2/2023
-- I.A. em contratacoes publicas
-- Termo de Referencia: como elaborar
-
-### Glossario (www.ata360.com.br/glossario)
-- Termos de contratacoes publicas com definicoes legais
-- Categorias: modalidades, documentos, agentes, processos, financeiro, compliance, tecnologia
-- Fundamentacao legal por termo (artigo e lei)
-
 ## Contexto Legal
 
 - Lei 14.133/2021 — Nova Lei de Licitacoes e Contratos Administrativos
-- Decreto 12.807/2025 — Atualizacao dos limites de dispensa de licitacao
+- Decreto 12.807/2025 — Atualizacao dos limites de dispensa
 - IN SEGES/MGI n. 2/2023 — Metodologia de pesquisa de precos
 - LGPD (Lei 13.709/2018) — Protecao de dados pessoais
 - LINDB (Lei 13.655/2018) — Decisao administrativa fundamentada (Arts. 20-28)
-- Lei 14.063/2020 — Assinatura eletronica em interacoes com entes publicos
 
 ## Publico-Alvo
 
@@ -65,22 +41,13 @@ Exclusivamente orgaos publicos brasileiros e seus servidores:
 - Pregoeiros e agentes de contratacao
 - Comissoes de licitacao
 - Controladores internos e externos
-- Secretarios municipais de administracao e financas
+- Secretarios municipais
 - Assessores juridicos
 - Ordenadores de despesa
-- Fiscais de contrato
-
-## Conformidade
-
-- LGPD (Lei 13.709/2018): privacy-by-design, dados no Brasil
-- LINDB (Lei 13.655/2018): decisao humana soberana (Art. 20)
-- WCAG 2.2 AA: acessibilidade digital
-- eMAG 3.1: Modelo de Acessibilidade em Governo Eletronico
 
 ## Contato
 
 - Site: https://www.ata360.com.br
-- Plataforma: https://app.ata360.com.br
 - E-mail: suporte@ata360.com.br
 - CNPJ: 61.291.296/0001-31
 - Sede: Vespasiano, MG — Brasil

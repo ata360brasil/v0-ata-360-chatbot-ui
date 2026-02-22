@@ -1,8 +1,12 @@
 # PAGINA: /solicitar-demonstracao
 
 ## Meta
-- Title: Solicitar Demonstracao | ATA360
-- Description: Agende uma demonstracao gratuita do ATA360 para seu orgao publico. Veja como automatizar pesquisa de precos, TR, ETP e DFD conforme a Lei 14.133.
+- Title: Solicitar Demonstracao | ATA360 — Veja o ATA360 Funcionando
+- Description: Agende uma demonstracao gratuita do ATA360 para seu orgao publico. Veja como automatizar pesquisa de precos, TR, ETP e DFD conforme a Lei 14.133/2021.
+- Canonical: https://www.ata360.com.br/solicitar-demonstracao
+- hreflang: pt-BR
+- geo.region: BR
+- geo.placename: Brasil
 
 ---
 

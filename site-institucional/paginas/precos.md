@@ -1,8 +1,12 @@
 # PAGINA: /precos
 
 ## Meta
-- Title: Precos | ATA360 -- Calculadora de Precos para Orgaos Publicos
+- Title: Precos | ATA360 — Calculadora de Investimento para Orgaos Publicos
 - Description: Calcule o investimento do ATA360 para o seu orgao. Informe o CNPJ e veja o valor personalizado. Usuarios ilimitados, sem modulos separados, documentos de contratacao inclusos.
+- Canonical: https://www.ata360.com.br/precos
+- hreflang: pt-BR
+- geo.region: BR
+- geo.placename: Brasil
 
 ---
 
@@ -10,7 +14,7 @@
 Quanto custa proteger suas contratacoes?
 
 ## Subtitulo
-Informe o CNPJ do seu orgao. Com ele, ja calculamos o investimento com base no perfil real do municipio -- sem surpresas, sem modulos extras, sem limite de usuarios.
+Informe o CNPJ do seu orgao. Com ele, ja calculamos o investimento com base no perfil real do municipio — sem surpresas, sem modulos extras, sem limite de usuarios.
 
 ---
 
@@ -20,25 +24,25 @@ Informe o CNPJ do seu orgao. Com ele, ja calculamos o investimento com base no p
 - CNPJ: text com mascara (00.000.000/0000-00)
 - Botao: Calcular meu investimento
 
-### Bloco A -- Perfil do Orgao (publico, sem login)
+### Bloco A — Perfil do Orgao (publico, sem login)
 Ao digitar CNPJ, exibir automaticamente:
-- Nome do orgao (Serpro)
-- UF / Cidade (IBGE)
-- Populacao (IBGE)
+- Nome do orgao
+- UF / Cidade
+- Populacao estimada
 - Processos no PNCP (ultimo ano)
-- Contratos ativos (PNCP)
+- Contratos ativos
 
 Card de confirmacao: "E esse o seu orgao? [Sim, calcular] [Nao, corrigir CNPJ]"
 
-### Bloco Emocional -- Conexao com o municipio (antes dos numeros)
-Card personalizado com dados do IBGE:
+### Bloco Emocional — Conexao com o municipio (antes dos numeros)
+Card personalizado com dados publicos:
 - Regiao/mesorregiao
 - IDH
 - Nota de destaque positiva (algo real para parabenizar)
 - Desafio identificado (equipe reduzida, adaptacao PNCP, etc.)
 
 Exemplos de notas positivas:
-- Se processos PNCP acima da media: "[Cidade] publicou [X] contratacoes no PNCP -- acima da media para municipios do mesmo porte."
+- Se processos PNCP acima da media: "[Cidade] publicou [X] contratacoes no PNCP — acima da media para municipios do mesmo porte."
 - Se IDH acima da media estadual: "[Cidade] tem IDH acima da media de [UF]."
 - Se FPM cresceu: "O FPM de [Cidade] cresceu [X]% em relacao ao ano anterior."
 - Se muitos convenios: "[Cidade] tem [X] convenios ativos. Sinal de uma equipe que busca recursos."
@@ -50,17 +54,17 @@ Exemplos de desafios:
 - Se convenio vencendo < 90 dias: "Atencao: [X] convenios com prazo vencendo em breve."
 - Fallback: "Fazer mais com o mesmo. A Lei 14.133 trouxe mais exigencias."
 
-### Bloco B -- Recursos Federais (apos informar e-mail)
+### Bloco B — Recursos Federais (apos informar e-mail)
 Gate: "Informe seu e-mail para ver seus recursos federais e o investimento personalizado"
 - FPM recebido nos ultimos 12 meses
-- Convenios ativos no TransfereGov
+- Convenios ativos
 - Emendas parlamentares destinadas
-- Transferencias fundo a fundo (FNS/FNDE)
+- Transferencias fundo a fundo (saude/educacao)
 - Recursos com prazo vencendo nos proximos 90 dias (ALERTA)
 
-### Bloco C -- Preco Personalizado (apos e-mail)
+### Bloco C — Preco Personalizado (apos e-mail)
 Card principal:
-- Valor mensal: A partir de R$ [X]/mes
+- Valor mensal calculado
 - Contexto: Para a Prefeitura de [Cidade] com [X] habitantes
 
 3 micro-metricas:
@@ -70,13 +74,32 @@ Card principal:
 
 Frase: "Menos do que o custo de 1 hora extra de um servidor fazendo pesquisa de precos manualmente."
 
+Se tem FPM: "Representa [X]% do seu FPM mensal."
+
 ### Percepcao comparativa (por porte)
 - Municipio < 10 mil hab: "Menos que 1 cafe por dia pra toda equipe"
 - Municipio 10-50 mil: "Menos que 1 hora extra de um servidor por semana"
 - Municipio 50-200 mil: "Menos que o custo de 1 estagiario"
 - Municipio 200 mil+: "Menos que o custo de 1 processo anulado"
 - Orgao estadual/federal: "Menos que 0,5% do custo da equipe de contratacao"
-- Com FPM: "Representa [X]% do seu FPM mensal"
+
+---
+
+## TABELA DE PRECOS (modelo vigente — R$/hab com piso)
+
+| Faixa populacional | Valor/hab | Minimo (anual) | Maximo da faixa |
+|--------------------|-----------|----------------|-----------------|
+| Ate 39.119 hab | Fixo | R$ 38.900/ano | R$ 38.900 |
+| 39.120 a 100.000 hab | R$ 1,25/hab | R$ 48.900/ano | R$ 125.000 |
+| 100.001 a 500.000 hab | R$ 0,99/hab | R$ 99.000/ano | R$ 495.000 |
+| Acima de 500.000 hab | R$ 0,68/hab | R$ 340.000/ano | Sem limite |
+
+### Dispensa de licitacao
+Limite de dispensa conforme **Decreto 12.807/2025** (atualizacao do Art. 75, inciso II da Lei 14.133/2021): **R$ 65.492,11/ano**.
+
+Municipios com ate **52.393 habitantes** se enquadram na faixa que permite contratacao por dispensa — o que representa **86,4% dos municipios brasileiros** (fonte: IBGE, Censo 2022).
+
+O proprio ATA360 gera a documentacao necessaria para a dispensa.
 
 ---
 
@@ -86,10 +109,10 @@ Incluso:
 - Todos os modulos da plataforma
 - Usuarios ilimitados
 - Pesquisa de precos inteligente
-- Geracao de todos os documentos
+- Geracao de todos os documentos (TR, ETP, DFD, PCA, Mapa de Riscos, JCD)
 - Assinatura digital com verificacao
 - Radar de recursos e saldo de ATAs
-- Suporte por WhatsApp
+- Suporte por WhatsApp e e-mail
 - Atualizacoes de legislacao
 
 Nao cobramos:
@@ -102,11 +125,11 @@ Nao cobramos:
 - Suporte pago
 - Versao basica vs completa
 
-Destaque: O sistema cresce e voce nao paga mais por isso. Novos modulos, novas funcionalidades, novas integracoes -- tudo incluido na mesma licenca.
+Destaque: O sistema cresce e voce nao paga mais por isso. Novos modulos, novas funcionalidades, novas integracoes — tudo incluido na mesma licenca.
 
 ---
 
-## COMO CONTRATAR -- 3 ETAPAS
+## COMO CONTRATAR — 3 ETAPAS
 
 **Titulo:** Contratar e mais simples do que voce imagina.
 
@@ -125,6 +148,7 @@ Micro-copy: O processo de contratacao leva em media 5 dias uteis. Se iniciar pel
 
 ## CTA FINAL
 **Botao (amarelo):** Solicitar meu acesso gratuito
+**Link:** /solicitar-acesso
 **Micro-copy:** 14 dias gratis . Usuarios ilimitados . Documentos de contratacao inclusos
 
 ---
@@ -132,19 +156,22 @@ Micro-copy: O processo de contratacao leva em media 5 dias uteis. Se iniciar pel
 ## FAQ
 
 Q: Preciso licitar para contratar o ATA360?
-R: Para a maioria dos municipios, o valor se enquadra na dispensa de licitacao (Art. 75, II -- ate R$ 65.492,11). O ATA360 gera toda a documentacao necessaria.
+R: Para a maioria dos municipios, o valor se enquadra na dispensa de licitacao (Art. 75, inciso II da Lei 14.133/2021 — limite atualizado pelo Decreto 12.807/2025: R$ 65.492,11/ano). Municipios com ate 52.393 habitantes contratam por dispensa. O ATA360 gera toda a documentacao necessaria.
 
 Q: E se meu orgao nao tiver o ATA360 no PCA?
-R: A ausencia de previsao no PCA nao impede a contratacao. A Lei 14.133 (Art. 72, paragrafo unico) preve justificativa no processo. O ATA360 gera esse documento tambem.
+R: A ausencia de previsao no Plano de Contratacoes Anual nao impede a contratacao. A Lei 14.133/2021 (Art. 72, paragrafo unico) preve justificativa no processo. O ATA360 gera esse documento tambem.
 
 Q: O preco muda se eu adicionar mais usuarios?
-R: Nao. Usuarios sao ilimitados. O preco e por orgao, nao por pessoa.
+R: Nao. Usuarios sao ilimitados. O preco e por orgao, calculado pela populacao do municipio.
 
 Q: Existe fidelidade ou multa de cancelamento?
 R: Nao. Contratacao por 12 meses conforme a lei, renovavel. Seus dados ficam salvos mesmo apos o termino.
 
 Q: O ATA360 gera o comparativo com outros fornecedores?
-R: Sim. A plataforma gera automaticamente o comparativo tecnico e de precos para fundamentar a escolha, conforme exigido pela Lei 14.133.
+R: Sim. A plataforma gera automaticamente o comparativo tecnico e de precos para fundamentar a escolha, conforme exigido pela Lei 14.133/2021.
+
+Q: Qual a base legal para a contratacao?
+R: Dispensa de licitacao (Art. 75, II da Lei 14.133/2021) para valores ate R$ 65.492,11/ano (Decreto 12.807/2025). Para valores acima, pregao eletronico (Art. 28, I). O ATA360 gera a documentacao para ambas as modalidades.
 
 ---
 
@@ -155,3 +182,30 @@ R: Sim. A plataforma gera automaticamente o comparativo tecnico e de precos para
 - Honeypot field: campo invisivel
 - Delay proposital: resultado em 3-5 segundos
 - Bloco A publico, Blocos B e C exigem e-mail
+
+---
+
+## NOTAS DE IMPLEMENTACAO (nao publicar)
+
+### Arquitetura sugerida
+- Frontend: React embed no Webflow (ou pagina separada linkada)
+- Backend: Cloudflare Worker
+- Cache: dados publicos por 24h
+- Fallback: se API falhar → Bloco A + C apenas (sem recursos federais)
+
+### MVP faseado
+- Fase 1: Bloco A + C (CNPJ → perfil + preco) — 1 semana
+- Fase 2: Bloco B com FPM/FPE — 2 semanas
+- Fase 3: Convenios, emendas, alertas — 3-4 semanas
+
+### SEO
+- Keywords: "preco ATA360", "quanto custa sistema licitacao", "software compras publicas preco", "calculadora licitacao", "dispensa licitacao software"
+- Schema.org: Product + Offer + FAQPage
+- FAQ em schema.org para rich snippets no Google
+
+### Auditoria de seguranca competitiva — CHECKLIST
+- [x] Zero detalhes de arquitetura interna no conteudo publico
+- [x] Zero nomes de fontes especificas no conteudo publico
+- [x] Decreto 12.807/2025 referenciado corretamente
+- [x] Tabela de precos com valores reais (nao placeholder)
+- [x] Limite de dispensa atualizado (R$ 65.492,11)

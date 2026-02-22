@@ -1,8 +1,12 @@
 # PAGINA: /solucoes
 
 ## Meta
-- Title: Solucoes | ATA360
-- Description: Pesquisa de precos, TR, ETP, DFD, PCA, Mapa de Risco -- gerados pela I.A. com fundamentacao legal automatica da Lei 14.133/2021.
+- Title: Solucoes | ATA360 — I.A. para Compras Publicas e Licitacoes
+- Description: Pesquisa de precos, TR, ETP, DFD, PCA, Mapa de Risco — gerados pela I.A. com fundamentacao legal automatica da Lei 14.133/2021.
+- Canonical: https://www.ata360.com.br/solucoes
+- hreflang: pt-BR
+- geo.region: BR
+- geo.placename: Brasil
 
 ---
 
@@ -16,7 +20,7 @@ Cada funcionalidade do ATA360 foi projetada para resolver um problema real do pr
 
 ## Solucao 1: Pesquisa de Precos Inteligente
 
-Preco de referencia com minimo, maximo e mediana. Memoria de calculo pronta. Tratamento de outliers. Conforme IN 65/2021.
+Preco de referencia com minimo, maximo e mediana. Memoria de calculo pronta. Tratamento de outliers. Conforme IN SEGES/MGI n. 2/2023 e Lei 14.133/2021.
 
 O ATA360 consulta fontes oficiais e cruza dados para entregar a pesquisa de precos mais completa e fundamentada que sua equipe ja viu.
 
@@ -56,7 +60,7 @@ Rastreamento automatico de Atas de Registro de Preco vigentes com saldo disponiv
 
 Nao e um chat generico. E inteligencia treinada na legislacao que fundamenta antes de sugerir. Se nao encontra resposta verificavel, avisa que nao sabe.
 
-Zero alucinacao. Cada resposta com fonte. Cada sugestao com artigo.
+Projetada para minimizar erros. Cada resposta com fonte. Cada sugestao com artigo.
 
 ---
 

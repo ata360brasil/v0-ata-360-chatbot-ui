@@ -1,8 +1,12 @@
 # PAGINA: /parceiros
 
 ## Meta
-- Title: Programa de Parceiros | ATA360
+- Title: Programa de Parceiros | ATA360 — Para Consultorias e Associacoes
 - Description: Programa de parceiros da ATA360 para consultorias, contabilidades, escritorios juridicos e associacoes de municipios. Leve inteligencia em compras publicas para seus clientes.
+- Canonical: https://www.ata360.com.br/parceiros
+- hreflang: pt-BR
+- geo.region: BR
+- geo.placename: Brasil
 
 ---
 
