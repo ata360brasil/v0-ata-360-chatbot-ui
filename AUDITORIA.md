@@ -216,6 +216,9 @@ workers/
 | C13 | Bug | `use-user-profile.ts` — `textBuffer` é variável global compartilhada entre todas as instâncias do hook. Em múltiplos componentes, buffers se misturam. | `hooks/use-user-profile.ts` | 50 |
 | C14 | Security | `validations.ts` — Sanitização XSS faz apenas encoding de entidades HTML; não protege contra atributos maliciosos (`data-*`, `on*`, etc.). | `lib/validations.ts` | 66-73 |
 | C15 | Security | CPF/CNPJ — Validação apenas de formato (regex), sem verificação de dígitos verificadores (checksum). Aceita documentos inválidos. | `lib/validations.ts` | 4-5 |
+| C16 | SEO/Sec | **Rotas autenticadas no sitemap público** — `/dashboard`, `/contracts`, `/processes` com prioridade 0.9 são indexáveis por crawlers apesar de requererem autenticação. | `app/sitemap.ts` | — |
+| C17 | Debt | **Formulário de contato não-funcional** — POST é aceito, validado, sanitizado e retorna sucesso ao usuário, mas não salva nem envia nada (TODO). Dados são perdidos. | `app/api/contato/route.ts` | 83-85 |
+| C18 | Debt | **Error tracking não integrado** — `app/(main)/error.tsx` tem TODO para Sentry/observabilidade. Erros em produção não são rastreados. | `app/(main)/error.tsx` | — |
 
 ---
 
