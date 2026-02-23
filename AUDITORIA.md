@@ -464,5 +464,309 @@ O backend real reside em Cloudflare Workers com a seguinte estrutura:
 
 ---
 
+---
+
+## 12. ANÁLISE DE DOMÍNIOS — `app.ata360.com.br` × `ata360.com.br`
+
+> **Contexto:** O sistema (`app.ata360.com.br`, Next.js) e o site institucional (`ata360.com.br`, Webflow) devem coexistir. O backend e dados serão incorporados posteriormente. Esta seção analisa as ramificações técnicas dessa separação.
+
+### 12.1 Mapa Atual de Referências por Domínio
+
+| Domínio | Onde é Referenciado | Arquivo | Linha |
+|---------|-------------------|---------|-------|
+| `app.ata360.com.br` | metadataBase (SEO raiz) | `app/layout.tsx` | 34 |
+| `app.ata360.com.br` | OpenGraph URL | `app/layout.tsx` | 57 |
+| `app.ata360.com.br` | canonical URL | `app/layout.tsx` | 77 |
+| `app.ata360.com.br` | alternates pt-BR | `app/layout.tsx` | 79 |
+| `app.ata360.com.br` | sitemap baseUrl | `app/sitemap.ts` | 4 |
+| `app.ata360.com.br` | robots.txt sitemap ref | `app/robots.ts` | 38 |
+| `app.ata360.com.br` | JSON-LD BASE_URL fallback | `components/structured-data.tsx` | 16 |
+| `app.ata360.com.br` | JSON-LD WebApplication.url | `components/structured-data.tsx` | 47 |
+| `ata360.com.br` | JSON-LD Organization.url | `components/structured-data.tsx` | 28 |
+| `ata360.com.br` | JSON-LD sameAs | `components/structured-data.tsx` | 40 |
+| `ata360.com.br` | Author URL (metadata) | `app/layout.tsx` | — |
+| `ata360.com.br` | CORS origin (Workers) | `workers/src/index.ts` | 69 |
+| `*.ata360.com.br` | CORS wildcard (Workers) | `workers/src/index.ts` | 70 |
+| `contato@ata360.com.br` | E-mail de contato | `SECURITY.md`, `LICENSE`, footers | — |
+| `www.ata360.com.br` | Link institucional | `SECURITY.md`, `LICENSE`, `llms.txt` | — |
+
+### 12.2 Inventário de Páginas Afetadas
+
+#### Páginas que MIGRAM para Webflow (`ata360.com.br`)
+
+| Rota Atual (Next.js) | LOC | Dependência de API | Migração |
+|-----------------------|-----|-------------------|----------|
+| `/` (landing page) | 170 | Nenhuma | ✅ Direta |
+| `/manifesto` | 237 | Nenhuma | ✅ Direta |
+| `/quem-somos` | 169 | Nenhuma | ✅ Direta |
+| `/missao-visao-valores` | 149 | Nenhuma | ✅ Direta |
+| `/compromissos` | 231 | Nenhuma | ✅ Direta |
+| `/compliance` | 229 | Nenhuma | ✅ Direta |
+| `/seguranca` | 297 | Nenhuma | ✅ Direta |
+| `/carta-servidor` | 106 | Nenhuma | ✅ Direta |
+| `/cookies` | 178 | Nenhuma | ✅ Direta |
+| `/contato` | 255 | `POST /api/contato` | ⚠️ Requer webhook |
+| `/privacidade` | 327 | Nenhuma | ✅ Direta |
+| `/termos` | 341 | Nenhuma | ✅ Direta |
+| `/lgpd` | 297 | Nenhuma | ✅ Direta |
+| **Total** | **~2.986** | **1 de 13** | |
+
+#### Páginas que PERMANECEM no Next.js (`app.ata360.com.br`)
+
+Todas as rotas do grupo `(main)` + `/login` + todas as `/api/*` routes.
+
+### 12.3 Ramificações Técnicas
+
+#### A. SEO e Indexação
+
+| Aspecto | Situação Atual | Após Separação | Ação Necessária |
+|---------|---------------|----------------|-----------------|
+| **Canonical** | `app.ata360.com.br` para TUDO | Dividido entre domínios | Remover canonical das páginas institucionais no Next.js; configurar canonical correto no Webflow |
+| **Sitemap** | Único em `app.ata360.com.br/sitemap.xml` (30 URLs) | Dois sitemaps independentes | `ata360.com.br/sitemap.xml` (13 URLs inst.) + `app.ata360.com.br/sitemap.xml` (17 URLs app) |
+| **robots.txt** | Único, AI crawlers permitidos em tudo | Dois robots.txt | Webflow: permitir crawlers. Next.js: bloquear rotas autenticadas (corrige C16) |
+| **301 Redirects** | N/A | 13 redirects necessários | `app.ata360.com.br/{rota-inst}` → `ata360.com.br/{rota-inst}` |
+| **OpenGraph** | `app.ata360.com.br` | Cada domínio com seu OG | Webflow gera seus OG tags nativamente |
+| **JSON-LD** | `OrganizationJsonLd` aponta para `ata360.com.br` | Correto ✅ | `WebApplicationJsonLd` fica em `app.ata360.com.br` |
+| **llms.txt** | Ambos domínios listados | Correto ✅ | Criar `ata360.com.br/llms.txt` também (Webflow custom code) |
+| **Risco de conteúdo duplicado** | N/A | ALTO durante transição | Implementar 301s antes de publicar Webflow; evitar período com mesmo conteúdo em 2 URLs |
+
+#### B. Autenticação e Sessão
+
+| Aspecto | Situação Atual | Após Separação | Ação Necessária |
+|---------|---------------|----------------|-----------------|
+| **Supabase cookies** | Domínio implícito (host atual) | `app.ata360.com.br` apenas | Configurar `cookieOptions.domain` explicitamente em `lib/supabase/middleware.ts` |
+| **Gov.br OAuth callback** | `/api/auth/callback/govbr` | Permanece em `app.ata360.com.br` | Atualizar `GOVBR_REDIRECT_URI` no .env para `https://app.ata360.com.br/api/auth/callback/govbr` |
+| **Login redirect** | `origin + redirect` sem validação | Redirect pode vir de Webflow | Validar que redirect é path relativo do mesmo domínio (corrige S1) |
+| **Botão "Acessar" no Webflow** | Link no header institucional | Cross-domain navigation | `<a href="https://app.ata360.com.br/login">Acessar</a>` |
+| **Logout redirect** | Volta para `/` (landing) | Decisão: volta para app ou site? | Configurar redirect pós-logout: `ata360.com.br` (site) ou `app.ata360.com.br/login` |
+| **Session sharing** | N/A | Não necessária | Webflow é 100% público, não precisa de sessão |
+
+#### C. CORS e Cross-Origin
+
+| Aspecto | Situação Atual | Após Separação | Ação Necessária |
+|---------|---------------|----------------|-----------------|
+| **Workers CORS** | Permite `ata360.com.br` e `*.ata360.com.br` | Correto ✅ | Nenhuma mudança necessária |
+| **CSP connect-src** | `self` + Supabase + AI Gateway | Sem impacto | Next.js middleware não muda |
+| **CSP form-action** | `self` + `sso.acesso.gov.br` | Sem impacto | Formulário de contato migra para Webflow |
+| **Webflow → API** | N/A | `/contato` precisa chamar API | Webhook Webflow → `app.ata360.com.br/api/contato` ou API dedicada |
+| **HSTS** | `includeSubDomains` ativo | Correto ✅ | Cobre `app.ata360.com.br` automaticamente |
+| **Cross-Origin-Resource-Policy** | `same-origin` | Pode bloquear Webflow embeds | Se Webflow precisar embedar recursos do app, mudar para `cross-origin` seletivamente |
+
+#### D. Cookie Consent e LGPD
+
+| Aspecto | Situação Atual | Após Separação | Ação Necessária |
+|---------|---------------|----------------|-----------------|
+| **Cookie banner** | Componente React em Next.js | Dois banners independentes | Webflow: usar solução nativa ou script. Next.js: manter componente |
+| **Consentimento em localStorage** | `ata360_cookie_consent` | Escopo por domínio | Cada domínio gerencia seu próprio consentimento. Não há compartilhamento |
+| **Cookies documentados** | `/cookies` page lista 9 cookies | Dividir por domínio | Webflow: cookies analíticos apenas. Next.js: cookies de sessão + funcionalidade |
+| **DPO/Encarregado** | `dpo@ata360.com.br` em todas as páginas | Sem impacto | Mesmo DPO para ambos domínios |
+
+#### E. PWA e Manifest
+
+| Aspecto | Situação Atual | Após Separação | Ação Necessária |
+|---------|---------------|----------------|-----------------|
+| **manifest.ts** | Gera manifest para PWA com `start_url: /` | Permanece em `app.ata360.com.br` | `start_url` aponta para app, correto |
+| **scope** | Não definido (defaults to /) | Sem impacto | PWA é exclusivo do app |
+| **Service Worker** | N/A (Next.js não gera SW) | Sem impacto | — |
+
+### 12.4 Formulário de Contato — Decisão Arquitetural
+
+O `/contato` é a **única página institucional com dependência de API** (`POST /api/contato`). Três opções:
+
+| Opção | Prós | Contras |
+|-------|------|---------|
+| **A. Webflow Form nativo** | Zero código, Webflow gerencia emails e storage | Perde validação de CNPJ, sanitização custom, rate limiting futuro |
+| **B. Webflow UI + Webhook para API** | Mantém backend robusto, UI editável no Webflow | Requer CORS configurado, latência de webhook, debugging mais complexo |
+| **C. Iframe do Next.js no Webflow** | Zero mudança no código existente | UX inferior, CSP pode bloquear, problemas de responsividade |
+
+**Recomendação:** Opção **B** — O formulário visual fica no Webflow (editável por marketing), mas o `onSubmit` faz POST para `https://app.ata360.com.br/api/contato`. Requer:
+1. CORS no endpoint `/api/contato` para aceitar `Origin: https://ata360.com.br`
+2. Rate limiting real (atualmente só comentário — ver S4)
+3. Implementar o backend que hoje é TODO (ver C17)
+
+### 12.5 Structured Data — Ajustes Necessários
+
+```
+ANTES (tudo em app.ata360.com.br):
+┌─────────────────────────────────────────┐
+│ OrganizationJsonLd                      │
+│   url: ata360.com.br          ← correto │
+│   contactPoint: app.../contato ← errado │
+│   sameAs: [ata360.com.br]     ← correto │
+│                                         │
+│ WebApplicationJsonLd                    │
+│   url: app.ata360.com.br      ← correto │
+│   applicationCategory: Gov    ← correto │
+│                                         │
+│ FAQJsonLd                               │
+│   mainEntity: 6 perguntas     ← correto │
+└─────────────────────────────────────────┘
+
+DEPOIS (separados):
+┌─ ata360.com.br (Webflow) ──────────────┐
+│ OrganizationJsonLd                      │
+│   url: ata360.com.br                    │
+│   contactPoint: ata360.com.br/contato   │
+│   sameAs: [app.ata360.com.br]           │
+│                                         │
+│ FAQJsonLd (duplicar ou mover)           │
+│ BreadcrumbJsonLd por página             │
+└─────────────────────────────────────────┘
+
+┌─ app.ata360.com.br (Next.js) ──────────┐
+│ WebApplicationJsonLd                    │
+│   url: app.ata360.com.br               │
+│   applicationCategory: GovernmentApp    │
+│                                         │
+│ BreadcrumbJsonLd por rota de app        │
+└─────────────────────────────────────────┘
+```
+
+### 12.6 DNS e Infraestrutura
+
+```
+ata360.com.br
+├── A / CNAME → Webflow (sites proxy)
+├── MX → Provedor de e-mail (contato@ata360.com.br)
+├── TXT → SPF, DKIM, DMARC para email
+└── www → CNAME para ata360.com.br (redirect)
+
+app.ata360.com.br
+├── CNAME → cname.vercel-dns.com (ou Cloudflare proxy)
+├── _vercel → DNS verification
+└── TXT → Domain verification
+```
+
+**Nota:** Se estiver usando Cloudflare para DNS, o proxy pode ser ativado em `app.ata360.com.br` para WAF, rate limiting e cache — mas o record para `ata360.com.br` deve apontar para Webflow (DNS-only, sem proxy Cloudflare, a menos que usando Webflow Enterprise com CNAME setup).
+
+### 12.7 Redirects (301) a Configurar no Next.js
+
+Enquanto o Webflow não estiver ativo, manter as páginas no Next.js. Quando ativar o Webflow, adicionar em `next.config.mjs`:
+
+```typescript
+async redirects() {
+  return [
+    '/manifesto', '/quem-somos', '/missao-visao-valores',
+    '/compromissos', '/compliance', '/seguranca',
+    '/carta-servidor', '/contato', '/cookies',
+    '/privacidade', '/termos', '/lgpd',
+  ].map(path => ({
+    source: path,
+    destination: `https://ata360.com.br${path}`,
+    permanent: true, // 301
+  }))
+}
+```
+
+**Alternativa:** Configurar redirects no Cloudflare Page Rules ou Bulk Redirects (mais performante, não exige rebuild do Next.js).
+
+### 12.8 Middleware — Limpeza Após Migração
+
+Após migrar as páginas institucionais para Webflow, remover do Next.js:
+
+1. **`middleware.ts`** — Remover rotas institucionais do `PUBLIC_ROUTES`:
+   ```
+   - '/', '/manifesto', '/quem-somos', '/missao-visao-valores',
+   - '/compromissos', '/compliance', '/seguranca',
+   - '/carta-servidor', '/contato', '/cookies',
+   - '/privacidade', '/termos', '/lgpd',
+   ```
+2. **`app/sitemap.ts`** — Remover 13 URLs institucionais/legais
+3. **`app/robots.ts`** — Atualizar rules (rotas já não existem no app)
+4. **`app/(institutional)/`** — Remover todo o diretório (10 páginas + layout)
+5. **`app/(legal)/`** — Remover todo o diretório (3 páginas + layout)
+6. **`app/layout.tsx`** — Remover `OrganizationJsonLd` e `FAQJsonLd` (movem para Webflow)
+
+### 12.9 Riscos e Mitigações
+
+| # | Risco | Severidade | Mitigação |
+|---|-------|-----------|-----------|
+| D1 | **SEO juice dilution** — Mover conteúdo de domínio com autoridade (app.) para domínio novo (ata360.) pode perder ranking temporariamente | ALTO | Implementar 301 redirects ANTES de publicar Webflow. Submeter change-of-address no Search Console |
+| D2 | **Conteúdo duplicado** — Período de transição com mesmo conteúdo em 2 domínios | ALTO | Fase 1: 301 no Next.js. Fase 2: Publicar Webflow. Nunca manter ambos ativos sem redirect |
+| D3 | **Links internos quebrados** — Footer do Webflow precisa apontar para `app.ata360.com.br/login`, footer do App precisa apontar para `ata360.com.br/privacidade` | MÉDIO | Audit de links cross-domain em ambos os sites pós-migração |
+| D4 | **Cookie consent desalinhado** — Usuário aceita cookies no Webflow mas recusa no app (ou vice-versa) | BAIXO | Consentimentos são independentes por domínio. Documentar na política de cookies |
+| D5 | **Webflow downtime** — Se Webflow sair do ar, páginas de privacidade/termos ficam inacessíveis | BAIXO | Manter `noindex` copies estáticas no Next.js como fallback (sem canonical) |
+| D6 | **Formulário de contato quebrado** — Migração do `/contato` para Webflow sem backend funcional (C17 ainda não resolvido) | ALTO | Resolver C17 (implementar email + storage) ANTES de migrar o formulário |
+
+### 12.10 Checklist de Implementação
+
+```
+PRÉ-MIGRAÇÃO (no Next.js):
+□ Resolver S1 — Open redirect no OAuth callback
+□ Resolver C17 — Implementar backend do /api/contato (email + Supabase)
+□ Adicionar CORS para ata360.com.br no /api/contato
+□ Configurar GOVBR_REDIRECT_URI para https://app.ata360.com.br/...
+□ Fixar cookie domain explícito em lib/supabase/middleware.ts
+□ Remover rotas autenticadas do sitemap.ts (C16)
+□ Preparar 301 redirects em next.config.mjs (desativados, prontos)
+
+DURANTE MIGRAÇÃO (Webflow):
+□ Criar 13 páginas no Webflow com mesmo conteúdo e URLs
+□ Configurar metadata SEO em cada página Webflow
+□ Implementar OrganizationJsonLd no Webflow (custom code)
+□ Configurar FAQJsonLd no Webflow
+□ Configurar formulário /contato com webhook para app.ata360.com.br
+□ Criar robots.txt e sitemap.xml no Webflow
+□ Configurar cookie consent no Webflow
+□ DNS: apontar ata360.com.br para Webflow
+
+ATIVAÇÃO:
+□ Ativar 301 redirects no Next.js (ou Cloudflare)
+□ Verificar ambos domínios no Google Search Console
+□ Submeter sitemaps atualizados em ambos domínios
+□ Testar fluxo: Webflow → Login → App → Logout → Webflow
+□ Testar formulário de contato cross-domain
+□ Monitorar 404s por 30 dias
+
+PÓS-MIGRAÇÃO (cleanup no Next.js):
+□ Remover app/(institutional)/ e app/(legal)/
+□ Atualizar PUBLIC_ROUTES no middleware.ts
+□ Atualizar structured-data.tsx (remover OrganizationJsonLd)
+□ Atualizar app/layout.tsx (remover metadata institucional)
+□ Remover 301 redirects (após 6 meses de indexação)
+```
+
+### 12.11 Resumo Executivo de Domínios
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│                     ata360.com.br                              │
+│                     (Webflow)                                  │
+│                                                                │
+│  Conteúdo: 13 páginas estáticas (inst. + legal)               │
+│  SEO: Indexável, AI-crawlable, OrganizationJsonLd             │
+│  Auth: Nenhuma (100% público)                                 │
+│  Cookies: Analytics + consent apenas                          │
+│  Formulário: /contato → webhook para app.ata360.com.br        │
+│  CTA: "Acessar" → https://app.ata360.com.br/login            │
+│                                                                │
+│  ┌──────────────┐                                             │
+│  │  Link: "Acessar Plataforma"  ───────────────────┐         │
+│  └──────────────┘                                   │         │
+└─────────────────────────────────────────────────────│─────────┘
+                                                      │
+                                                      ▼
+┌────────────────────────────────────────────────────────────────┐
+│                  app.ata360.com.br                             │
+│                  (Next.js + Vercel)                            │
+│                                                                │
+│  Conteúdo: Dashboard, chat, contratos, processos, etc.        │
+│  SEO: noindex/noarchive em rotas autenticadas                 │
+│  Auth: Gov.br OAuth2 + Supabase + Demo mode                  │
+│  Cookies: Supabase session + LGPD consent + funcional         │
+│  API: 23 route handlers (BFF → Workers)                       │
+│  PWA: Manifest com start_url: /                               │
+│                                                                │
+│  ┌──────────────┐                                             │
+│  │  Footer: "Privacidade" ──────────────────────────┐         │
+│  └──────────────┘                                   │         │
+└─────────────────────────────────────────────────────│─────────┘
+                                                      │
+                                                      ▼
+                                              ata360.com.br/privacidade
+```
+
+---
+
 *Auditoria gerada automaticamente por análise estática do código-fonte.*
 *Não substitui pentesting ou auditoria de segurança por profissional certificado.*
