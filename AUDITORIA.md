@@ -209,6 +209,13 @@ workers/
 | C6 | Debt | `/api/contato` — TODO de integração com email provider e Supabase. | `app/api/contato/route.ts` | 83-85 |
 | C7 | a11y | `DFDDocument` — Formulário de 643 linhas sem ARIA labels, sem `htmlFor`, sem roles semânticos. | `components/artifacts/dfd-document.tsx` | — |
 | C8 | a11y | `FiltersModal` — Labels não conectados a inputs, seções colapsáveis sem ARIA states. | `components/filters-modal.tsx` | — |
+| C9 | Bug | `use-toast.ts` — `TOAST_REMOVE_DELAY` definido como 1.000.000ms (~11,5 dias) em vez de ~5.000ms. Toasts nunca são removidos na prática. | `hooks/use-toast.ts` | 9 |
+| C10 | Bug | `use-normalization.ts` — Usa `fetch()` direto em vez do API client (`feedback.enviarTermo()`), inconsistente com padrão do projeto. | `hooks/use-normalization.ts` | 148 |
+| C11 | Smell | Duplicação de tipos — `types/index.ts` duplica definições que já existem em `lib/schemas/` (ContractStatus, ProcessPhase, etc.). Risco de dessincronização. | `types/index.ts` vs `lib/schemas/` | — |
+| C12 | Smell | `lib/types.ts` — Factory functions para branded types (CPF, CNPJ) fazem apenas cast sem validação runtime. Devem integrar com schemas Zod. | `lib/types.ts` | 34-59 |
+| C13 | Bug | `use-user-profile.ts` — `textBuffer` é variável global compartilhada entre todas as instâncias do hook. Em múltiplos componentes, buffers se misturam. | `hooks/use-user-profile.ts` | 50 |
+| C14 | Security | `validations.ts` — Sanitização XSS faz apenas encoding de entidades HTML; não protege contra atributos maliciosos (`data-*`, `on*`, etc.). | `lib/validations.ts` | 66-73 |
+| C15 | Security | CPF/CNPJ — Validação apenas de formato (regex), sem verificação de dígitos verificadores (checksum). Aceita documentos inválidos. | `lib/validations.ts` | 4-5 |
 
 ---
 
