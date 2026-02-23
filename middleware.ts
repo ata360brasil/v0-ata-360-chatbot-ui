@@ -12,7 +12,9 @@ const PUBLIC_ROUTES = new Set([
   '/compromissos', '/compliance', '/seguranca',
   '/carta-servidor', '/contato', '/cookies',
 ])
-const STATIC_PREFIXES = ['/images/', '/favicon', '/_next/', '/api/auth/']
+// SEGURANÇA: NÃO usar prefixo '/api/auth/' — permite bypass acidental de auth
+// em novas rotas. Usar PUBLIC_ROUTES para rotas específicas.
+const STATIC_PREFIXES = ['/images/', '/favicon', '/_next/']
 
 function isStaticOrPublic(pathname: string): boolean {
   if (PUBLIC_ROUTES.has(pathname)) return true
@@ -39,8 +41,11 @@ export async function middleware(request: NextRequest) {
       // Supabase indisponível — prosseguir sem auth
       response = NextResponse.next({ request })
     }
+  } else if (process.env.NODE_ENV === 'production') {
+    // SEGURANÇA: Em produção, sem Supabase = fail closed (não fail open)
+    return new NextResponse('Service Unavailable', { status: 503 })
   } else {
-    // Sem Supabase configurado — modo demo (sem redirect para login)
+    // Sem Supabase configurado — modo demo local (sem redirect para login)
     response = NextResponse.next({ request })
   }
 
@@ -60,7 +65,8 @@ export async function middleware(request: NextRequest) {
 
   // ─── CSP Nonce ──────────────────────────────────────────────────────────
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
-  response.headers.set('X-Nonce', nonce)
+  // SEGURANÇA: NÃO expor nonce como header de resposta (X-Nonce) —
+  // intermediários/extensions podem ler e usar para bypass CSP.
 
   // ─── Content-Security-Policy ────────────────────────────────────────────
   const supabaseHost = supabaseConfigured ? new URL(supabaseUrl).hostname : '*.supabase.co'
@@ -75,11 +81,14 @@ export async function middleware(request: NextRequest) {
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com`,
-    `img-src 'self' data: blob: https:`,
+    `img-src 'self' data: blob: https://*.supabase.co https://*.r2.cloudflarestorage.com`,
     `connect-src 'self' ${connectSrc} https://gateway.ai.cloudflare.com`,
     `frame-ancestors 'none'`,
     `base-uri 'self'`,
     `form-action 'self' https://sso.acesso.gov.br`,
+    `object-src 'none'`,
+    `worker-src 'self'`,
+    `upgrade-insecure-requests`,
   ].join('; ')
 
   response.headers.set('Content-Security-Policy', csp)

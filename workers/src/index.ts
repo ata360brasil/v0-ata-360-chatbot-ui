@@ -64,15 +64,63 @@ const app = new Hono<{ Bindings: Env }>()
 // Middleware
 app.use('*', logger())
 app.use('*', cors({
-  origin: [
-    'http://localhost:3000',
-    'https://ata360.com.br',
-    'https://*.ata360.com.br',
-  ],
-  allowHeaders: ['Content-Type', 'Authorization', 'X-User-Id', 'X-Orgao-Id', 'X-User-Role'],
+  origin: (origin) => {
+    const allowed = [
+      'https://ata360.com.br',
+      'https://app.ata360.com.br',
+    ]
+    // localhost apenas em development (nunca em production)
+    if (origin === 'http://localhost:3000') {
+      allowed.push('http://localhost:3000')
+    }
+    return allowed.includes(origin) ? origin : ''
+  },
+  allowHeaders: ['Content-Type', 'Authorization', 'X-User-Id', 'X-Orgao-Id', 'X-User-Role', 'X-Workers-Secret'],
   allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   maxAge: 86400,
 }))
+
+// ─── Auth Middleware (Workers) ──────────────────────────────────────────────
+// Valida shared secret do BFF OU Bearer token do Supabase.
+// Impede acesso direto à API Workers sem autenticação.
+app.use('/api/v1/*', async (c, next) => {
+  // Opção 1: Shared secret do BFF (server-to-server)
+  const workerSecret = c.req.header('X-Workers-Secret')
+  if (workerSecret && workerSecret === c.env.WORKERS_SHARED_SECRET) {
+    return next()
+  }
+
+  // Opção 2: Bearer token Supabase (validação direta)
+  const authHeader = c.req.header('Authorization')
+  if (authHeader?.startsWith('Bearer ')) {
+    const token = authHeader.slice(7)
+    try {
+      const response = await fetch(`${c.env.SUPABASE_URL}/auth/v1/user`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'apikey': c.env.SUPABASE_SERVICE_KEY,
+        },
+      })
+      if (response.ok) {
+        return next()
+      }
+    } catch {
+      // Token inválido — cai no 401 abaixo
+    }
+  }
+
+  return c.json({ error: 'Unauthorized' }, 401)
+})
+
+// ─── Cron Auth Middleware ────────────────────────────────────────────────────
+// Protege endpoints de cron contra acesso público.
+app.use('/cron/*', async (c, next) => {
+  const cronSecret = c.req.header('X-Cron-Secret')
+  if (!cronSecret || cronSecret !== c.env.CRON_SECRET) {
+    return c.json({ error: 'Forbidden' }, 403)
+  }
+  return next()
+})
 
 // ─── Health Check ────────────────────────────────────────────────────────────
 
@@ -242,75 +290,7 @@ app.get('/cron/check-deadlines', async (c) => {
 // ─── 404 Handler ─────────────────────────────────────────────────────────────
 
 app.notFound((c) => {
-  return c.json({
-    error: 'Not Found',
-    message: `Route ${c.req.method} ${c.req.url} not found`,
-    available_routes: [
-      'GET  /',
-      'GET  /health',
-      // Processo
-      'POST /api/v1/processo',
-      'GET  /api/v1/processo/:id/status',
-      'POST /api/v1/processo/:id/chat',
-      'POST /api/v1/processo/:id/decisao',
-      'GET  /api/v1/processo/:id/insights',
-      'GET  /api/v1/processo/:id/trilha',
-      // Normalização
-      'POST /api/v1/normalize',
-      'POST /api/v1/feedback',
-      // Learning
-      'POST /api/v1/acma/sugestao',
-      'POST /api/v1/auditor/resultado',
-      'GET  /api/v1/profile',
-      // Dashboard
-      'GET  /api/v1/dashboard/metrics',
-      'POST /api/v1/publicacao/:id/publicar',
-      // PCA
-      'GET  /api/v1/pca/:orgaoId/:exercicio',
-      'POST /api/v1/pca/sugerir',
-      'POST /api/v1/pca/conciliar',
-      'POST /api/v1/pca/vincular',
-      // Prazos
-      'GET  /api/v1/prazos/:orgaoId',
-      'GET  /api/v1/prazos/:orgaoId/alertas',
-      'POST /api/v1/prazos',
-      'POST /api/v1/prazos/processo',
-      // Compliance
-      'GET  /api/v1/compliance/:orgaoId',
-      'POST /api/v1/compliance/avaliar',
-      'GET  /api/v1/compliance/:orgaoId/riscos',
-      'POST /api/v1/compliance/riscos/padrao',
-      'GET  /api/v1/compliance/ods',
-      // Ouvidoria
-      'POST /api/v1/ouvidoria',
-      'GET  /api/v1/ouvidoria/protocolo/:protocolo',
-      'GET  /api/v1/ouvidoria/:orgaoId',
-      'PATCH /api/v1/ouvidoria/:id/responder',
-      'GET  /api/v1/ouvidoria/estatisticas/:orgaoId',
-      // Pricing
-      'GET  /api/v1/pricing/simular?base=X',
-      'GET  /api/v1/pricing/tabela (SuperADM)',
-      'GET  /api/v1/pricing/parametros',
-      'POST /api/v1/pricing/parametros (SuperADM)',
-      'GET  /api/v1/pricing/categorias',
-      'GET  /api/v1/pricing/modalidades',
-      'GET  /api/v1/pricing/fpm',
-      'POST /api/v1/pricing/vigencia',
-      'POST /api/v1/pricing/simular-lote (SuperADM)',
-      // Contratação
-      'POST /api/v1/contratacao',
-      'GET  /api/v1/contratacao/:id',
-      'GET  /api/v1/contratacao/orgao/:orgaoId',
-      'PATCH /api/v1/contratacao/:id/status',
-      'POST /api/v1/contratacao/auto-pca',
-      // Adesão ARP
-      'POST /api/v1/adesao-arp',
-      'GET  /api/v1/adesao-arp/:id',
-      'GET  /api/v1/adesao-arp/orgao/:orgaoId',
-      'PATCH /api/v1/adesao-arp/:id/status',
-      'POST /api/v1/adesao-arp/:id/resposta-externa',
-    ],
-  }, 404)
+  return c.json({ error: 'Not Found' }, 404)
 })
 
 // ─── Error Handler ───────────────────────────────────────────────────────────

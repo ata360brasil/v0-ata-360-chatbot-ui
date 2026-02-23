@@ -8,10 +8,33 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
+/**
+ * Valida redirect para prevenir Open Redirect (CWE-601).
+ * Aceita apenas caminhos relativos internos (ex: /dashboard, /processos).
+ * Rejeita protocol-relative (//evil.com), backslash (/\evil.com), e URLs absolutas.
+ */
+function getSafeRedirect(raw: string): string {
+  if (
+    !raw.startsWith('/') ||
+    raw.startsWith('//') ||
+    raw.startsWith('/\\') ||
+    raw.includes(':')
+  ) {
+    return '/'
+  }
+  try {
+    const parsed = new URL(raw, 'http://localhost')
+    if (parsed.hostname !== 'localhost') return '/'
+    return parsed.pathname + parsed.search
+  } catch {
+    return '/'
+  }
+}
+
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
-  const redirect = searchParams.get('redirect') ?? '/'
+  const redirect = getSafeRedirect(searchParams.get('redirect') ?? '/')
 
   if (code) {
     const supabase = await createClient()

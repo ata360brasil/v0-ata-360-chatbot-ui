@@ -10,9 +10,22 @@ import { logger } from "@/lib/observability"
 
 const supabaseReady = isSupabaseConfigured()
 
+/** Valida redirect para prevenir Open Redirect (CWE-601). */
+function getSafeRedirect(raw: string): string {
+  if (
+    !raw.startsWith('/') ||
+    raw.startsWith('//') ||
+    raw.startsWith('/\\') ||
+    raw.includes(':')
+  ) {
+    return '/'
+  }
+  return raw
+}
+
 function LoginContent() {
   const searchParams = useSearchParams()
-  const redirect = searchParams.get("redirect") ?? "/"
+  const redirect = getSafeRedirect(searchParams.get("redirect") ?? "/")
 
   async function handleGovBrLogin() {
     if (!supabaseReady) return

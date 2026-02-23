@@ -71,8 +71,14 @@ export async function GET() {
     return NextResponse.json({ message: 'Não autorizado' }, { status: 401 })
   }
 
-  // Dashboard apenas para superadm/suporte
-  const role = user.user_metadata?.role
+  // Dashboard apenas para superadm/suporte — buscar role do banco (app_metadata/usuarios)
+  // NUNCA confiar em user_metadata.role — é editável pelo cliente via supabase.auth.updateUser()
+  const { data: usuario } = await supabase
+    .from('usuarios')
+    .select('role')
+    .eq('id', user.id)
+    .single()
+  const role = usuario?.role
   if (role !== 'superadm' && role !== 'suporte') {
     return NextResponse.json({ message: 'Acesso restrito a administradores' }, { status: 403 })
   }

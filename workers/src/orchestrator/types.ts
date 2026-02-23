@@ -337,6 +337,10 @@ export interface Env {
   WORKERS_URL: string
   // Secrets
   AI_GATEWAY_TOKEN: string
+  // Auth — shared secret entre BFF e Workers (obrigatório em produção)
+  WORKERS_SHARED_SECRET: string
+  // Cron — secret para proteger endpoints de cron trigger
+  CRON_SECRET: string
 }
 
 // ─── Processo Row (Supabase) ─────────────────────────────────────────────────

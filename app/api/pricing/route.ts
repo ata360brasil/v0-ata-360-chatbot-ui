@@ -41,8 +41,14 @@ export async function GET(request: Request) {
     return NextResponse.json({ message: 'Não autorizado' }, { status: 401 })
   }
 
-  const role = user.user_metadata?.role || 'servidor'
-  const orgaoId = user.user_metadata?.orgao_id || ''
+  // Buscar role do banco — NUNCA confiar em user_metadata.role (editável pelo cliente)
+  const { data: usuario } = await supabase
+    .from('usuarios')
+    .select('role, orgao_id')
+    .eq('id', user.id)
+    .single()
+  const role = usuario?.role || 'servidor'
+  const orgaoId = usuario?.orgao_id || user.user_metadata?.orgao_id || ''
 
   // Determinar endpoint Workers
   let workerPath = '/api/v1/pricing'
@@ -97,7 +103,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: 'Não autorizado' }, { status: 401 })
   }
 
-  const role = user.user_metadata?.role || 'servidor'
+  // Buscar role do banco — NUNCA confiar em user_metadata.role (editável pelo cliente)
+  const { data: usuarioPost } = await supabase
+    .from('usuarios')
+    .select('role')
+    .eq('id', user.id)
+    .single()
+  const role = usuarioPost?.role || 'servidor'
   const body = await request.json()
 
   // Determinar endpoint
