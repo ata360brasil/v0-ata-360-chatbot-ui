@@ -39,14 +39,21 @@ app/
 ├── api/                 # 23 route handlers
 ├── login/               # Autenticação
 └── layout.tsx           # Root layout
+clickhouse/
+└── migrations/          # 3 migrações ClickHouse (ACMA, Auditor, Dashboard views)
 components/
-├── ui/                  # 76 componentes shadcn/ui
-└── *.tsx                # 28 componentes customizados
+├── ui/                  # 84 componentes shadcn/ui
+├── artifacts/           # Componentes de artefatos (DFD, etc.)
+└── *.tsx                # 27 componentes customizados
+configs/
+└── documentos-config.yaml  # Configuração de tipos de documentos
 contexts/
 └── app-context.tsx      # Provider global
+data/
+└── normalizacao/        # 6 arquivos JSON para NLP (abreviaturas, sinônimos, etc.)
 hooks/                   # 6 hooks customizados
 lib/
-├── schemas/             # 9 schemas Zod
+├── schemas/             # 9+ schemas Zod
 ├── supabase/            # 5 arquivos (client, server, middleware, types, index)
 ├── api.ts               # Cliente API type-safe (1436 linhas)
 ├── audit.ts             # Audit trail
@@ -56,7 +63,20 @@ lib/
 └── utils.ts             # Utilitários
 supabase/
 └── migrations/          # 8 migrações SQL
+templates/               # 22 templates HTML para geração de documentos
+├── gerais/              # PCA, DFD, ETP, PP, TR, MR, JCD
+├── arp/                 # Templates de Ata de Registro de Preços
+├── obras/               # Templates setor Obras
+├── saude/               # Templates setor Saúde
+└── tic/                 # Templates setor TIC
+tests/                   # 7 arquivos de teste (Vitest)
+types/
+└── index.ts             # Branded types (CPF, CNPJ, ProcessID, etc.)
+workers/
+└── src/                 # Backend Cloudflare Workers (orquestrador, normalização, etc.)
 ```
+
+**Total de arquivos:** ~327 (excluindo node_modules, .next, .git)
 
 ---
 
@@ -130,8 +150,8 @@ supabase/
 | A1 | **AppContext monolítico** — Um único context gerencia auth, processo, theme, sidebar, artifacts, chat, notificações. Qualquer mudança de estado causa re-render em todos os consumers. | Performance | Dividir em contexts menores: `AuthContext`, `ProcessContext`, `UIContext`. |
 | A2 | **Notificações hardcoded** — `initialNotifications` com dados mockados no `app-context.tsx`. Em produção, deveria vir de API. | Funcionalidade | Carregar notificações do Supabase via hook dedicado. |
 | A3 | **Componentes monolíticos** — `chat-area.tsx` (883 linhas), `filters-modal.tsx` (945 linhas), `assistants-page.tsx` (980 linhas). | Manutenibilidade | Decompor em subcomponentes menores e especializados. |
-| A4 | **Sem Error Boundaries** — Nenhum Error Boundary React em toda a aplicação. Um erro em qualquer componente derruba a tela inteira. | Resiliência | Adicionar Error Boundaries por route group e em componentes críticos. |
-| A5 | **Sem testes** — Zero testes unitários, de integração ou e2e. `tsconfig.json` exclui `tests/` e `vitest.config.ts` (configuração preparada mas sem testes). | Qualidade | Implementar testes para hooks, API client e componentes críticos. |
+| A4 | **Error Boundaries parciais** — `app/(main)/error.tsx` existe mas não há Error Boundaries em componentes individuais. Um erro em um componente pode derrubar toda a rota. | Resiliência | Adicionar Error Boundaries granulares em componentes críticos (chat, artifacts). |
+| A5 | **Testes existem mas cobertura mínima** — 7 arquivos de teste em `tests/` (app-context, lgpd, routes, types, validations, structured-data + setup.ts), mas sem cobertura de hooks, API routes ou componentes complexos. | Qualidade | Expandir testes para hooks (`useProcess`, `useAuth`), API client e componentes críticos. |
 | A6 | **`lib/api.ts` com 1436 linhas** — Todo o API client em um único arquivo. | Manutenibilidade | Dividir por domínio: `api/processo.ts`, `api/compliance.ts`, `api/serpro.ts`, etc. |
 
 ---
@@ -174,7 +194,7 @@ supabase/
 | **Error Handling** | Try/catch em API routes e hooks, mas sem Error Boundaries | ⚠️ B |
 | **Separação de Concerns** | BFF pattern correto, mas AppContext monolítico | ⚠️ B |
 | **Acessibilidade (a11y)** | Componentes UI (Radix) excelentes; componentes customizados deficientes | ⚠️ C |
-| **Cobertura de Testes** | Zero testes | ❌ F |
+| **Cobertura de Testes** | 7 arquivos de teste (Vitest) — cobre utils e schemas, mas não hooks, API routes ou componentes | ⚠️ D |
 | **i18n** | Apenas PT-BR hardcoded | ⚠️ C |
 
 ### 5.2 Issues Específicos
@@ -213,17 +233,15 @@ supabase/
 - **Sem pacotes deprecados** identificados.
 - **Sem vulnerabilidades conhecidas** nas versões listadas.
 - **`lucide-react` 0.454.0**: Versão estável, sem breaking changes pendentes.
-- **Não há lockfile (package-lock.json)** no repositório — builds podem ser não-determinísticos.
+- **Lockfile presente** — `pnpm-lock.yaml` garante builds determinísticos via pnpm.
 
-### 6.3 Dependências Ausentes
+### 6.3 Dependências Ausentes / Melhorias
 
 | Pacote | Motivo |
 |--------|--------|
-| `vitest` / `jest` | Nenhum test runner instalado |
-| `@testing-library/react` | Nenhuma lib de teste de componentes |
-| `playwright` / `cypress` | Nenhum framework de e2e |
-| `eslint-config-*` | Configuração ESLint não encontrada além do default Next.js |
-| `prettier` | Sem formatador configurado |
+| `playwright` / `cypress` | Nenhum framework de e2e (testes unitários existem via Vitest) |
+| `eslint-config-*` | Configuração ESLint mínima (apenas default Next.js) |
+| `prettier` | Sem formatador configurado explicitamente |
 
 ---
 
@@ -260,7 +278,7 @@ Os commits seguem uma progressão lógica de features:
 | G1 | **Divergência main/master** — Branch local é `master`, remoto tem `main`. Pode causar confusão. | Baixo |
 | G2 | **Commits muito grandes** — Alguns commits incluem 10+ arquivos com features distintas. | Médio — dificulta git bisect |
 | G3 | **Sem tags de release** — Nenhuma tag semântica (v1.0, v8.0, etc.). | Médio — dificulta rollback |
-| G4 | **Sem CI/CD visível** — Nenhum arquivo `.github/workflows/`, `vercel.json`, ou `wrangler.toml`. | Alto — sem deploy automatizado |
+| G4 | **CI/CD parcial** — Existe `vercel.json` (deploy config) e diretório `.github/`, mas sem workflows de CI visíveis (lint, test, build check antes de merge). | Médio — deploy existe mas sem gates de qualidade |
 
 ---
 
@@ -344,8 +362,8 @@ if (error || !user) return NextResponse.json({ message: '...' }, { status: 401 }
 | **Arquitetura** | B | BFF pattern correto, separação por route groups, mas AppContext monolítico |
 | **Performance** | B- | Code splitting e lazy loading bons, mas memory leaks e falta de memoização |
 | **Código** | B | TypeScript strict, padrões consistentes, mas componentes monolíticos |
-| **Testes** | F | Zero cobertura de testes |
-| **Infraestrutura** | C | Sem CI/CD, sem lockfile, sem tags de release |
+| **Testes** | D | 7 arquivos de teste existem, mas cobertura mínima — sem testes de hooks, API ou componentes |
+| **Infraestrutura** | C+ | Deploy via Vercel configurado, pnpm lockfile presente, mas sem CI gates (lint/test/build) e sem tags de release |
 | **LGPD/Compliance** | A- | Módulo LGPD completo, mas consentimento apenas em localStorage |
 | **Documentação** | B+ | JSDoc consistente, referências legais, mas sem README técnico |
 
@@ -363,6 +381,76 @@ if (error || !user) return NextResponse.json({ message: '...' }, { status: 401 }
 | 8 | Dividir AppContext em contexts menores (A1) | Arquitetura | Médio |
 | 9 | Implementar testes para hooks e API client (A5) | Qualidade | Alto |
 | 10 | Restringir `img-src` na CSP (S6) | Segurança | Baixo |
+
+---
+
+## 11. INFRAESTRUTURA ADICIONAL
+
+### 11.1 Cloudflare Workers Backend (`workers/src/`)
+
+O backend real reside em Cloudflare Workers com a seguinte estrutura:
+
+| Módulo | Descrição |
+|--------|-----------|
+| `orchestrator/` | Engine de orquestração multi-agente (Maestro), chat router, pipeline, guard, trail |
+| `normalization/` | Pipeline NLP de 6 camadas (tokenizer, abreviaturas, sinônimos, regionalismos, marcas, semântico) |
+| `acma/` | Agente ACMA — prompt builder + edit delta |
+| `auditor/` | Agente Auditor — calibração de thresholds |
+| `compliance/` | Código de conduta IA + integridade |
+| `pca/` | PCA inteligente (análise de contratação) |
+| `pricing/` | Motor de precificação universal |
+| `profile/` | Learning de perfil de usuário |
+| `cron/` | Tarefas agendadas: calibração auditor, melhoria de prompts, propagação de feedback |
+| `routes/` | 38 route handlers HTTP |
+
+### 11.2 Templates de Documentos (`templates/`)
+
+22 templates HTML v7/v8 para geração automatizada de documentos de licitação:
+
+- **Gerais (8):** PCA, DFD, ETP, PP, TR, MR, JCD
+- **ARP (7):** Formulários de adesão a ata de registro de preços
+- **Setoriais (7):** Templates específicos para Obras, Saúde e TIC
+
+### 11.3 Dados de Normalização (`data/normalizacao/`)
+
+6 arquivos JSON para o pipeline NLP:
+
+| Arquivo | Conteúdo |
+|---------|----------|
+| `abreviaturas.json` | Mapeamento de abreviaturas PT-BR |
+| `sinonimos.json` | Dicionário de sinônimos |
+| `regionalismos.json` | Variações regionais brasileiras |
+| `marcas_genericas.json` | Nomes genéricos de marcas |
+| `glossario_tecnico.json` | Glossário de termos jurídicos |
+| `catmat_enriquecido.json` | Catálogo de materiais enriquecido |
+
+### 11.4 ClickHouse Analytics (`clickhouse/migrations/`)
+
+3 migrações para métricas de IA:
+
+| Migração | Conteúdo |
+|----------|----------|
+| `001_acma_metrics.sql` | Métricas do agente ACMA |
+| `002_auditor_metrics.sql` | Métricas do agente Auditor |
+| `003_dashboard_views.sql` | Views agregadas para dashboard |
+
+### 11.5 Documentação Existente
+
+| Documento | Tamanho | Conteúdo |
+|-----------|---------|----------|
+| `DOCUMENTACAO.md` | 53.9 KB | Documentação completa do projeto (v8.3) |
+| `ESTRUTURA-PROJETO.md` | 16.2 KB | Guia de estrutura e decisões técnicas |
+| `HANDOFF-DEV-08FEV2026.md` | 23.5 KB | Documento de handoff para desenvolvedores |
+| `specs/` | 5 docs | Especificações técnicas dos agentes IA (Auditor v2, ACMA v2, Design Law v3, Consolidada v8) |
+
+### 11.6 SEO e PWA
+
+| Arquivo | Função |
+|---------|--------|
+| `app/manifest.ts` | PWA Web App Manifest dinâmico |
+| `app/robots.ts` | robots.txt dinâmico |
+| `app/sitemap.ts` | Sitemap XML dinâmico |
+| `components/structured-data.tsx` | JSON-LD para Organization e FAQ |
 
 ---
 
