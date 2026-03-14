@@ -15,6 +15,7 @@ import {
   Brain,
   Rocket,
   FileSignature,
+  BarChart3,
   Users,
   FolderOpen,
   History,
@@ -59,12 +60,18 @@ const menuItems: MenuItem[] = [
     description: "Processos de compras e licitações",
     badge: "12"
   },
-  { 
-    id: "contracts", 
-    icon: FileSignature, 
-    label: "Contratos vigentes", 
+  {
+    id: "contracts",
+    icon: FileSignature,
+    label: "Contratos vigentes",
     description: "Contratos ativos do PNCP",
     badge: "5"
+  },
+  {
+    id: "priceResearch",
+    icon: BarChart3,
+    label: "Pesquisa de Preços",
+    description: "Pesquisa de preços no PNCP"
   },
   { 
     id: "team", 

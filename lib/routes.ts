@@ -13,6 +13,7 @@ export const ROUTES = {
   dashboard: '/dashboard',
   contracts: '/contracts',
   processes: '/processes',
+  priceResearch: '/price-research',
   team: '/team',
   files: '/files',
   history: '/history',
@@ -31,6 +32,7 @@ export const SIDEBAR_ROUTE_MAP: Record<string, RoutePath> = {
   dashboard: ROUTES.dashboard,
   contracts: ROUTES.contracts,
   processes: ROUTES.processes,
+  priceResearch: ROUTES.priceResearch,
   team: ROUTES.team,
   files: ROUTES.files,
   history: ROUTES.history,
@@ -56,6 +58,10 @@ export const ROUTE_META: Record<RoutePath, { title: string; description: string 
   '/processes': {
     title: 'Processos',
     description: 'Acompanhamento de processos licitatórios e contratações diretas.',
+  },
+  '/price-research': {
+    title: 'Pesquisa de Preços',
+    description: 'Pesquisa de preços históricos registrados no PNCP.',
   },
   '/team': {
     title: 'Equipe',
