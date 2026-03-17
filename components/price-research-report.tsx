@@ -524,6 +524,9 @@ function ItemCard({
 }
 
 // ─── PDF Generation ─────────────────────────────────────────────────────────────
+// HTML gerado inline (não usa template externo) — necessário para interpolação
+// dinâmica dos dados e geração PDF client-side via window.print().
+// RPP é documento auxiliar informal — NÃO faz parte da trilha de contratação.
 
 function generateReportHTML(data: RPPData): string {
   const now = new Date();
