@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -50,6 +50,7 @@ export interface RPPFonte {
   tipo: "pncp" | "fornecedor" | "catalogo" | "outro";
   nome: string;
   referencia: string;
+  link: string;
   data: string;
   precoUnitario: number;
   valido: boolean;
@@ -57,8 +58,11 @@ export interface RPPFonte {
 
 export interface RPPItem {
   id: string;
-  descricao: string;
+  pdm: string;
   catmat: string;
+  catserv: string;
+  descricao: string;
+  embalagem: string;
   unidade: string;
   quantidade: number;
   fontes: RPPFonte[];
@@ -177,6 +181,14 @@ function FonteRow({
       </TableCell>
       <TableCell>
         <Input
+          value={fonte.link}
+          onChange={(e) => onUpdate({ ...fonte, link: e.target.value })}
+          placeholder="https://..."
+          className="h-8 text-xs"
+        />
+      </TableCell>
+      <TableCell>
+        <Input
           type="date"
           value={fonte.data}
           onChange={(e) => onUpdate({ ...fonte, data: e.target.value })}
@@ -250,6 +262,7 @@ function ItemCard({
       tipo: "pncp",
       nome: "",
       referencia: "",
+      link: "",
       data: getTodayISO(),
       precoUnitario: 0,
       valido: true,
@@ -283,10 +296,25 @@ function ItemCard({
             <div className="text-sm font-semibold text-foreground">
               {item.descricao || "Novo Item"}
             </div>
-            <div className="flex items-center gap-2 mt-0.5">
+            <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+              {item.pdm && (
+                <Badge variant="outline" className="text-[10px] h-5">
+                  PDM {item.pdm}
+                </Badge>
+              )}
               {item.catmat && (
                 <Badge variant="outline" className="text-[10px] h-5">
                   CATMAT {item.catmat}
+                </Badge>
+              )}
+              {item.catserv && (
+                <Badge variant="outline" className="text-[10px] h-5">
+                  CATSERV {item.catserv}
+                </Badge>
+              )}
+              {item.embalagem && (
+                <Badge variant="secondary" className="text-[10px] h-5">
+                  {item.embalagem}
                 </Badge>
               )}
               <span className="text-xs text-muted-foreground">
@@ -318,7 +346,7 @@ function ItemCard({
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="col-span-2">
               <label className="text-xs font-medium text-muted-foreground mb-1 block">
-                Descrição do Item
+                Descritivo Resumido
               </label>
               <Input
                 value={item.descricao}
@@ -329,7 +357,18 @@ function ItemCard({
             </div>
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-1 block">
-                CATMAT/CATSER
+                PDM
+              </label>
+              <Input
+                value={item.pdm}
+                onChange={(e) => onUpdate({ ...item, pdm: e.target.value })}
+                placeholder="000000"
+                className="h-9 text-sm"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                CATMAT
               </label>
               <Input
                 value={item.catmat}
@@ -338,32 +377,52 @@ function ItemCard({
                 className="h-9 text-sm"
               />
             </div>
-            <div className="flex gap-2">
-              <div className="flex-1">
-                <label className="text-xs font-medium text-muted-foreground mb-1 block">
-                  Unidade
-                </label>
-                <Input
-                  value={item.unidade}
-                  onChange={(e) => onUpdate({ ...item, unidade: e.target.value })}
-                  placeholder="UN"
-                  className="h-9 text-sm"
-                />
-              </div>
-              <div className="w-24">
-                <label className="text-xs font-medium text-muted-foreground mb-1 block">
-                  Qtde
-                </label>
-                <Input
-                  type="number"
-                  min="1"
-                  value={item.quantidade || ""}
-                  onChange={(e) =>
-                    onUpdate({ ...item, quantidade: parseInt(e.target.value) || 1 })
-                  }
-                  className="h-9 text-sm"
-                />
-              </div>
+            <div>
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                CATSERV
+              </label>
+              <Input
+                value={item.catserv}
+                onChange={(e) => onUpdate({ ...item, catserv: e.target.value })}
+                placeholder="000000"
+                className="h-9 text-sm"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                Embalagem
+              </label>
+              <Input
+                value={item.embalagem}
+                onChange={(e) => onUpdate({ ...item, embalagem: e.target.value })}
+                placeholder="Cx c/ 100, Frasco 500ml"
+                className="h-9 text-sm"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                Unidade
+              </label>
+              <Input
+                value={item.unidade}
+                onChange={(e) => onUpdate({ ...item, unidade: e.target.value })}
+                placeholder="UN"
+                className="h-9 text-sm"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                Qtde
+              </label>
+              <Input
+                type="number"
+                min="1"
+                value={item.quantidade || ""}
+                onChange={(e) =>
+                  onUpdate({ ...item, quantidade: parseInt(e.target.value) || 1 })
+                }
+                className="h-9 text-sm"
+              />
             </div>
           </div>
 
@@ -390,8 +449,9 @@ function ItemCard({
                     <TableRow className="bg-muted/20">
                       <TableHead className="text-[10px] w-[130px]">Tipo</TableHead>
                       <TableHead className="text-[10px]">Fornecedor/Fonte</TableHead>
-                      <TableHead className="text-[10px] w-[120px]">Referência</TableHead>
-                      <TableHead className="text-[10px] w-[120px]">Data</TableHead>
+                      <TableHead className="text-[10px] w-[100px]">Referência</TableHead>
+                      <TableHead className="text-[10px] w-[140px]">Link Fonte</TableHead>
+                      <TableHead className="text-[10px] w-[110px]">Data</TableHead>
                       <TableHead className="text-[10px] w-[110px] text-right">Preço Unit.</TableHead>
                       <TableHead className="text-[10px] w-[80px] text-center">Status</TableHead>
                       <TableHead className="text-[10px] w-[40px]"></TableHead>
@@ -488,8 +548,8 @@ function generateReportHTML(data: RPPData): string {
           (f, fi) => `
           <tr>
             <td class="numero">${fi + 1}</td>
-            <td>${f.nome || FONTE_TIPO_LABELS[f.tipo]}</td>
-            <td>${f.referencia || "—"}</td>
+            <td>${f.link ? `<a href="${escapeHtml(f.link)}" target="_blank" style="color: var(--azul-primario); text-decoration: none; border-bottom: 1pt dotted var(--azul-primario);">${escapeHtml(f.nome || FONTE_TIPO_LABELS[f.tipo])}</a>` : escapeHtml(f.nome || FONTE_TIPO_LABELS[f.tipo])}</td>
+            <td>${escapeHtml(f.referencia || "—")}</td>
             <td>${f.data ? new Date(f.data + "T00:00:00").toLocaleDateString("pt-BR") : "—"}</td>
             <td class="valor ${!f.valido ? "preco-excluido" : ""}">R$ ${formatCurrency(f.precoUnitario)}</td>
             <td style="text-align:center" class="${f.valido ? "status-valido" : "status-excluido"}">${f.valido ? "Valido" : "Excluido"}</td>
@@ -504,11 +564,12 @@ function generateReportHTML(data: RPPData): string {
               <div class="item-numero">${idx + 1}</div>
               <div class="item-descricao">${item.descricao || "Item sem descrição"}</div>
             </div>
-            ${item.catmat ? `<div class="item-catmat">CATMAT ${item.catmat}</div>` : ""}
+            <div class="item-catmat">${[item.catmat ? `CATMAT ${item.catmat}` : "", item.catserv ? `CATSERV ${item.catserv}` : "", item.pdm ? `PDM ${item.pdm}` : ""].filter(Boolean).join(" | ") || "—"}</div>
           </div>
           <div class="item-card-body">
             <div class="item-meta">
               <span><strong>Unidade:</strong> ${item.unidade || "UN"}</span>
+              <span><strong>Embalagem:</strong> ${escapeHtml(item.embalagem || "—")}</span>
               <span><strong>Quantidade:</strong> ${item.quantidade}</span>
               <span><strong>Fontes válidas:</strong> ${validCount} de ${item.fontes.length}</span>
             </div>
@@ -546,8 +607,10 @@ function generateReportHTML(data: RPPData): string {
       return `
         <tr>
           <td class="numero">${idx + 1}</td>
-          <td>${item.descricao || "—"}</td>
-          <td>${item.catmat || "—"}</td>
+          <td>${escapeHtml(item.pdm || "—")}</td>
+          <td>${escapeHtml([item.catmat, item.catserv].filter(Boolean).join(" / ") || "—")}</td>
+          <td>${escapeHtml(item.descricao || "—")}</td>
+          <td>${escapeHtml(item.embalagem || "—")}</td>
           <td class="numero">${item.quantidade}</td>
           <td class="valor"><span class="preco-destaque">R$ ${formatCurrency(precoRef)}</span></td>
           <td class="valor"><strong>R$ ${formatCurrency(precoTotal)}</strong></td>
@@ -711,8 +774,10 @@ function generateReportHTML(data: RPPData): string {
                 <thead>
                     <tr>
                         <th class="numero">Item</th>
-                        <th>Descricao</th>
-                        <th>CATMAT</th>
+                        <th>PDM</th>
+                        <th>CATMAT/CATSERV</th>
+                        <th>Descritivo Resumido</th>
+                        <th>Embalagem</th>
                         <th class="numero">Qtde</th>
                         <th class="valor">Preco Unit. Ref.</th>
                         <th class="valor">Preco Total</th>
@@ -839,6 +904,22 @@ export function PriceResearchReport({ importedItems, onBack }: PriceResearchRepo
 
   const [showPreview, setShowPreview] = useState(false);
 
+  // Load items from sessionStorage (from price-research-page)
+  useEffect(() => {
+    try {
+      const stored = sessionStorage.getItem("rpp-items");
+      if (stored) {
+        const items = JSON.parse(stored) as RPPItem[];
+        if (items.length > 0) {
+          setData((prev) => ({ ...prev, itens: [...prev.itens, ...items] }));
+          sessionStorage.removeItem("rpp-items");
+        }
+      }
+    } catch {
+      // ignore parse errors
+    }
+  }, []);
+
   const updateField = useCallback(
     <K extends keyof RPPData>(field: K, value: RPPData[K]) => {
       setData((prev) => ({ ...prev, [field]: value }));
@@ -849,8 +930,11 @@ export function PriceResearchReport({ importedItems, onBack }: PriceResearchRepo
   const addItem = useCallback(() => {
     const newItem: RPPItem = {
       id: generateId(),
-      descricao: "",
+      pdm: "",
       catmat: "",
+      catserv: "",
+      descricao: "",
+      embalagem: "",
       unidade: "UN",
       quantidade: 1,
       fontes: [],

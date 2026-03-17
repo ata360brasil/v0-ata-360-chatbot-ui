@@ -405,11 +405,16 @@
                         <div class="item-numero">{{this.numero}}</div>
                         <div class="item-descricao">{{this.descricao}}</div>
                     </div>
-                    <div class="item-catmat">CATMAT {{this.catmat}}</div>
+                    <div class="item-catmat">
+                        {{#if this.catmat}}CATMAT {{this.catmat}}{{/if}}
+                        {{#if this.catserv}} | CATSERV {{this.catserv}}{{/if}}
+                        {{#if this.pdm}} | PDM {{this.pdm}}{{/if}}
+                    </div>
                 </div>
                 <div class="item-card-body">
                     <div class="item-meta">
                         <span><strong>Unidade:</strong> {{this.unidade}}</span>
+                        <span><strong>Embalagem:</strong> {{this.embalagem}}</span>
                         <span><strong>Quantidade:</strong> {{this.quantidade}}</span>
                         <span><strong>Fontes válidas:</strong> {{this.fontes_validas}} de {{this.total_fontes}}</span>
                     </div>
@@ -430,7 +435,7 @@
                             {{#each this.fontes}}
                             <tr>
                                 <td class="numero">{{this.numero}}</td>
-                                <td>{{this.nome}}</td>
+                                <td>{{#if this.link}}<a href="{{this.link}}" target="_blank" style="color: var(--azul-primario); text-decoration: none; border-bottom: 1pt dotted var(--azul-primario);">{{this.nome}}</a>{{else}}{{this.nome}}{{/if}}</td>
                                 <td>{{this.referencia}}</td>
                                 <td>{{this.data}}</td>
                                 <td class="valor {{#if this.excluido}}preco-excluido{{/if}}">{{this.preco}}</td>
@@ -488,8 +493,10 @@
                 <thead>
                     <tr>
                         <th class="numero">Item</th>
-                        <th>Descrição</th>
-                        <th>CATMAT</th>
+                        <th>PDM</th>
+                        <th>CATMAT/CATSERV</th>
+                        <th>Descritivo Resumido</th>
+                        <th>Embalagem</th>
                         <th class="numero">Qtde</th>
                         <th class="valor">Preço Unit. Ref.</th>
                         <th class="valor">Preço Total</th>
@@ -499,8 +506,10 @@
                     {{#each itens}}
                     <tr>
                         <td class="numero">{{this.numero}}</td>
+                        <td>{{this.pdm}}</td>
+                        <td>{{this.catmat}}{{#if this.catserv}} / {{this.catserv}}{{/if}}</td>
                         <td>{{this.descricao}}</td>
-                        <td>{{this.catmat}}</td>
+                        <td>{{this.embalagem}}</td>
                         <td class="numero">{{this.quantidade}}</td>
                         <td class="valor"><span class="preco-destaque">R$ {{this.preco_referencia}}</span></td>
                         <td class="valor"><strong>R$ {{this.preco_total}}</strong></td>

@@ -369,10 +369,58 @@ export function PriceResearchPage() {
                 </SelectContent>
               </Select>
 
+              {/* Generate PCA (DFD) */}
+              <Button
+                variant="outline"
+                className="gap-2 h-9 rounded-full"
+                onClick={() => {
+                  const items = mockPriceItems.filter((i) => selectedItems.has(i.id));
+                  const dfdItems = items.map((i) => ({
+                    item: 0,
+                    descricao: i.description,
+                    catmat: i.catmat,
+                    unidade: "UN",
+                    quantidade: 1,
+                    valorUnitario: i.avgPrice,
+                    valorTotal: i.avgPrice,
+                  }));
+                  sessionStorage.setItem("dfd-items", JSON.stringify(dfdItems));
+                  router.push("/");
+                }}
+                disabled={selectedItems.size === 0}
+              >
+                <FileSignature size={14} />
+                Gerar PCA
+              </Button>
+
               {/* Generate Report */}
               <Button
                 className="gap-2 h-9 rounded-full bg-foreground text-background hover:bg-foreground/90"
-                onClick={() => router.push("/price-research/report")}
+                onClick={() => {
+                  const items = mockPriceItems.filter((i) => selectedItems.has(i.id));
+                  const rppItems = items.map((i) => ({
+                    id: i.id,
+                    pdm: i.pdm,
+                    catmat: i.catmat,
+                    catserv: "",
+                    descricao: i.description,
+                    embalagem: "",
+                    unidade: "UN",
+                    quantidade: 1,
+                    fontes: [{
+                      id: Math.random().toString(36).substring(2, 9),
+                      tipo: "pncp" as const,
+                      nome: "PNCP / Compras.gov.br",
+                      referencia: `PDM ${i.pdm}`,
+                      link: "",
+                      data: new Date().toISOString().slice(0, 10),
+                      precoUnitario: i.avgPrice,
+                      valido: true,
+                    }],
+                  }));
+                  sessionStorage.setItem("rpp-items", JSON.stringify(rppItems));
+                  router.push("/price-research/report");
+                }}
               >
                 Gerar Relatório
               </Button>
