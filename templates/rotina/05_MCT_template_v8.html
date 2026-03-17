@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Minuta de Contrato Administrativo — MCT | {{ente_nome}}</title>
+    <style>
+        /* ========================================
+           ATA360 DESIGN SYSTEM v8.0
+           Minuta de Contrato Administrativo (MCT)
+           Documentos de Rotina — Compras Públicas
+
+           Princípios:
+           - Fonte serif (Palatino) para legibilidade jurídica
+           - Espaços de respiro generosos entre blocos
+           - Leitura confortável em tela, impresso, P&B
+           - Modo claro e escuro (prefers-color-scheme)
+           - Hierarquia visual clara por tamanho/peso
+           - Contraste WCAG AA mínimo (4.5:1 texto, 3:1 UI)
+           ======================================== */
+
+        @page {
+            size: A4;
+            margin: 22mm 22mm 28mm 22mm;
+            @bottom-center {
+                content: "Página " counter(page) " de " counter(pages);
+                font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+                font-size: 9pt;
+                color: #666;
+            }
+        }
+        @page :first { margin-top: 18mm; }
+
+        /* ---- MODO CLARO (padrão) ---- */
+        :root {
+            --cor-primaria: #2d6a4f;
+            --cor-secundaria: #40916c;
+            --cor-clara: #e8f5ee;
+            --vermelho: #c53030;
+            --verde: #276749;
+            --amarelo: #d69e2e;
+            --cinza-escuro: #2d3748;
+            --cinza-medio: #4a5568;
+            --cinza-claro: #f7fafc;
+            --cinza-linha: #e2e8f0;
+            --branco: #ffffff;
+
+            --respiro-bloco: 20pt;
+            --respiro-secao: 24pt;
+            --respiro-interno: 14pt;
+            --raio-borda: 4pt;
+
+            --fundo-pagina: #ffffff;
+            --fundo-superficie: #f7fafc;
+            --fundo-elevado: #ffffff;
+            --texto-primario: #2d3748;
+            --texto-secundario: #4a5568;
+            --texto-terciario: #718096;
+            --borda-sutil: #e2e8f0;
+        }
+
+        /* ---- MODO ESCURO ---- */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --cor-primaria: #68d391;
+                --cor-secundaria: #9ae6b4;
+                --cor-clara: #1a2e23;
+                --vermelho: #fc8181;
+                --verde: #68d391;
+                --amarelo: #f6e05e;
+                --cinza-escuro: #e2e8f0;
+                --cinza-medio: #a0aec0;
+                --cinza-claro: #1a202c;
+                --cinza-linha: #2d3748;
+                --branco: #1a202c;
+                --fundo-pagina: #0d1117;
+                --fundo-superficie: #161b22;
+                --fundo-elevado: #1c2333;
+                --texto-primario: #e2e8f0;
+                --texto-secundario: #a0aec0;
+                --texto-terciario: #718096;
+                --borda-sutil: #2d3748;
+            }
+            body { background: var(--fundo-pagina); }
+            .doc-id-box { background: linear-gradient(135deg, #1a3d2e 0%, #264d3b 100%); }
+            .tabela thead tr { background: #1a3d2e; }
+            .campo-valor { background: var(--fundo-elevado); border-color: var(--borda-sutil); }
+            a { color: var(--cor-primaria); }
+        }
+
+        /* ---- IMPRESSÃO P&B ---- */
+        @media print {
+            :root {
+                --cor-primaria: #000000; --cor-secundaria: #333333;
+                --cor-clara: #f5f5f5; --vermelho: #000000; --verde: #000000;
+                --amarelo: #666666; --cinza-escuro: #000000; --cinza-medio: #333333;
+                --cinza-claro: #f8f8f8; --cinza-linha: #cccccc; --branco: #ffffff;
+            }
+            body { color: #000; background: #fff; -webkit-print-color-adjust: economy; print-color-adjust: economy; }
+            .doc-id-box, .tabela thead tr {
+                background: #000 !important; color: #fff;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', serif;
+            font-size: 10.5pt;
+            line-height: 1.7;
+            color: var(--texto-primario);
+            background: var(--fundo-pagina);
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        /* CABEÇALHO */
+        .header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: var(--respiro-interno); border-bottom: 2.5pt solid var(--cor-primaria); margin-bottom: var(--respiro-bloco); }
+        .header-left { flex: 1; padding-right: 20pt; }
+        .header-left .ente { font-size: 15pt; font-weight: bold; color: var(--cor-primaria); margin-bottom: 4pt; letter-spacing: 0.3pt; }
+        .header-left .subordinacao { font-size: 9.5pt; color: var(--texto-secundario); line-height: 1.5; }
+        .logo-placeholder { width: 85pt; height: 85pt; border: 1.5pt dashed #cbd5e0; display: flex; align-items: center; justify-content: center; font-size: 9pt; color: #a0aec0; background: #f8fafc; }
+
+        /* IDENTIFICAÇÃO DO DOCUMENTO */
+        .doc-id-box { background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%); color: #ffffff; padding: 16pt 20pt; margin-bottom: var(--respiro-bloco); border-radius: var(--raio-borda); }
+        .doc-id-box .titulo { font-size: 17pt; font-weight: bold; letter-spacing: 0.5pt; margin-bottom: 6pt; }
+        .doc-id-box .subtitulo { font-size: 10.5pt; opacity: 0.9; font-style: italic; }
+        .doc-numeros { display: flex; justify-content: space-between; margin-top: 12pt; padding-top: 12pt; border-top: 1pt solid rgba(255,255,255,0.3); }
+        .doc-numeros .item { text-align: center; }
+        .doc-numeros .label { font-size: 8pt; text-transform: uppercase; letter-spacing: 0.5pt; opacity: 0.8; }
+        .doc-numeros .valor { font-size: 12pt; font-weight: bold; margin-top: 2pt; }
+
+        /* FUNDAMENTAÇÃO LEGAL */
+        .fundamentacao { background: var(--fundo-superficie); border-left: 4pt solid var(--cor-primaria); padding: var(--respiro-interno) 16pt; margin-bottom: var(--respiro-bloco); font-size: 9pt; line-height: 1.6; }
+        .fundamentacao .titulo { font-weight: bold; color: var(--cor-primaria); font-size: 9pt; text-transform: uppercase; letter-spacing: 0.3pt; margin-bottom: 8pt; }
+        .fundamentacao p { margin-bottom: 5pt; color: var(--texto-secundario); }
+
+        /* RASTREABILIDADE E QR */
+        .rastreabilidade { display: flex; justify-content: space-between; align-items: flex-start; background: var(--fundo-elevado); border: 1pt solid var(--borda-sutil); padding: var(--respiro-interno); margin-bottom: var(--respiro-secao); }
+        .rastreabilidade-info { flex: 1; font-size: 8.5pt; color: var(--texto-secundario); line-height: 1.65; }
+        .rastreabilidade-info strong { color: var(--texto-primario); }
+        .rastreabilidade-titulo { font-weight: bold; color: var(--cor-primaria); font-size: 9pt; margin-bottom: 6pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+        .qr-area { width: 72pt; height: 72pt; border: 1pt dashed var(--borda-sutil); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 7pt; color: var(--cinza-medio); text-align: center; margin-left: 16pt; flex-shrink: 0; }
+
+        /* SEÇÕES */
+        .secao { margin-bottom: var(--respiro-secao); page-break-inside: avoid; }
+        .secao-header { display: flex; align-items: stretch; margin-bottom: 12pt; }
+        .secao-numero { background: var(--cor-primaria); color: var(--branco); width: 30pt; min-height: 38pt; display: flex; align-items: center; justify-content: center; font-size: 15pt; font-weight: bold; }
+        .secao-titulo-area { flex: 1; border-bottom: 2pt solid var(--cor-primaria); padding-left: 12pt; display: flex; flex-direction: column; justify-content: center; }
+        .secao-titulo { font-size: 11.5pt; font-weight: bold; color: var(--cor-primaria); text-transform: uppercase; letter-spacing: 0.3pt; }
+        .secao-fundamento { font-size: 8.5pt; color: var(--cinza-medio); font-style: italic; margin-top: 3pt; }
+
+        /* CAMPOS */
+        .campo { margin-bottom: 12pt; }
+        .campo-label { font-size: 9pt; font-weight: bold; color: var(--cor-secundaria); margin-bottom: 5pt; }
+        .campo-valor { background: var(--fundo-superficie); border: 1pt solid var(--borda-sutil); border-radius: 3pt; padding: 10pt 12pt; min-height: 28pt; font-size: 10pt; }
+        .campo-inline { display: flex; gap: 16pt; flex-wrap: wrap; }
+        .campo-inline .campo { flex: 1; min-width: 130pt; }
+
+        /* CLÁUSULAS */
+        .clausula { margin-bottom: var(--respiro-secao); page-break-inside: avoid; }
+        .clausula-header { background: var(--cor-clara); padding: 10pt 16pt; border-left: 4pt solid var(--cor-primaria); margin-bottom: 12pt; }
+        .clausula-titulo { font-size: 11pt; font-weight: bold; color: var(--cor-primaria); text-transform: uppercase; letter-spacing: 0.3pt; }
+        .clausula-ref { font-size: 8pt; color: var(--cinza-medio); font-style: italic; margin-top: 2pt; }
+        .clausula-corpo { padding-left: 20pt; }
+        .clausula-corpo p { margin-bottom: 10pt; text-indent: 0; }
+        .clausula-corpo .subitem { margin-bottom: 6pt; padding-left: 16pt; }
+        .clausula-corpo .subitem-numero { font-weight: bold; color: var(--cor-secundaria); }
+
+        /* CORPO */
+        .corpo { text-align: justify; margin-bottom: var(--respiro-bloco); }
+        .corpo p { margin-bottom: 12pt; text-indent: 40pt; }
+        .corpo p.sem-indent { text-indent: 0; }
+
+        /* TABELAS */
+        .tabela { width: 100%; border-collapse: collapse; margin-bottom: 14pt; font-size: 9pt; }
+        .tabela thead tr { background: var(--cor-primaria); color: var(--branco); }
+        .tabela th { padding: 9pt 11pt; text-align: left; font-weight: bold; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+        .tabela td { padding: 9pt 11pt; border-bottom: 1pt solid var(--borda-sutil); }
+        .tabela tbody tr:nth-child(odd) { background: var(--fundo-elevado); }
+        .tabela tbody tr:nth-child(even) { background: var(--fundo-superficie); }
+        .tabela .numero { text-align: center; width: 40pt; }
+        .tabela .valor { text-align: right; white-space: nowrap; }
+        .tabela tfoot tr { background: var(--cor-clara); font-weight: bold; }
+
+        /* ALERTAS */
+        .alerta { padding: 11pt 14pt; border-radius: 3pt; margin-bottom: 14pt; font-size: 9pt; }
+        .alerta-atencao { background: #fffbeb; border-left: 4pt solid var(--amarelo); color: #92400e; }
+        .alerta-info { background: var(--cor-clara); border-left: 4pt solid var(--cor-secundaria); color: var(--cor-primaria); }
+        .alerta-importante { background: #fef2f2; border-left: 4pt solid var(--vermelho); color: #991b1b; }
+        .alerta strong { display: block; margin-bottom: 5pt; font-size: 9.5pt; }
+
+        /* ASSINATURAS */
+        .assinaturas { display: flex; justify-content: center; gap: 24pt; margin-top: 22pt; flex-wrap: wrap; }
+        .assinatura-bloco { flex: 0 1 280pt; text-align: center; padding: var(--respiro-interno); border: 1pt solid var(--borda-sutil); background: var(--fundo-elevado); }
+        .assinatura-cargo { font-size: 9pt; font-weight: bold; color: var(--cor-primaria); text-transform: uppercase; margin-bottom: 32pt; }
+        .assinatura-linha { border-top: 1pt solid var(--texto-primario); padding-top: 8pt; margin: 0 18pt; }
+        .assinatura-nome { font-size: 9pt; color: var(--texto-secundario); }
+        .assinatura-info { font-size: 8pt; color: var(--texto-secundario); margin-top: 3pt; }
+        .assinatura-icp { font-size: 7.5pt; color: var(--verde); margin-top: 4pt; }
+
+        /* TESTEMUNHAS */
+        .testemunhas { margin-top: 30pt; padding-top: 16pt; border-top: 1pt solid var(--borda-sutil); }
+        .testemunhas-titulo { font-size: 9pt; font-weight: bold; color: var(--cor-primaria); text-transform: uppercase; text-align: center; margin-bottom: 16pt; }
+        .testemunhas-grid { display: flex; justify-content: center; gap: 40pt; }
+        .testemunha-bloco { text-align: center; min-width: 200pt; }
+        .testemunha-linha { border-top: 1pt solid var(--texto-primario); padding-top: 6pt; margin-top: 28pt; }
+        .testemunha-nome { font-size: 8.5pt; color: var(--texto-secundario); }
+        .testemunha-cpf { font-size: 8pt; color: var(--texto-terciario); margin-top: 2pt; }
+
+        /* NOTAS DE RODAPÉ */
+        .nota-ref { font-size: 7pt; vertical-align: super; color: var(--cor-secundaria); font-weight: bold; cursor: help; margin-left: 1pt; }
+        .notas-rodape { border-top: 1pt solid var(--borda-sutil); margin-top: var(--respiro-bloco); padding-top: 12pt; font-size: 8pt; color: var(--texto-terciario); line-height: 1.5; }
+        .notas-rodape .titulo { font-weight: bold; color: var(--texto-secundario); margin-bottom: 6pt; font-size: 8.5pt; }
+        .nota-item { margin-bottom: 4pt; padding-left: 14pt; text-indent: -14pt; }
+        .nota-numero { font-weight: bold; color: var(--cor-secundaria); margin-right: 4pt; }
+
+        /* SELO */
+        .selo-area { text-align: center; margin-top: 30pt; padding-top: 20pt; border-top: 1pt solid var(--borda-sutil); }
+        .selo-texto { font-size: 8pt; color: var(--texto-terciario); }
+
+        /* UTILIDADES */
+        .text-small { font-size: 8pt; }
+        .text-muted { color: var(--texto-terciario); }
+        .text-center { text-align: center; }
+        .mt-10 { margin-top: 10pt; }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <div class="header">
+        <div class="header-left">
+            <div class="ente">{{ente_nome}}</div>
+            <div class="subordinacao">{{subordinacao_linha1}}<br>{{subordinacao_linha2}}</div>
+        </div>
+        <div class="logo-placeholder">BRASÃO</div>
+    </div>
+
+    <!-- IDENTIFICAÇÃO DO DOCUMENTO -->
+    <div class="doc-id-box">
+        <div class="titulo">MINUTA DE CONTRATO ADMINISTRATIVO</div>
+        <div class="subtitulo">Contrato que entre si celebram as partes abaixo qualificadas</div>
+        <div class="doc-numeros">
+            <div class="item"><div class="label">Contrato Nº</div><div class="valor">{{contrato_numero}}</div></div>
+            <div class="item"><div class="label">Processo</div><div class="valor">{{processo_numero}}</div></div>
+            <div class="item"><div class="label">Modalidade</div><div class="valor">{{modalidade}}</div></div>
+            <div class="item"><div class="label">Data</div><div class="valor">{{data_documento}}</div></div>
+        </div>
+    </div>
+
+    <!-- FUNDAMENTAÇÃO LEGAL -->
+    <div class="fundamentacao">
+        <div class="titulo">Fundamentação Legal</div>
+        <p><strong>Lei 14.133/2021:</strong> Art. 89<sup class="nota-ref">1</sup> — formalização dos contratos administrativos</p>
+        <p><strong>Lei 14.133/2021:</strong> Art. 90<sup class="nota-ref">2</sup> — cláusulas obrigatórias</p>
+        <p><strong>Lei 14.133/2021:</strong> Art. 91<sup class="nota-ref">3</sup> — duração dos contratos</p>
+        <p><strong>Lei 14.133/2021:</strong> Art. 92<sup class="nota-ref">4</sup> — cláusulas necessárias</p>
+    </div>
+
+    <!-- RASTREABILIDADE -->
+    <div class="rastreabilidade">
+        <div class="rastreabilidade-info">
+            <div class="rastreabilidade-titulo">Rastreabilidade do Documento</div>
+            <strong>ID:</strong> {{rastreabilidade_id}}<br>
+            <strong>Hash:</strong> <code style="font-family: 'Courier New', monospace; font-size: 7.5pt; background: var(--fundo-superficie); padding: 1pt 3pt;">{{hash_documento}}</code><br>
+            <strong>Gerado em:</strong> {{data_geracao}} às {{hora_geracao}}<br>
+            <strong>Origem:</strong> ATA360 — Sistema de Inteligência em Contratações Públicas<br>
+            <strong>CNPJ Remetente:</strong> {{cnpj}}
+        </div>
+        <div class="qr-area">[QR CODE]<br>Verificação</div>
+    </div>
+
+    <!-- PREÂMBULO -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">P</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Preâmbulo</div>
+                <div class="secao-fundamento">Art. 92, I a IV, Lei 14.133/2021</div>
+            </div>
+        </div>
+
+        <div class="corpo">
+            <p>O(A) <strong>{{contratante_nome}}</strong>, inscrito(a) no CNPJ sob o nº {{contratante_cnpj}}, com sede na {{contratante_endereco}}, doravante denominado(a) <strong>CONTRATANTE</strong>, neste ato representado(a) por {{contratante_representante}}, portador(a) do CPF nº {{contratante_cpf}}, e a empresa <strong>{{contratada_razao_social}}</strong>, inscrita no CNPJ sob o nº {{contratada_cnpj}}, com sede na {{contratada_endereco}}, doravante denominada <strong>CONTRATADA</strong>, neste ato representada por {{contratada_representante}}, portador(a) do CPF nº {{contratada_cpf}}, têm entre si justo e acordado o presente Contrato, decorrente do Processo Administrativo nº {{processo_numero}}, modalidade {{modalidade}}, homologado em {{data_homologacao}}, que se regerá pelas cláusulas e condições seguintes:</p>
+        </div>
+    </div>
+
+    <!-- CLÁUSULA PRIMEIRA — OBJETO -->
+    <div class="clausula">
+        <div class="clausula-header">
+            <div class="clausula-titulo">Cláusula Primeira — Do Objeto</div>
+            <div class="clausula-ref">Art. 92, I, Lei 14.133/2021</div>
+        </div>
+        <div class="clausula-corpo">
+            <p><span class="subitem-numero">1.1.</span> O presente contrato tem por objeto {{objeto_contrato}}.</p>
+            <p><span class="subitem-numero">1.2.</span> Integram este contrato, independentemente de transcrição, o edital do processo licitatório, a proposta da CONTRATADA e demais documentos que compõem o processo.</p>
+            <p><span class="subitem-numero">1.3.</span> Detalhamento dos itens:</p>
+
+            <table class="tabela">
+                <thead>
+                    <tr>
+                        <th class="numero" style="width: 8%;">Item</th>
+                        <th style="width: 40%;">Descrição</th>
+                        <th class="numero" style="width: 10%;">Und</th>
+                        <th class="numero" style="width: 10%;">Qtde</th>
+                        <th class="valor" style="width: 16%;">Valor Unit. (R$)</th>
+                        <th class="valor" style="width: 16%;">Valor Total (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="numero">{{item1_numero}}</td>
+                        <td>{{item1_descricao}}</td>
+                        <td class="numero">{{item1_unidade}}</td>
+                        <td class="numero">{{item1_quantidade}}</td>
+                        <td class="valor">{{item1_valor_unit}}</td>
+                        <td class="valor">{{item1_valor_total}}</td>
+                    </tr>
+                    <tr>
+                        <td class="numero">{{item2_numero}}</td>
+                        <td>{{item2_descricao}}</td>
+                        <td class="numero">{{item2_unidade}}</td>
+                        <td class="numero">{{item2_quantidade}}</td>
+                        <td class="valor">{{item2_valor_unit}}</td>
+                        <td class="valor">{{item2_valor_total}}</td>
+                    </tr>
+                    <tr>
+                        <td class="numero">{{item3_numero}}</td>
+                        <td>{{item3_descricao}}</td>
+                        <td class="numero">{{item3_unidade}}</td>
+                        <td class="numero">{{item3_quantidade}}</td>
+                        <td class="valor">{{item3_valor_unit}}</td>
+                        <td class="valor">{{item3_valor_total}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" style="text-align: right; padding-right: 11pt;">VALOR TOTAL DO CONTRATO:</td>
+                        <td class="valor">R$ {{valor_total_contrato}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <!-- CLÁUSULA SEGUNDA — VIGÊNCIA -->
+    <div class="clausula">
+        <div class="clausula-header">
+            <div class="clausula-titulo">Cláusula Segunda — Da Vigência</div>
+            <div class="clausula-ref">Art. 91 e Art. 92, V, Lei 14.133/2021</div>
+        </div>
+        <div class="clausula-corpo">
+            <p><span class="subitem-numero">2.1.</span> O presente contrato terá vigência de {{vigencia_periodo}}, com início em {{vigencia_inicio}} e término em {{vigencia_fim}}, podendo ser prorrogado nos termos do Art. 107 da Lei 14.133/2021.</p>
+            <p><span class="subitem-numero">2.2.</span> A vigência do contrato poderá ser alterada mediante termo aditivo, observados os limites legais.</p>
+        </div>
+    </div>
+
+    <!-- CLÁUSULA TERCEIRA — PREÇO E PAGAMENTO -->
+    <div class="clausula">
+        <div class="clausula-header">
+            <div class="clausula-titulo">Cláusula Terceira — Do Preço e do Pagamento</div>
+            <div class="clausula-ref">Art. 92, V e VI, Lei 14.133/2021</div>
+        </div>
+        <div class="clausula-corpo">
+            <p><span class="subitem-numero">3.1.</span> O valor global do presente contrato é de <strong>R$ {{valor_total_contrato}}</strong> ({{valor_total_extenso}}).</p>
+            <p><span class="subitem-numero">3.2.</span> O pagamento será efetuado no prazo de {{prazo_pagamento}}, contado do recebimento definitivo do objeto, mediante apresentação de nota fiscal devidamente atestada pelo fiscal do contrato.</p>
+            <p><span class="subitem-numero">3.3.</span> Os preços contratados são fixos e irreajustáveis pelo período de {{periodo_irreajustavel}}. Após este período, poderá ser concedido reajuste com base no índice {{indice_reajuste}}, nos termos do Art. 92, §3º, da Lei 14.133/2021.</p>
+            <p><span class="subitem-numero">3.4.</span> As despesas decorrentes deste contrato correrão à conta da dotação orçamentária: {{dotacao_orcamentaria}}.</p>
+        </div>
+    </div>
+
+    <!-- CLÁUSULA QUARTA — OBRIGAÇÕES DO CONTRATANTE -->
+    <div class="clausula">
+        <div class="clausula-header">
+            <div class="clausula-titulo">Cláusula Quarta — Das Obrigações do Contratante</div>
+            <div class="clausula-ref">Art. 92, X, Lei 14.133/2021</div>
+        </div>
+        <div class="clausula-corpo">
+            <p><span class="subitem-numero">4.1.</span> Efetuar o pagamento à CONTRATADA no prazo e condições estabelecidos neste contrato.</p>
+            <p><span class="subitem-numero">4.2.</span> Designar servidor responsável pelo acompanhamento e fiscalização do contrato.</p>
+            <p><span class="subitem-numero">4.3.</span> Proporcionar à CONTRATADA as condições necessárias à execução do objeto.</p>
+            <p><span class="subitem-numero">4.4.</span> Notificar a CONTRATADA sobre quaisquer irregularidades encontradas na execução do contrato.</p>
+            <p><span class="subitem-numero">4.5.</span> {{obrigacoes_contratante_adicional}}</p>
+        </div>
+    </div>
+
+    <!-- CLÁUSULA QUINTA — OBRIGAÇÕES DA CONTRATADA -->
+    <div class="clausula">
+        <div class="clausula-header">
+            <div class="clausula-titulo">Cláusula Quinta — Das Obrigações da Contratada</div>
+            <div class="clausula-ref">Art. 92, XI e XII, Lei 14.133/2021</div>
+        </div>
+        <div class="clausula-corpo">
+            <p><span class="subitem-numero">5.1.</span> Executar o objeto contratual conforme especificações, prazos e condições estabelecidos no edital e neste contrato.</p>
+            <p><span class="subitem-numero">5.2.</span> Manter, durante toda a execução do contrato, as condições de habilitação e qualificação exigidas na licitação.</p>
+            <p><span class="subitem-numero">5.3.</span> Responsabilizar-se por todos os encargos trabalhistas, previdenciários, fiscais e comerciais resultantes da execução do contrato.</p>
+            <p><span class="subitem-numero">5.4.</span> Comunicar ao CONTRATANTE qualquer anormalidade que interfira na execução do contrato.</p>
+            <p><span class="subitem-numero">5.5.</span> {{obrigacoes_contratada_adicional}}</p>
+        </div>
+    </div>
+
+    <!-- CLÁUSULA SEXTA — FISCALIZAÇÃO -->
+    <div class="clausula">
+        <div class="clausula-header">
+            <div class="clausula-titulo">Cláusula Sexta — Da Fiscalização</div>
+            <div class="clausula-ref">Art. 117, Lei 14.133/2021</div>
+        </div>
+        <div class="clausula-corpo">
+            <p><span class="subitem-numero">6.1.</span> A fiscalização da execução do contrato será exercida por servidor designado pelo CONTRATANTE, nos termos do Art. 117 da Lei 14.133/2021, a quem competirá anotar em registro próprio todas as ocorrências, determinando o que for necessário à regularização das faltas ou defeitos observados.</p>
+            <p><span class="subitem-numero">6.2.</span> O fiscal do contrato será: {{fiscal_nome}}, matrícula nº {{fiscal_matricula}}.</p>
+            <p><span class="subitem-numero">6.3.</span> A fiscalização não exclui nem reduz a responsabilidade da CONTRATADA pela qualidade e perfeição da execução do objeto.</p>
+        </div>
+    </div>
+
+    <!-- CLÁUSULA SÉTIMA — SANÇÕES -->
+    <div class="clausula">
+        <div class="clausula-header">
+            <div class="clausula-titulo">Cláusula Sétima — Das Sanções Administrativas</div>
+            <div class="clausula-ref">Art. 155 a 163, Lei 14.133/2021</div>
+        </div>
+        <div class="clausula-corpo">
+            <p><span class="subitem-numero">7.1.</span> Pela inexecução total ou parcial do contrato, a Administração poderá, garantida a prévia defesa, aplicar à CONTRATADA as seguintes sanções previstas no Art. 156 da Lei 14.133/2021:</p>
+            <div class="subitem"><span class="subitem-numero">I —</span> Advertência;</div>
+            <div class="subitem"><span class="subitem-numero">II —</span> Multa de {{percentual_multa}} sobre o valor total do contrato;</div>
+            <div class="subitem"><span class="subitem-numero">III —</span> Impedimento de licitar e contratar pelo prazo de até 3 (três) anos;</div>
+            <div class="subitem"><span class="subitem-numero">IV —</span> Declaração de inidoneidade para licitar ou contratar.</div>
+            <p><span class="subitem-numero">7.2.</span> As sanções previstas nos incisos I, III e IV poderão ser aplicadas cumulativamente com a multa.</p>
+        </div>
+    </div>
+
+    <!-- CLÁUSULA OITAVA — RESCISÃO -->
+    <div class="clausula">
+        <div class="clausula-header">
+            <div class="clausula-titulo">Cláusula Oitava — Da Rescisão</div>
+            <div class="clausula-ref">Art. 137 a 139, Lei 14.133/2021</div>
+        </div>
+        <div class="clausula-corpo">
+            <p><span class="subitem-numero">8.1.</span> O contrato poderá ser rescindido nos termos dos Arts. 137 a 139 da Lei 14.133/2021, nas seguintes hipóteses:</p>
+            <div class="subitem"><span class="subitem-numero">I —</span> Por ato unilateral e escrito da Administração, nos casos previstos no Art. 137;</div>
+            <div class="subitem"><span class="subitem-numero">II —</span> De forma consensual, por acordo entre as partes, reduzida a termo no processo;</div>
+            <div class="subitem"><span class="subitem-numero">III —</span> Por decisão judicial.</div>
+            <p><span class="subitem-numero">8.2.</span> A rescisão administrativa será precedida de autorização escrita e fundamentada da autoridade competente.</p>
+        </div>
+    </div>
+
+    <!-- CLÁUSULA NONA — FORO -->
+    <div class="clausula">
+        <div class="clausula-header">
+            <div class="clausula-titulo">Cláusula Nona — Do Foro</div>
+            <div class="clausula-ref">Art. 92, §1º, Lei 14.133/2021</div>
+        </div>
+        <div class="clausula-corpo">
+            <p><span class="subitem-numero">9.1.</span> Fica eleito o Foro da Comarca de {{foro_comarca}}, Estado de {{foro_estado}}, para dirimir quaisquer questões oriundas do presente contrato, com renúncia expressa a qualquer outro, por mais privilegiado que seja.</p>
+        </div>
+    </div>
+
+    <!-- FECHO -->
+    <div class="corpo" style="margin-top: var(--respiro-secao);">
+        <p>E por estarem assim justos e acordados, firmam o presente instrumento em {{numero_vias}} vias de igual teor e forma, para um só efeito, na presença das testemunhas abaixo identificadas.</p>
+        <p class="sem-indent">{{local_assinatura}}, {{data_assinatura_extenso}}.</p>
+    </div>
+
+    <!-- ASSINATURAS — CONTRATANTE E CONTRATADA -->
+    <div class="assinaturas">
+        <div class="assinatura-bloco">
+            <div class="assinatura-cargo">Contratante</div>
+            <div class="assinatura-linha">
+                <div class="assinatura-nome">{{contratante_representante}}</div>
+                <div class="assinatura-info">{{contratante_cargo}}</div>
+                <div class="assinatura-info">CPF: {{contratante_cpf}}</div>
+                <div class="assinatura-icp">Assinatura ICP-Brasil</div>
+            </div>
+        </div>
+        <div class="assinatura-bloco">
+            <div class="assinatura-cargo">Contratada</div>
+            <div class="assinatura-linha">
+                <div class="assinatura-nome">{{contratada_representante}}</div>
+                <div class="assinatura-info">{{contratada_razao_social}}</div>
+                <div class="assinatura-info">CNPJ: {{contratada_cnpj}}</div>
+                <div class="assinatura-icp">Assinatura ICP-Brasil</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TESTEMUNHAS -->
+    <div class="testemunhas">
+        <div class="testemunhas-titulo">Testemunhas</div>
+        <div class="testemunhas-grid">
+            <div class="testemunha-bloco">
+                <div class="testemunha-linha">
+                    <div class="testemunha-nome">{{testemunha1_nome}}</div>
+                    <div class="testemunha-cpf">CPF: {{testemunha1_cpf}}</div>
+                </div>
+            </div>
+            <div class="testemunha-bloco">
+                <div class="testemunha-linha">
+                    <div class="testemunha-nome">{{testemunha2_nome}}</div>
+                    <div class="testemunha-cpf">CPF: {{testemunha2_cpf}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTAS DE RODAPÉ -->
+    <div class="notas-rodape">
+        <div class="titulo">Notas e Referências Normativas</div>
+        <div class="nota-item"><span class="nota-numero">1</span> Lei 14.133/2021, Art. 89: "Os contratos de que trata esta Lei regular-se-ão pelas suas cláusulas e pelos preceitos de direito público, e a eles serão aplicados, supletivamente, os princípios da teoria geral dos contratos e as disposições de direito privado".</div>
+        <div class="nota-item"><span class="nota-numero">2</span> Lei 14.133/2021, Art. 90: Estabelece as prerrogativas da Administração nos contratos administrativos.</div>
+        <div class="nota-item"><span class="nota-numero">3</span> Lei 14.133/2021, Art. 91: Dispõe sobre a duração dos contratos administrativos, incluindo hipóteses de prorrogação.</div>
+        <div class="nota-item"><span class="nota-numero">4</span> Lei 14.133/2021, Art. 92: Enumera as cláusulas necessárias nos contratos administrativos, incluindo objeto, regime de execução, preço, prazos, garantias, direitos e responsabilidades.</div>
+    </div>
+
+    <!-- SELO -->
+    <div class="selo-area">
+        <div class="selo-texto">&copy; 2026 Powered by ATA360 — Sistema de Inteligência em Contratações Públicas</div>
+    </div>
+
+</body>
+</html>
