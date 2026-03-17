@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>TR &mdash; Solucao de TIC | {{ente_nome}}</title>
+    <style>
+        /* ========================================
+           ATA360 DESIGN SYSTEM v8.0 — TIC
+           Legal Design + Design Law
+
+           Princípios:
+           - Fonte serif (Palatino) para legibilidade jurídica
+           - Espaços de respiro generosos entre blocos
+           - Leitura confortável em tela, impresso, P&B
+           - Modo claro e escuro (prefers-color-scheme)
+           - Hierarquia visual clara por tamanho/peso
+           - Contraste WCAG AA mínimo (4.5:1 texto, 3:1 UI)
+           - Paleta TIC: roxo (#5a67d8) no lugar do azul
+           ======================================== */
+
+        @page {
+            size: A4;
+            margin: 22mm 22mm 28mm 22mm;
+            @bottom-center {
+                content: "Página " counter(page) " de " counter(pages);
+                font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+                font-size: 9pt;
+                color: #666;
+            }
+        }
+        @page :first { margin-top: 18mm; }
+
+        /* ---- MODO CLARO (padrão) ---- */
+        :root {
+            --tic-cor: #5a67d8;
+            --tic-secundario: #667eea;
+            --tic-claro: #ebf4ff;
+            --vermelho: #c53030;
+            --verde: #276749;
+            --amarelo: #d69e2e;
+            --cinza-escuro: #2d3748;
+            --cinza-medio: #4a5568;
+            --cinza-claro: #f7fafc;
+            --cinza-linha: #e2e8f0;
+            --branco: #ffffff;
+
+            --respiro-bloco: 20pt;
+            --respiro-secao: 24pt;
+            --respiro-interno: 14pt;
+            --raio-borda: 4pt;
+
+            --fundo-pagina: #ffffff;
+            --fundo-superficie: #f7fafc;
+            --fundo-elevado: #ffffff;
+            --texto-primario: #2d3748;
+            --texto-secundario: #4a5568;
+            --texto-terciario: #718096;
+            --borda-sutil: #e2e8f0;
+        }
+
+        /* ---- MODO ESCURO ---- */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --tic-cor: #a3bffa;
+                --tic-secundario: #7f9cf5;
+                --tic-claro: #1a2332;
+                --vermelho: #fc8181;
+                --verde: #68d391;
+                --amarelo: #f6e05e;
+                --cinza-escuro: #e2e8f0;
+                --cinza-medio: #a0aec0;
+                --cinza-claro: #1a202c;
+                --cinza-linha: #2d3748;
+                --branco: #1a202c;
+                --fundo-pagina: #0d1117;
+                --fundo-superficie: #161b22;
+                --fundo-elevado: #1c2333;
+                --texto-primario: #e2e8f0;
+                --texto-secundario: #a0aec0;
+                --texto-terciario: #718096;
+                --borda-sutil: #2d3748;
+            }
+            body { background: var(--fundo-pagina); }
+            .doc-id-box { background: linear-gradient(135deg, #434190 0%, #5a67d8 100%); }
+            .trilha { background: #434190; }
+            .tabela thead tr { background: #434190; }
+            .campo-valor { background: var(--fundo-elevado); border-color: var(--borda-sutil); }
+            a { color: var(--tic-cor); }
+        }
+
+        /* ---- IMPRESSAO P&B ---- */
+        @media print {
+            :root {
+                --tic-cor: #000000; --tic-secundario: #333333;
+                --tic-claro: #f5f5f5; --vermelho: #000000; --verde: #000000;
+                --amarelo: #666666; --cinza-escuro: #000000; --cinza-medio: #333333;
+                --cinza-claro: #f8f8f8; --cinza-linha: #cccccc; --branco: #ffffff;
+            }
+            body { color: #000; background: #fff; -webkit-print-color-adjust: economy; print-color-adjust: economy; }
+            .doc-id-box, .trilha, .secao-numero, .tabela thead tr {
+                background: #000 !important; color: #fff;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+            }
+            .badge { background: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .checklist-box.ok, .checklist-box.pendente { background: #000 !important; border-color: #000;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .alerta { border-left-color: #000 !important; background: #f8f8f8 !important; color: #000 !important; }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', serif;
+            font-size: 10.5pt;
+            line-height: 1.7;
+            color: var(--texto-primario);
+            background: var(--fundo-pagina);
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        /* BADGE TIC */
+        .badge {
+            background: var(--tic-cor);
+            color: #ffffff;
+            padding: 4pt 12pt;
+            border-radius: 12pt;
+            font-size: 8pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5pt;
+            display: inline-block;
+            margin-bottom: 6pt;
+        }
+
+        /* CABECALHO */
+        .header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: var(--respiro-interno); border-bottom: 2.5pt solid var(--tic-cor); margin-bottom: var(--respiro-bloco); }
+        .header-left { flex: 1; padding-right: 20pt; }
+        .header-left .ente { font-size: 15pt; font-weight: bold; color: var(--tic-cor); margin-bottom: 4pt; letter-spacing: 0.3pt; }
+        .header-left .subordinacao { font-size: 9.5pt; color: var(--texto-secundario); line-height: 1.5; }
+        .logo-placeholder { width: 85pt; height: 85pt; border: 1.5pt dashed #cbd5e0; display: flex; align-items: center; justify-content: center; font-size: 9pt; color: #a0aec0; background: #f8fafc; }
+
+        /* IDENTIFICACAO DO DOCUMENTO */
+        .doc-id-box { background: linear-gradient(135deg, var(--tic-cor) 0%, var(--tic-secundario) 100%); color: #ffffff; padding: 16pt 20pt; margin-bottom: var(--respiro-bloco); border-radius: var(--raio-borda); }
+        .doc-id-box .titulo { font-size: 17pt; font-weight: bold; letter-spacing: 0.5pt; margin-bottom: 6pt; }
+        .doc-id-box .subtitulo { font-size: 10.5pt; opacity: 0.9; font-style: italic; }
+        .doc-numeros { display: flex; justify-content: space-between; margin-top: 12pt; padding-top: 12pt; border-top: 1pt solid rgba(255,255,255,0.3); }
+        .doc-numeros .item { text-align: center; }
+        .doc-numeros .label { font-size: 8pt; text-transform: uppercase; letter-spacing: 0.5pt; opacity: 0.8; }
+        .doc-numeros .valor { font-size: 12pt; font-weight: bold; margin-top: 2pt; }
+
+        /* FUNDAMENTACAO LEGAL */
+        .fundamentacao { background: var(--fundo-superficie); border-left: 4pt solid var(--tic-cor); padding: var(--respiro-interno) 16pt; margin-bottom: var(--respiro-bloco); font-size: 9pt; line-height: 1.6; }
+        .fundamentacao .titulo { font-weight: bold; color: var(--tic-cor); font-size: 9pt; text-transform: uppercase; letter-spacing: 0.3pt; margin-bottom: 8pt; }
+        .fundamentacao p { margin-bottom: 5pt; color: var(--texto-secundario); }
+
+        /* RASTREABILIDADE E QR */
+        .rastreabilidade { display: flex; justify-content: space-between; align-items: flex-start; background: var(--fundo-elevado); border: 1pt solid var(--borda-sutil); padding: var(--respiro-interno); margin-bottom: var(--respiro-secao); }
+        .rastreabilidade-info { flex: 1; font-size: 8.5pt; color: var(--texto-secundario); line-height: 1.65; }
+        .rastreabilidade-info strong { color: var(--texto-primario); }
+        .rastreabilidade-titulo { font-weight: bold; color: var(--tic-cor); font-size: 9pt; margin-bottom: 6pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+        .qr-area { width: 72pt; height: 72pt; border: 1pt dashed var(--borda-sutil); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 7pt; color: var(--cinza-medio); text-align: center; margin-left: 16pt; flex-shrink: 0; }
+
+        /* SECOES */
+        .secao { margin-bottom: var(--respiro-secao); page-break-inside: avoid; }
+        .secao-header { display: flex; align-items: stretch; margin-bottom: 12pt; }
+        .secao-numero { background: var(--tic-cor); color: var(--branco); width: 30pt; min-height: 38pt; display: flex; align-items: center; justify-content: center; font-size: 15pt; font-weight: bold; }
+        .secao-titulo-area { flex: 1; border-bottom: 2pt solid var(--tic-cor); padding-left: 12pt; display: flex; flex-direction: column; justify-content: center; }
+        .secao-titulo { font-size: 11.5pt; font-weight: bold; color: var(--tic-cor); text-transform: uppercase; letter-spacing: 0.3pt; }
+        .secao-fundamento { font-size: 8.5pt; color: var(--cinza-medio); font-style: italic; margin-top: 3pt; }
+        .secao-conteudo { padding-left: 42pt; border-left: 2pt solid var(--borda-sutil); margin-left: 14pt; }
+
+        /* CAMPOS */
+        .campo { margin-bottom: 12pt; }
+        .campo-label { font-size: 9pt; font-weight: bold; color: var(--tic-secundario); margin-bottom: 5pt; }
+        .campo-valor { background: var(--fundo-superficie); border: 1pt solid var(--borda-sutil); border-radius: 3pt; padding: 10pt 12pt; min-height: 28pt; font-size: 10pt; }
+        .campo-inline { display: flex; gap: 16pt; flex-wrap: wrap; }
+        .campo-inline .campo { flex: 1; min-width: 130pt; }
+
+        /* ALERTAS */
+        .alerta { padding: 11pt 14pt; border-radius: 3pt; margin-bottom: 14pt; font-size: 9pt; }
+        .alerta-atencao { background: #fffbeb; border-left: 4pt solid var(--amarelo); color: #92400e; }
+        .alerta-info { background: var(--tic-claro); border-left: 4pt solid var(--tic-secundario); color: var(--tic-cor); }
+        .alerta-sucesso { background: #f0fdf4; border-left: 4pt solid var(--verde); color: #166534; }
+        .alerta-importante { background: #fef2f2; border-left: 4pt solid var(--vermelho); color: #991b1b; }
+        .alerta strong { display: block; margin-bottom: 5pt; font-size: 9.5pt; }
+
+        /* TABELAS */
+        .tabela { width: 100%; border-collapse: collapse; margin-bottom: 14pt; font-size: 9pt; }
+        .tabela thead tr { background: var(--tic-cor); color: var(--branco); }
+        .tabela th { padding: 9pt 11pt; text-align: left; font-weight: bold; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+        .tabela td { padding: 9pt 11pt; border-bottom: 1pt solid var(--borda-sutil); }
+        .tabela tbody tr:nth-child(odd) { background: var(--fundo-elevado); }
+        .tabela tbody tr:nth-child(even) { background: var(--fundo-superficie); }
+        .tabela .numero { text-align: center; width: 40pt; }
+        .tabela .valor { text-align: right; white-space: nowrap; }
+        .tabela tfoot tr { background: var(--tic-claro); font-weight: bold; }
+
+        /* CHECKLIST */
+        .checklist { background: var(--fundo-superficie); border: 1pt solid var(--borda-sutil); border-radius: var(--raio-borda); padding: 16pt; margin-bottom: var(--respiro-bloco); }
+        .checklist-titulo { font-size: 10.5pt; font-weight: bold; color: var(--tic-cor); margin-bottom: 12pt; padding-bottom: 8pt; border-bottom: 1pt solid var(--borda-sutil); }
+        .checklist-item { display: flex; align-items: flex-start; margin-bottom: 7pt; font-size: 9pt; }
+        .checklist-box { width: 15pt; height: 15pt; border: 1.5pt solid var(--texto-terciario); border-radius: 2pt; margin-right: 10pt; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10pt; }
+        .checklist-box.ok { background: var(--verde); border-color: var(--verde); color: var(--branco); }
+        .checklist-box.pendente { background: var(--amarelo); border-color: var(--amarelo); color: var(--branco); }
+        .checklist-fundamento { font-size: 8pt; color: var(--cinza-medio); font-style: italic; }
+
+        /* DECLARACOES */
+        .declaracoes { background: var(--fundo-superficie); border: 1pt solid var(--borda-sutil); padding: 16pt; margin-bottom: var(--respiro-bloco); font-size: 9pt; line-height: 1.65; }
+        .declaracoes-titulo { font-weight: bold; color: var(--tic-cor); margin-bottom: 10pt; text-transform: uppercase; text-align: center; }
+        .declaracoes p { margin-bottom: 5pt; }
+        .declaracoes p strong { color: var(--tic-cor); }
+
+        /* ASSINATURAS */
+        .assinaturas { display: flex; justify-content: space-between; gap: 24pt; margin-top: 22pt; }
+        .assinatura-bloco { flex: 1; text-align: center; padding: var(--respiro-interno); border: 1pt solid var(--borda-sutil); background: var(--fundo-elevado); }
+        .assinatura-cargo { font-size: 9pt; font-weight: bold; color: var(--tic-cor); text-transform: uppercase; margin-bottom: 32pt; }
+        .assinatura-linha { border-top: 1pt solid var(--texto-primario); padding-top: 8pt; margin: 0 18pt; }
+        .assinatura-nome { font-size: 9pt; color: var(--texto-secundario); }
+        .assinatura-info { font-size: 8pt; color: var(--texto-secundario); margin-top: 3pt; }
+        .assinatura-icp { font-size: 7.5pt; color: var(--verde); margin-top: 4pt; }
+
+        /* TRILHA DA CONTRATACAO */
+        .trilha { background: var(--tic-cor); color: #ffffff; padding: 16pt 20pt; margin-top: var(--respiro-secao); border-radius: var(--raio-borda); }
+        .trilha-titulo { font-size: 10pt; font-weight: bold; margin-bottom: 12pt; text-align: center; text-transform: uppercase; letter-spacing: 0.5pt; }
+        .trilha-etapas { display: flex; justify-content: space-between; align-items: center; }
+        .trilha-etapa { text-align: center; font-size: 7.5pt; opacity: 0.5; }
+        .trilha-etapa.concluida { opacity: 1; }
+        .trilha-etapa.atual { opacity: 1; font-weight: bold; }
+        .trilha-etapa .icone { font-size: 14pt; display: block; margin-bottom: 2pt; }
+
+        /* SELO */
+        .selo-area { text-align: center; margin-top: 30pt; padding-top: 20pt; border-top: 1pt solid var(--borda-sutil); }
+        .selo-texto { font-size: 8pt; color: var(--texto-terciario); }
+
+        /* ========================================
+           NOTAS DE RODAPE (padrao cientifico)
+           ======================================== */
+        .nota-ref { font-size: 7pt; vertical-align: super; color: var(--tic-secundario); font-weight: bold; cursor: help; margin-left: 1pt; }
+        .notas-rodape { border-top: 1pt solid var(--borda-sutil); margin-top: var(--respiro-bloco); padding-top: 12pt; font-size: 8pt; color: var(--texto-terciario); line-height: 1.5; }
+        .notas-rodape .titulo { font-weight: bold; color: var(--texto-secundario); margin-bottom: 6pt; font-size: 8.5pt; }
+        .nota-item { margin-bottom: 4pt; padding-left: 14pt; text-indent: -14pt; }
+        .nota-numero { font-weight: bold; color: var(--tic-secundario); margin-right: 4pt; }
+
+        /* UTILIDADES */
+        .text-small { font-size: 8pt; }
+        .text-muted { color: var(--texto-terciario); }
+        .text-center { text-align: center; }
+        .mt-10 { margin-top: 10pt; }
+        .page-break { page-break-before: always; }
+    </style>
+</head>
+<body>
+
+    <!-- CABECALHO -->
+    <div class="header">
+        <div class="header-left">
+            <div class="badge">TIC</div>
+            <div class="ente">{{ente_nome}}</div>
+            <div class="subordinacao">{{subordinacao_linha1}}<br>{{subordinacao_linha2}}</div>
+        </div>
+        <div class="logo-placeholder">BRASAO</div>
+    </div>
+
+    <!-- IDENTIFICACAO DO DOCUMENTO -->
+    <div class="doc-id-box">
+        <div class="titulo">TERMO DE REFERENCIA &mdash; TIC</div>
+        <div class="subtitulo">Contratacao de Solucao de Tecnologia da Informacao e Comunicacao</div>
+        <div class="doc-numeros">
+            <div class="item"><div class="label">N.o Documento</div><div class="valor">{{doc_numero}}</div></div>
+            <div class="item"><div class="label">Processo</div><div class="valor">{{processo_numero}}</div></div>
+            <div class="item"><div class="label">Versao</div><div class="valor">{{versao}}</div></div>
+            <div class="item"><div class="label">Data</div><div class="valor">{{data_documento}}</div></div>
+        </div>
+    </div>
+
+    <!-- FUNDAMENTACAO LEGAL -->
+    <div class="fundamentacao">
+        <div class="titulo">Fundamentacao Legal &mdash; Contratacoes de TIC</div>
+        <p><strong>Lei 14.133/2021:</strong> Art. 6&ordm;, XXIII<sup class="nota-ref">1</sup> &mdash; definicao de Termo de Referencia</p>
+        <p><strong>IN SGD/ME 94/2022:</strong> Arts. 18 a 23<sup class="nota-ref">2</sup> &mdash; conteudo do TR para solucoes de TIC</p>
+        <p><strong>IN SGD/ME 94/2022:</strong> Art. 16<sup class="nota-ref">3</sup> &mdash; vedacao a remuneracao por homem-hora</p>
+        <p><strong>Decreto 11.246/2022:</strong> Politica de seguranca da informacao<sup class="nota-ref">4</sup></p>
+        <p><strong>Lei 13.709/2018 (LGPD):</strong> Protecao de dados pessoais<sup class="nota-ref">5</sup></p>
+    </div>
+
+    <!-- RASTREABILIDADE -->
+    <div class="rastreabilidade">
+        <div class="rastreabilidade-info">
+            <div class="rastreabilidade-titulo">Rastreabilidade do Documento</div>
+            <strong>ID:</strong> {{rastreabilidade_id}}<br>
+            <strong>Hash:</strong> <code style="font-family: 'Courier New', monospace; font-size: 7.5pt; background: var(--fundo-superficie); padding: 1pt 3pt;">{{hash_documento}}</code><br>
+            <strong>Gerado em:</strong> {{data_geracao}} as {{hora_geracao}}<br>
+            <strong>Origem:</strong> ATA360 &mdash; Sistema de Inteligencia em Contratacoes Publicas<br>
+            <strong>CNPJ:</strong> {{cnpj}}<br>
+            <strong>Publicacao:</strong> PNCP | Portal Transparencia
+        </div>
+        <div class="qr-area">[QR CODE]<br>Verificacao</div>
+    </div>
+
+    <!-- SECAO 1 - OBJETO -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">1</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Objeto</div>
+                <div class="secao-fundamento">Art. 6&ordm;, XXIII, Lei 14.133/2021 | Art. 18, I, IN SGD/ME 94/2022</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">Descricao do Objeto</div>
+                <div class="campo-valor">{{objeto_descricao}}</div>
+            </div>
+            <table class="tabela">
+                <thead>
+                    <tr>
+                        <th class="numero">Item</th>
+                        <th>Descricao</th>
+                        <th>CATMAT/SER</th>
+                        <th>Und</th>
+                        <th class="numero">Qtde</th>
+                        <th class="valor">Valor Unit.</th>
+                        <th class="valor">Valor Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="numero">1</td>
+                        <td>{{item1_descricao}}</td>
+                        <td>{{item1_catmat}}</td>
+                        <td>{{item1_unidade}}</td>
+                        <td class="numero">{{item1_quantidade}}</td>
+                        <td class="valor">R$ {{item1_valor_unit}}</td>
+                        <td class="valor">R$ {{item1_valor_total}}</td>
+                    </tr>
+                    <tr>
+                        <td class="numero">2</td>
+                        <td>{{item2_descricao}}</td>
+                        <td>{{item2_catmat}}</td>
+                        <td>{{item2_unidade}}</td>
+                        <td class="numero">{{item2_quantidade}}</td>
+                        <td class="valor">R$ {{item2_valor_unit}}</td>
+                        <td class="valor">R$ {{item2_valor_total}}</td>
+                    </tr>
+                    <tr>
+                        <td class="numero">3</td>
+                        <td>{{item3_descricao}}</td>
+                        <td>{{item3_catmat}}</td>
+                        <td>{{item3_unidade}}</td>
+                        <td class="numero">{{item3_quantidade}}</td>
+                        <td class="valor">R$ {{item3_valor_unit}}</td>
+                        <td class="valor">R$ {{item3_valor_total}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6" style="text-align: right;">VALOR TOTAL ESTIMADO:</td>
+                        <td class="valor">R$ {{valor_total}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <!-- SECAO 2 - FUNDAMENTACAO DA CONTRATACAO -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">2</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Fundamentacao da Contratacao</div>
+                <div class="secao-fundamento">Art. 18, II, IN SGD/ME 94/2022</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">Justificativa</div>
+                <div class="campo-valor">{{fundamentacao_justificativa}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">Referencia ao ETP</div>
+                <div class="campo-valor">Conforme Estudo Tecnico Preliminar n.o {{etp_numero}}, de {{etp_data}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">Alinhamento ao PDTIC</div>
+                <div class="campo-valor">{{alinhamento_pdtic}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECAO 3 - ESPECIFICACAO TECNICA -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">3</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Especificacao Tecnica da Solucao</div>
+                <div class="secao-fundamento">Art. 18, III, IN SGD/ME 94/2022</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">3.1 Especificacoes Funcionais</div>
+                <div class="campo-valor">{{especificacoes_funcionais}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">3.2 Especificacoes Nao-Funcionais</div>
+                <div class="campo-valor">{{especificacoes_nao_funcionais}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">3.3 Padroes Tecnicos e Interoperabilidade</div>
+                <div class="campo-valor">{{padroes_interoperabilidade}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">3.4 Requisitos de Integracao</div>
+                <div class="campo-valor">{{requisitos_integracao}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECAO 4 - SEGURANCA DA INFORMACAO E LGPD -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">4</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Seguranca da Informacao e LGPD</div>
+                <div class="secao-fundamento">Decreto 11.246/2022 | Lei 13.709/2018 (LGPD)</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">4.1 Requisitos de Seguranca da Informacao</div>
+                <div class="campo-valor">{{requisitos_seguranca}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">4.2 Conformidade com a LGPD</div>
+                <div class="campo-valor">{{lgpd_conformidade}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">4.3 Politica de Backup e Recuperacao</div>
+                <div class="campo-valor">{{politica_backup}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">4.4 Tratamento de Incidentes</div>
+                <div class="campo-valor">{{tratamento_incidentes}}</div>
+            </div>
+
+            <div class="alerta alerta-importante">
+                <strong>Decreto 11.246/2022 c/c Lei 13.709/2018 (LGPD), Art. 46</strong>
+                A contratada devera adotar medidas de seguranca, tecnicas e administrativas, aptas a proteger os dados pessoais e os ativos de informacao da Administracao.
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECAO 5 - VEDACAO A REMUNERACAO POR HOMEM-HORA -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">5</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Vedacao a Remuneracao por Homem-Hora</div>
+                <div class="secao-fundamento">Art. 16, IN SGD/ME 94/2022</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">5.1 Metrica de Afericao Adotada</div>
+                <div class="campo-valor">{{metrica_afericao}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">5.2 Justificativa da Metrica</div>
+                <div class="campo-valor">{{metrica_justificativa}}</div>
+            </div>
+
+            <div class="alerta alerta-atencao">
+                <strong>IN SGD/ME 94/2022, Art. 16</strong>
+                E vedado remunerar o contratado com base na metrica homem-hora ou equivalente, devendo a contratacao estar vinculada a entrega de produtos e resultados mensuraveis.
+            </div>
+        </div>
+    </div>
+
+    <!-- SECAO 6 - NIVEIS DE SERVICO (SLA) -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">6</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Niveis Minimos de Servico (SLA)</div>
+                <div class="secao-fundamento">Art. 18, V, IN SGD/ME 94/2022</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <table class="tabela">
+                <thead>
+                    <tr>
+                        <th class="numero">ID</th>
+                        <th>Indicador</th>
+                        <th>Meta</th>
+                        <th>Forma de Medicao</th>
+                        <th>Periodicidade</th>
+                        <th>Glosa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="numero">SLA-01</td>
+                        <td>{{sla1_indicador}}</td>
+                        <td>{{sla1_meta}}</td>
+                        <td>{{sla1_medicao}}</td>
+                        <td>{{sla1_periodicidade}}</td>
+                        <td>{{sla1_glosa}}</td>
+                    </tr>
+                    <tr>
+                        <td class="numero">SLA-02</td>
+                        <td>{{sla2_indicador}}</td>
+                        <td>{{sla2_meta}}</td>
+                        <td>{{sla2_medicao}}</td>
+                        <td>{{sla2_periodicidade}}</td>
+                        <td>{{sla2_glosa}}</td>
+                    </tr>
+                    <tr>
+                        <td class="numero">SLA-03</td>
+                        <td>{{sla3_indicador}}</td>
+                        <td>{{sla3_meta}}</td>
+                        <td>{{sla3_medicao}}</td>
+                        <td>{{sla3_periodicidade}}</td>
+                        <td>{{sla3_glosa}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alerta alerta-info">
+                <strong>IN SGD/ME 94/2022, Art. 18, V</strong>
+                Os niveis de servico devem ser objetivamente mensuraveis, vinculados a resultados e com previsao de glosas proporcionais ao descumprimento.
+            </div>
+        </div>
+    </div>
+
+    <!-- SECAO 7 - REQUISITOS DA CONTRATACAO -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">7</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Requisitos da Contratacao</div>
+                <div class="secao-fundamento">Art. 18, IV, IN SGD/ME 94/2022</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">7.1 Qualificacao Tecnica</div>
+                <div class="campo-valor">{{qualificacao_tecnica}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">7.2 Qualificacao Economico-Financeira</div>
+                <div class="campo-valor">{{qualificacao_economica}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">7.3 Certificacoes Exigidas</div>
+                <div class="campo-valor">{{certificacoes_exigidas}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECAO 8 - MODELO DE EXECUCAO -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">8</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Modelo de Execucao do Objeto</div>
+                <div class="secao-fundamento">Art. 18, V, IN SGD/ME 94/2022</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">8.1 Prazos de Execucao</div>
+                <div class="campo-valor">{{prazos_execucao}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">8.2 Local de Execucao/Entrega</div>
+                <div class="campo-valor">{{local_execucao}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">8.3 Cronograma de Entrega</div>
+                <div class="campo-valor">{{cronograma_entrega}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECAO 9 - MODELO DE GESTAO -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">9</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Modelo de Gestao do Contrato</div>
+                <div class="secao-fundamento">Art. 18, VI, IN SGD/ME 94/2022</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">9.1 Gestor do Contrato</div>
+                <div class="campo-valor">{{gestor_contrato}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">9.2 Fiscal Tecnico</div>
+                <div class="campo-valor">{{fiscal_tecnico}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">9.3 Fiscal Requisitante</div>
+                <div class="campo-valor">{{fiscal_requisitante}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">9.4 Fiscal Administrativo</div>
+                <div class="campo-valor">{{fiscal_administrativo}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECAO 10 - CRITERIOS DE MEDICAO E PAGAMENTO -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">10</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Criterios de Medicao e Pagamento</div>
+                <div class="secao-fundamento">Art. 18, VII, IN SGD/ME 94/2022</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">10.1 Criterios de Recebimento</div>
+                <div class="campo-valor">{{criterios_recebimento}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">10.2 Condicoes de Pagamento</div>
+                <div class="campo-valor">{{condicoes_pagamento}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">10.3 Glosas e Penalidades</div>
+                <div class="campo-valor">{{glosas_penalidades}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECAO 11 - FORMA E CRITERIOS DE SELECAO -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">11</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Forma e Criterios de Selecao</div>
+                <div class="secao-fundamento">Art. 18, VIII, IN SGD/ME 94/2022</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo-inline">
+                <div class="campo">
+                    <div class="campo-label">Modalidade</div>
+                    <div class="campo-valor">{{modalidade_licitacao}}</div>
+                </div>
+                <div class="campo">
+                    <div class="campo-label">Criterio de Julgamento</div>
+                    <div class="campo-valor">{{criterio_julgamento}}</div>
+                </div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">Modo de Disputa</div>
+                <div class="campo-valor">{{modo_disputa}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECAO 12 - ESTIMATIVA DE VALOR E REAJUSTE (ICTI) -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">12</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Estimativa de Valor e Reajuste</div>
+                <div class="secao-fundamento">Art. 18, IX, IN SGD/ME 94/2022 | Art. 24, IN SGD/ME 94/2022</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">Valor Total Estimado</div>
+                <div class="campo-valor" style="font-size: 14pt; font-weight: bold; color: var(--tic-cor);">R$ {{valor_total}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">Indice de Reajuste<sup class="nota-ref">6</sup></div>
+                <div class="campo-valor"><strong>ICTI &mdash; Indice de Custos de Tecnologia da Informacao (IPEA)</strong><br>Obrigatorio conforme Art. 24, IN SGD/ME 94/2022, para reajustamento de precos em contratacoes de solucoes de TIC.</div>
+            </div>
+            <div class="campo-inline">
+                <div class="campo">
+                    <div class="campo-label">Periodicidade do Reajuste</div>
+                    <div class="campo-valor">{{periodicidade_reajuste}}</div>
+                </div>
+                <div class="campo">
+                    <div class="campo-label">Data-Base</div>
+                    <div class="campo-valor">{{data_base_reajuste}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECAO 13 - ADEQUACAO ORCAMENTARIA -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">13</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Adequacao Orcamentaria</div>
+                <div class="secao-fundamento">Art. 18, X, IN SGD/ME 94/2022</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">Dotacao Orcamentaria</div>
+                <div class="campo-valor">{{dotacao_orcamentaria}}</div>
+            </div>
+            <div class="campo-inline">
+                <div class="campo">
+                    <div class="campo-label">Fonte de Recursos</div>
+                    <div class="campo-valor">{{fonte_recursos}}</div>
+                </div>
+                <div class="campo">
+                    <div class="campo-label">Natureza da Despesa</div>
+                    <div class="campo-valor">{{natureza_despesa}}</div>
+                </div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">Programa de Trabalho</div>
+                <div class="campo-valor">{{programa_trabalho}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKLIST DE CONFORMIDADE -->
+    <div class="checklist">
+        <div class="checklist-titulo">Checklist de Conformidade &mdash; TR TIC (IN SGD/ME 94/2022)</div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">&#10003;</div>
+            <div>Objeto definido com especificacoes tecnicas <span class="checklist-fundamento">(Art. 6&ordm;, XXIII, Lei 14.133/2021 | Art. 18, I e III, IN 94/2022)</span></div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">&#10003;</div>
+            <div>Fundamentacao referenciando ETP <span class="checklist-fundamento">(Art. 18, II, IN 94/2022)</span></div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">&#10003;</div>
+            <div>Padroes tecnicos e interoperabilidade definidos <span class="checklist-fundamento">(Art. 18, III, IN 94/2022)</span></div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">&#10003;</div>
+            <div>Seguranca da informacao e LGPD <span class="checklist-fundamento">(Decreto 11.246/2022 | Lei 13.709/2018)</span></div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">&#10003;</div>
+            <div>Vedacao a homem-hora observada <span class="checklist-fundamento">(Art. 16, IN 94/2022)</span></div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">&#10003;</div>
+            <div>Niveis de servico (SLA) definidos <span class="checklist-fundamento">(Art. 18, V, IN 94/2022)</span></div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">&#10003;</div>
+            <div>Modelo de gestao com fiscais designados <span class="checklist-fundamento">(Art. 18, VI, IN 94/2022)</span></div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">&#10003;</div>
+            <div>Criterios de medicao e pagamento <span class="checklist-fundamento">(Art. 18, VII, IN 94/2022)</span></div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">&#10003;</div>
+            <div>Indice ICTI para reajuste <span class="checklist-fundamento">(Art. 24, IN 94/2022)</span></div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box ok">&#10003;</div>
+            <div>Adequacao orcamentaria <span class="checklist-fundamento">(Art. 18, X, IN 94/2022)</span></div>
+        </div>
+        <div class="checklist-item">
+            <div class="checklist-box pendente">!</div>
+            <div>Aguardando aprovacao da autoridade competente <span class="checklist-fundamento">(Art. 18, IN 94/2022)</span></div>
+        </div>
+    </div>
+
+    <!-- DECLARACOES -->
+    <div class="declaracoes">
+        <div class="declaracoes-titulo">Declaracoes &mdash; Equipe de Planejamento da Contratacao</div>
+        <p>Os signatarios, na qualidade de integrantes da Equipe de Planejamento da Contratacao de TIC (IN SGD/ME 94/2022), <strong>DECLARAM</strong> que:</p>
+        <p><strong>I.</strong> As informacoes prestadas sao verdadeiras e refletem a real necessidade da Administracao;</p>
+        <p><strong>II.</strong> Foram observadas as vedacoes do Art. 16 da IN SGD/ME 94/2022, especialmente quanto a metrica homem-hora;</p>
+        <p><strong>III.</strong> O indice ICTI sera utilizado para reajuste conforme Art. 24 da IN SGD/ME 94/2022;</p>
+        <p><strong>IV.</strong> Foram observados os requisitos de seguranca da informacao (Decreto 11.246/2022) e a LGPD (Lei 13.709/2018);</p>
+        <p><strong>V.</strong> Este documento foi elaborado em observancia aos principios da legalidade, impessoalidade, moralidade e eficiencia (CF/88, Art. 37 c/c Lei 14.133/2021, Art. 5&ordm;);</p>
+        <p><strong>VI.</strong> Este documento foi elaborado com auxilio de ferramenta tecnologica, cabendo aos signatarios a validacao integral do conteudo (Lei 14.133/2021, Art. 11, IV);</p>
+        <p><strong>VII.</strong> Aceitamos as condicoes declaradas e autorizamos o prosseguimento do processo.</p>
+    </div>
+
+    <!-- ASSINATURAS (3 integrantes conforme IN SGD/ME 94/2022) -->
+    <div class="assinaturas">
+        <div class="assinatura-bloco">
+            <div class="assinatura-cargo">Integrante Requisitante</div>
+            <div class="assinatura-linha">
+                <div class="assinatura-nome">{{integrante_requisitante_nome}}</div>
+                <div class="assinatura-info">{{integrante_requisitante_cargo}} | Mat. {{integrante_requisitante_matricula}}</div>
+                <div class="assinatura-icp">Assinatura ICP-Brasil</div>
+            </div>
+        </div>
+        <div class="assinatura-bloco">
+            <div class="assinatura-cargo">Integrante Tecnico</div>
+            <div class="assinatura-linha">
+                <div class="assinatura-nome">{{integrante_tecnico_nome}}</div>
+                <div class="assinatura-info">{{integrante_tecnico_cargo}} | Mat. {{integrante_tecnico_matricula}}</div>
+                <div class="assinatura-icp">Assinatura ICP-Brasil</div>
+            </div>
+        </div>
+        <div class="assinatura-bloco">
+            <div class="assinatura-cargo">Integrante Administrativo</div>
+            <div class="assinatura-linha">
+                <div class="assinatura-nome">{{integrante_admin_nome}}</div>
+                <div class="assinatura-info">{{integrante_admin_cargo}} | Mat. {{integrante_admin_matricula}}</div>
+                <div class="assinatura-icp">Assinatura ICP-Brasil</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRILHA DA CONTRATACAO -->
+    <div class="trilha">
+        <div class="trilha-titulo">Trilha da Contratacao Publica &mdash; TIC</div>
+        <div class="trilha-etapas">
+            <div class="trilha-etapa concluida"><div class="icone">&#9679;</div>PCA</div>
+            <div class="trilha-etapa concluida"><div class="icone">&#9679;</div>DFD</div>
+            <div class="trilha-etapa concluida"><div class="icone">&#9679;</div>ETP</div>
+            <div class="trilha-etapa concluida"><div class="icone">&#9679;</div>PP</div>
+            <div class="trilha-etapa atual"><div class="icone">&#9679;</div>TR</div>
+            <div class="trilha-etapa"><div class="icone">&#9675;</div>MR</div>
+            <div class="trilha-etapa"><div class="icone">&#9675;</div>LIC</div>
+            <div class="trilha-etapa"><div class="icone">&#9675;</div>CTR</div>
+            <div class="trilha-etapa"><div class="icone">&#9675;</div>EXE</div>
+            <div class="trilha-etapa"><div class="icone">&#9675;</div>AVA</div>
+        </div>
+    </div>
+
+    <!-- NOTAS DE RODAPE -->
+    <div class="notas-rodape">
+        <div class="titulo">Notas e Referencias Normativas</div>
+        <div class="nota-item"><span class="nota-numero">1</span> Lei 14.133/2021, Art. 6&ordm;, XXIII: "Termo de referencia: documento necessario para a contratacao de bens e servicos, que deve conter [...] descricao da solucao como um todo, [...] fundamentacao da contratacao, descricao da solucao, requisitos da contratacao, estimativas das quantidades para a contratacao [...]".</div>
+        <div class="nota-item"><span class="nota-numero">2</span> IN SGD/ME 94/2022, Arts. 18 a 23: Dispoe sobre o conteudo obrigatorio do Termo de Referencia para contratacoes de solucoes de Tecnologia da Informacao e Comunicacao no ambito da Administracao Publica federal.</div>
+        <div class="nota-item"><span class="nota-numero">3</span> IN SGD/ME 94/2022, Art. 16: "E vedada a contratacao por meio de metrica de pagamento baseada em homem-hora ou equivalente, salvo mediante justificativa e desde que haja vinculacao entre os pagamentos e a entrega de produtos."</div>
+        <div class="nota-item"><span class="nota-numero">4</span> Decreto 11.246, de 27/10/2022: Institui a Politica Nacional de Seguranca da Informacao no ambito da administracao publica federal, com diretrizes para protecao de dados e ativos de informacao.</div>
+        <div class="nota-item"><span class="nota-numero">5</span> Lei 13.709/2018 (LGPD), Art. 46: "Os agentes de tratamento devem adotar medidas de seguranca, tecnicas e administrativas aptas a proteger os dados pessoais de acessos nao autorizados e de situacoes acidentais ou ilicitas de destruicao, perda, alteracao, comunicacao ou qualquer forma de tratamento inadequado ou ilicito."</div>
+        <div class="nota-item"><span class="nota-numero">6</span> IN SGD/ME 94/2022, Art. 24: O ICTI (Indice de Custos de Tecnologia da Informacao), calculado e divulgado pelo IPEA, e o indice de reajustamento de precos obrigatorio para contratacoes de solucoes de TIC no ambito da Administracao Publica federal.</div>
+    </div>
+
+    <!-- SELO -->
+    <div class="selo-area">
+        <div class="selo-texto">&copy; 2026 Powered by ATA360 &mdash; Sistema de Inteligencia em Contratacoes Publicas | TIC</div>
+    </div>
+
+</body>
+</html>
