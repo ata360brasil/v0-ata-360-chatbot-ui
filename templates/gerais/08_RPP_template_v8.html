@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Pesquisa de Preço — RPP | {{ente_nome}}</title>
+    <style>
+        /* ========================================
+           ATA360 DESIGN SYSTEM v8.0
+           Legal Design + Design Law
+
+           Princípios:
+           - Fonte serif (Palatino) para legibilidade jurídica
+           - Espaços de respiro generosos entre blocos
+           - Leitura confortável em tela, impresso, P&B
+           - Modo claro e escuro (prefers-color-scheme)
+           - Hierarquia visual clara por tamanho/peso
+           - Contraste WCAG AA mínimo (4.5:1 texto, 3:1 UI)
+           ======================================== */
+
+        @page {
+            size: A4;
+            margin: 22mm 22mm 28mm 22mm;
+            @bottom-center {
+                content: "Página " counter(page) " de " counter(pages);
+                font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+                font-size: 9pt;
+                color: #666;
+            }
+        }
+        @page :first { margin-top: 18mm; }
+
+        /* ---- MODO CLARO (padrão) ---- */
+        :root {
+            --azul-primario: #1e3a5f;
+            --azul-secundario: #2c5282;
+            --azul-claro: #e8f0f8;
+            --vermelho: #c53030;
+            --verde: #276749;
+            --amarelo: #d69e2e;
+            --cinza-escuro: #2d3748;
+            --cinza-medio: #4a5568;
+            --cinza-claro: #f7fafc;
+            --cinza-linha: #e2e8f0;
+            --branco: #ffffff;
+
+            --respiro-bloco: 20pt;
+            --respiro-secao: 24pt;
+            --respiro-interno: 14pt;
+            --raio-borda: 4pt;
+
+            --fundo-pagina: #ffffff;
+            --fundo-superficie: #f7fafc;
+            --fundo-elevado: #ffffff;
+            --texto-primario: #2d3748;
+            --texto-secundario: #4a5568;
+            --texto-terciario: #718096;
+            --borda-sutil: #e2e8f0;
+        }
+
+        /* ---- MODO ESCURO ---- */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --azul-primario: #63b3ed;
+                --azul-secundario: #90cdf4;
+                --azul-claro: #1a2332;
+                --vermelho: #fc8181;
+                --verde: #68d391;
+                --amarelo: #f6e05e;
+                --cinza-escuro: #e2e8f0;
+                --cinza-medio: #a0aec0;
+                --cinza-claro: #1a202c;
+                --cinza-linha: #2d3748;
+                --branco: #1a202c;
+                --fundo-pagina: #0d1117;
+                --fundo-superficie: #161b22;
+                --fundo-elevado: #1c2333;
+                --texto-primario: #e2e8f0;
+                --texto-secundario: #a0aec0;
+                --texto-terciario: #718096;
+                --borda-sutil: #2d3748;
+            }
+            body { background: var(--fundo-pagina); }
+            .doc-id-box { background: linear-gradient(135deg, #1a365d 0%, #2a4365 100%); }
+            .tabela thead tr { background: #1a365d; }
+            .campo-valor { background: var(--fundo-elevado); border-color: var(--borda-sutil); }
+            .disclaimer { background: #332b00; border-color: #665500; color: #f6e05e; }
+            .disclaimer strong { color: #fbd38d; }
+            a { color: var(--azul-primario); }
+        }
+
+        /* ---- IMPRESSÃO P&B ---- */
+        @media print {
+            :root {
+                --azul-primario: #000000; --azul-secundario: #333333;
+                --azul-claro: #f5f5f5; --vermelho: #000000; --verde: #000000;
+                --amarelo: #666666; --cinza-escuro: #000000; --cinza-medio: #333333;
+                --cinza-claro: #f8f8f8; --cinza-linha: #cccccc; --branco: #ffffff;
+            }
+            body { color: #000; background: #fff; -webkit-print-color-adjust: economy; print-color-adjust: economy; }
+            .doc-id-box, .secao-numero, .tabela thead tr {
+                background: #000 !important; color: #fff;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+            }
+            .alerta { border-left-color: #000 !important; background: #f8f8f8 !important; color: #000 !important; }
+            .disclaimer { background: #f8f8f8 !important; border-color: #999 !important; color: #000 !important; }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', serif;
+            font-size: 10.5pt;
+            line-height: 1.7;
+            color: var(--texto-primario);
+            background: var(--fundo-pagina);
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        /* CABEÇALHO */
+        .header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: var(--respiro-interno); border-bottom: 2.5pt solid var(--azul-primario); margin-bottom: var(--respiro-bloco); }
+        .header-left { flex: 1; padding-right: 20pt; }
+        .header-left .ente { font-size: 15pt; font-weight: bold; color: var(--azul-primario); margin-bottom: 4pt; letter-spacing: 0.3pt; }
+        .header-left .subordinacao { font-size: 9.5pt; color: var(--texto-secundario); line-height: 1.5; }
+        .logo-placeholder { width: 85pt; height: 85pt; border: 1.5pt dashed #cbd5e0; display: flex; align-items: center; justify-content: center; font-size: 9pt; color: #a0aec0; background: #f8fafc; }
+
+        /* IDENTIFICAÇÃO DO DOCUMENTO */
+        .doc-id-box { background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%); color: #ffffff; padding: 16pt 20pt; margin-bottom: var(--respiro-bloco); border-radius: var(--raio-borda); }
+        .doc-id-box .titulo { font-size: 17pt; font-weight: bold; letter-spacing: 0.5pt; margin-bottom: 6pt; }
+        .doc-id-box .subtitulo { font-size: 10.5pt; opacity: 0.9; font-style: italic; }
+        .doc-id-box .natureza-tag { display: inline-block; background: rgba(255,255,255,0.2); padding: 2pt 10pt; border-radius: 3pt; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.5pt; margin-top: 8pt; }
+        .doc-numeros { display: flex; justify-content: space-between; margin-top: 12pt; padding-top: 12pt; border-top: 1pt solid rgba(255,255,255,0.3); }
+        .doc-numeros .item { text-align: center; }
+        .doc-numeros .label { font-size: 8pt; text-transform: uppercase; letter-spacing: 0.5pt; opacity: 0.8; }
+        .doc-numeros .valor { font-size: 12pt; font-weight: bold; margin-top: 2pt; }
+
+        /* DISCLAIMER (amarelo) */
+        .disclaimer { background: #fffbeb; border: 1pt solid #f6e05e; border-left: 4pt solid var(--amarelo); padding: 12pt 16pt; margin-bottom: var(--respiro-bloco); font-size: 9pt; color: #744210; border-radius: 0 var(--raio-borda) var(--raio-borda) 0; line-height: 1.6; }
+        .disclaimer strong { color: #92400e; display: block; margin-bottom: 4pt; font-size: 9.5pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+
+        /* FUNDAMENTAÇÃO LEGAL */
+        .fundamentacao { background: var(--fundo-superficie); border-left: 4pt solid var(--azul-primario); padding: var(--respiro-interno) 16pt; margin-bottom: var(--respiro-bloco); font-size: 9pt; line-height: 1.6; }
+        .fundamentacao .titulo { font-weight: bold; color: var(--azul-primario); font-size: 9pt; text-transform: uppercase; letter-spacing: 0.3pt; margin-bottom: 8pt; }
+        .fundamentacao p { margin-bottom: 5pt; color: var(--texto-secundario); }
+
+        /* RASTREABILIDADE E QR */
+        .rastreabilidade { display: flex; justify-content: space-between; align-items: flex-start; background: var(--fundo-elevado); border: 1pt solid var(--borda-sutil); padding: var(--respiro-interno); margin-bottom: var(--respiro-secao); }
+        .rastreabilidade-info { flex: 1; font-size: 8.5pt; color: var(--texto-secundario); line-height: 1.65; }
+        .rastreabilidade-info strong { color: var(--texto-primario); }
+        .rastreabilidade-titulo { font-weight: bold; color: var(--azul-primario); font-size: 9pt; margin-bottom: 6pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+        .qr-area { width: 72pt; height: 72pt; border: 1pt dashed var(--borda-sutil); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 7pt; color: var(--cinza-medio); text-align: center; margin-left: 16pt; flex-shrink: 0; }
+
+        /* SEÇÕES */
+        .secao { margin-bottom: var(--respiro-secao); page-break-inside: avoid; }
+        .secao-header { display: flex; align-items: stretch; margin-bottom: 12pt; }
+        .secao-numero { background: var(--azul-primario); color: var(--branco); width: 30pt; min-height: 38pt; display: flex; align-items: center; justify-content: center; font-size: 15pt; font-weight: bold; }
+        .secao-titulo-area { flex: 1; border-bottom: 2pt solid var(--azul-primario); padding-left: 12pt; display: flex; flex-direction: column; justify-content: center; }
+        .secao-titulo { font-size: 11.5pt; font-weight: bold; color: var(--azul-primario); text-transform: uppercase; letter-spacing: 0.3pt; }
+        .secao-fundamento { font-size: 8.5pt; color: var(--cinza-medio); font-style: italic; margin-top: 3pt; }
+        .secao-conteudo { padding-left: 42pt; border-left: 2pt solid var(--borda-sutil); margin-left: 14pt; }
+
+        /* CAMPOS */
+        .campo { margin-bottom: 12pt; }
+        .campo-label { font-size: 9pt; font-weight: bold; color: var(--azul-secundario); margin-bottom: 5pt; }
+        .campo-valor { background: var(--fundo-superficie); border: 1pt solid var(--borda-sutil); border-radius: 3pt; padding: 10pt 12pt; min-height: 28pt; font-size: 10pt; }
+        .campo-inline { display: flex; gap: 16pt; flex-wrap: wrap; }
+        .campo-inline .campo { flex: 1; min-width: 130pt; }
+
+        /* EDITÁVEL */
+        .editavel { border: 1pt dashed #a0c4e8 !important; background: #f0f7ff !important; }
+
+        /* ALERTAS */
+        .alerta { padding: 11pt 14pt; border-radius: 3pt; margin-bottom: 14pt; font-size: 9pt; }
+        .alerta-atencao { background: #fffbeb; border-left: 4pt solid var(--amarelo); color: #92400e; }
+        .alerta-info { background: var(--azul-claro); border-left: 4pt solid var(--azul-secundario); color: var(--azul-primario); }
+        .alerta-sucesso { background: #f0fdf4; border-left: 4pt solid var(--verde); color: #166534; }
+        .alerta-importante { background: #fef2f2; border-left: 4pt solid var(--vermelho); color: #991b1b; }
+        .alerta strong { display: block; margin-bottom: 5pt; font-size: 9.5pt; }
+
+        /* TABELAS */
+        .tabela { width: 100%; border-collapse: collapse; margin-bottom: 14pt; font-size: 9pt; }
+        .tabela thead tr { background: var(--azul-primario); color: var(--branco); }
+        .tabela th { padding: 9pt 11pt; text-align: left; font-weight: bold; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.3pt; white-space: nowrap; }
+        .tabela td { padding: 9pt 11pt; border-bottom: 1pt solid var(--borda-sutil); vertical-align: top; }
+        .tabela tbody tr:nth-child(odd) { background: var(--fundo-elevado); }
+        .tabela tbody tr:nth-child(even) { background: var(--fundo-superficie); }
+        .tabela .numero { text-align: center; width: 28pt; }
+        .tabela .valor { text-align: right; white-space: nowrap; }
+        .tabela .link-fonte { font-size: 7pt; color: var(--azul-secundario); word-break: break-all; }
+        .tabela .catmat-cell { font-family: 'Courier New', monospace; font-size: 8pt; text-align: center; }
+        .tabela .descricao-cell { max-width: 180pt; line-height: 1.45; }
+        .tabela .embalagem-cell { font-size: 8pt; text-align: center; white-space: nowrap; }
+        .tabela .qtd-cell { text-align: center; font-weight: bold; }
+        .tabela .acao-excluir { color: var(--vermelho); font-size: 7pt; text-transform: uppercase; cursor: pointer; text-align: center; }
+        .tabela tfoot tr { background: var(--azul-claro); font-weight: bold; border-top: 2pt solid var(--azul-primario); }
+        .tabela tfoot td { padding: 10pt 11pt; }
+
+        /* RESUMO ESTATÍSTICO */
+        .resumo-box { display: flex; gap: 12pt; margin: 16pt 0; flex-wrap: wrap; }
+        .resumo-card { flex: 1; min-width: 100pt; background: var(--fundo-superficie); border: 1pt solid var(--borda-sutil); padding: 12pt; text-align: center; border-radius: var(--raio-borda); }
+        .resumo-card .rotulo { font-size: 8pt; text-transform: uppercase; color: var(--texto-terciario); margin-bottom: 4pt; letter-spacing: 0.3pt; }
+        .resumo-card .numero { font-size: 16pt; font-weight: bold; color: var(--azul-primario); }
+        .resumo-card .detalhe { font-size: 8pt; color: var(--texto-terciario); margin-top: 2pt; }
+        .resumo-card.destaque { background: var(--azul-claro); border-color: var(--azul-primario); }
+        .resumo-card.destaque .numero { color: var(--verde); }
+
+        /* ORIGEM E METODOLOGIA */
+        .origem-dados { background: var(--fundo-elevado); border: 1pt solid var(--borda-sutil); padding: var(--respiro-interno); margin-bottom: 14pt; border-radius: var(--raio-borda); }
+        .origem-dados .titulo { font-size: 9pt; font-weight: bold; color: var(--azul-primario); margin-bottom: 10pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+        .origem-item { display: flex; align-items: flex-start; margin-bottom: 6pt; font-size: 8.5pt; }
+        .origem-item .icone { width: 16pt; text-align: center; margin-right: 8pt; color: var(--verde); font-weight: bold; }
+        .origem-item .texto { flex: 1; color: var(--texto-secundario); }
+        .origem-item .texto strong { color: var(--texto-primario); }
+
+        /* OBSERVAÇÃO FINAL */
+        .observacao-final { background: var(--fundo-superficie); border: 1pt solid var(--borda-sutil); border-left: 4pt solid var(--azul-secundario); padding: 16pt; margin-bottom: var(--respiro-bloco); border-radius: 0 var(--raio-borda) var(--raio-borda) 0; }
+        .observacao-final .titulo { font-size: 10pt; font-weight: bold; color: var(--azul-primario); margin-bottom: 10pt; text-transform: uppercase; }
+        .observacao-final .conteudo { font-size: 10pt; color: var(--texto-primario); line-height: 1.7; min-height: 60pt; }
+
+        /* ELABORADOR (sem assinatura) */
+        .elaborador-bloco { margin: var(--respiro-secao) 0; padding: var(--respiro-interno); border: 1pt solid var(--borda-sutil); background: var(--fundo-superficie); border-radius: var(--raio-borda); }
+        .elaborador-titulo { font-size: 9pt; font-weight: bold; color: var(--azul-primario); text-transform: uppercase; letter-spacing: 0.3pt; margin-bottom: 8pt; }
+        .elaborador-dados { display: flex; gap: 20pt; font-size: 9.5pt; flex-wrap: wrap; }
+        .elaborador-nota { font-size: 8pt; color: var(--texto-terciario); margin-top: 8pt; font-style: italic; }
+
+        /* NOTAS DE RODAPÉ */
+        .nota-ref { font-size: 7pt; vertical-align: super; color: var(--azul-secundario); font-weight: bold; cursor: help; margin-left: 1pt; }
+        .notas-rodape { border-top: 1pt solid var(--borda-sutil); margin-top: var(--respiro-bloco); padding-top: 12pt; font-size: 8pt; color: var(--texto-terciario); line-height: 1.5; }
+        .notas-rodape .titulo { font-weight: bold; color: var(--texto-secundario); margin-bottom: 6pt; font-size: 8.5pt; }
+        .nota-item { margin-bottom: 4pt; padding-left: 14pt; text-indent: -14pt; }
+        .nota-numero { font-weight: bold; color: var(--azul-secundario); margin-right: 4pt; }
+
+        /* SELO */
+        .selo-area { text-align: center; margin-top: 30pt; padding-top: 20pt; border-top: 1pt solid var(--borda-sutil); }
+        .selo-texto { font-size: 8pt; color: var(--texto-terciario); }
+
+        /* UTILIDADES */
+        .text-small { font-size: 8pt; }
+        .text-muted { color: var(--texto-terciario); }
+        .text-center { text-align: center; }
+        .mt-10 { margin-top: 10pt; }
+        .page-break { page-break-before: always; }
+        .preco-destaque { background: var(--verde); color: white; padding: 2pt 6pt; border-radius: 2pt; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <div class="header">
+        <div class="header-left">
+            <div class="ente">{{ente_nome}}</div>
+            <div class="subordinacao">{{subordinacao_linha1}}<br>{{subordinacao_linha2}}</div>
+        </div>
+        <div class="logo-placeholder">BRASÃO</div>
+    </div>
+
+    <!-- IDENTIFICAÇÃO DO DOCUMENTO -->
+    <div class="doc-id-box">
+        <div class="titulo">RELATÓRIO DE PESQUISA DE PREÇO</div>
+        <div class="subtitulo">Documento informativo — sem validade legal</div>
+        <div class="natureza-tag">Documento informativo — não integra a trilha da contratação</div>
+        <div class="doc-numeros">
+            <div class="item"><div class="label">Nº Relatório</div><div class="valor">{{doc_numero}}</div></div>
+            <div class="item"><div class="label">Processo / Ref.</div><div class="valor">{{processo_referencia}}</div></div>
+            <div class="item"><div class="label">Versão</div><div class="valor">{{versao}}</div></div>
+            <div class="item"><div class="label">Data</div><div class="valor">{{data_documento}}</div></div>
+        </div>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer">
+        <strong>DOCUMENTO INFORMATIVO</strong>
+        Este relatório é um instrumento auxiliar sem validade legal. Não substitui a Pesquisa de Preços formal (PP) prevista na Lei 14.133/2021. Pode ser utilizado como subsídio para elaboração do PCA, estimativa de compras futuras e instrução de processos no ATA360.
+    </div>
+
+    <!-- FUNDAMENTAÇÃO LEGAL (referência, não vinculante) -->
+    <div class="fundamentacao">
+        <div class="titulo">Base Normativa de Referência</div>
+        <p><strong>Lei 14.133/2021, Art. 23, §1º</strong><sup class="nota-ref">1</sup> — pesquisa de preços para estimativa do valor da contratação</p>
+        <p><strong>IN SEGES/ME 65/2021, Art. 5º</strong><sup class="nota-ref">2</sup> — parâmetros de pesquisa de preços</p>
+        <p><strong>IN SEGES/ME 65/2021, Art. 6º</strong><sup class="nota-ref">3</sup> — métodos de cálculo do preço estimado</p>
+    </div>
+
+    <!-- RASTREABILIDADE -->
+    <div class="rastreabilidade">
+        <div class="rastreabilidade-info">
+            <div class="rastreabilidade-titulo">Rastreabilidade do Documento</div>
+            <strong>ID:</strong> {{rastreabilidade_id}}<br>
+            <strong>Hash:</strong> <code style="font-family: 'Courier New', monospace; font-size: 7.5pt; background: var(--fundo-superficie); padding: 1pt 3pt;">{{hash_documento}}</code><br>
+            <strong>Gerado em:</strong> {{data_geracao}} às {{hora_geracao}}<br>
+            <strong>Elaborado por:</strong> {{elaborador_nome}} — {{elaborador_setor}}<br>
+            <strong>Origem:</strong> ATA360 — Sistema de Inteligência em Contratações Públicas<br>
+            <strong>Fontes:</strong> PNCP | Compras.gov.br | Banco de Preços | Fornecedores
+        </div>
+        <div class="qr-area">[QR CODE]<br>Verificação</div>
+    </div>
+
+    <!-- SEÇÃO 1: OBJETO E FINALIDADE -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">1</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Objeto e Finalidade</div>
+                <div class="secao-fundamento">Contextualização do levantamento de preços</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="campo">
+                <div class="campo-label">Descrição do Objeto</div>
+                <div class="campo-valor editavel">{{objeto_descricao}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">Finalidade do Relatório</div>
+                <div class="campo-valor editavel">{{finalidade}}</div>
+            </div>
+            <div class="campo-inline">
+                <div class="campo">
+                    <div class="campo-label">Tipo</div>
+                    <div class="campo-valor editavel">{{tipo_objeto}}</div>
+                </div>
+                <div class="campo">
+                    <div class="campo-label">Área Demandante</div>
+                    <div class="campo-valor editavel">{{area_demandante}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 2: ITENS PESQUISADOS -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">2</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Itens Pesquisados</div>
+                <div class="secao-fundamento">Dados coletados de fontes oficiais — campos editáveis marcados com borda tracejada</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <table class="tabela">
+                <thead>
+                    <tr>
+                        <th class="numero">Nº</th>
+                        <th>CATMAT /<br>CATSERV</th>
+                        <th>PDM</th>
+                        <th>Descrição</th>
+                        <th>Fonte / Link</th>
+                        <th>Embalagem</th>
+                        <th class="valor">Preço Unit. (R$)</th>
+                        <th>Qtd.</th>
+                        <th class="valor">Subtotal (R$)</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ITEM 1 -->
+                    <tr>
+                        <td class="numero">1</td>
+                        <td class="catmat-cell">{{item1_catmat}}</td>
+                        <td class="catmat-cell">{{item1_pdm}}</td>
+                        <td class="descricao-cell">{{item1_descricao}}</td>
+                        <td>
+                            <span class="text-small">{{item1_fonte_nome}}</span><br>
+                            <span class="link-fonte">{{item1_fonte_link}}</span>
+                        </td>
+                        <td class="embalagem-cell editavel">{{item1_embalagem}}</td>
+                        <td class="valor">{{item1_preco_unitario}}</td>
+                        <td class="qtd-cell editavel">{{item1_quantidade}}</td>
+                        <td class="valor"><strong>{{item1_subtotal}}</strong></td>
+                        <td class="acao-excluir">[Excluir]</td>
+                    </tr>
+                    <!-- ITEM 2 -->
+                    <tr>
+                        <td class="numero">2</td>
+                        <td class="catmat-cell">{{item2_catmat}}</td>
+                        <td class="catmat-cell">{{item2_pdm}}</td>
+                        <td class="descricao-cell">{{item2_descricao}}</td>
+                        <td>
+                            <span class="text-small">{{item2_fonte_nome}}</span><br>
+                            <span class="link-fonte">{{item2_fonte_link}}</span>
+                        </td>
+                        <td class="embalagem-cell editavel">{{item2_embalagem}}</td>
+                        <td class="valor">{{item2_preco_unitario}}</td>
+                        <td class="qtd-cell editavel">{{item2_quantidade}}</td>
+                        <td class="valor"><strong>{{item2_subtotal}}</strong></td>
+                        <td class="acao-excluir">[Excluir]</td>
+                    </tr>
+                    <!-- ITEM 3 -->
+                    <tr>
+                        <td class="numero">3</td>
+                        <td class="catmat-cell">{{item3_catmat}}</td>
+                        <td class="catmat-cell">{{item3_pdm}}</td>
+                        <td class="descricao-cell">{{item3_descricao}}</td>
+                        <td>
+                            <span class="text-small">{{item3_fonte_nome}}</span><br>
+                            <span class="link-fonte">{{item3_fonte_link}}</span>
+                        </td>
+                        <td class="embalagem-cell editavel">{{item3_embalagem}}</td>
+                        <td class="valor">{{item3_preco_unitario}}</td>
+                        <td class="qtd-cell editavel">{{item3_quantidade}}</td>
+                        <td class="valor"><strong>{{item3_subtotal}}</strong></td>
+                        <td class="acao-excluir">[Excluir]</td>
+                    </tr>
+                    <!-- ITEM 4 -->
+                    <tr>
+                        <td class="numero">4</td>
+                        <td class="catmat-cell">{{item4_catmat}}</td>
+                        <td class="catmat-cell">{{item4_pdm}}</td>
+                        <td class="descricao-cell">{{item4_descricao}}</td>
+                        <td>
+                            <span class="text-small">{{item4_fonte_nome}}</span><br>
+                            <span class="link-fonte">{{item4_fonte_link}}</span>
+                        </td>
+                        <td class="embalagem-cell editavel">{{item4_embalagem}}</td>
+                        <td class="valor">{{item4_preco_unitario}}</td>
+                        <td class="qtd-cell editavel">{{item4_quantidade}}</td>
+                        <td class="valor"><strong>{{item4_subtotal}}</strong></td>
+                        <td class="acao-excluir">[Excluir]</td>
+                    </tr>
+                    <!-- ITEM 5 -->
+                    <tr>
+                        <td class="numero">5</td>
+                        <td class="catmat-cell">{{item5_catmat}}</td>
+                        <td class="catmat-cell">{{item5_pdm}}</td>
+                        <td class="descricao-cell">{{item5_descricao}}</td>
+                        <td>
+                            <span class="text-small">{{item5_fonte_nome}}</span><br>
+                            <span class="link-fonte">{{item5_fonte_link}}</span>
+                        </td>
+                        <td class="embalagem-cell editavel">{{item5_embalagem}}</td>
+                        <td class="valor">{{item5_preco_unitario}}</td>
+                        <td class="qtd-cell editavel">{{item5_quantidade}}</td>
+                        <td class="valor"><strong>{{item5_subtotal}}</strong></td>
+                        <td class="acao-excluir">[Excluir]</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6" style="text-align: right; text-transform: uppercase; font-size: 9pt;">Valor Total Estimado</td>
+                        <td colspan="2" style="text-align: center; font-size: 8pt;">{{total_itens}} itens</td>
+                        <td class="valor" style="font-size: 12pt;"><span class="preco-destaque">R$ {{valor_total}}</span></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 3: RESUMO ESTATÍSTICO -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">3</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Resumo Estatístico</div>
+                <div class="secao-fundamento">Síntese dos valores apurados — Ref. IN SEGES/ME 65/2021, Art. 6º</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="resumo-box">
+                <div class="resumo-card destaque">
+                    <div class="rotulo">Menor Preço</div>
+                    <div class="numero">R$ {{menor_preco_unitario}}</div>
+                    <div class="detalhe">{{menor_preco_item}}</div>
+                </div>
+                <div class="resumo-card">
+                    <div class="rotulo">Maior Preço</div>
+                    <div class="numero">R$ {{maior_preco_unitario}}</div>
+                    <div class="detalhe">{{maior_preco_item}}</div>
+                </div>
+                <div class="resumo-card">
+                    <div class="rotulo">Média</div>
+                    <div class="numero">R$ {{preco_medio_unitario}}</div>
+                    <div class="detalhe">aritmética simples</div>
+                </div>
+                <div class="resumo-card">
+                    <div class="rotulo">Mediana</div>
+                    <div class="numero">R$ {{mediana_preco}}</div>
+                    <div class="detalhe">valor central</div>
+                </div>
+                <div class="resumo-card">
+                    <div class="rotulo">CV%</div>
+                    <div class="numero">{{coeficiente_variacao}}%</div>
+                    <div class="detalhe">coef. de variação</div>
+                </div>
+            </div>
+
+            <div class="alerta alerta-info">
+                <strong>Sobre o Coeficiente de Variação (CV%)</strong>
+                CV &le; 25%: dispersão aceitável. CV &gt; 25%: recomenda-se justificativa para a variação ou exclusão de valores discrepantes, conforme metodologia adotada.
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 4: ORIGEM DOS DADOS E METODOLOGIA -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">4</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Origem dos Dados e Metodologia</div>
+                <div class="secao-fundamento">Ref. IN SEGES/ME 65/2021, Arts. 5º e 6º</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="origem-dados">
+                <div class="titulo">Fontes Oficiais Consultadas</div>
+                <div class="origem-item">
+                    <div class="icone">&#10003;</div>
+                    <div class="texto"><strong>PNCP</strong> — Portal Nacional de Contratações Públicas (pncp.gov.br)</div>
+                </div>
+                <div class="origem-item">
+                    <div class="icone">&#10003;</div>
+                    <div class="texto"><strong>Compras.gov.br</strong> — Sistema de Compras do Governo Federal</div>
+                </div>
+                <div class="origem-item">
+                    <div class="icone">&#10003;</div>
+                    <div class="texto"><strong>Banco de Preços</strong> — Base de dados de preços praticados</div>
+                </div>
+                <div class="origem-item">
+                    <div class="icone">&#10003;</div>
+                    <div class="texto"><strong>CATMAT / CATSERV</strong> — Catálogos oficiais de materiais e serviços</div>
+                </div>
+                <div class="origem-item">
+                    <div class="icone">&#10003;</div>
+                    <div class="texto"><strong>PDM</strong> — Padrão Descritivo de Material do Governo Federal</div>
+                </div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">Metodologia Aplicada</div>
+                <div class="campo-valor editavel">{{metodologia}}</div>
+            </div>
+            <div class="campo">
+                <div class="campo-label">Período de Referência dos Preços</div>
+                <div class="campo-valor editavel">{{periodo_referencia}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 5: OBSERVAÇÃO FINAL -->
+    <div class="secao">
+        <div class="secao-header">
+            <div class="secao-numero">5</div>
+            <div class="secao-titulo-area">
+                <div class="secao-titulo">Observação Final</div>
+                <div class="secao-fundamento">Considerações, ressalvas e recomendações do elaborador</div>
+            </div>
+        </div>
+        <div class="secao-conteudo">
+            <div class="observacao-final">
+                <div class="titulo">Observações e Recomendações</div>
+                <div class="conteudo editavel">{{observacao_final}}</div>
+            </div>
+            <div class="alerta alerta-info">
+                <strong>Nota</strong>
+                Este relatório foi gerado com dados de fontes oficiais e serve como referência para planejamento. Para fins de instrução processual formal, recomenda-se a elaboração da Pesquisa de Preços (PP) conforme IN SEGES/ME 65/2021.
+            </div>
+        </div>
+    </div>
+
+    <!-- ELABORADOR (sem assinatura formal — RPP não requer assinatura) -->
+    <div class="elaborador-bloco">
+        <div class="elaborador-titulo">Responsável pela Elaboração</div>
+        <div class="elaborador-dados">
+            <div><strong>Nome:</strong> {{elaborador_nome}}</div>
+            <div><strong>Setor:</strong> {{elaborador_setor}}</div>
+            <div><strong>Data:</strong> {{data_documento}}</div>
+        </div>
+        <div class="elaborador-nota">
+            Este documento não requer assinatura formal. Destina-se a uso interno como subsídio informativo para planejamento de contratações.
+        </div>
+    </div>
+
+    <!-- NOTAS DE RODAPÉ -->
+    <div class="notas-rodape">
+        <div class="titulo">Notas e Referências Normativas</div>
+        <div class="nota-item"><span class="nota-numero">1</span> Lei 14.133/2021, Art. 23, §1º: "O valor previamente estimado da contratação deverá ser compatível com os valores praticados pelo mercado, considerados os preços constantes de bancos de dados públicos [...]".</div>
+        <div class="nota-item"><span class="nota-numero">2</span> IN SEGES/ME 65/2021, Art. 5º: Estabelece os parâmetros para pesquisa de preços, incluindo consulta a bases de dados públicas, contratações similares, pesquisa com fornecedores e pesquisa em sítios eletrônicos.</div>
+        <div class="nota-item"><span class="nota-numero">3</span> IN SEGES/ME 65/2021, Art. 6º: Define a metodologia para obtenção do preço estimado, utilizando média, mediana ou menor valor, conforme a variação dos preços obtidos.</div>
+    </div>
+
+    <!-- SELO -->
+    <div class="selo-area">
+        <div class="selo-texto">&copy; 2026 Powered by ATA360 — Sistema de Inteligência em Contratações Públicas</div>
+    </div>
+
+</body>
+</html>
