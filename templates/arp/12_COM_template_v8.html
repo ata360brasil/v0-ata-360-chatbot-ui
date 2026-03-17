@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Comunicado de Contratação — COM | {{ente_nome}}</title>
+    <style>
+        /* ========================================
+           ATA360 DESIGN SYSTEM v8.0
+           Legal Design + Design Law
+
+           Princípios:
+           - Fonte serif (Palatino) para legibilidade jurídica
+           - Espaços de respiro generosos entre blocos
+           - Leitura confortável em tela, impresso, P&B
+           - Modo claro e escuro (prefers-color-scheme)
+           - Hierarquia visual clara por tamanho/peso
+           - Contraste WCAG AA mínimo (4.5:1 texto, 3:1 UI)
+           ======================================== */
+
+        @page {
+            size: A4;
+            margin: 22mm 22mm 28mm 22mm;
+            @bottom-center {
+                content: "Página " counter(page) " de " counter(pages);
+                font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+                font-size: 9pt;
+                color: #666;
+            }
+        }
+        @page :first { margin-top: 18mm; }
+
+        /* ---- MODO CLARO (padrão) ---- */
+        :root {
+            --azul-primario: #1e3a5f;
+            --azul-secundario: #2c5282;
+            --azul-claro: #e8f0f8;
+            --vermelho: #c53030;
+            --verde: #276749;
+            --amarelo: #d69e2e;
+            --cinza-escuro: #2d3748;
+            --cinza-medio: #4a5568;
+            --cinza-claro: #f7fafc;
+            --cinza-linha: #e2e8f0;
+            --branco: #ffffff;
+
+            --respiro-bloco: 20pt;
+            --respiro-secao: 24pt;
+            --respiro-interno: 14pt;
+            --raio-borda: 4pt;
+
+            --fundo-pagina: #ffffff;
+            --fundo-superficie: #f7fafc;
+            --fundo-elevado: #ffffff;
+            --texto-primario: #2d3748;
+            --texto-secundario: #4a5568;
+            --texto-terciario: #718096;
+            --borda-sutil: #e2e8f0;
+        }
+
+        /* ---- MODO ESCURO ---- */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --azul-primario: #63b3ed;
+                --azul-secundario: #90cdf4;
+                --azul-claro: #1a2332;
+                --vermelho: #fc8181;
+                --verde: #68d391;
+                --amarelo: #f6e05e;
+                --cinza-escuro: #e2e8f0;
+                --cinza-medio: #a0aec0;
+                --cinza-claro: #1a202c;
+                --cinza-linha: #2d3748;
+                --branco: #1a202c;
+                --fundo-pagina: #0d1117;
+                --fundo-superficie: #161b22;
+                --fundo-elevado: #1c2333;
+                --texto-primario: #e2e8f0;
+                --texto-secundario: #a0aec0;
+                --texto-terciario: #718096;
+                --borda-sutil: #2d3748;
+            }
+            body { background: var(--fundo-pagina); }
+            .doc-id-box { background: linear-gradient(135deg, #1a365d 0%, #2a4365 100%); }
+            .trilha { background: #1a365d; }
+            .tabela thead tr { background: #1a365d; }
+            .campo-valor { background: var(--fundo-elevado); border-color: var(--borda-sutil); }
+            a { color: var(--azul-primario); }
+        }
+
+        /* ---- IMPRESSÃO P&B ---- */
+        @media print {
+            :root {
+                --azul-primario: #000000; --azul-secundario: #333333;
+                --azul-claro: #f5f5f5; --vermelho: #000000; --verde: #000000;
+                --amarelo: #666666; --cinza-escuro: #000000; --cinza-medio: #333333;
+                --cinza-claro: #f8f8f8; --cinza-linha: #cccccc; --branco: #ffffff;
+            }
+            body { color: #000; background: #fff; -webkit-print-color-adjust: economy; print-color-adjust: economy; }
+            .doc-id-box, .trilha, .secao-numero, .tabela thead tr {
+                background: #000 !important; color: #fff;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+            }
+            .checklist-box.ok, .checklist-box.pendente { background: #000 !important; border-color: #000;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .alerta { border-left-color: #000 !important; background: #f8f8f8 !important; color: #000 !important; }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', serif;
+            font-size: 10.5pt;
+            line-height: 1.7;
+            color: var(--texto-primario);
+            background: var(--fundo-pagina);
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        /* CABEÇALHO */
+        .header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: var(--respiro-interno); border-bottom: 2.5pt solid var(--azul-primario); margin-bottom: var(--respiro-bloco); }
+        .header-left { flex: 1; padding-right: 20pt; }
+        .header-left .ente { font-size: 15pt; font-weight: bold; color: var(--azul-primario); margin-bottom: 4pt; letter-spacing: 0.3pt; }
+        .header-left .subordinacao { font-size: 9.5pt; color: var(--texto-secundario); line-height: 1.5; }
+        .logo-placeholder { width: 85pt; height: 85pt; border: 1.5pt dashed #cbd5e0; display: flex; align-items: center; justify-content: center; font-size: 9pt; color: #a0aec0; background: #f8fafc; }
+
+        /* IDENTIFICAÇÃO DO DOCUMENTO */
+        .doc-id-box { background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%); color: #ffffff; padding: 16pt 20pt; margin-bottom: var(--respiro-bloco); border-radius: var(--raio-borda); }
+        .doc-id-box .titulo { font-size: 17pt; font-weight: bold; letter-spacing: 0.5pt; margin-bottom: 6pt; }
+        .doc-id-box .subtitulo { font-size: 10.5pt; opacity: 0.9; font-style: italic; }
+        .doc-numeros { display: flex; justify-content: space-between; margin-top: 12pt; padding-top: 12pt; border-top: 1pt solid rgba(255,255,255,0.3); }
+        .doc-numeros .item { text-align: center; }
+        .doc-numeros .label { font-size: 8pt; text-transform: uppercase; letter-spacing: 0.5pt; opacity: 0.8; }
+        .doc-numeros .valor { font-size: 12pt; font-weight: bold; margin-top: 2pt; }
+
+        /* FUNDAMENTAÇÃO LEGAL */
+        .fundamentacao { background: var(--fundo-superficie); border-left: 4pt solid var(--azul-primario); padding: var(--respiro-interno) 16pt; margin-bottom: var(--respiro-bloco); font-size: 9pt; line-height: 1.6; }
+        .fundamentacao .titulo { font-weight: bold; color: var(--azul-primario); font-size: 9pt; text-transform: uppercase; letter-spacing: 0.3pt; margin-bottom: 8pt; }
+        .fundamentacao p { margin-bottom: 5pt; color: var(--texto-secundario); }
+
+        /* RASTREABILIDADE E QR */
+        .rastreabilidade { display: flex; justify-content: space-between; align-items: flex-start; background: var(--fundo-elevado); border: 1pt solid var(--borda-sutil); padding: var(--respiro-interno); margin-bottom: var(--respiro-secao); }
+        .rastreabilidade-info { flex: 1; font-size: 8.5pt; color: var(--texto-secundario); line-height: 1.65; }
+        .rastreabilidade-info strong { color: var(--texto-primario); }
+        .rastreabilidade-titulo { font-weight: bold; color: var(--azul-primario); font-size: 9pt; margin-bottom: 6pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+        .qr-area { width: 72pt; height: 72pt; border: 1pt dashed var(--borda-sutil); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 7pt; color: var(--cinza-medio); text-align: center; margin-left: 16pt; flex-shrink: 0; }
+
+        /* DESTINATÁRIO */
+        .destinatario { margin-bottom: var(--respiro-bloco); }
+        .destinatario .para { font-size: 9pt; color: var(--texto-terciario); text-transform: uppercase; letter-spacing: 0.3pt; }
+        .destinatario .nome { font-weight: bold; font-size: 11pt; color: var(--texto-primario); margin-top: 4pt; }
+        .destinatario .cargo { font-size: 10pt; color: var(--texto-secundario); }
+
+        /* ASSUNTO */
+        .assunto { background: var(--azul-claro); padding: var(--respiro-interno); margin-bottom: var(--respiro-bloco); border-radius: var(--raio-borda); }
+        .assunto-label { font-size: 9pt; font-weight: bold; color: var(--azul-primario); text-transform: uppercase; letter-spacing: 0.3pt; }
+        .assunto-texto { font-size: 10pt; margin-top: 4pt; color: var(--texto-primario); }
+
+        /* CORPO */
+        .corpo { text-align: justify; margin-bottom: 16pt; }
+        .corpo p { margin-bottom: 12pt; text-indent: 40pt; }
+        .corpo p.sem-indent { text-indent: 0; }
+
+        /* INFO CONTRATAÇÃO (box verde) */
+        .info-contratacao { background: #f0fdf4; border: 2pt solid var(--verde); padding: 16pt; margin: var(--respiro-bloco) 0; border-radius: var(--raio-borda); }
+        .info-contratacao .titulo { font-size: 11.5pt; font-weight: bold; color: var(--verde); margin-bottom: 12pt; text-align: center; text-transform: uppercase; }
+        .info-contratacao .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; font-size: 9.5pt; }
+        .info-contratacao .item { display: flex; justify-content: space-between; padding: 4pt 0; border-bottom: 1pt dotted var(--borda-sutil); }
+        .info-contratacao .label { color: var(--texto-secundario); }
+        .info-contratacao .valor { font-weight: bold; color: var(--texto-primario); }
+
+        /* CAMPOS */
+        .campo { margin-bottom: 12pt; }
+        .campo-label { font-size: 9pt; font-weight: bold; color: var(--azul-secundario); margin-bottom: 5pt; }
+        .campo-valor { background: var(--fundo-superficie); border: 1pt solid var(--borda-sutil); border-radius: 3pt; padding: 10pt 12pt; min-height: 28pt; font-size: 10pt; }
+
+        /* ALERTAS */
+        .alerta { padding: 11pt 14pt; border-radius: 3pt; margin-bottom: 14pt; font-size: 9pt; }
+        .alerta-atencao { background: #fffbeb; border-left: 4pt solid var(--amarelo); color: #92400e; }
+        .alerta-info { background: var(--azul-claro); border-left: 4pt solid var(--azul-secundario); color: var(--azul-primario); }
+        .alerta-sucesso { background: #f0fdf4; border-left: 4pt solid var(--verde); color: #166534; }
+        .alerta-importante { background: #fef2f2; border-left: 4pt solid var(--vermelho); color: #991b1b; }
+        .alerta strong { display: block; margin-bottom: 5pt; font-size: 9.5pt; }
+
+        /* TABELAS */
+        .tabela { width: 100%; border-collapse: collapse; margin-bottom: 14pt; font-size: 9pt; }
+        .tabela thead tr { background: var(--azul-primario); color: var(--branco); }
+        .tabela th { padding: 9pt 11pt; text-align: left; font-weight: bold; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.3pt; }
+        .tabela td { padding: 9pt 11pt; border-bottom: 1pt solid var(--borda-sutil); }
+        .tabela tbody tr:nth-child(odd) { background: var(--fundo-elevado); }
+        .tabela tbody tr:nth-child(even) { background: var(--fundo-superficie); }
+        .tabela .numero { text-align: center; width: 40pt; }
+        .tabela .valor { text-align: right; white-space: nowrap; }
+        .tabela tfoot tr { background: var(--azul-claro); font-weight: bold; }
+
+        /* ASSINATURAS */
+        .assinaturas { display: flex; justify-content: center; margin-top: 22pt; }
+        .assinatura-bloco { text-align: center; padding: var(--respiro-interno); border: 1pt solid var(--borda-sutil); background: var(--fundo-elevado); min-width: 280pt; }
+        .assinatura-cargo { font-size: 9pt; font-weight: bold; color: var(--azul-primario); text-transform: uppercase; margin-bottom: 32pt; }
+        .assinatura-linha { border-top: 1pt solid var(--texto-primario); padding-top: 8pt; margin: 0 18pt; }
+        .assinatura-nome { font-size: 9pt; color: var(--texto-secundario); }
+        .assinatura-info { font-size: 8pt; color: var(--texto-secundario); margin-top: 3pt; }
+        .assinatura-icp { font-size: 7.5pt; color: var(--verde); margin-top: 4pt; }
+
+        /* NOTAS DE RODAPÉ */
+        .nota-ref { font-size: 7pt; vertical-align: super; color: var(--azul-secundario); font-weight: bold; cursor: help; margin-left: 1pt; }
+        .notas-rodape { border-top: 1pt solid var(--borda-sutil); margin-top: var(--respiro-bloco); padding-top: 12pt; font-size: 8pt; color: var(--texto-terciario); line-height: 1.5; }
+        .notas-rodape .titulo { font-weight: bold; color: var(--texto-secundario); margin-bottom: 6pt; font-size: 8.5pt; }
+        .nota-item { margin-bottom: 4pt; padding-left: 14pt; text-indent: -14pt; }
+        .nota-numero { font-weight: bold; color: var(--azul-secundario); margin-right: 4pt; }
+
+        /* SELO */
+        .selo-area { text-align: center; margin-top: 30pt; padding-top: 20pt; border-top: 1pt solid var(--borda-sutil); }
+        .selo-texto { font-size: 8pt; color: var(--texto-terciario); }
+
+        /* UTILIDADES */
+        .text-small { font-size: 8pt; }
+        .text-muted { color: var(--texto-terciario); }
+        .text-center { text-align: center; }
+        .mt-10 { margin-top: 10pt; }
+        .page-break { page-break-before: always; }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <div class="header">
+        <div class="header-left">
+            <div class="ente">{{ente_nome}}</div>
+            <div class="subordinacao">{{subordinacao_linha1}}<br>{{subordinacao_linha2}}</div>
+        </div>
+        <div class="logo-placeholder">BRASÃO</div>
+    </div>
+
+    <!-- IDENTIFICAÇÃO DO DOCUMENTO -->
+    <div class="doc-id-box">
+        <div class="titulo">COMUNICADO DE CONTRATAÇÃO</div>
+        <div class="subtitulo">Comunicação ao Órgão Gerenciador — Art. 86, §7º, Lei 14.133/2021</div>
+        <div class="doc-numeros">
+            <div class="item"><div class="label">Comunicado Nº</div><div class="valor">{{comunicado_numero}}</div></div>
+            <div class="item"><div class="label">ARP Nº</div><div class="valor">{{arp_numero}}</div></div>
+            <div class="item"><div class="label">Processo</div><div class="valor">{{processo_numero}}</div></div>
+            <div class="item"><div class="label">Data</div><div class="valor">{{data_documento}}</div></div>
+        </div>
+    </div>
+
+    <!-- FUNDAMENTAÇÃO LEGAL -->
+    <div class="fundamentacao">
+        <div class="titulo">Fundamentação Legal</div>
+        <p><strong>Lei 14.133/2021:</strong> Art. 86, §7º<sup class="nota-ref">1</sup> — comunicação da contratação ao órgão gerenciador</p>
+        <p><strong>Decreto 11.462/2023:</strong> Art. 32<sup class="nota-ref">2</sup> — procedimentos de comunicação após contratação via adesão</p>
+        <p><strong>Lei 14.133/2021:</strong> Art. 94<sup class="nota-ref">3</sup> — publicação no PNCP</p>
+    </div>
+
+    <!-- RASTREABILIDADE -->
+    <div class="rastreabilidade">
+        <div class="rastreabilidade-info">
+            <div class="rastreabilidade-titulo">Rastreabilidade do Documento</div>
+            <strong>ID:</strong> {{rastreabilidade_id}}<br>
+            <strong>Hash:</strong> <code style="font-family: 'Courier New', monospace; font-size: 7.5pt; background: var(--fundo-superficie); padding: 1pt 3pt;">{{hash_documento}}</code><br>
+            <strong>Gerado em:</strong> {{data_geracao}} às {{hora_geracao}}<br>
+            <strong>Origem:</strong> ATA360 — Sistema de Inteligência em Contratações Públicas<br>
+            <strong>CNPJ:</strong> {{ente_cnpj}}
+        </div>
+        <div class="qr-area">[QR CODE]<br>Verificação</div>
+    </div>
+
+    <!-- DESTINATÁRIO -->
+    <div class="destinatario">
+        <div class="para">Ao</div>
+        <div class="nome">{{gerenciador_nome}}</div>
+        <div class="cargo">{{gerenciador_cargo}}<br>{{gerenciador_orgao}} (Órgão Gerenciador)</div>
+    </div>
+
+    <!-- ASSUNTO -->
+    <div class="assunto">
+        <div class="assunto-label">Assunto</div>
+        <div class="assunto-texto">Comunicação de contratação efetivada via adesão à ARP nº {{arp_numero}}</div>
+    </div>
+
+    <!-- CORPO -->
+    <div class="corpo">
+        <p>Senhor(a) Gerenciador(a),</p>
+
+        <p>Em cumprimento ao disposto no Art. 86, §7º, da Lei 14.133/2021<sup class="nota-ref">1</sup>, e Art. 32 do Decreto 11.462/2023<sup class="nota-ref">2</sup>, comunicamos a V.Sa. que este órgão <strong>EFETIVOU A CONTRATAÇÃO</strong> decorrente da adesão previamente autorizada à Ata de Registro de Preços em epígrafe.</p>
+    </div>
+
+    <!-- BOX VERDE: DADOS DA CONTRATAÇÃO EFETIVADA -->
+    <div class="info-contratacao">
+        <div class="titulo">DADOS DA CONTRATAÇÃO EFETIVADA</div>
+        <div class="grid">
+            <div class="item"><span class="label">Órgão Contratante:</span><span class="valor">{{ente_nome}}</span></div>
+            <div class="item"><span class="label">CNPJ:</span><span class="valor">{{ente_cnpj}}</span></div>
+            <div class="item"><span class="label">Nº Contrato/Empenho:</span><span class="valor">{{contrato_numero}}</span></div>
+            <div class="item"><span class="label">Data Contratação:</span><span class="valor">{{data_contratacao}}</span></div>
+            <div class="item"><span class="label">Fornecedor:</span><span class="valor">{{fornecedor_razao_social}}</span></div>
+            <div class="item"><span class="label">CNPJ Fornecedor:</span><span class="valor">{{fornecedor_cnpj}}</span></div>
+            <div class="item"><span class="label">Autorização Gerenciador:</span><span class="valor">{{autorizacao_numero}}</span></div>
+            <div class="item"><span class="label">Valor Total:</span><span class="valor">R$ {{valor_total}}</span></div>
+        </div>
+    </div>
+
+    <!-- ITENS CONTRATADOS -->
+    <div class="corpo">
+        <p class="sem-indent"><strong>ITENS E QUANTIDADES CONTRATADOS:</strong></p>
+    </div>
+
+    <table class="tabela">
+        <thead>
+            <tr>
+                <th class="numero">Item ARP</th>
+                <th>Descrição</th>
+                <th>Und</th>
+                <th class="numero">Qtde Autorizada</th>
+                <th class="numero">Qtde Contratada</th>
+                <th class="valor">Valor Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="numero">{{item1_numero}}</td>
+                <td>{{item1_descricao}}</td>
+                <td>{{item1_unidade}}</td>
+                <td class="numero">{{item1_qtde_autorizada}}</td>
+                <td class="numero">{{item1_qtde_contratada}}</td>
+                <td class="valor">R$ {{item1_valor_total}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" style="text-align: right;">VALOR TOTAL CONTRATADO:</td>
+                <td class="valor">R$ {{valor_total}}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- OBSERVAÇÕES -->
+    <div class="corpo">
+        <p class="sem-indent"><strong>OBSERVAÇÕES:</strong></p>
+    </div>
+
+    <div class="alerta alerta-info">
+        <strong>Conformidade da Contratação</strong>
+        1. A quantidade contratada está dentro do limite autorizado (Art. 86, §5º)<sup class="nota-ref">4</sup>;<br>
+        2. Os preços praticados são os registrados na ARP;<br>
+        3. O prazo de entrega acordado é de {{prazo_entrega}};<br>
+        4. A contratação foi publicada no PNCP conforme Art. 94 da Lei 14.133/2021<sup class="nota-ref">3</sup>.
+    </div>
+
+    <div class="corpo">
+        <p>Solicitamos que V.Sa. proceda à atualização do saldo registrado na Ata de Registro de Preços, deduzindo as quantidades ora contratadas.</p>
+
+        <p>Permanecemos à disposição para quaisquer esclarecimentos.</p>
+
+        <p>Atenciosamente,</p>
+    </div>
+
+    <!-- ASSINATURA -->
+    <div class="assinaturas">
+        <div class="assinatura-bloco">
+            <div class="assinatura-cargo">Remetente</div>
+            <div class="assinatura-linha">
+                <div class="assinatura-nome">{{remetente_nome}}</div>
+                <div class="assinatura-info">{{remetente_cargo}} | Mat. {{remetente_matricula}}</div>
+                <div class="assinatura-icp">Assinatura ICP-Brasil</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ANEXOS -->
+    <div style="margin-top: var(--respiro-bloco);">
+        <div class="campo-label">Anexos</div>
+        <div class="campo-valor" style="font-size: 9.5pt;">
+            1. Cópia do Contrato/Nota de Empenho nº {{contrato_numero}}<br>
+            2. Comprovante de publicação no PNCP
+        </div>
+    </div>
+
+    <!-- NOTAS DE RODAPÉ -->
+    <div class="notas-rodape">
+        <div class="titulo">Notas e Referências Normativas</div>
+        <div class="nota-item"><span class="nota-numero">1</span> Lei 14.133/2021, Art. 86, §7º: O órgão ou a entidade não participante deverá comunicar ao órgão gerenciador a contratação efetivada, para fins de registro e controle.</div>
+        <div class="nota-item"><span class="nota-numero">2</span> Decreto 11.462/2023, Art. 32: Estabelece os procedimentos de comunicação após efetivação de contratação decorrente de adesão à ata de registro de preços.</div>
+        <div class="nota-item"><span class="nota-numero">3</span> Lei 14.133/2021, Art. 94: A divulgação no Portal Nacional de Contratações Públicas (PNCP) é condição de eficácia dos atos praticados em licitações e contratos.</div>
+        <div class="nota-item"><span class="nota-numero">4</span> Lei 14.133/2021, Art. 86, §5º: As aquisições ou as contratações adicionais não poderão exceder, por órgão ou entidade, a 50% (cinquenta por cento) dos quantitativos dos itens do instrumento convocatório registrados na ata de registro de preços.</div>
+    </div>
+
+    <!-- SELO -->
+    <div class="selo-area">
+        <div class="selo-texto">&copy; 2026 Powered by ATA360 — Sistema de Inteligência em Contratações Públicas</div>
+    </div>
+
+</body>
+</html>
