@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -219,6 +220,8 @@ function formatCurrency(value: number): string {
 // ─── Component ──────────────────────────────────────────────────────────────────
 
 export function PriceResearchPage() {
+  const router = useRouter();
+
   // State
   const [searchTerm, setSearchTerm] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -367,7 +370,10 @@ export function PriceResearchPage() {
               </Select>
 
               {/* Generate Report */}
-              <Button className="gap-2 h-9 rounded-full bg-foreground text-background hover:bg-foreground/90">
+              <Button
+                className="gap-2 h-9 rounded-full bg-foreground text-background hover:bg-foreground/90"
+                onClick={() => router.push("/price-research/report")}
+              >
                 Gerar Relatório
               </Button>
 
