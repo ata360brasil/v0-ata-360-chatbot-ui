@@ -45,7 +45,7 @@ export const EMPRESA_ATA360 = {
   catser: {
     principal: '27502', // Desenvolvimento de software
     alternativo: '26123', // Processamento de dados
-    descricao_servico: 'Licenciamento de software SaaS para inteligencia em contratacoes publicas',
+    descricao_servico: 'Licenca de uso de plataforma de inteligencia artificial aplicada a contratacoes publicas, com disponibilizacao em ambiente seguro, manutencao evolutiva e suporte tecnico',
   },
 
   // Contato oficial (UNICO canal)
