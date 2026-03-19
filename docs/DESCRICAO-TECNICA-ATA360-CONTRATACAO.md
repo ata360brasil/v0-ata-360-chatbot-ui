@@ -13,7 +13,7 @@
 
 | Campo | Dados |
 |---|---|
-| **Razão Social** | ATA360 TECNOLOGIA LTDA |
+| **Razão Social** | ATA360 TECNOLOGIA, PRODUTOS E SERVIÇOS |
 | **Nome Fantasia** | ATA360 |
 | **CNPJ** | 61.291.296/0001-31 |
 | **Natureza Jurídica** | 234-8 — Empresa Simples de Inovação (Inova Simples) |
@@ -22,7 +22,7 @@
 | **CNAE Principal** | 6202-3/00 — Desenvolvimento e licenciamento de programas de computador customizáveis |
 | **CATSER Principal** | 27502 — Desenvolvimento de software |
 | **CATSER Alternativo** | 26123 — Processamento de dados |
-| **Contato** | contato@ata360.com.br |
+| **Contato** | suporte@ata360.com.br |
 | **Website** | www.ata360.com.br |
 
 ---
@@ -65,7 +65,7 @@ A contratação configura **licenciamento de uso de software proprietário com s
 
 | Item | Condição |
 |---|---|
-| **Usuários** | Ilimitados — sem restrição de quantidade de acessos simultâneos ou cadastros |
+| **Usuários** | Ilimitados — sem restrição de quantidade de acessos simultâneos ou cadastros vinculados |
 | **Documentos** | Ilimitados — sem restrição quantitativa de artefatos produzidos |
 | **Funcionalidades** | Integrais — acesso completo a todos os recursos da plataforma, sem fragmentação em módulos |
 | **Atualizações** | Inclusas — todas as evoluções tecnológicas e adequações legais durante a vigência |
@@ -105,7 +105,7 @@ A fórmula adota **crescimento sub-linear**, garantindo que entes de menor porte
 
 ### 4.3. Valor Mínimo de Referência
 
-Piso: R$ 38.900,00/ano (doze meses), aplicável aos entes de menor porte fiscal.
+Piso: R$ 52.900,00/ano (doze meses), aplicável aos entes de menor porte fiscal.
 
 ---
 
@@ -135,7 +135,7 @@ O fluxo de trabalho contempla **pontos obrigatórios de supervisão humana**, no
 
 ### 5.3. Integração com Bases Governamentais
 
-A plataforma realiza integração nativa com **mais de 76 endpoints de 17 fontes governamentais oficiais**, incluindo:
+A plataforma realiza integração nativa com dezenas fontes governamentais oficiais, incluindo:
 
 - Portal Nacional de Contratações Públicas (PNCP)
 - Portal da Transparência
@@ -144,7 +144,6 @@ A plataforma realiza integração nativa com **mais de 76 endpoints de 17 fontes
 - Banco Central do Brasil (índices econômicos)
 - Tribunal de Contas da União (jurisprudência e deliberações)
 - SERPRO (serviços de dados governamentais)
-- Diário Oficial da União (monitoramento normativo)
 
 Cada informação utilizada na composição de documentos é proveniente de fonte oficial, auditável e rastreável.
 
@@ -169,7 +168,7 @@ A solução opera sobre infraestrutura de **computação de borda (edge computin
 
 | Camada | Implementação |
 |---|---|
-| **Autenticação** | Federação com Gov.br (Decreto 10.543/2020), com suporte aos três níveis de confiabilidade |
+| **Autenticação** | Federação com IC-P e/ou Gov.br (Decreto 10.543/2020), com suporte aos três níveis de confiabilidade |
 | **Autorização** | Isolamento multi-inquilino com segurança em nível de linha (Row Level Security) no banco de dados |
 | **Criptografia em trânsito** | TLS 1.3 obrigatório em todas as comunicações |
 | **Criptografia em repouso** | AES-256 para todos os dados armazenados |
@@ -185,7 +184,7 @@ A plataforma foi classificada como **ALTO RISCO** conforme critérios do PBIA 20
 
 ## 7. CONFORMIDADE LEGAL
 
-### 7.1. Legislação Implementada
+### 7.1. Legislação Básica Implementada
 
 | Diploma Legal | Aplicação na Plataforma |
 |---|---|
@@ -222,9 +221,9 @@ A plataforma foi classificada como **ALTO RISCO** conforme critérios do PBIA 20
 
 ### 8.1. Capacitação Inicial (Inclusa)
 
-A contratada realizará capacitação presencial ou remota da equipe designada pelo contratante, contemplando:
+A contratada realizará capacitação remota da equipe designada pelo contratante, contemplando:
 
-- Carga horária mínima de 16 (dezesseis) horas
+- Carga horária até 6 (seis) horas
 - Prazo de realização: até 30 (trinta) dias após a ativação da plataforma
 - Conteúdo programático: operação da plataforma, fluxo de trabalho com IA supervisionada, interpretação de pareceres de auditoria, boas práticas de contratação conforme Lei 14.133/2021
 - Material didático digital incluso
@@ -236,7 +235,7 @@ Durante toda a vigência contratual, a contratada disponibilizará:
 
 - Webinars mensais sobre atualizações da plataforma e mudanças normativas
 - Biblioteca digital de materiais de apoio, permanentemente atualizada
-- Canal de dúvidas com resposta em até 24 (vinte e quatro) horas úteis
+- Canal de suporte e sucesso com resposta em até 24 (vinte e quatro) horas úteis
 
 ### 8.3. Suporte Técnico (Incluso)
 
@@ -297,7 +296,7 @@ O contratante se obriga a:
 
 A plataforma ATA360 atende **exclusivamente entidades do poder público e do terceiro setor**, incluindo:
 
-- Municípios e órgãos da administração direta
+- Municípios, Estado e Governo Federal, órgãos da administração direta
 - Autarquias e fundações públicas
 - Consórcios intermunicipais
 - Organizações do terceiro setor que realizam contratações com recursos públicos
@@ -314,11 +313,11 @@ Para utilização em Estudos Técnicos Preliminares (ETP) e justificativas de co
 
 2. **Licenciamento sem limitações artificiais:** Usuários ilimitados, documentos ilimitados, funcionalidades integrais — sem fragmentação em módulos, sem cobrança por assento, sem surpresas;
 
-3. **Integração nativa com bases governamentais oficiais:** Mais de 76 endpoints de 17 fontes, eliminando a necessidade de consultas manuais e garantindo dados atualizados e rastreáveis;
+3. **Integração nativa com bases governamentais oficiais:** Mais de 100 fontes, eliminando a necessidade de consultas manuais e garantindo dados atualizados e rastreáveis;
 
 4. **Conformidade jurídica por design:** A plataforma foi construída sobre a Lei 14.133/2021 e seus regulamentos, não adaptada posteriormente — cada fluxo, cada campo, cada validação reflete a norma;
 
-5. **Precificação equitativa:** Fórmula indexada ao FPM com crescimento sub-linear, garantindo acessibilidade para entes de todos os portes;
+5. **Precificação equitativa:** Fórmula indexada ao FPM com crescimento sub-linear, garantindo acessibilidade para entes de todos os portes, consumo estimado de documentos e receita orçamentária.
 
 6. **Classificação de alto risco assumida:** A plataforma se autoclassifica como alto risco conforme PBIA e adota todas as salvaguardas correspondentes — transparência, explicabilidade, supervisão humana e contestabilidade;
 
